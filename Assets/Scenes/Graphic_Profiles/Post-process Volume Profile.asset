@@ -130,13 +130,13 @@ MonoBehaviour:
     value: 100
   lift:
     overrideState: 1
-    value: {x: 0.8403613, y: 0.8146108, z: 1, w: 0}
+    value: {x: 0.68306315, y: 0.9120769, z: 1, w: 0}
   gamma:
     overrideState: 1
-    value: {x: 1, y: 0.7377907, z: 0.601944, w: 0}
+    value: {x: 1, y: 0.85173804, z: 0.7796309, w: 0}
   gain:
     overrideState: 1
-    value: {x: 1, y: 1, z: 1, w: 0}
+    value: {x: 1, y: 0.86477864, z: 0.8220768, w: 0}
   masterCurve:
     overrideState: 1
     value:
@@ -1355,16 +1355,53 @@ MonoBehaviour:
     value: 1
   focusDistance:
     overrideState: 1
-    value: 10
+    value: 3.3
   aperture:
     overrideState: 1
-    value: 5.6
+    value: 28.6
   focalLength:
     overrideState: 1
-    value: 50
+    value: 105.9
   kernelSize:
     overrideState: 1
+    value: 0
+--- !u!114 &-164180629403631560
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a34fa72bd4185749832024e9c8010bf, type: 3}
+  m_Name: ScreenSpaceReflections
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
     value: 1
+  preset:
+    overrideState: 1
+    value: 6
+  maximumIterationCount:
+    overrideState: 1
+    value: 16
+  resolution:
+    overrideState: 1
+    value: 0
+  thickness:
+    overrideState: 1
+    value: 8
+  maximumMarchDistance:
+    overrideState: 1
+    value: 100
+  distanceFade:
+    overrideState: 1
+    value: 0.5
+  vignette:
+    overrideState: 1
+    value: 0.5
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1386,6 +1423,7 @@ MonoBehaviour:
   - {fileID: -2260003507723921302}
   - {fileID: 1228257644701565084}
   - {fileID: 2734060334065303921}
+  - {fileID: -164180629403631560}
 --- !u!114 &1228257644701565084
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1403,10 +1441,10 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   shutterAngle:
-    overrideState: 0
+    overrideState: 1
     value: 270
   sampleCount:
-    overrideState: 0
+    overrideState: 1
     value: 10
 --- !u!114 &2734060334065303921
 MonoBehaviour:
@@ -1425,32 +1463,32 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   mode:
-    overrideState: 0
+    overrideState: 1
     value: 0
   color:
-    overrideState: 0
+    overrideState: 1
     value: {r: 0, g: 0, b: 0, a: 1}
   center:
-    overrideState: 0
+    overrideState: 1
     value: {x: 0.5, y: 0.5}
   intensity:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 0.324
   smoothness:
-    overrideState: 0
+    overrideState: 1
     value: 0.2
   roundness:
-    overrideState: 0
+    overrideState: 1
     value: 1
   rounded:
-    overrideState: 0
+    overrideState: 1
     value: 0
   mask:
-    overrideState: 0
+    overrideState: 1
     value: {fileID: 0}
     defaultState: 1
   opacity:
-    overrideState: 0
+    overrideState: 1
     value: 1
 --- !u!114 &6593442418159113148
 MonoBehaviour:
