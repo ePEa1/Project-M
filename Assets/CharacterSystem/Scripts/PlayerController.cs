@@ -33,7 +33,19 @@ public class PlayerController : MonoBehaviour
     /// <returns></returns>
     public bool IsMoving()
     {
-        if (!Input.GetKey(m_frontMove) && !Input.GetKey(m_backMove) && !Input.GetKey(m_rightMove) && !Input.GetKey(m_leftMove))
+        int h = 0;
+        if (Input.GetKey(m_leftMove))
+            h++;
+        if (Input.GetKey(m_rightMove))
+            h--;
+
+        int v = 0;
+        if (Input.GetKey(m_frontMove))
+            v--;
+        if (Input.GetKey(m_backMove))
+            v++;
+
+        if (h == 0 && v == 0)
             return false;
         else return true;
     }
