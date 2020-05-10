@@ -37,19 +37,22 @@ public class MoveAction : BaseAction
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
         }
 
-        Vector3 view = m_owner.transform.position - m_camTransform.transform.position;
-        view.y = 0;
+        else if (m_controller.IsMoving())
+        {
+            Vector3 view = m_owner.transform.position - m_camTransform.transform.position;
+            view.y = 0;
 
-        Quaternion dir = GetDirection();
+            Quaternion dir = GetDirection();
 
-        Vector3 moveVec = (dir * view).normalized;
+            Vector3 moveVec = (dir * view).normalized;
 
-        Quaternion playerDir = dir * Quaternion.LookRotation(new Vector3(view.x, 0.0f, view.z));
+            Quaternion playerDir = dir * Quaternion.LookRotation(new Vector3(view.x, 0.0f, view.z));
 
-        m_owner.transform.rotation = Quaternion.Slerp(m_owner.transform.rotation, playerDir, Time.deltaTime * PlayerStats.playerStat.m_curveSpeed);
-        m_owner.transform.position += m_owner.transform.rotation * new Vector3(0.0f, 0.0f, -PlayerStats.playerStat.m_moveSpeed) * Time.deltaTime;
+            m_owner.transform.rotation = Quaternion.Slerp(m_owner.transform.rotation, playerDir, Time.deltaTime * PlayerStats.playerStat.m_curveSpeed);
+            m_owner.transform.position += m_owner.transform.rotation * new Vector3(0.0f, 0.0f, -PlayerStats.playerStat.m_moveSpeed) * Time.deltaTime;
 
-        Debug.Log("MoveAction.OnUpdateAction");
+            Debug.Log("MoveAction.OnUpdateAction");
+        }
 
         return this;
     }
