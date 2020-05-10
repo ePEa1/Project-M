@@ -1,9 +1,13 @@
-﻿Shader "Custom/Toon"
+﻿Shader "MFD/Toon"
 {
     Properties
     {
-		_Color ("Color", color) = (1,1,1,1)
-		_Color2("Color2", color) = (1,1,1,1)
+		[HDR]_Color ("Color", color) = (1,1,1,1)
+		[HDR]_Color2("Color2", color) = (1,1,1,1)
+		[HDR]_Color3 ("Color3", color) = (1,1,1,1)
+
+		_rimPow ("Rim Power", int) = 0
+
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
 		_LitTex ("LightMap", 2D) = "white" {}
 		_SpecVal ("SpecVal", int) = 0
@@ -17,20 +21,24 @@
 		cull back
 
 		CGPROGRAM
-		#pragma surface surf Toon fullforwardshadows
+		#pragma surface surf Toon
 		#pragma target 3.0
 
 		float4 _Color;
 		float4 _Color2;
+		float4 _Color3;
+
         sampler2D _MainTex;
 		sampler2D _LitTex;
 		float _SpecVal;
+		float _rimPow;
 		
 
         struct Input
         {
             float2 uv_MainTex;
 			float2 uv_LitTex;
+			float3 viewDir;
 			float3 lightDir;
 			float atten;
         };
@@ -51,7 +59,11 @@
 			////diffColor = c.rgb * ndotl * _LightColor0.rgb;// * atten
 
 
+			float rim = dot(o.Normal, IN.viewDir);
+			float Rim = pow(1 - rim, _rimPow);
+
 			o.Albedo = c.rgb * _Color;
+			o.Emission = Rim * _Color3.rgb;
 			o.Alpha = c.a;
         }
 
@@ -71,6 +83,7 @@
 
 			float SpecSmooth = smoothstep(0.005, 0.01, speclitt);
 			float SpecColor = SpecSmooth * 1;
+
 
 			float4 final;
 			final.rgb = (s.Albedo + SpecColor * _Color2) * diffColor * _LightColor0.rgb;
