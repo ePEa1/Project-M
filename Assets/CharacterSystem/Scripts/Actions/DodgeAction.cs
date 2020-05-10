@@ -21,4 +21,25 @@ public class DodgeAction : BaseAction
     {
         return this;
     }
+
+    #region Function
+
+    Quaternion GetDirection()
+    {
+        int h = 0;
+        if (Input.GetKey(m_controller.m_leftMove))
+            h++;
+        if (Input.GetKey(m_controller.m_rightMove))
+            h--;
+
+        int v = 0;
+        if (Input.GetKey(m_controller.m_frontMove))
+            v--;
+        if (Input.GetKey(m_controller.m_backMove))
+            v++;
+
+        return Quaternion.LookRotation(new Vector3(h, 0, v));
+    }
+
+    #endregion
 }
