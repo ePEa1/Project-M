@@ -21,7 +21,7 @@
 		cull back
 
 		CGPROGRAM
-		#pragma surface surf Toon
+		#pragma surface surf Toon fullfowardshadow
 		#pragma target 3.0
 
 		float4 _Color;

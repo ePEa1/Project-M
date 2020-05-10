@@ -3,6 +3,7 @@
     Properties
     {
 		[Header(Albedo)]
+		[HDR]_MainColor ("AlbedoColor", color) = (1,1,1,1)
 		_MainTex2 ("Albedo (RGB)", 2D) = "white" {}
 
 		[Header(Noise)]
@@ -71,14 +72,14 @@
 			o.uv_TestTex = v.texcoord.xy;
 		}
 
-
+		float4 _MainColor;
         float4 _hdrColor;
 		float4 _hdrColor2;
 
 
         void surf (Input IN, inout SurfaceOutput o)
         {
-			float4 maintex = tex2D (_MainTex2, IN.uv_MainTex2);
+			float4 maintex = tex2D (_MainTex2, IN.uv_MainTex2) * _MainColor;
 			float4 noise = tex2D(_TestTex, IN.uv_TestTex);
 			float4 c = tex2D(_MainTex, IN.uv_MainTex);
 
