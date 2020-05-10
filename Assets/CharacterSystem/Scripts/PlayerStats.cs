@@ -15,6 +15,7 @@ namespace ProjectM.ePEa.PlayerData
 
         [SerializeField] public float m_dodgeDelay; //회피 쿨타임
         [SerializeField] public float m_dodgeTime; //회피 무적 지속시간
+        [SerializeField] public float m_dodgeDistance; //회피 거리
 
         private void Awake()
         {

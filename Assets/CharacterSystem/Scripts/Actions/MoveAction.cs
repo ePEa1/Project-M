@@ -5,11 +5,6 @@ using ProjectM.ePEa.PlayerData;
 
 public class MoveAction : BaseAction
 {
-    #region Inspector
-
-    [SerializeField] Transform m_camTransform; //캐릭터 추적하는 카메라 트랜스폼
-
-    #endregion
 
     #region events
 
@@ -39,10 +34,10 @@ public class MoveAction : BaseAction
 
         else if (m_controller.IsMoving())
         {
-            Vector3 view = m_owner.transform.position - m_camTransform.transform.position;
+            Vector3 view = m_owner.transform.position - m_owner.playerCam.transform.position;
             view.y = 0;
 
-            Quaternion dir = GetDirection();
+            Quaternion dir = m_controller.GetDirection();
 
             Vector3 moveVec = (dir * view).normalized;
 
@@ -55,27 +50,6 @@ public class MoveAction : BaseAction
         }
 
         return this;
-    }
-
-    #endregion
-
-    #region Function
-
-    Quaternion GetDirection()
-    {
-        int h = 0;
-        if (Input.GetKey(m_controller.m_leftMove))
-            h++;
-        if (Input.GetKey(m_controller.m_rightMove))
-            h--;
-
-        int v = 0;
-        if (Input.GetKey(m_controller.m_frontMove))
-            v--;
-        if (Input.GetKey(m_controller.m_backMove))
-            v++;
-
-        return Quaternion.LookRotation(new Vector3(h, 0, v));
     }
 
     #endregion

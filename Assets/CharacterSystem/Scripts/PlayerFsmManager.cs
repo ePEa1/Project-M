@@ -19,17 +19,16 @@ public class PlayerFsmManager : MonoBehaviour
     BaseAction m_currentAction; //현재 실행할 액션
     public PlayerController m_currentController { get; private set; } //캐릭터 조작 처리
     public static PlayerFsmManager g_playerFsmManager { get; private set; } //캐릭터 설정
+    public Transform playerCam { get { return m_cam; } } //캐릭터 카메라에 접근
     #endregion
 
     #region Inspector
 
-    [SerializeField]
-    PlayerENUM m_startStat; //시작시 상태
+    [SerializeField] PlayerENUM m_startStat; //시작시 상태
 
-    [SerializeField]
-    BaseAction[] m_playerActions; //액션 모음
-    [SerializeField]
-    Animator m_currentAni; //캐릭터 애니메이터
+    [SerializeField] BaseAction[] m_playerActions; //액션 모음
+    [SerializeField] Animator m_currentAni; //캐릭터 애니메이터
+    [SerializeField] Transform m_cam; //캐릭터 추적 카메라
 
     #endregion
 
