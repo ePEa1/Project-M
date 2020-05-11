@@ -42,15 +42,15 @@ public class CharacterCam : MonoBehaviour
     /// </summary>
     void SetCamPositionToMouse()
     {
-        m_x += Input.GetAxis("Mouse X") * Time.deltaTime * m_xSpeed;
-        m_y = Mathf.Clamp(m_y - Input.GetAxis("Mouse Y") * Time.deltaTime * m_ySpeed, m_yMin, m_yMax);
+        m_x += Input.GetAxis("Mouse X") * m_xSpeed * Time.deltaTime;
+        m_y = Mathf.Clamp(m_y - Input.GetAxis("Mouse Y") * m_ySpeed * Time.deltaTime, m_yMin, m_yMax);
 
-        Vector3 targetVec = target.position - transform.position;
+        //Vector3 targetVec = transform.position + (target.position - transform.position) * 0.1f;
 
         Quaternion dir = Quaternion.Euler(new Vector3(m_y, m_x, 0));
         Vector3 pos = dir * new Vector3(0.0f, 0.0f, -m_distance) + target.position + m_centerPos;
 
-        transform.rotation = dir;
-        transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime * m_moveSpeed);
+        transform.rotation = Quaternion.Lerp(transform.rotation, dir, m_moveSpeed);
+        transform.position = Vector3.Lerp(transform.position, pos, m_moveSpeed);
     }
 }

@@ -44,8 +44,9 @@ public class MoveAction : BaseAction
             Quaternion playerDir = dir * Quaternion.LookRotation(new Vector3(view.x, 0.0f, view.z));
 
             m_owner.transform.rotation = Quaternion.Slerp(m_owner.transform.rotation, playerDir, Time.deltaTime * PlayerStats.playerStat.m_curveSpeed);
+            var lastPos = m_owner.transform.position; 
             m_owner.transform.position += m_owner.transform.rotation * new Vector3(0.0f, 0.0f, -PlayerStats.playerStat.m_moveSpeed) * Time.deltaTime;
-
+            Debug.Log("dist  : " + (m_owner.transform.position - lastPos).magnitude);
             Debug.Log("MoveAction.OnUpdateAction");
         }
 
