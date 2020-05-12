@@ -24,6 +24,10 @@ public class IdleAction : BaseAction
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
         }
+        if (m_controller.IsAttack())
+        {
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.ATK);
+        }
 
         return this;
     }

@@ -10,19 +10,20 @@ public class MoveAction : BaseAction
 
     protected override BaseAction OnStartAction()
     {
-        Debug.Log("MoveAction.OnStartAction");
-
         return this;
     }
 
     public override void EndAction()
     {
-        Debug.Log("MoveAction.OnEndAction");
+
     }
 
     protected override void AnyStateAction()
     {
-
+        //애니메이션 이동부분 컨트롤
+        if (m_controller.IsMoving())
+            m_animator.SetBool("IsMoving", true);
+        else m_animator.SetBool("IsMoving", false);
     }
 
     protected override BaseAction OnUpdateAction()
@@ -30,6 +31,10 @@ public class MoveAction : BaseAction
         if (!m_controller.IsMoving())
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
+        }
+        if (m_controller.IsAttack())
+        {
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.ATK);
         }
 
         else if (m_controller.IsMoving())
