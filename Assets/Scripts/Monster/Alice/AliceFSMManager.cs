@@ -5,19 +5,27 @@ using UnityEngine;
 public enum AliceState
 {
     IDLE = 0,
-    CHASE,
-    COMBAT,
-    ATTACK,
-    DEAD
+    CHASE,//1
+    COMBAT,//2
+    DAMAGED,//3
+    DEAD//4
 }
-
+public enum AliceAttackPattern
+{
+    CLOSEATTACK = 0,
+    FARATTACKOne,//1
+    FARATTACKTwo,//2
+    SUMMONING,//3
+    RUSH,//4
+    TELEPORT,//5
+}
 public class AliceFSMManager : MonoBehaviour,IFSMManager
 {
     public AliceState curState;
     public AliceState startState;
     public CharacterController cc;
     public Animator anim;
-    public Camera sight;
+    public Camera CloseSight;
     public CharacterController playrCC;
 
 
@@ -30,7 +38,7 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
     {
         cc = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
-        sight = GetComponent<Camera>();
+        CloseSight = GetComponent<Camera>();
         playrCC = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
 
         states.Add(AliceState.IDLE, GetComponent<AliceIDLE>());
