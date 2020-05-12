@@ -12,21 +12,29 @@ public enum AliceState
 }
 public enum AliceAttackPattern
 {
-    CLOSEATTACK = 0,
-    FARATTACKOne,//1
-    FARATTACKTwo,//2
-    SUMMONING,//3
-    RUSH,//4
-    TELEPORT,//5
+    WAIT = 0,
+    CLOSEATTACKOne,//1
+    CLOSEATTACKTwo,//2
+    FARATTACK,//3
+    SUMMONING,//4
+    RUSH,//5
+    TELEPORT,//6
 }
 public class AliceFSMManager : MonoBehaviour,IFSMManager
 {
     public AliceState curState;
     public AliceState startState;
+    public AliceAttackPattern curAttack;
+    public AliceAttackPattern startAttack;
     public CharacterController cc;
     public Animator anim;
     public Camera CloseSight;
-    public CharacterController playrCC;
+    public CharacterController playerCC;
+
+    public float moveSpeed = 3;
+    public float rotateSpeed =540.0f;
+    public float fallSpeed;
+    public float attackRange = 2.0f;
 
 
     public bool PlayerIsAttack = false;
@@ -38,13 +46,14 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
     {
         cc = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
-        CloseSight = GetComponent<Camera>();
-        playrCC = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
+        CloseSight = GetComponentInChildren<Camera>();
+        playerCC = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
 
         states.Add(AliceState.IDLE, GetComponent<AliceIDLE>());
-        states.Add(AliceState.DEAD, GetComponent<AliceDEAD>());
+        states.Add(AliceState.CHASE, GetComponent<AliceCHASE>());
         states.Add(AliceState.COMBAT, GetComponent<AliceCOMBAT>());
-     }
+        states.Add(AliceState.DEAD, GetComponent<AliceDEAD>());
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -63,6 +72,11 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
         states[curState].enabled = true;
         states[curState].BeginState();
         anim.SetInteger("curState", (int)curState);
+    }
+
+    public void SetAttackStatae(AliceAttackPattern newState)
+    {
+        anim.SetInteger("curAttack", (int)curAttack);
     }
 
     public void SetDead()

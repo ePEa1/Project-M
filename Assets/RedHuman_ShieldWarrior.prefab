@@ -1452,6 +1452,12 @@ GameObject:
   - component: {fileID: 1651858087529248974}
   - component: {fileID: 1709122131987616649}
   - component: {fileID: 1710747397173580993}
+  - component: {fileID: 7176733895772009537}
+  - component: {fileID: 4239744189915886629}
+  - component: {fileID: 1555119279654232598}
+  - component: {fileID: 7736930694431184014}
+  - component: {fileID: 4723021781984389987}
+  - component: {fileID: 6687045411680616588}
   m_Layer: 0
   m_Name: RedHuman_ShieldWarrior
   m_TagString: Untagged
@@ -1527,11 +1533,98 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curState: 0
   startState: 0
+  curAttack: 0
+  startAttack: 0
   cc: {fileID: 0}
   anim: {fileID: 0}
   CloseSight: {fileID: 0}
-  playrCC: {fileID: 0}
+  playerCC: {fileID: 0}
+  moveSpeed: 0
+  rotateSpeed: 0
+  fallSpeed: 0
+  attackRange: 2
   PlayerIsAttack: 0
+--- !u!114 &7176733895772009537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710747397173581054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab039fda80589084ba3185855336c2c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+--- !u!114 &4239744189915886629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710747397173581054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecbe14562e8ce6a44a627926a22544a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  AttackOrder: 
+  curAttck: 0
+  startAttack: 0
+--- !u!114 &1555119279654232598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710747397173581054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59d61b7950be7764da983ad3a9e0af8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+--- !u!114 &7736930694431184014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710747397173581054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f22ab67b66565ff4db502e462203be59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+--- !u!114 &4723021781984389987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710747397173581054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7579440bda9a0e54aa9bfa18f857ba59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+--- !u!114 &6687045411680616588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710747397173581054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31dfc6defab368f489d86270adcf86a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 0}
 --- !u!1 &1710766266825334556
 GameObject:
   m_ObjectHideFlags: 0

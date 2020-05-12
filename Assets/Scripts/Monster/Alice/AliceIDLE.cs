@@ -11,7 +11,7 @@ public class AliceIDLE : AliceFSMState
 
     private void Update()
     {
-        if(Util.Detect(manager.CloseSight, 1, manager.playrCC) || manager.PlayerIsAttack == true)
+        if(Util.Detect(manager.CloseSight, 1, manager.playerCC) || manager.PlayerIsAttack == true)
         {
             manager.SetState(AliceState.COMBAT);
             return;

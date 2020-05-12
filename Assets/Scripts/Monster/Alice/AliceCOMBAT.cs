@@ -13,9 +13,16 @@ public class AliceCOMBAT : AliceFSMState
         base.BeginState();
     }
 
-    private void Update()
+    void Update()
     {
-        
+        if (Util.Detect(manager.CloseSight, 1, manager.playerCC))
+        {
+            manager.SetState(AliceState.CHASE);
+        }
+        //if (!Util.Detect(manager.CloseSight, 1, manager.playerCC))
+        //{
+        //    manager.SetState(AliceState.CHASE);
+        //}
     }
     void TwoKnifeAttack()
     {
