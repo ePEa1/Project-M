@@ -7,6 +7,7 @@ public class PlayerEventManager : MonoBehaviour
 {
     [SerializeField] UnityEvent m_nextAtkOkEvent;
     [SerializeField] UnityEvent m_nextAtkCloseEvent;
+    [SerializeField] UnityEvent m_atkTime;
 
     public void NextAtkOk()
     {
@@ -16,5 +17,10 @@ public class PlayerEventManager : MonoBehaviour
     public void NextAtkClose()
     {
         m_nextAtkCloseEvent.Invoke();
+    }
+
+    public void AtkTime()
+    {
+        m_atkTime.Invoke();
     }
 }

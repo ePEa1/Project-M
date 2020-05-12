@@ -9,11 +9,11 @@ public class AttackAction : BaseAction
     [SerializeField] float[] m_atkDistance; //타격당 이동거리
     [SerializeField] AnimationCurve[] m_atkDistanceCurve; //타격당 이동 커브
     [SerializeField] float[] m_atkSpeed; //타격당 공격 이동 시간
-    [SerializeField] float[] m_atkKnockPower; //타격당 넉백 파워
-    [SerializeField] float[] m_atkDamage; //타격당 공격 데미지
+    //[SerializeField] float[] m_atkKnockPower; //타격당 넉백 파워
+    //[SerializeField] float[] m_atkDamage; //타격당 공격 데미지
     [SerializeField] BoxCollider[] m_atkRange; //타격당 공격 범위(콜라이더 오브젝트)
-    [SerializeField] float[] m_atkDamTiming; //타격당 데미지 들어가는 타이밍
-    [SerializeField] float[] m_effTiming; //타격당 이펙트 생성 타이밍
+    //[SerializeField] float[] m_atkDamTiming; //타격당 데미지 들어가는 타이밍
+    //[SerializeField] float[] m_effTiming; //타격당 이펙트 생성 타이밍
     [SerializeField] GameObject[] m_atkEff; //타격탕 생성시킬 이펙트
     
     #endregion
@@ -94,6 +94,8 @@ public class AttackAction : BaseAction
     public void NextAtkClose()
     {
         m_nextAtkOk = false;
+
+        AtkColliderOff();
     }
 
     /// <summary>
@@ -153,6 +155,25 @@ public class AttackAction : BaseAction
                 m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
             else m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
         }
+    }
+
+    /// <summary>
+    /// 공격 범위 콜라이더 비활성화
+    /// </summary>
+    void AtkColliderOff()
+    {
+        for (int i = 0; i < m_atkRange.Length; i++)
+        {
+            m_atkRange[i].enabled = false;
+        }
+    }
+
+    /// <summary>
+    /// 공격 범위 콜라이더 활성화
+    /// </summary>
+    public void AtkTiming()
+    {
+        m_atkRange[m_nowCombo].enabled = true;
     }
 
     #endregion
