@@ -15,14 +15,30 @@ public class AliceCOMBAT : AliceFSMState
 
     void Update()
     {
-        if (Util.Detect(manager.CloseSight, 1, manager.playerCC))
+        if (!Util.Detect(manager.CloseSight, 1, manager.playerCC))
         {
             manager.SetState(AliceState.CHASE);
+            return;
         }
         //if (!Util.Detect(manager.CloseSight, 1, manager.playerCC))
         //{
         //    manager.SetState(AliceState.CHASE);
         //}
+        Vector3 destination = manager.playerCC.transform.position;
+
+        Vector3 destinationposition = new Vector3(destination.x - transform.position.x, 0, destination.z - transform.position.z);
+        Vector3 diff = destination - destinationposition;
+        Vector3 groundCheck = diff - destination;
+
+
+
+        if (groundCheck.sqrMagnitude > manager.attackRange * manager.attackRange)
+        {
+            manager.SetState(AliceState.CHASE);
+
+        }
+
+        Util.CKRotate(transform, manager.playerCC.transform.position, manager.rotateSpeed);
         switch (curAttck)
         {
             case 0://대기
@@ -51,26 +67,30 @@ public class AliceCOMBAT : AliceFSMState
         
     void OneCloseAttack()
     {
+        manager.anim.SetInteger("curAttack", 1);
 
     }
+
     void TwoCloseAttack()
     {
-
+        manager.anim.SetInteger("curAttack", 2);
     }
     void FarAttack()
     {
+        manager.anim.SetInteger("curAttack", 3);
 
     }
     void Summoning()
     {
-
+        manager.anim.SetInteger("curAttack", 4);
     }
     void RushAttack()
     {
-
+        manager.anim.SetInteger("curAttack", 5);
     }
     void Teleport()
     {
-
+        //컨트롤러, 모델링 끄고 위치 이동시켜서 다시 켜기
+        manager.anim.SetInteger("curAttack", 6);
     }
 }

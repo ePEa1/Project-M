@@ -32,8 +32,8 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
     public CharacterController playerCC;
 
     public float moveSpeed = 3;
-    public float rotateSpeed =540.0f;
-    public float fallSpeed;
+    public float rotateSpeed =540;
+    public float fallSpeed = 20;
     public float attackRange = 2.0f;
 
 
