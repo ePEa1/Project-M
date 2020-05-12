@@ -23,12 +23,41 @@ public class AliceCOMBAT : AliceFSMState
         //{
         //    manager.SetState(AliceState.CHASE);
         //}
+        switch (curAttck)
+        {
+            case 0://대기
+                
+                break;
+            case 1://근접 공격 1
+                OneCloseAttack();
+                break;
+            case 2://근접 공격 2
+                TwoCloseAttack();
+                break;
+            case 3://원거리 공격
+                FarAttack();
+                break;
+            case 4://소환술
+                Summoning();
+                break;
+            case 5://돌진
+                RushAttack();
+                break;
+            case 6://텔레포트
+                Teleport();
+                break;
+        }
     }
-    void TwoKnifeAttack()
+        
+    void OneCloseAttack()
     {
 
     }
-    void OneForkAttack()
+    void TwoCloseAttack()
+    {
+
+    }
+    void FarAttack()
     {
 
     }
@@ -36,7 +65,11 @@ public class AliceCOMBAT : AliceFSMState
     {
 
     }
-    void RushSpecial()
+    void RushAttack()
+    {
+
+    }
+    void Teleport()
     {
 
     }
