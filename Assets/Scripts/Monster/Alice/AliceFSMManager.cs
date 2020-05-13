@@ -26,7 +26,7 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
     public AliceState startState;
     public AliceAttackPattern curAttack;
     public AliceAttackPattern startAttack;
-    public CharacterController cc;
+    //public CharacterController cc;
     public Animator anim;
     public Camera CloseSight;
     public CharacterController playerCC;
@@ -44,7 +44,7 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
 
     private void Awake()
     {
-        cc = GetComponent<CharacterController>();
+        //cc = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
         CloseSight = GetComponentInChildren<Camera>();
         playerCC = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
@@ -52,7 +52,9 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
         states.Add(AliceState.IDLE, GetComponent<AliceIDLE>());
         states.Add(AliceState.CHASE, GetComponent<AliceCHASE>());
         states.Add(AliceState.COMBAT, GetComponent<AliceCOMBAT>());
+        //states.Add(AliceState.DAMAGED, GetComponentInChildren<AliceDAMAGE>());
         states.Add(AliceState.DEAD, GetComponent<AliceDEAD>());
+
     }
     // Start is called before the first frame update
     void Start()
@@ -81,7 +83,7 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
 
     public void SetDead()
     {
-        cc.enabled = false;
+        //cc.enabled = false;
         SetState(AliceState.DEAD);
     }
     
@@ -90,6 +92,7 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
         SetState(AliceState.IDLE);
         
     }
+
 
 
 }

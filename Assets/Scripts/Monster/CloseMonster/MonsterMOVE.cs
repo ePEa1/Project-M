@@ -40,7 +40,6 @@ public class MonsterMOVE : MonsterFSMState
         }
 
         Util.CKMove(
-    manager.cc,
     transform,
     destination,
     manager.stat.moveSpeed,
