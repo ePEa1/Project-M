@@ -16,6 +16,7 @@ public class AttackAction : BaseAction
     //[SerializeField] float[] m_effTiming; //타격당 이펙트 생성 타이밍
     [SerializeField] GameObject[] m_atkEff; //타격탕 생성시킬 이펙트
     [SerializeField] Vector3[] m_effPos; //타격당 생성시킬 이펙트 위치
+    [SerializeField] Vector3[] m_effAngle; //타격당 생성시킬 이펙트 각도
     #endregion
 
     #region Value
@@ -190,7 +191,7 @@ public class AttackAction : BaseAction
     public void AtkEff()
     {
         GameObject eff = Instantiate(m_atkEff[m_currentCombo]);
-        eff.transform.rotation = Quaternion.Euler(0.0f, m_owner.transform.eulerAngles.y, 0.0f);
+        eff.transform.rotation = Quaternion.Euler(0.0f, m_owner.transform.eulerAngles.y, 0.0f) * Quaternion.Euler(m_effAngle[m_currentCombo]);
         eff.transform.position = m_owner.transform.position + new Vector3(0.0f, m_effPos[m_currentCombo].y, 0.0f)
             + eff.transform.rotation * -new Vector3(m_effPos[m_currentCombo].x, 0.0f, m_effPos[m_currentCombo].z);
     }
