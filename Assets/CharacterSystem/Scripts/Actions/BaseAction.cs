@@ -6,11 +6,13 @@ public abstract class BaseAction : MonoBehaviour
 {
     protected PlayerFsmManager m_owner; //액션을 사용하는 캐릭터
     protected PlayerController m_controller; //캐릭터 조작키
+    protected Animator m_animator; // 캐릭터 애니메이터
 
     void Start()
     {
         m_owner = PlayerFsmManager.g_playerFsmManager;
         m_controller = m_owner.m_currentController;
+        m_animator = m_owner.m_currentAc;
     }
 
     /// <summary>

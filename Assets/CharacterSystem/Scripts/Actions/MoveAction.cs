@@ -10,19 +10,20 @@ public class MoveAction : BaseAction
 
     protected override BaseAction OnStartAction()
     {
-        Debug.Log("MoveAction.OnStartAction");
-
         return this;
     }
 
     public override void EndAction()
     {
-        Debug.Log("MoveAction.OnEndAction");
+
     }
 
     protected override void AnyStateAction()
     {
-
+        //애니메이션 이동부분 컨트롤
+        if (m_controller.IsMoving())
+            m_animator.SetBool("IsMoving", true);
+        else m_animator.SetBool("IsMoving", false);
     }
 
     protected override BaseAction OnUpdateAction()
@@ -31,23 +32,21 @@ public class MoveAction : BaseAction
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
         }
+        if (m_controller.IsAttack())
+        {
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.ATK);
+        }
 
         else if (m_controller.IsMoving())
         {
-            Vector3 view = m_owner.transform.position - m_owner.playerCam.transform.position;
-            view.y = 0;
+            Quaternion v = Quaternion.Euler(0, m_owner.playerCam.transform.eulerAngles.y, 0);
 
             Quaternion dir = m_controller.GetDirection();
 
-            Vector3 moveVec = (dir * view).normalized;
-
-            Quaternion playerDir = dir * Quaternion.LookRotation(new Vector3(view.x, 0.0f, view.z));
+            Quaternion playerDir = dir * v;
 
             m_owner.transform.rotation = Quaternion.Slerp(m_owner.transform.rotation, playerDir, Time.deltaTime * PlayerStats.playerStat.m_curveSpeed);
-            var lastPos = m_owner.transform.position; 
             m_owner.transform.position += m_owner.transform.rotation * new Vector3(0.0f, 0.0f, -PlayerStats.playerStat.m_moveSpeed) * Time.deltaTime;
-            Debug.Log("dist  : " + (m_owner.transform.position - lastPos).magnitude);
-            Debug.Log("MoveAction.OnUpdateAction");
         }
 
         return this;

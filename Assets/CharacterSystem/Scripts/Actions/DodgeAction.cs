@@ -49,6 +49,9 @@ public class DodgeAction : BaseAction
             m_finishPos = m_startPos + playerVec;
         }
 
+        //회피 애니메이션 실행
+        m_animator.SetTrigger("Dodge");
+
         //회피 딜레이 설정
         m_delay = PlayerStats.playerStat.m_dodgeDelay;
 
@@ -65,7 +68,7 @@ public class DodgeAction : BaseAction
         SetDodgeDelay();
 
         //아무 상태에든지 회피 사용하면 회피상태로 변경
-        if (m_controller.IsDodge() && m_delay == 0)
+        if (m_controller.IsDodge() && m_delay == 0 && m_owner.m_currentStat != PlayerFsmManager.PlayerENUM.DAMAGE)
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
         }
@@ -102,7 +105,9 @@ public class DodgeAction : BaseAction
         m_nowDodge = 0.0f;
 
         if (m_controller.IsMoving())
+        {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
+        }
         else m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
     }
 
