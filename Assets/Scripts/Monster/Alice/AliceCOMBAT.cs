@@ -63,6 +63,15 @@ public class AliceCOMBAT : AliceFSMState
                 Teleport();
                 break;
         }
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            curAttck = 1;
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            curAttck = 2;
+        }
     }
         
     void OneCloseAttack()
