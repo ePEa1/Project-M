@@ -36,7 +36,7 @@ public class AliceDAMAGE : AliceFSMState
     {
         if(other.gameObject.tag == "PCAtkCollider")
         {
-            
+            Debug.Log("Check");
             damInfo = other.GetComponent<AtkCollider>();
             manager.anim.SetInteger("curState", 3);
             IsDamageCheck();

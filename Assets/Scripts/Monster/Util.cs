@@ -5,17 +5,25 @@ using UnityEngine;
 public static class Util
 {
 
-    public static bool Detect(Camera sight, 
-        float aspect, 
-        CharacterController cc)
+    public static bool Detect(Vector3 pos, Vector3 targetPos)
     {
-        if (cc == null)
+        if (Vector3.Distance(targetPos, pos) <= 3.0f)
             return false;
-
-        sight.aspect = aspect;
-        Plane[] ps = GeometryUtility.CalculateFrustumPlanes(sight);
-        return GeometryUtility.TestPlanesAABB(ps, cc.bounds);
+        else
+            return true;
     }
+
+    //public static bool Detect(Camera sight,
+    //    float aspect,
+    //    Collider cc)
+    //{
+    //    if (cc == null)
+    //        return false;
+
+    //    sight.aspect = aspect;
+    //    Plane[] ps = GeometryUtility.CalculateFrustumPlanes(sight);
+    //    return GeometryUtility.TestPlanesAABB(ps, cc.bounds);
+    //}
 
     public static void CKRotate(
         Transform self,

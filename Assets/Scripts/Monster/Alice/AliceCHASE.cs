@@ -12,7 +12,7 @@ public class AliceCHASE : AliceFSMState
     // Update is called once per frame
     void Update()
     {
-        if (!Util.Detect(manager.CloseSight, 1, manager.playerCC))
+        if (!Util.Detect(transform.position, manager.playerCC.transform.position))
         {
             manager.SetState(AliceState.CHASE);
             return;
