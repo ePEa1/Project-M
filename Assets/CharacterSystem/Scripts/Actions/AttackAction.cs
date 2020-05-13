@@ -16,13 +16,14 @@ public class AttackAction : BaseAction
     //[SerializeField] float[] m_effTiming; //타격당 이펙트 생성 타이밍
     [SerializeField] GameObject[] m_atkEff; //타격탕 생성시킬 이펙트
     [SerializeField] Vector3[] m_effPos; //타격당 생성시킬 이펙트 위치
+    [SerializeField] Vector3[] m_effAngle; //타격당 생성시킬 이펙트 각도
     #endregion
 
     #region Value
 
     int m_nowCombo = 0; //현재 타격 콤보
     int m_maxCombo; //최대 콤보
-    int m_currentCombo = 0; //이벤트 실행시 기준 콤보
+    public int m_currentCombo = 0; //이벤트 실행시 기준 콤보
 
     bool m_nextAtk = false; //공격 예약이 되있는지 체크
     bool m_nextAtkOk = false; //다음 공격 예약이 가능한 상태인지 체크
@@ -69,7 +70,7 @@ public class AttackAction : BaseAction
 
         //공격중 이동
         m_atkTime += Time.deltaTime;
-        m_owner.transform.position = Vector3.Lerp(m_startPos, m_finishPos, m_atkTime * m_ac);
+        m_owner.transform.position = Vector3.Lerp(m_startPos, m_finishPos, m_atkDistanceCurve[m_currentCombo].Evaluate(m_atkTime * m_ac));
 
         return this;
     }
@@ -190,7 +191,7 @@ public class AttackAction : BaseAction
     public void AtkEff()
     {
         GameObject eff = Instantiate(m_atkEff[m_currentCombo]);
-        eff.transform.rotation = Quaternion.Euler(0.0f, m_owner.transform.eulerAngles.y, 0.0f);
+        eff.transform.rotation = Quaternion.Euler(0.0f, m_owner.transform.eulerAngles.y, 0.0f) * Quaternion.Euler(m_effAngle[m_currentCombo]);
         eff.transform.position = m_owner.transform.position + new Vector3(0.0f, m_effPos[m_currentCombo].y, 0.0f)
             + eff.transform.rotation * -new Vector3(m_effPos[m_currentCombo].x, 0.0f, m_effPos[m_currentCombo].z);
     }

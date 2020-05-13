@@ -482,6 +482,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boximon Fiery
       objectReference: {fileID: 0}
+    - target: {fileID: 4683803105804141701, guid: 572c4536ffeb2ab4299b60c37e01a1bc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4690473372701793089, guid: 572c4536ffeb2ab4299b60c37e01a1bc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -638,6 +643,7 @@ MonoBehaviour:
   - {fileID: 1667871968}
   - {fileID: 1751406825}
   m_currentAni: {fileID: 401953986}
+  m_cam: {fileID: 0}
 --- !u!114 &1013759556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -674,6 +680,7 @@ MonoBehaviour:
   m_curveSpeed: 10
   m_dodgeDelay: 0
   m_dodgeTime: 0
+  m_dodgeDistance: 0
 --- !u!143 &1013759558
 CharacterController:
   m_ObjectHideFlags: 0
@@ -735,6 +742,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c55c5611b7d784281ce49755472a48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_dodgeCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1751406824
 GameObject:
   m_ObjectHideFlags: 0
@@ -764,6 +777,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c55c5611b7d784281ce49755472a48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_dodgeCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &1751406826
 Transform:
   m_ObjectHideFlags: 0
@@ -958,4 +977,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0592007236e4aaf44bba0edf8afd628d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_camTransform: {fileID: 369871429}
