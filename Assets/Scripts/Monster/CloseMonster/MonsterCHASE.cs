@@ -24,7 +24,6 @@ public class MonsterCHASE : MonsterFSMState
         Vector3 destination = manager.playerCC.transform.position;
 
         Util.CKMove(
-            manager.cc,
             transform,
             destination,
             manager.stat.moveSpeed,
