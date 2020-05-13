@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ProjectM.ePEa.PlayerData;
 
 public class PlayerFsmManager : MonoBehaviour
 {
@@ -14,22 +15,22 @@ public class PlayerFsmManager : MonoBehaviour
         DODGE,
         DAMAGE
     }
-    
-    public PlayerENUM m_currentStat { get; private set; } //현재 상태
+
+    public PlayerENUM m_currentStat; //{ get; private set; } //현재 상태
     BaseAction m_currentAction; //현재 실행할 액션
     public PlayerController m_currentController { get; private set; } //캐릭터 조작 처리
+    public Animator m_currentAc { get { return m_currentAni; } } // 캐릭터 애니메이터 접근
     public static PlayerFsmManager g_playerFsmManager { get; private set; } //캐릭터 설정
+    public Transform playerCam { get { return m_cam; } } //캐릭터 카메라에 접근
     #endregion
 
     #region Inspector
 
-    [SerializeField]
-    PlayerENUM m_startStat; //시작시 상태
+    [SerializeField] PlayerENUM m_startStat; //시작시 상태
 
-    [SerializeField]
-    BaseAction[] m_playerActions; //액션 모음
-    [SerializeField]
-    Animator m_currentAni; //캐릭터 애니메이터
+    [SerializeField] BaseAction[] m_playerActions; //액션 모음
+    [SerializeField] Animator m_currentAni; //캐릭터 애니메이터
+    [SerializeField] Transform m_cam; //캐릭터 추적 카메라
 
     #endregion
 
@@ -41,6 +42,8 @@ public class PlayerFsmManager : MonoBehaviour
         m_currentController = GetComponent<PlayerController>(); //컨트롤러 연결
         g_playerFsmManager = this;
         m_currentAction = m_playerActions[(int)m_currentStat].StartAction(); //시작 상태에 따라 액션 실행
+
+        m_currentAni.Play("Idle", 0);
     }
 
     private void Start()

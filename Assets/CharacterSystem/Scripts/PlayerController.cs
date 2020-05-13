@@ -41,13 +41,34 @@ public class PlayerController : MonoBehaviour
 
         int v = 0;
         if (Input.GetKey(m_frontMove))
-            v--;
-        if (Input.GetKey(m_backMove))
             v++;
+        if (Input.GetKey(m_backMove))
+            v--;
 
         if (h == 0 && v == 0)
             return false;
         else return true;
+    }
+
+    /// <summary>
+    /// 현재 입력중인 이동 방향 쿼터니언 값 반환
+    /// </summary>
+    /// <returns></returns>
+    public Quaternion GetDirection()
+    {
+        int h = 0;
+        if (Input.GetKey(m_leftMove))
+            h++;
+        if (Input.GetKey(m_rightMove))
+            h--;
+
+        int v = 0;
+        if (Input.GetKey(m_frontMove))
+            v--;
+        if (Input.GetKey(m_backMove))
+            v++;
+
+        return Quaternion.LookRotation(new Vector3(h, 0, v));
     }
 
     /// <summary>

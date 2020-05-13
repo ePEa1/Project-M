@@ -6,14 +6,11 @@ public class IdleAction : BaseAction
 {
     protected override BaseAction OnStartAction()
     {
-        Debug.Log("IdleAction.OnStartAction");
-
         return this;
     }
 
     public override void EndAction()
     {
-        Debug.Log("IdleAction.OnEndAction");
     }
 
     protected override void AnyStateAction()
@@ -27,8 +24,10 @@ public class IdleAction : BaseAction
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
         }
-
-        Debug.Log("IdleAction.OnUpdateAction");
+        if (m_controller.IsAttack())
+        {
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.ATK);
+        }
 
         return this;
     }

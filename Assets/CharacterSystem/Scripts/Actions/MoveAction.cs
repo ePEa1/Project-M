@@ -5,29 +5,25 @@ using ProjectM.ePEa.PlayerData;
 
 public class MoveAction : BaseAction
 {
-    #region Inspector
-
-    [SerializeField] Transform m_camTransform; //캐릭터 추적하는 카메라 트랜스폼
-
-    #endregion
 
     #region events
 
     protected override BaseAction OnStartAction()
     {
-        Debug.Log("MoveAction.OnStartAction");
-
         return this;
     }
 
     public override void EndAction()
     {
-        Debug.Log("MoveAction.OnEndAction");
+
     }
 
     protected override void AnyStateAction()
     {
-
+        //애니메이션 이동부분 컨트롤
+        if (m_controller.IsMoving())
+            m_animator.SetBool("IsMoving", true);
+        else m_animator.SetBool("IsMoving", false);
     }
 
     protected override BaseAction OnUpdateAction()
@@ -36,43 +32,24 @@ public class MoveAction : BaseAction
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
         }
+        if (m_controller.IsAttack())
+        {
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.ATK);
+        }
 
-        Vector3 view = m_owner.transform.position - m_camTransform.transform.position;
-        view.y = 0;
+        else if (m_controller.IsMoving())
+        {
+            Quaternion v = Quaternion.Euler(0, m_owner.playerCam.transform.eulerAngles.y, 0);
 
-        Quaternion dir = GetDirection();
+            Quaternion dir = m_controller.GetDirection();
 
-        Vector3 moveVec = (dir * view).normalized;
+            Quaternion playerDir = dir * v;
 
-        Quaternion playerDir = dir * Quaternion.LookRotation(new Vector3(view.x, 0.0f, view.z));
-
-        m_owner.transform.rotation = Quaternion.Slerp(m_owner.transform.rotation, playerDir, Time.deltaTime * PlayerStats.playerStat.m_curveSpeed);
-        m_owner.transform.position += m_owner.transform.rotation * new Vector3(0.0f, 0.0f, -PlayerStats.playerStat.m_moveSpeed) * Time.deltaTime;
-
-        Debug.Log("MoveAction.OnUpdateAction");
+            m_owner.transform.rotation = Quaternion.Slerp(m_owner.transform.rotation, playerDir, Time.deltaTime * PlayerStats.playerStat.m_curveSpeed);
+            m_owner.transform.position += m_owner.transform.rotation * new Vector3(0.0f, 0.0f, -PlayerStats.playerStat.m_moveSpeed) * Time.deltaTime;
+        }
 
         return this;
-    }
-
-    #endregion
-
-    #region Function
-
-    Quaternion GetDirection()
-    {
-        int h = 0;
-        if (Input.GetKey(m_controller.m_leftMove))
-            h++;
-        if (Input.GetKey(m_controller.m_rightMove))
-            h--;
-
-        int v = 0;
-        if (Input.GetKey(m_controller.m_frontMove))
-            v--;
-        if (Input.GetKey(m_controller.m_backMove))
-            v++;
-
-        return Quaternion.LookRotation(new Vector3(h, 0, v));
     }
 
     #endregion
