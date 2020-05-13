@@ -23,7 +23,7 @@ public class AttackAction : BaseAction
 
     int m_nowCombo = 0; //현재 타격 콤보
     int m_maxCombo; //최대 콤보
-    int m_currentCombo = 0; //이벤트 실행시 기준 콤보
+    public int m_currentCombo = 0; //이벤트 실행시 기준 콤보
 
     bool m_nextAtk = false; //공격 예약이 되있는지 체크
     bool m_nextAtkOk = false; //다음 공격 예약이 가능한 상태인지 체크
@@ -70,7 +70,7 @@ public class AttackAction : BaseAction
 
         //공격중 이동
         m_atkTime += Time.deltaTime;
-        m_owner.transform.position = Vector3.Lerp(m_startPos, m_finishPos, m_atkTime * m_ac);
+        m_owner.transform.position = Vector3.Lerp(m_startPos, m_finishPos, m_atkDistanceCurve[m_currentCombo].Evaluate(m_atkTime * m_ac));
 
         return this;
     }
