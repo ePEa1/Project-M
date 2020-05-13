@@ -20,11 +20,12 @@ public class AttackAction : BaseAction
 
     #region Value
 
-    public int m_nowCombo = 0; //현재 타격 콤보
+    int m_nowCombo = 0; //현재 타격 콤보
     int m_maxCombo; //최대 콤보
+    int m_currentCombo = 0; //이벤트 실행시 기준 콤보
 
-    public bool m_nextAtk = false; //공격 예약이 되있는지 체크
-    public bool m_nextAtkOk = false; //다음 공격 예약이 가능한 상태인지 체크
+    bool m_nextAtk = false; //공격 예약이 되있는지 체크
+    bool m_nextAtkOk = false; //다음 공격 예약이 가능한 상태인지 체크
 
     float m_atkTime = 0.0f; //공격 시작 후 경과된 시간
 
@@ -36,7 +37,6 @@ public class AttackAction : BaseAction
 
     protected override BaseAction OnStartAction()
     {
-        //AtkStartEvent();
         SetPath();
         m_animator.SetBool("IsAtk", true);
         m_nextAtk = false;
@@ -52,6 +52,9 @@ public class AttackAction : BaseAction
         m_nextAtkOk = false;
 
         m_nowCombo = 0; //공격 콤보 초기화
+        m_currentCombo = 0;
+
+        AtkColliderOff();
     }
 
     protected override void AnyStateAction()
@@ -122,6 +125,7 @@ public class AttackAction : BaseAction
         m_ac = 1.0f / m_atkSpeed[m_nowCombo];
 
         SetPath();
+        m_currentCombo = m_nowCombo;
 
         m_nowCombo++;
         if (m_nowCombo >= m_maxCombo)
@@ -173,7 +177,21 @@ public class AttackAction : BaseAction
     /// </summary>
     public void AtkTiming()
     {
-        m_atkRange[m_nowCombo].enabled = true;
+        m_atkRange[m_currentCombo].enabled = true;
+
+        Vector3 atkVec = m_owner.transform.rotation * new Vector3(0.0f, 0.0f, -1.0f);
+
+        m_atkRange[m_currentCombo].GetComponent<AtkCollider>().knockVec = atkVec.normalized;
+    }
+
+    /// <summary>
+    /// 공격 이펙트 생성 이벤트
+    /// </summary>
+    public void AtkEff()
+    {
+        GameObject eff = Instantiate(m_atkEff[m_currentCombo]);
+        eff.transform.position = m_owner.transform.position + new Vector3(0.0f, 0.2f, 0.0f);
+        eff.transform.rotation = Quaternion.Euler(0.0f, m_owner.transform.eulerAngles.y, 0.0f);
     }
 
     #endregion
