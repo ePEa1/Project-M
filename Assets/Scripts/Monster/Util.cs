@@ -36,7 +36,6 @@ public static class Util
     }
 
     public static void CKMove(
-        CharacterController cc, 
         Transform self, 
         Vector3 targetPos,
         float moveSpeed,
@@ -49,8 +48,7 @@ public static class Util
             moveSpeed * Time.deltaTime
             ) - self.position;
 
-        deltaMove.y = -fallSpeed * Time.deltaTime;
-        cc.Move(deltaMove);
+
 
         Vector3 dir = targetPos - self.position;
         dir.y = 0;

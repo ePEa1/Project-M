@@ -21,7 +21,6 @@ public class AliceCHASE : AliceFSMState
         Vector3 destination = manager.playerCC.transform.position;
 
         Util.CKMove(
-            manager.cc,
             transform,
             destination,
             manager.moveSpeed,
