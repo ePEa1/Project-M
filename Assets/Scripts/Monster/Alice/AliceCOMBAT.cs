@@ -15,7 +15,7 @@ public class AliceCOMBAT : AliceFSMState
 
     void Update()
     {
-        if (!Util.Detect(transform.position, manager.playerObj.transform.position))
+        if (!Util.Detect(transform.position, manager.playerObj.transform.position,4))
         {
             manager.SetState(AliceState.CHASE);
             return;
@@ -42,7 +42,7 @@ public class AliceCOMBAT : AliceFSMState
         switch (curAttck)
         {
             case 0://대기
-                
+                manager.anim.SetInteger("curAttack", 0);
                 break;
             case 1://근접 공격 1
                 OneCloseAttack();
@@ -71,6 +71,14 @@ public class AliceCOMBAT : AliceFSMState
         if (Input.GetKeyDown(KeyCode.X))
         {
             curAttck = 2;
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            curAttck = 3;
+        }
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            curAttck = 0;
         }
     }
         

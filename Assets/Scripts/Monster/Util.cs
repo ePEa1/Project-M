@@ -5,10 +5,13 @@ using UnityEngine;
 public static class Util
 {
 
-    public static bool Detect(Vector3 pos, Vector3 targetPos)
+    public static bool Detect(Vector3 pos, Vector3 targetPos, float Distance)
     {
-        if (Vector3.Distance(targetPos, pos) >= 6.0f)
+        //멀리 있을 때
+        if (Vector3.Distance(targetPos, pos) >= Distance)
             return false;
+
+        //아님 가까이 있을 때
         else
             return true;
     }

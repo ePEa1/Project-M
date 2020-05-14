@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AliceDAMAGE : AliceFSMState
 {
     public GameObject hiteff;
+    public Image HPGauge;
     AtkCollider damInfo;
 
     public bool IsDamaged = false;
@@ -48,6 +50,12 @@ public class AliceDAMAGE : AliceFSMState
     {
         Debug.Log("Isdamage");
         IsDamaged = true;
+        manager.CurAliceHP -= 1;//후에 데미지로 변경
+        HPGauge.fillAmount = manager.CurAliceHP;
+        Debug.Log(manager.CurAliceHP);
+    }
+    void CreatHitEff()
+    {
         GameObject curhiteff = Instantiate(hiteff);
         curhiteff.transform.position = transform.position;
     }

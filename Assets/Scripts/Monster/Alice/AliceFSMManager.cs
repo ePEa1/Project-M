@@ -36,6 +36,8 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
     public float rotateSpeed =540;
     public float fallSpeed = 20;
     public float attackRange = 2.0f;
+    public float AliceHP = 100;
+    public float CurAliceHP;
 
 
     public bool PlayerIsAttack = false;
@@ -57,6 +59,8 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
         states.Add(AliceState.COMBAT, GetComponent<AliceCOMBAT>());
         //states.Add(AliceState.DAMAGED, GetComponentInChildren<AliceDAMAGE>());
         states.Add(AliceState.DEAD, GetComponent<AliceDEAD>());
+
+        CurAliceHP = AliceHP;
 
     }
     // Start is called before the first frame update
@@ -86,7 +90,7 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
 
     public void SetDead()
     {
-        //cc.enabled = false;
+        playerdamagedCol.enabled = false;
         SetState(AliceState.DEAD);
     }
     
