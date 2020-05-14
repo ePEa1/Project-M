@@ -65,13 +65,18 @@ public class AttackAction : BaseAction
 
     protected override BaseAction OnUpdateAction()
     {
+        if (m_controller.IsDodge())
+        {
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
+        }
+
         //다음 공격 할건지 체크
         NextAtkCheck();
 
         //공격중 이동
         m_atkTime += Time.deltaTime;
         m_owner.transform.position = Vector3.Lerp(m_startPos, m_finishPos, m_atkDistanceCurve[m_currentCombo].Evaluate(m_atkTime * m_ac));
-
+        
         return this;
     }
 
@@ -154,7 +159,7 @@ public class AttackAction : BaseAction
     /// </summary>
     public void AtkEndCheck()
     {
-        if (!m_nextAtk)
+        if (!m_nextAtk && m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.ATK)
         {
             if (m_controller.IsMoving())
                 m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
@@ -178,11 +183,14 @@ public class AttackAction : BaseAction
     /// </summary>
     public void AtkTiming()
     {
-        m_atkRange[m_currentCombo].enabled = true;
+        if (m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.ATK)
+        {
+            m_atkRange[m_currentCombo].enabled = true;
 
-        Vector3 atkVec = m_owner.transform.rotation * new Vector3(0.0f, 0.0f, -1.0f);
+            Vector3 atkVec = m_owner.transform.rotation * new Vector3(0.0f, 0.0f, -1.0f);
 
-        m_atkRange[m_currentCombo].GetComponent<AtkCollider>().knockVec = atkVec.normalized;
+            m_atkRange[m_currentCombo].GetComponent<AtkCollider>().knockVec = atkVec.normalized;
+        }
     }
 
     /// <summary>
@@ -190,10 +198,13 @@ public class AttackAction : BaseAction
     /// </summary>
     public void AtkEff()
     {
-        GameObject eff = Instantiate(m_atkEff[m_currentCombo]);
-        eff.transform.rotation = Quaternion.Euler(0.0f, m_owner.transform.eulerAngles.y, 0.0f) * Quaternion.Euler(m_effAngle[m_currentCombo]);
-        eff.transform.position = m_owner.transform.position + new Vector3(0.0f, m_effPos[m_currentCombo].y, 0.0f)
-            + eff.transform.rotation * -new Vector3(m_effPos[m_currentCombo].x, 0.0f, m_effPos[m_currentCombo].z);
+        if (m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.ATK)
+        {
+            GameObject eff = Instantiate(m_atkEff[m_currentCombo]);
+            eff.transform.rotation = Quaternion.Euler(0.0f, m_owner.transform.eulerAngles.y, 0.0f) * Quaternion.Euler(m_effAngle[m_currentCombo]);
+            eff.transform.position = m_owner.transform.position + new Vector3(0.0f, m_effPos[m_currentCombo].y, 0.0f)
+                + eff.transform.rotation * -new Vector3(m_effPos[m_currentCombo].x, 0.0f, m_effPos[m_currentCombo].z);
+        }
     }
 
     #endregion

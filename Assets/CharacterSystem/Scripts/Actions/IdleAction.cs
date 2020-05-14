@@ -28,6 +28,10 @@ public class IdleAction : BaseAction
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.ATK);
         }
+        if (m_controller.IsDodge())
+        {
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
+        }
 
         return this;
     }

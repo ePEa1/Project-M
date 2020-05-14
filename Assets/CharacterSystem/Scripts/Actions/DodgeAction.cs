@@ -14,7 +14,7 @@ public class DodgeAction : BaseAction
     #region Value
 
     float m_delay = 0.0f; //회피 현재 쿨타임
-    float m_nowDodge = 0.0f; //회피 이벤트 지속 시간 체크용
+    public float m_nowDodge = 0.0f; //회피 이벤트 지속 시간 체크용
 
     Vector3 m_startPos;
     Vector3 m_finishPos;
@@ -66,12 +66,6 @@ public class DodgeAction : BaseAction
     {
         //회피 쿨타임 갱신
         SetDodgeDelay();
-
-        //아무 상태에든지 회피 사용하면 회피상태로 변경
-        if (m_controller.IsDodge() && m_delay == 0 && m_owner.m_currentStat != PlayerFsmManager.PlayerENUM.DAMAGE)
-        {
-            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
-        }
     }
 
     protected override BaseAction OnUpdateAction()
@@ -86,7 +80,10 @@ public class DodgeAction : BaseAction
 
         //회피 끝났으면 회피종료함수 실행
         if (m_nowDodge > PlayerStats.playerStat.m_dodgeTime)
+        {
             FinishDodge();
+        }
+            
 
         return this;
     }
