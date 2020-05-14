@@ -41,11 +41,10 @@ public class MonsterMOVE : MonsterFSMState
 
         Util.CKMove(
             manager.gameObject,
-    transform,
-    destination,
-    manager.stat.moveSpeed,
-    manager.stat.rotateSpeed,
-    manager.stat.fallSpeed);
+            transform,
+            destination,
+            manager.stat.moveSpeed,
+            manager.stat.rotateSpeed);
         StartCoroutine("WaitForIt");
 
 

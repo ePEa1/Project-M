@@ -20,6 +20,7 @@ public class AliceCOMBAT : AliceFSMState
             manager.SetState(AliceState.CHASE);
             return;
         }
+
         //if (!Util.Detect(manager.CloseSight, 1, manager.playerCC))
         //{
         //    manager.SetState(AliceState.CHASE);
@@ -30,13 +31,13 @@ public class AliceCOMBAT : AliceFSMState
         Vector3 diff = destination - destinationposition;
         Vector3 groundCheck = diff - destination;
 
-
-
         if (groundCheck.sqrMagnitude > manager.attackRange * manager.attackRange)
         {
             manager.SetState(AliceState.CHASE);
 
         }
+
+
 
         Util.CKRotate(transform, manager.playerObj.transform.position, manager.rotateSpeed);
         switch (curAttck)
@@ -45,22 +46,22 @@ public class AliceCOMBAT : AliceFSMState
                 manager.anim.SetInteger("curAttack", 0);
                 break;
             case 1://근접 공격 1
-                OneCloseAttack();
+                manager.anim.SetInteger("curAttack", 1);
                 break;
             case 2://근접 공격 2
-                TwoCloseAttack();
+                manager.anim.SetInteger("curAttack", 2);
                 break;
             case 3://원거리 공격
-                FarAttack();
+                manager.anim.SetInteger("curAttack", 3);
                 break;
             case 4://소환술
-                Summoning();
+                manager.anim.SetInteger("curAttack", 4);
                 break;
             case 5://돌진
-                RushAttack();
+                manager.anim.SetInteger("curAttack", 5);
                 break;
             case 6://텔레포트
-                Teleport();
+                manager.anim.SetInteger("curAttack", 6);
                 break;
         }
 
@@ -84,30 +85,27 @@ public class AliceCOMBAT : AliceFSMState
         
     void OneCloseAttack()
     {
-        manager.anim.SetInteger("curAttack", 1);
 
     }
 
     void TwoCloseAttack()
     {
-        manager.anim.SetInteger("curAttack", 2);
+
     }
     void FarAttack()
     {
-        manager.anim.SetInteger("curAttack", 3);
 
     }
     void Summoning()
     {
-        manager.anim.SetInteger("curAttack", 4);
     }
     void RushAttack()
     {
-        manager.anim.SetInteger("curAttack", 5);
+        Util.CKMove(manager.gameObject, manager.transform, manager.playerObj.transform.position, 20, manager.rotateSpeed);
     }
     void Teleport()
     {
+        
         //컨트롤러, 모델링 끄고 위치 이동시켜서 다시 켜기
-        manager.anim.SetInteger("curAttack", 6);
     }
 }

@@ -28,21 +28,19 @@ public class AliceDAMAGE : AliceFSMState
     // Update is called once per frame
     void Update()
     {
-        //if(IsDamaged == true)
-        //{
-            
-
-
-        //}
-
     }
 
     public void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "PCAtkCollider")
         {
+            if(manager.PlayerIsAttack == false)
+            {
+                manager.PlayerIsAttack = true;
+            }
             damInfo = other.GetComponent<AtkCollider>();
-            manager.anim.SetInteger("curState", 3);
+            manager.anim.Rebind();
+            manager.anim.Play("DAMAGE");
             IsDamageCheck();
             HpManager.ShowHP();
             KnockBack();
@@ -53,7 +51,7 @@ public class AliceDAMAGE : AliceFSMState
         Debug.Log("Isdamage");
         CreatHitEff();
         IsDamaged = true;
-        manager.CurAliceHP -= 1;//후에 데미지로 변경
+        manager.CurAliceHP -= 0.1f;//후에 데미지로 변경
         Debug.Log(manager.CurAliceHP);
         HpManager.GaugeVal = manager.CurAliceHP;
     }
@@ -73,8 +71,6 @@ public class AliceDAMAGE : AliceFSMState
         Debug.Log("startcorutine");
         Vector3 knockbackPos = manager.transform.position + damInfo.knockVec * damInfo.knockPower;
         manager.transform.position = knockbackPos;
-
-        //yield return new WaitForSeconds(0.3f);
         IsDamaged = false;
     }
 

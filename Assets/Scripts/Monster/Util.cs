@@ -51,8 +51,8 @@ public static class Util
         Transform self, 
         Vector3 targetPos,
         float moveSpeed,
-        float rotateSpeed,
-        float fallSpeed)
+        float rotateSpeed
+        )
     {
         Vector3 deltaMove = Vector3.MoveTowards(
             self.position,
