@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ProjectM.ePEa.PlayerData;
 
 public class AttackAction : BaseAction
 {
@@ -68,7 +69,7 @@ public class AttackAction : BaseAction
 
     protected override BaseAction OnUpdateAction()
     {
-        if (m_controller.IsDodge())
+        if (m_controller.IsDodge() && PlayerStats.playerStat.m_currentDodgeDelay == 0)
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
         }
