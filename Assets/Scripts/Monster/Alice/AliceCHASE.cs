@@ -12,11 +12,11 @@ public class AliceCHASE : AliceFSMState
     // Update is called once per frame
     void Update()
     {
-        if (!Util.Detect(transform.position, manager.playerObj.transform.position))
-        {
-            manager.SetState(AliceState.CHASE);
-            return;
-        }
+        //if (!Util.Detect(transform.position, manager.playerObj.transform.position))
+        //{
+        //    manager.SetState(AliceState.CHASE);
+        //    return;
+        //}
 
         Vector3 destination = manager.playerObj.transform.position;
 
