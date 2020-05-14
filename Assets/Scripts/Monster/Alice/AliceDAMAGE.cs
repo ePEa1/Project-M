@@ -6,8 +6,9 @@ using UnityEngine.UI;
 public class AliceDAMAGE : AliceFSMState
 {
     public GameObject hiteff;
-    public Image HPGauge;
-    AtkCollider damInfo;
+    public Slider HPGauge;
+     AtkCollider damInfo;
+    public EnemyHPViewManager HpManager;
 
     public bool IsDamaged = false;
     public override void BeginState()
@@ -20,6 +21,8 @@ public class AliceDAMAGE : AliceFSMState
     void Start()
     {
         manager = GetComponentInParent<AliceFSMManager>();
+        HPGauge = GameObject.FindGameObjectWithTag("HPGauge").GetComponent<Slider>();
+        HpManager = HPGauge.GetComponent<EnemyHPViewManager>();
     }
 
     // Update is called once per frame
@@ -38,21 +41,21 @@ public class AliceDAMAGE : AliceFSMState
     {
         if(other.gameObject.tag == "PCAtkCollider")
         {
-            Debug.Log("Check");
             damInfo = other.GetComponent<AtkCollider>();
             manager.anim.SetInteger("curState", 3);
             IsDamageCheck();
-
+            HpManager.ShowHP();
             KnockBack();
         }
     }
     void IsDamageCheck()
     {
         Debug.Log("Isdamage");
+        CreatHitEff();
         IsDamaged = true;
         manager.CurAliceHP -= 1;//후에 데미지로 변경
-        HPGauge.fillAmount = manager.CurAliceHP;
         Debug.Log(manager.CurAliceHP);
+        HpManager.GaugeVal = manager.CurAliceHP;
     }
     void CreatHitEff()
     {
