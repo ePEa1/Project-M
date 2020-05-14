@@ -7,7 +7,7 @@ public static class Util
 
     public static bool Detect(Vector3 pos, Vector3 targetPos)
     {
-        if (Vector3.Distance(targetPos, pos) <= 3.0f)
+        if (Vector3.Distance(targetPos, pos) >= 6.0f)
             return false;
         else
             return true;
@@ -44,6 +44,7 @@ public static class Util
     }
 
     public static void CKMove(
+        GameObject cc,
         Transform self, 
         Vector3 targetPos,
         float moveSpeed,
@@ -56,7 +57,8 @@ public static class Util
             moveSpeed * Time.deltaTime
             ) - self.position;
 
-
+        cc.transform.Translate(new Vector3(0, 0, 1)*moveSpeed*
+            Time.deltaTime) ;
 
         Vector3 dir = targetPos - self.position;
         dir.y = 0;

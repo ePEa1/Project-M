@@ -21,7 +21,7 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
     public CharacterController cc;
     public Animator anim;
     public Camera sight;
-    public CharacterController playerCC;
+    public GameObject playerObj;
     public MobStat stat;
 
 
@@ -34,7 +34,7 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
         cc = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>();
         sight = GetComponentInChildren<Camera>();
-        playerCC = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
+        playerObj = GameObject.FindGameObjectWithTag("Player");
         stat = GetComponent<MobStat>();
 
         states.Add(DummyState.IDLE, GetComponent<MonsterIDLE>());
@@ -82,7 +82,7 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
     public void NotifyTargetDead()
     {
         SetState(DummyState.IDLE);
-        playerCC = null;
+        playerObj = null;
     }
 
 
