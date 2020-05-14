@@ -22,7 +22,8 @@ namespace ProjectM.ePEa.PlayerData
         #region Value
 
         public static PlayerStats playerStat { get; private set; }
-        public float m_currentHp;
+        public float m_currentHp { get; private set; }
+        public float m_currentDodgeDelay { get; private set; }
 
         #endregion
 
@@ -39,6 +40,21 @@ namespace ProjectM.ePEa.PlayerData
                 Debug.Log("Player Stat is enabled");
                 Destroy(this.gameObject);
             }
+        }
+
+        public void TakeDamage(float damage)
+        {
+            m_currentHp -= damage;
+        }
+
+        private void Update()
+        {
+            m_currentDodgeDelay = Mathf.Max(0, m_currentDodgeDelay - Time.deltaTime);
+        }
+
+        public void SetDodgeDelay(float time)
+        {
+            m_currentDodgeDelay = time;
         }
     }
 }

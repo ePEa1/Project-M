@@ -13,7 +13,6 @@ public class DodgeAction : BaseAction
 
     #region Value
 
-    float m_delay = 0.0f; //회피 현재 쿨타임
     public float m_nowDodge = 0.0f; //회피 이벤트 지속 시간 체크용
 
     Vector3 m_startPos;
@@ -50,10 +49,10 @@ public class DodgeAction : BaseAction
         }
 
         //회피 애니메이션 실행
-        m_animator.SetTrigger("Dodge");
+        m_animator.SetBool("IsDodge", true);
 
         //회피 딜레이 설정
-        m_delay = PlayerStats.playerStat.m_dodgeDelay;
+        PlayerStats.playerStat.SetDodgeDelay(PlayerStats.playerStat.m_dodgeDelay);
 
         return this;
     }
@@ -64,8 +63,7 @@ public class DodgeAction : BaseAction
 
     protected override void AnyStateAction()
     {
-        //회피 쿨타임 갱신
-        SetDodgeDelay();
+
     }
 
     protected override BaseAction OnUpdateAction()
@@ -79,33 +77,33 @@ public class DodgeAction : BaseAction
         m_owner.transform.position = Vector3.Lerp(m_startPos, m_finishPos, m_dodgeCurve.Evaluate(m_nowDodge * ac));
 
         //회피 끝났으면 회피종료함수 실행
-        if (m_nowDodge > PlayerStats.playerStat.m_dodgeTime)
-        {
-            FinishDodge();
-        }
-            
+        //이거 애니메이션 이벤트로 뺄거라 애니 나오면 지워야됨
+        //if (m_nowDodge > PlayerStats.playerStat.m_dodgeTime)
+        //{
+        //    FinishDodge();
+        //}
 
         return this;
     }
 
     #region Function
 
-    //회피 딜레이 값 갱신
-    void SetDodgeDelay()
-    {
-        m_delay = Mathf.Max(0, m_delay - Time.deltaTime);
-    }
-
-    //회피 끝나면 실행시킬 내용들
-    void FinishDodge()
+    /// <summary>
+    /// 회피 끝나면 실행시킬 내용들
+    /// </summary>
+    public void FinishDodge()
     {
         m_nowDodge = 0.0f;
+
+        Debug.Log("finish Dodge");
 
         if (m_controller.IsMoving())
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
         }
         else m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
+
+        m_animator.SetBool("IsDodge", false);
     }
 
     #endregion

@@ -55,6 +55,9 @@ public class AttackAction : BaseAction
         m_nowCombo = 0; //공격 콤보 초기화
         m_currentCombo = 0;
 
+        //애니메이터에 공격 취소 알림
+        m_animator.SetBool("IsAtk", false);
+
         AtkColliderOff();
     }
 

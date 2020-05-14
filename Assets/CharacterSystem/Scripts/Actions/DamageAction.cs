@@ -27,10 +27,10 @@ public class DamageAction : BaseAction
     protected override BaseAction OnStartAction()
     {
         //체력 차감
-        PlayerStats.playerStat.m_currentHp -= m_enemyAtk.atkDamage;
+        PlayerStats.playerStat.TakeDamage(m_enemyAtk.atkDamage);
 
         //피격 애니메이션 재생
-        m_animator.SetTrigger("Damage");
+        m_animator.SetBool("IsDamage", true);
 
         //맞아서 밀려나는 위치 설정
         m_startPos = m_owner.transform.position;
@@ -70,6 +70,8 @@ public class DamageAction : BaseAction
     /// </summary>
     void FinishKnock()
     {
+        m_animator.SetBool("IsDamage", false);
+
         if (m_controller.IsMoving())
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
         else
