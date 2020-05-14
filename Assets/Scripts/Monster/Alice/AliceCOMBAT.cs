@@ -15,7 +15,7 @@ public class AliceCOMBAT : AliceFSMState
 
     void Update()
     {
-        if (!Util.Detect(manager.CloseSight, 1, manager.playerCC))
+        if (!Util.Detect(transform.position, manager.playerObj.transform.position))
         {
             manager.SetState(AliceState.CHASE);
             return;
@@ -24,7 +24,7 @@ public class AliceCOMBAT : AliceFSMState
         //{
         //    manager.SetState(AliceState.CHASE);
         //}
-        Vector3 destination = manager.playerCC.transform.position;
+        Vector3 destination = manager.playerObj.transform.position;
 
         Vector3 destinationposition = new Vector3(destination.x - transform.position.x, 0, destination.z - transform.position.z);
         Vector3 diff = destination - destinationposition;
@@ -38,7 +38,7 @@ public class AliceCOMBAT : AliceFSMState
 
         }
 
-        Util.CKRotate(transform, manager.playerCC.transform.position, manager.rotateSpeed);
+        Util.CKRotate(transform, manager.playerObj.transform.position, manager.rotateSpeed);
         switch (curAttck)
         {
             case 0://대기
