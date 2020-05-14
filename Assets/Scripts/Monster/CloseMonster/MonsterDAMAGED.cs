@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MonsterDAMAGED : MonsterFSMState
 {
-    public GameObject HitEff;
+    public GameObject hiteff;
     AtkCollider damInfo;
     public int SetDamage;
     public bool IsDamaged;

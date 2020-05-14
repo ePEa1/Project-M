@@ -41,7 +41,6 @@ public class AliceDAMAGE : AliceFSMState
             manager.anim.SetInteger("curState", 3);
             IsDamageCheck();
 
-            //StartCoroutine(KnockBack());
             KnockBack();
         }
     }
@@ -52,15 +51,7 @@ public class AliceDAMAGE : AliceFSMState
         GameObject curhiteff = Instantiate(hiteff);
         curhiteff.transform.position = transform.position;
     }
-    //IEnumerator KnockBack()
-    //{
-    //    Debug.Log("startcorutine");
 
-    //    manager.transform.position += damInfo.knockVec * damInfo.knockPower;
-
-    //    yield return new WaitForSeconds(0.3f);
-    //    IsDamaged = false;
-    //}
     void enemyknockback()
     {
         manager.transform.position = manager.transform.position + new Vector3(0, 0, 5);

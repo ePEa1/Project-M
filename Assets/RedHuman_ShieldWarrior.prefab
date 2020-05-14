@@ -1519,7 +1519,7 @@ MonoBehaviour:
   startAttack: 0
   anim: {fileID: 0}
   CloseSight: {fileID: 0}
-  playerCC: {fileID: 0}
+  playerObj: {fileID: 0}
   playerdamagedCol: {fileID: 0}
   moveSpeed: 3
   rotateSpeed: 540
@@ -2474,8 +2474,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2718384498454183487}
-  - component: {fileID: 4990102169206848211}
   - component: {fileID: 4462930078295365628}
+  - component: {fileID: 4990102169206848211}
   m_Layer: 0
   m_Name: Damage
   m_TagString: Untagged
@@ -2497,20 +2497,6 @@ Transform:
   m_Father: {fileID: 1704977273988171978}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &4990102169206848211
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3205746226975349081}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.46
-  m_Height: 1.74
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &4462930078295365628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2526,3 +2512,17 @@ MonoBehaviour:
   manager: {fileID: 1710747397173580993}
   hiteff: {fileID: 6598188281045952718, guid: ad5d8ad744c73da4297a5335fe3cabbd, type: 3}
   IsDamaged: 0
+--- !u!136 &4990102169206848211
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3205746226975349081}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.46
+  m_Height: 1.74
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
