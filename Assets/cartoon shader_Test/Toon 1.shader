@@ -7,6 +7,7 @@
 		[HDR]_Color3 ("Color3", color) = (1,1,1,1)
 
 		_rimPow ("Rim Power", int) = 0
+		_OutlinePow ("Outline", Range(0,0.006)) = 0.001
 
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
 		_LitTex ("LightMap", 2D) = "white" {}
@@ -21,7 +22,7 @@
 		cull back
 
 		CGPROGRAM
-		#pragma surface surf Toon fullfowardshadow
+		#pragma surface surf Toon
 		#pragma target 3.0
 
 		float4 _Color;
@@ -32,6 +33,7 @@
 		sampler2D _LitTex;
 		float _SpecVal;
 		float _rimPow;
+		float _OutlinePow;
 		
 
         struct Input
@@ -96,6 +98,43 @@
 		}
 
         ENDCG
+
+
+		//2pass
+
+		cull front
+
+		CGPROGRAM
+		#pragma surface surf Unlit vertex:vert
+		#pragma target 3.0
+
+		float _OutlinePow;
+
+		void vert(inout appdata_full v)
+		{
+			v.vertex.xyz = v.vertex.xyz + v.normal.xyz * _OutlinePow;
+		}
+		
+		struct Input
+		{
+			float3 viewDir;
+			float3 lightDir;
+			float atten;
+			float4 color:COLOR;
+		};
+
+
+		void surf(Input IN, inout SurfaceOutput o)
+		{
+
+		}
+
+		float4 LightingUnlit (SurfaceOutput s, float3 lightDir, float3 viewDir, float atten)
+		{
+			return float4(0, 0, 0, 1);
+		}
+
+		ENDCG
 
 		
 	}
