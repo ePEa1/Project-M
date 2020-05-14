@@ -6,6 +6,8 @@ public class AliceCOMBAT : AliceFSMState
 {
 
     public int[] AttackOrder;
+    public int[] FarAttackOrder = { 90, 80, 70, 60, 50, 40, 30, 20, 10 };//이러는게 나을지 원거리 공격 후 curAliceHP -10을 해서 다시 체크하는지
+    public int CurFarAtkCut = 90;
     public int curAttck;
     public int startAttack;
     public override void BeginState()
@@ -37,9 +39,28 @@ public class AliceCOMBAT : AliceFSMState
 
         }
 
-
-
+        CurPatternCheck();
         Util.CKRotate(transform, manager.playerObj.transform.position, manager.rotateSpeed);
+
+
+
+    }
+        
+    void AliceHPCheck()
+    {
+        if (manager.CurAliceHP < 100)//bool로 다른 패턴 중에는 적용안하게하기 // 기본공격 근거리
+        {
+            Debug.Log(curAttck);
+            curAttck = Random.Range(1, 3);
+        }
+        if (manager.CurAliceHP < CurFarAtkCut)//공격 체크에 -10 넣기
+        {
+            curAttck = 3;
+
+        }
+    }
+    void CurPatternCheck()
+    {
         switch (curAttck)
         {
             case 0://대기
@@ -64,25 +85,9 @@ public class AliceCOMBAT : AliceFSMState
                 manager.anim.SetInteger("curAttack", 6);
                 break;
         }
-
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            curAttck = 1;
-        }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            curAttck = 2;
-        }
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            curAttck = 3;
-        }
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            curAttck = 0;
-        }
     }
-        
+
+
     void OneCloseAttack()
     {
 
@@ -94,7 +99,7 @@ public class AliceCOMBAT : AliceFSMState
     }
     void FarAttack()
     {
-
+        CurFarAtkCut -= 10;
     }
     void Summoning()
     {
