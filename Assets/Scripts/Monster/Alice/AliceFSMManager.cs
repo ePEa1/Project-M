@@ -29,7 +29,8 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
     //public CharacterController cc;
     public Animator anim;
     public Camera CloseSight;
-    public CharacterController playerCC;
+    public GameObject playerObj;
+    public Collider playerdamagedCol;
 
     public float moveSpeed = 3;
     public float rotateSpeed =540;
@@ -47,7 +48,9 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
         //cc = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
         CloseSight = GetComponentInChildren<Camera>();
-        playerCC = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
+        playerObj = GameObject.FindGameObjectWithTag("Player");
+        playerdamagedCol = playerObj.transform.GetChild(0).GetChild(4).GetComponent<Collider>();
+        
 
         states.Add(AliceState.IDLE, GetComponent<AliceIDLE>());
         states.Add(AliceState.CHASE, GetComponent<AliceCHASE>());

@@ -14,12 +14,12 @@ public class MonsterATTACK : MonsterFSMState
     // Update is called once per frame
     void Update()
     {
-        if (!Util.Detect(manager.sight, 1, manager.playerCC))
+        if (!Util.Detect(transform.position, manager.playerObj.transform.position))
         {
             manager.SetState(DummyState.CHASE);
             return;
         }
-        Vector3 destination = manager.playerCC.transform.position;
+        Vector3 destination = manager.playerObj.transform.position;
 
         Vector3 destinationposition = new Vector3(destination.x - transform.position.x, 0, destination.z - transform.position.z);
         Vector3 diff = destination - destinationposition;
@@ -33,7 +33,7 @@ public class MonsterATTACK : MonsterFSMState
 
             }
 
-        Util.CKRotate(transform, manager.playerCC.transform.position, manager.stat.rotateSpeed);
+        Util.CKRotate(transform, manager.playerObj.transform.position, manager.stat.rotateSpeed);
         
     }
 }

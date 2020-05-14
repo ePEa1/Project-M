@@ -15,15 +15,16 @@ public class MonsterCHASE : MonsterFSMState
     // Update is called once per frame
     void Update()
     {
-        if (!Util.Detect(manager.sight, 1, manager.playerCC))
-        {
-            manager.SetState(DummyState.IDLE);
-            return;
-        }
+        //if (!Util.Detect(transform.position, manager.playerObj.transform.position))
+        //{
+        //    manager.SetState(DummyState.IDLE);
+        //    return;
+        //}
 
-        Vector3 destination = manager.playerCC.transform.position;
+        Vector3 destination = manager.playerObj.transform.position;
 
         Util.CKMove(
+            manager.gameObject,
             transform,
             destination,
             manager.stat.moveSpeed,
