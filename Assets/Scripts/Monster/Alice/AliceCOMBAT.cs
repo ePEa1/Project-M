@@ -10,6 +10,8 @@ public class AliceCOMBAT : AliceFSMState
     public int CurFarAtkCut = 90;
     public int curAttck;
     public int startAttack;
+
+    public bool IsAttack = true;
     public override void BeginState()
     {
         base.BeginState();
@@ -39,24 +41,51 @@ public class AliceCOMBAT : AliceFSMState
 
         }
 
-        CurPatternCheck();
+        if(IsAttack == true)
+        {
+            AliceHPCheck();
+        }
+
         Util.CKRotate(transform, manager.playerObj.transform.position, manager.rotateSpeed);
 
 
 
     }
         
+    public void FarCheck()
+    {
+        if (!Util.Detect(transform.position, manager.playerObj.transform.position, 4))
+        {
+            curAttck = 0;
+            IsAttack = false;
+            manager.SetState(AliceState.CHASE);
+            
+
+        }
+    }
+    public void CloseCheck()
+    {
+        curAttck = 0;
+        if (Util.Detect(transform.position, manager.playerObj.transform.position, 4))
+        {
+
+            IsAttack = true;
+
+        }
+    }
     void AliceHPCheck()
     {
-        if (manager.CurAliceHP < 100)//bool로 다른 패턴 중에는 적용안하게하기 // 기본공격 근거리
+        if(IsAttack == true)
         {
-            Debug.Log(curAttck);
-            curAttck = Random.Range(1, 3);
-        }
-        if (manager.CurAliceHP < CurFarAtkCut)//공격 체크에 -10 넣기
-        {
-            curAttck = 3;
-
+            if (manager.CurAliceHP < 100)//bool로 다른 패턴 중에는 적용안하게하기 // 기본공격 근거리
+            {
+                Debug.Log(curAttck);
+                curAttck = Random.Range(1, 3);
+            }
+            if (manager.CurAliceHP < CurFarAtkCut)//공격 체크에 -10 넣기
+            {
+                curAttck = 3;
+            }
         }
     }
     void CurPatternCheck()
