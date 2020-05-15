@@ -44,14 +44,23 @@ public class AliceCOMBAT : AliceFSMState
         if(IsAttack == true)
         {
             AliceHPCheck();
+
         }
 
-        Util.CKRotate(transform, manager.playerObj.transform.position, manager.rotateSpeed);
+        if(IsAttack == false)
+        {
+            Util.CKRotate(transform, manager.playerObj.transform.position, manager.rotateSpeed);
 
+        }
 
 
     }
         
+    public void RotatePlayer()
+    {
+        Util.CKRotate(transform, manager.playerObj.transform.position, manager.rotateSpeed);
+
+    }
     public void FarCheck()
     {
         if (!Util.Detect(transform.position, manager.playerObj.transform.position, 4))
@@ -68,25 +77,30 @@ public class AliceCOMBAT : AliceFSMState
         curAttck = 0;
         if (Util.Detect(transform.position, manager.playerObj.transform.position, 4))
         {
-
             IsAttack = true;
-
         }
     }
     void AliceHPCheck()
     {
         if(IsAttack == true)
         {
-            if (manager.CurAliceHP < 100)//bool로 다른 패턴 중에는 적용안하게하기 // 기본공격 근거리
+                //bool로 다른 패턴 중에는 적용안하게하기 // 기본공격 근거리
+
+            if (manager.CurAliceHP < CurFarAtkCut)//공격 체크에 -10 넣기
+            {
+                IsAttack = false;
+                curAttck = 3;
+                return;
+            }
+            else
             {
                 Debug.Log(curAttck);
                 curAttck = Random.Range(1, 3);
             }
-            if (manager.CurAliceHP < CurFarAtkCut)//공격 체크에 -10 넣기
-            {
-                curAttck = 3;
-            }
         }
+
+
+
     }
     void CurPatternCheck()
     {
@@ -115,7 +129,10 @@ public class AliceCOMBAT : AliceFSMState
                 break;
         }
     }
-
+    public void SetCOMBATState()
+    {
+        manager.anim.SetInteger("curAttack", 0);
+    }
 
     void OneCloseAttack()
     {
@@ -126,7 +143,7 @@ public class AliceCOMBAT : AliceFSMState
     {
 
     }
-    void FarAttack()
+    public void FarAttack()
     {
         CurFarAtkCut -= 10;
     }

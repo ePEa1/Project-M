@@ -39,11 +39,11 @@ public class AliceDAMAGE : AliceFSMState
                 manager.PlayerIsAttack = true;
             }
             damInfo = other.GetComponent<AtkCollider>();
-            manager.anim.Rebind();
-            manager.anim.Play("DAMAGE");
+            //manager.anim.Rebind();
+            //manager.anim.Play("DAMAGE");
             IsDamageCheck();
             HpManager.ShowHP();
-            KnockBack();
+            //KnockBack();
         }
     }
     void IsDamageCheck()
@@ -51,7 +51,7 @@ public class AliceDAMAGE : AliceFSMState
         Debug.Log("Isdamage");
         CreatHitEff();
         IsDamaged = true;
-        manager.CurAliceHP -= 0.1f;//후에 데미지로 변경
+        manager.CurAliceHP -= 0.5f;//후에 데미지로 변경
         Debug.Log(manager.CurAliceHP);
         HpManager.GaugeVal = manager.CurAliceHP;
     }
