@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ProjectM.ePEa.PlayerData;
 
 public class IdleAction : BaseAction
 {
@@ -27,6 +28,10 @@ public class IdleAction : BaseAction
         if (m_controller.IsAttack())
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.ATK);
+        }
+        if (m_controller.IsDodge() && PlayerStats.playerStat.m_currentDodgeDelay == 0)
+        {
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
         }
 
         return this;

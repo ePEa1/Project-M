@@ -5,28 +5,33 @@ using UnityEngine.Events;
 
 public class PlayerEventManager : MonoBehaviour
 {
-    [SerializeField] UnityEvent m_nextAtkOkEvent;
-    [SerializeField] UnityEvent m_nextAtkCloseEvent;
-    [SerializeField] UnityEvent m_atkTime;
-    [SerializeField] UnityEvent m_createEff;
+    [SerializeField] UnityEvent[] m_atkEvent;
+    [SerializeField] UnityEvent[] m_dodgeEvent;
 
-    public void NextAtkOk()
+    public enum AtkEnum
     {
-        m_nextAtkOkEvent.Invoke();
+        NextAtkOpen,
+        NextAtkClose,
+        AtkHitTime,
+        CreateEffect
     }
 
-    public void NextAtkClose()
+    public enum DodgeEnum
     {
-        m_nextAtkCloseEvent.Invoke();
+        DodgeEnd
     }
 
-    public void AtkTime()
+    /// <summary>
+    /// 공격 애니메이션에서 실행시킬 이벤트
+    /// </summary>
+    /// <param name="e"></param>
+    public void OnAtkEvent(AtkEnum e)
     {
-        m_atkTime.Invoke();
+        m_atkEvent[(int)e].Invoke();
     }
 
-    public void CreateEff()
+    public void OnDodgeEvent(DodgeEnum e)
     {
-        m_createEff.Invoke();
+        m_dodgeEvent[(int)e].Invoke();
     }
 }
