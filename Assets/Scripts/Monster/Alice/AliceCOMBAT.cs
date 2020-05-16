@@ -1,15 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+public enum AliceAttackState
+{
+    Combat = 0,
+    OneCloseAttack,
+    TwoCloseAttack,
+    FarAttack,
+    Summon,
+    Rush,
+    Teleport
 
+}
 public class AliceCOMBAT : AliceFSMState
 {
-
+    public AliceAttackState curAtkState;
     public int[] AttackOrder;
-    public int[] FarAttackOrder = { 90, 80, 70, 60, 50, 40, 30, 20, 10 };//이러는게 나을지 원거리 공격 후 curAliceHP -10을 해서 다시 체크하는지
     public int CurFarAtkCut = 90;
-    public int curAttck;
     public int startAttack;
+    public int teleportAft;
 
     public bool IsAttack = true;
     public override void BeginState()
@@ -65,21 +74,22 @@ public class AliceCOMBAT : AliceFSMState
     {
         if (!Util.Detect(transform.position, manager.playerObj.transform.position, 4))
         {
-            curAttck = 0;
             IsAttack = false;
+            //CurPatternCheck(AliceAttackState.Combat);
             manager.SetState(AliceState.CHASE);
             
 
         }
     }
+
     public void CloseCheck()
     {
-        curAttck = 0;
         if (Util.Detect(transform.position, manager.playerObj.transform.position, 4))
         {
             IsAttack = true;
         }
     }
+
     void AliceHPCheck()
     {
         if(IsAttack == true)
@@ -89,46 +99,53 @@ public class AliceCOMBAT : AliceFSMState
             if (manager.CurAliceHP < CurFarAtkCut)//공격 체크에 -10 넣기
             {
                 IsAttack = false;
-                curAttck = 3;
+                CurPatternCheck(AliceAttackState.FarAttack);
                 return;
             }
             else
             {
-                Debug.Log(curAttck);
-                curAttck = Random.Range(1, 3);
+                int curAttack;
+                curAttack = Random.Range(1, 3);
+                if(curAttack == 1)
+                {
+                    CurPatternCheck(AliceAttackState.OneCloseAttack);
+                }
+                else if(curAttack == 2)
+                {
+                    CurPatternCheck(AliceAttackState.TwoCloseAttack);
+                }
             }
         }
-
-
-
     }
-    void CurPatternCheck()
+
+    public void CurPatternCheck(AliceAttackState state)
     {
-        switch (curAttck)
+        switch (state)
         {
-            case 0://대기
+            case AliceAttackState.Combat://대기
                 manager.anim.SetInteger("curAttack", 0);
                 break;
-            case 1://근접 공격 1
+            case AliceAttackState.OneCloseAttack://근접 공격 1
                 manager.anim.SetInteger("curAttack", 1);
                 break;
-            case 2://근접 공격 2
+            case AliceAttackState.TwoCloseAttack://근접 공격 2
                 manager.anim.SetInteger("curAttack", 2);
                 break;
-            case 3://원거리 공격
+            case AliceAttackState.FarAttack://원거리 공격
                 manager.anim.SetInteger("curAttack", 3);
                 break;
-            case 4://소환술
+            case AliceAttackState.Summon://소환술
                 manager.anim.SetInteger("curAttack", 4);
                 break;
-            case 5://돌진
+            case AliceAttackState.Rush://돌진
                 manager.anim.SetInteger("curAttack", 5);
                 break;
-            case 6://텔레포트
+            case AliceAttackState.Teleport://텔레포트
                 manager.anim.SetInteger("curAttack", 6);
                 break;
         }
     }
+
     public void SetCOMBATState()
     {
         manager.anim.SetInteger("curAttack", 0);
@@ -158,5 +175,10 @@ public class AliceCOMBAT : AliceFSMState
     {
         
         //컨트롤러, 모델링 끄고 위치 이동시켜서 다시 켜기
+        
+    }
+    public void TeleportAfter()
+    {
+        //텔레포트 후 공격 판정
     }
 }
