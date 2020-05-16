@@ -5,7 +5,8 @@ using ProjectM.ePEa.PlayerData;
 
 public class MoveAction : BaseAction
 {
-    bool change = false;
+    //true 가 방향 즉시 전환, false가 방향 서서히 전환
+    [SerializeField] bool change = false;
 
 
     #region events
@@ -27,8 +28,8 @@ public class MoveAction : BaseAction
             m_animator.SetBool("IsMoving", true);
         else m_animator.SetBool("IsMoving", false);
 
-        if (Input.GetKeyDown(KeyCode.M))
-            change = !change;
+        //if (Input.GetKeyDown(KeyCode.M))
+        //    change = !change;
     }
 
     protected override BaseAction OnUpdateAction()

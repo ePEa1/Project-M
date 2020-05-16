@@ -24,6 +24,8 @@ public class DamageAction : BaseAction
 
     #endregion
 
+    [SerializeField] MoveGameManager m_mgm;
+
     protected override BaseAction OnStartAction()
     {
         //체력 차감
@@ -85,6 +87,12 @@ public class DamageAction : BaseAction
         {
             m_enemyAtk = other.GetComponent<AtkCollider>();
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DAMAGE);
+        }
+
+        if (other.tag =="Circle")
+        {
+            m_mgm.CircleClear();
+            Destroy(other.gameObject);
         }
     }
 }
