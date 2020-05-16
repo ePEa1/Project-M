@@ -6,21 +6,29 @@ public enum AliceAttackState
     Combat = 0,
     OneCloseAttack,
     TwoCloseAttack,
+
+    //텔레포트 후의 공격들
     FarAttack,
     Summon,
     Rush,
     Teleport
 
 }
+
 public class AliceCOMBAT : AliceFSMState
 {
     public AliceAttackState curAtkState;
+    public AliceAttackState TeleportAfterState;
     public int[] AttackOrder;
     public int CurFarAtkCut = 90;
     public int startAttack;
     public int teleportAft;
 
+    public bool DontMove = false;
     public bool IsAttack = true;
+    public bool IsTeleport = false;
+    public bool IsRush = false;
+    public bool IsSummon = false;
     public override void BeginState()
     {
         base.BeginState();
@@ -44,7 +52,7 @@ public class AliceCOMBAT : AliceFSMState
         Vector3 diff = destination - destinationposition;
         Vector3 groundCheck = diff - destination;
 
-        if (groundCheck.sqrMagnitude > manager.attackRange * manager.attackRange)
+        if (groundCheck.sqrMagnitude > manager.attackRange * manager.attackRange && DontMove == false)
         {
             manager.SetState(AliceState.CHASE);
 
@@ -52,7 +60,7 @@ public class AliceCOMBAT : AliceFSMState
 
         if(IsAttack == true)
         {
-            AliceHPCheck();
+           // AliceHPCheck();
 
         }
 
@@ -62,7 +70,10 @@ public class AliceCOMBAT : AliceFSMState
 
         }
 
-
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            TeleportAfter();
+        }
     }
         
     public void RotatePlayer()
@@ -70,27 +81,36 @@ public class AliceCOMBAT : AliceFSMState
         Util.CKRotate(transform, manager.playerObj.transform.position, manager.rotateSpeed);
 
     }
-    public void FarCheck()
+
+
+
+    //거리 체크
+    public void DistanceCheck()
     {
-        if (!Util.Detect(transform.position, manager.playerObj.transform.position, 4))
+        if (Util.Detect(transform.position, manager.playerObj.transform.position, 4))
+        {
+
+            IsAttack = true;
+            CurPatternCheck(AliceAttackState.Combat);
+        }
+        if (!Util.Detect(transform.position, manager.playerObj.transform.position, 4) &&Util.Detect(transform.position, manager.playerObj.transform.position, 15) &&DontMove == false)
         {
             IsAttack = false;
             //CurPatternCheck(AliceAttackState.Combat);
             manager.SetState(AliceState.CHASE);
-            
-
         }
-    }
-
-    public void CloseCheck()
-    {
-        if (Util.Detect(transform.position, manager.playerObj.transform.position, 4))
+        if(!Util.Detect(transform.position, manager.playerObj.transform.position, 15))
         {
-            IsAttack = true;
+            IsAttack = false;
+            DontMove = true;
+            TeleportAfterState = AliceAttackState.Rush;
+            CurPatternCheck(AliceAttackState.Combat);
+
         }
     }
 
-    void AliceHPCheck()
+
+    public void AliceHPCheck()
     {
         if(IsAttack == true)
         {
@@ -99,7 +119,8 @@ public class AliceCOMBAT : AliceFSMState
             if (manager.CurAliceHP < CurFarAtkCut)//공격 체크에 -10 넣기
             {
                 IsAttack = false;
-                CurPatternCheck(AliceAttackState.FarAttack);
+                TeleportAfterState = AliceAttackState.FarAttack;
+                CurPatternCheck(AliceAttackState.Teleport);
                 return;
             }
             else
@@ -114,6 +135,12 @@ public class AliceCOMBAT : AliceFSMState
                 {
                     CurPatternCheck(AliceAttackState.TwoCloseAttack);
                 }
+            }
+        }
+        if(IsAttack == false)
+        {
+            if(manager.CurAliceHP < 50){
+                CurPatternCheck(AliceAttackState.Teleport);
             }
         }
     }
@@ -150,7 +177,12 @@ public class AliceCOMBAT : AliceFSMState
     {
         manager.anim.SetInteger("curAttack", 0);
     }
-
+    public void ReturnDefaultAttack()//특정 패턴이 끝난 후 일반 공격으로 변경
+    {
+        IsAttack = true;
+        DontMove = false;
+        manager.anim.SetInteger("curAttack", 0);
+    }
     void OneCloseAttack()
     {
 
@@ -162,10 +194,12 @@ public class AliceCOMBAT : AliceFSMState
     }
     public void FarAttack()
     {
+        Debug.Log("FarAttack");
         CurFarAtkCut -= 10;
     }
     void Summoning()
     {
+
     }
     void RushAttack()
     {
@@ -173,12 +207,17 @@ public class AliceCOMBAT : AliceFSMState
     }
     void Teleport()
     {
-        
+        Vector3 teleportPos = transform.position + new Vector3(0, 0, 1) * 12;
+        transform.position = teleportPos;
         //컨트롤러, 모델링 끄고 위치 이동시켜서 다시 켜기
-        
+
     }
     public void TeleportAfter()
     {
+        DontMove = true;
+        CurPatternCheck(TeleportAfterState);
         //텔레포트 후 공격 판정
     }
+
+
 }
