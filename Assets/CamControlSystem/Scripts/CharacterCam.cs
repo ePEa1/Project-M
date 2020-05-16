@@ -26,15 +26,37 @@ public class CharacterCam : MonoBehaviour
     float m_x = 0; //x 회전값
     float m_y = 0; //y 회전값
 
+    float m_stopTime = 0;
+
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    private void Start()
+    {
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         SetCamPositionToMouse();
+
+        PlayStop();
+    }
+
+    public void StopFrame(float t)
+    {
+        Time.timeScale = 0.001f;
+        m_stopTime = t * Time.timeScale;
+    }
+
+    void PlayStop()
+    {
+        m_stopTime = Mathf.Max(0, m_stopTime - Time.deltaTime);
+        if (m_stopTime == 0)
+            Time.timeScale = 1;
     }
 
     /// <summary>
