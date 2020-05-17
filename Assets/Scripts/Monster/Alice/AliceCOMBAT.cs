@@ -19,6 +19,8 @@ public class AliceCOMBAT : AliceFSMState
 {
     public AliceAttackState curAtkState;
     public AliceAttackState TeleportAfterState;
+    public GameObject SummonMonster;
+
     public int[] AttackOrder;
     public int CurFarAtkCut = 90;
     public int startAttack;
@@ -93,8 +95,7 @@ public class AliceCOMBAT : AliceFSMState
         if (!Util.Detect(transform.position, manager.playerObj.transform.position, 4) &&Util.Detect(transform.position, manager.playerObj.transform.position, 15) &&DontMove == false)
         {
             IsAttack = false;
-            //CurPatternCheck(AliceAttackState.Combat);
-            manager.SetState(AliceState.CHASE);
+            CurPatternCheck(AliceAttackState.Combat);
         }
         if(!Util.Detect(transform.position, manager.playerObj.transform.position, 15))
         {
