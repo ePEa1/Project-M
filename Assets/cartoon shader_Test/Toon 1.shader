@@ -7,7 +7,7 @@
 		[HDR]_Color3 ("Color3", color) = (1,1,1,1)
 
 		_rimPow ("Rim Power", int) = 0
-		_OutlinePow ("Outline", Range(0,0.006)) = 0.001
+		_OutlinePow ("Outline", Range(0,0.02)) = 0.001
 
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
 		_LitTex ("LightMap", 2D) = "white" {}
