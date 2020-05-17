@@ -36,7 +36,7 @@ public class AliceCOMBAT : AliceFSMState
 
     void Update()
     {
-        if (!Util.Detect(transform.position, manager.playerObj.transform.position,4))
+        if (!Util.Detect(transform.position, manager.playerObj.transform.position,4) && DontMove == false)
         {
             manager.SetState(AliceState.CHASE);
             return;
@@ -70,10 +70,7 @@ public class AliceCOMBAT : AliceFSMState
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            TeleportAfter();
-        }
+
     }
         
     public void RotatePlayer()
@@ -140,6 +137,7 @@ public class AliceCOMBAT : AliceFSMState
         if(IsAttack == false)
         {
             if(manager.CurAliceHP < 50){
+                TeleportAfterState = AliceAttackState.Summon;
                 CurPatternCheck(AliceAttackState.Teleport);
             }
         }
@@ -175,6 +173,8 @@ public class AliceCOMBAT : AliceFSMState
 
     public void SetCOMBATState()
     {
+        //IsAttack = true;
+        DontMove = false;
         manager.anim.SetInteger("curAttack", 0);
     }
     public void ReturnDefaultAttack()//특정 패턴이 끝난 후 일반 공격으로 변경
@@ -205,19 +205,17 @@ public class AliceCOMBAT : AliceFSMState
     {
         Util.CKMove(manager.gameObject, manager.transform, manager.playerObj.transform.position, 20, manager.rotateSpeed);
     }
-    void Teleport()
+    public void Teleport()
     {
-        Vector3 teleportPos = transform.position + new Vector3(0, 0, 1) * 12;
+        DontMove = true;
+        Vector3 teleportPos = transform.position + new Vector3(0, 0, 1) * 10;
         transform.position = teleportPos;
         //컨트롤러, 모델링 끄고 위치 이동시켜서 다시 켜기
 
     }
     public void TeleportAfter()
     {
-        DontMove = true;
         CurPatternCheck(TeleportAfterState);
         //텔레포트 후 공격 판정
     }
-
-
 }
