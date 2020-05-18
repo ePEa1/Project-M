@@ -43,7 +43,7 @@ public class AliceDAMAGE : AliceFSMState
             //manager.anim.Play("DAMAGE");
             IsDamageCheck();
             HpManager.ShowHP();
-            //KnockBack();
+            KnockBack();
         }
     }
     void IsDamageCheck()
