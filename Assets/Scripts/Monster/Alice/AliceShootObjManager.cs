@@ -14,5 +14,16 @@ public class AliceShootObjManager : MonoBehaviour
     void Update()
     {
         transform.position = transform.position + new Vector3(0, 0, -0.5f) ;
+
+        Destroy(gameObject, 5);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Player")
+        {
+            //데미지 넣는 함수
+            Destroy(gameObject);
+        }
     }
 }
