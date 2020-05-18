@@ -44,7 +44,7 @@ public class AliceDAMAGE : AliceFSMState
             //manager.anim.Play("DAMAGE");
             IsDamageCheck();
             HpManager.ShowHP();
-            //other.GetComponent<AtkCollider>().AtkEvent();
+            other.GetComponent<AtkCollider>().AtkEvent();
             KnockBack();
         }
     }
