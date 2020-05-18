@@ -1,8 +1,9 @@
-﻿Shader "Hidden/sha_RGB_SP"
+﻿Shader "DGR/sha_RGB_SP"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+		_RGBVal ("RGBVal", float) = 0
     }
     SubShader
     {
@@ -37,13 +38,26 @@
                 return o;
             }
 
+
+			float _RGBVal;
             sampler2D _MainTex;
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 col = tex2D(_MainTex, i.uv);
-                // just invert the colors
-                col.rgb = 1 - col.rgb;
+				float4 col; //tex2D(_MainTex, i.uv);
+
+				
+
+				float2 texture2 = i.uv - _RGBVal;
+				float radialGradient = saturate(dot(texture2, texture2));
+				radialGradient = radialGradient * radialGradient * radialGradient;
+
+				float colR = tex2D(_MainTex, i.uv + float2 (_RGBVal, _RGBVal) * 0.1 * radialGradient).r;
+				float colG = tex2D(_MainTex, i.uv).g;
+				float colB = tex2D(_MainTex, i.uv - float2 (_RGBVal, _RGBVal) * 0.1 * radialGradient).b;
+
+				col.rgb = float3 (colR, colG, colB);
+
                 return col;
             }
             ENDCG
