@@ -12,9 +12,10 @@ public class PlayerEventManager : MonoBehaviour
     public enum AtkEnum
     {
         NextAtkOpen,
-        NextAtkClose,
+        NextAtkCheck,
         AtkHitTime,
-        CreateEffect
+        CreateEffect,
+        EndAttack
     }
 
     public enum DodgeEnum
