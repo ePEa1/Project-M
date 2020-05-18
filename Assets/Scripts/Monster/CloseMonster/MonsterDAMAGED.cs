@@ -17,7 +17,10 @@ public class MonsterDAMAGED : MonsterFSMState
     // Update is called once per frame
     void Update()
     {
-        
+        if(manager.stat.hp <= 0)
+        {
+            manager.SetDead();
+        }
     }
     public void OnTriggerEnter(Collider other)
     {
@@ -58,7 +61,7 @@ public class MonsterDAMAGED : MonsterFSMState
         Debug.Log("startcorutine");
         Vector3 knockbackPos = manager.transform.position + damInfo.knockVec * damInfo.knockPower;
         manager.transform.position = knockbackPos;
-
+        manager.stat.hp -= 10;
         //yield return new WaitForSeconds(0.3f);
         IsDamaged = false;
     }

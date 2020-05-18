@@ -19,6 +19,7 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
     public DummyState currentState;
     public DummyState startState;
     public CharacterController cc;
+    public Collider DamageCol;
     public Animator anim;
     public Camera sight;
     public GameObject playerObj;
@@ -32,6 +33,7 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
     private void Awake()
     {
         cc = GetComponent<CharacterController>();
+        DamageCol = GetComponentInChildren<Collider>();
         anim = GetComponentInChildren<Animator>();
         sight = GetComponentInChildren<Camera>();
         playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -75,7 +77,7 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
 
     public void SetDead()
     {
-        cc.enabled = false;
+        DamageCol.enabled = false;
         SetState(DummyState.DEAD);
     }
 

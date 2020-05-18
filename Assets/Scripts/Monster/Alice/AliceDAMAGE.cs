@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AliceDAMAGE : AliceFSMState
 {
     public GameObject hiteff;
-    AtkCollider damInfo;
+    public Slider HPGauge;
+     AtkCollider damInfo;
+    public EnemyHPViewManager HpManager;
 
     public bool IsDamaged = false;
     public override void BeginState()
@@ -18,36 +21,42 @@ public class AliceDAMAGE : AliceFSMState
     void Start()
     {
         manager = GetComponentInParent<AliceFSMManager>();
+        HPGauge = GameObject.FindGameObjectWithTag("HPGauge").GetComponent<Slider>();
+        HpManager = HPGauge.GetComponent<EnemyHPViewManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if(IsDamaged == true)
-        //{
-            
-
-
-        //}
-
     }
 
     public void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "PCAtkCollider")
         {
-            Debug.Log("Check");
+            if(manager.PlayerIsAttack == false)
+            {
+                manager.PlayerIsAttack = true;
+            }
             damInfo = other.GetComponent<AtkCollider>();
-            manager.anim.SetInteger("curState", 3);
+            //manager.anim.Rebind();
+            //manager.anim.Play("DAMAGE");
             IsDamageCheck();
-
+            HpManager.ShowHP();
             KnockBack();
         }
     }
     void IsDamageCheck()
     {
         Debug.Log("Isdamage");
+        CreatHitEff();
         IsDamaged = true;
+        manager.CurAliceHP -= 0.5f;//후에 데미지로 변경
+        Debug.Log(manager.CurAliceHP);
+        HpManager.GaugeVal = manager.CurAliceHP;
+    }
+    void CreatHitEff()
+    {
         GameObject curhiteff = Instantiate(hiteff);
         curhiteff.transform.position = transform.position;
     }
@@ -62,8 +71,6 @@ public class AliceDAMAGE : AliceFSMState
         Debug.Log("startcorutine");
         Vector3 knockbackPos = manager.transform.position + damInfo.knockVec * damInfo.knockPower;
         manager.transform.position = knockbackPos;
-
-        //yield return new WaitForSeconds(0.3f);
         IsDamaged = false;
     }
 

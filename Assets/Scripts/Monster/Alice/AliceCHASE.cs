@@ -12,21 +12,26 @@ public class AliceCHASE : AliceFSMState
     // Update is called once per frame
     void Update()
     {
-        if (!Util.Detect(transform.position, manager.playerObj.transform.position))
+        if(manager.CantMove == true)
         {
-            manager.SetState(AliceState.CHASE);
-            return;
+            manager.SetState(AliceState.COMBAT);
         }
+        //if (!Util.Detect(transform.position, manager.playerObj.transform.position))
+        //{
+        //    manager.SetState(AliceState.CHASE);
+        //    return;
+        //}
 
         Vector3 destination = manager.playerObj.transform.position;
 
-        Util.CKMove(
-            manager.gameObject,
-            transform,
-            destination,
-            manager.moveSpeed,
-            manager.rotateSpeed,
-            manager.fallSpeed);
+            Util.CKMove(
+    manager.gameObject,
+    transform,
+    destination,
+    manager.moveSpeed,
+    manager.rotateSpeed
+    );
+        
 
 
 

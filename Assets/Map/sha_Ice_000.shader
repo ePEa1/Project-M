@@ -1,9 +1,9 @@
-﻿Shader "MFD/sha_BattleShader_000"
+﻿Shader "DGR/sha_IceShader_000"
 {
     Properties
     {
-        _Color ("Color", Color) = (1,1,1,1)
-		_Color2 ("Color2", Color) = (1,1,1,1)
+        [HDR]_Color ("Color", Color) = (1,1,1,1)
+		[HDR]_Color2 ("Color2", Color) = (1,1,1,1)
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
         _Metallic ("Metallic", Range(0,1)) = 0.0
@@ -43,7 +43,7 @@
 			float rim = dot ( o.Normal , IN.viewDir );
 			float Rim = saturate(pow ( 1 - rim , _RimPower));
 
-            o.Albedo = _Color2;
+            o.Albedo = c.rgb * _Color2;
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
             o.Alpha = Rim;

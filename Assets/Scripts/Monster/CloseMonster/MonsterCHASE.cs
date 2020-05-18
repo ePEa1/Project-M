@@ -28,8 +28,8 @@ public class MonsterCHASE : MonsterFSMState
             transform,
             destination,
             manager.stat.moveSpeed,
-            manager.stat.rotateSpeed,
-            manager.stat.fallSpeed);
+            manager.stat.rotateSpeed
+            );
 
 
 
