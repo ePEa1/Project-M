@@ -178,7 +178,7 @@ public class AttackAction : BaseAction
     {
         for (int i = 0; i < m_atkRange.Length; i++)
         {
-            m_atkRange[i].enabled = false;
+            //m_atkRange[i].enabled = false;
         }
     }
 
@@ -189,7 +189,10 @@ public class AttackAction : BaseAction
     {
         if (m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.ATK)
         {
-            m_atkRange[m_currentCombo].enabled = true;
+            //m_atkRange[m_currentCombo].enabled = true;
+
+            StartCoroutine(AtkColliderOnOff(m_atkRange[m_currentCombo]));
+            m_atkRange[m_currentCombo].GetComponent<AtkCollider>().isAttacking = false;
 
             Vector3 atkVec = m_owner.transform.rotation * new Vector3(0.0f, 0.0f, -1.0f);
 
@@ -209,6 +212,21 @@ public class AttackAction : BaseAction
             eff.transform.position = m_owner.transform.position + new Vector3(0.0f, m_effPos[m_currentCombo].y, 0.0f)
                 + eff.transform.rotation * -new Vector3(m_effPos[m_currentCombo].x, 0.0f, m_effPos[m_currentCombo].z);
         }
+    }
+
+    IEnumerator AtkColliderOnOff(BoxCollider atkCol)
+    {
+        atkCol.gameObject.SetActive(true);
+        float t = 0.1f;
+
+        while (t > 0.0f)
+        {
+            t -= Time.deltaTime;
+            yield return true;
+        }
+        atkCol.gameObject.SetActive(false);
+
+        yield return null;
     }
 
     #endregion

@@ -50,11 +50,9 @@ public class AliceDAMAGE : AliceFSMState
     }
     void IsDamageCheck()
     {
-        Debug.Log("Isdamage");
         CreatHitEff();
         IsDamaged = true;
         manager.CurAliceHP -= 0.5f;//후에 데미지로 변경
-        Debug.Log(manager.CurAliceHP);
         HpManager.GaugeVal = manager.CurAliceHP;
     }
     void CreatHitEff()
