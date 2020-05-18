@@ -39,11 +39,9 @@ public class AttackAction : BaseAction
 
     protected override BaseAction OnStartAction()
     {
-        //SetPath();
         m_animator.SetBool("IsAtk", true);
         m_animator.SetTrigger("Atk");
         m_nextAtk = true;
-        //m_atkTime = 0.0f;
         NextAttacking();
 
         return this;
@@ -60,8 +58,6 @@ public class AttackAction : BaseAction
 
         //애니메이터에 공격 취소 알림
         m_animator.SetBool("IsAtk", false);
-
-        //AtkColliderOff();
     }
 
     protected override void AnyStateAction()
@@ -130,26 +126,6 @@ public class AttackAction : BaseAction
     }
 
     /// <summary>
-    /// 공격 시작할 때 갱신되는 정보 설정 이벤트
-    /// 사라질 예정(NextAttacking이 대체)
-    /// </summary>
-    public void AtkStartEvent()
-    {
-        //데이터 관련
-        m_atkTime = 0.0f;
-        m_animator.SetBool("IsAtk", false);
-        m_nextAtkOk = false;
-        m_ac = 1.0f / m_atkSpeed[m_nowCombo];
-
-        SetPath();
-        m_currentCombo = m_nowCombo;
-
-        m_nowCombo++;
-        if (m_nowCombo >= m_maxCombo)
-            m_nowCombo = 0;
-    }
-
-    /// <summary>
     /// 공격 이동 거리 설정
     /// </summary>
     void SetPath()
@@ -163,20 +139,6 @@ public class AttackAction : BaseAction
 
         m_startPos = m_owner.transform.position;
         m_finishPos = m_startPos + viewVec * m_atkDistance[m_nowCombo];
-    }
-
-    /// <summary>
-    /// 공격 예약 했는지 체크(안했으면 공격 상태 종료)
-    /// 사라질 예정(EndAttack이 대체)
-    /// </summary>
-    public void AtkEndCheck()
-    {
-        if (!m_nextAtk && m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.ATK)
-        {
-            if (m_controller.IsMoving())
-                m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
-            else m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
-        }
     }
 
     /// <summary>
