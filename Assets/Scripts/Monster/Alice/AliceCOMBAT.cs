@@ -89,23 +89,25 @@ public class AliceCOMBAT : AliceFSMState
     {
         if (Util.Detect(transform.position, manager.playerObj.transform.position, 4))
         {
-            CurPatternCheck(AliceAttackState.Combat);
+
             IsAttack = true;
+            CurPatternCheck(AliceAttackState.Combat);
 
         }
         if (!Util.Detect(transform.position, manager.playerObj.transform.position, 4) &&Util.Detect(transform.position, manager.playerObj.transform.position, 15) &&DontMove == false)
         {
-            CurPatternCheck(AliceAttackState.Combat);
+
             IsAttack = false;
+            CurPatternCheck(AliceAttackState.Combat);
 
         }
-        //if (!Util.Detect(transform.position, manager.playerObj.transform.position, 15) && IsRush == false)
-        //{
-        //    IsAttack = false;
-        //    TeleportAfterState = AliceAttackState.Rush;
-        //    CurPatternCheck(AliceAttackState.Teleport);
+        if (!Util.Detect(transform.position, manager.playerObj.transform.position, 15) && IsRush == false && manager.PlayerIsAttack == true)
+        {
+            IsAttack = false;
+            TeleportAfterState = AliceAttackState.Rush;
+            CurPatternCheck(AliceAttackState.Teleport);
 
-        //}
+        }
     }
 
 
@@ -177,8 +179,7 @@ public class AliceCOMBAT : AliceFSMState
     }
 
     public void SetCOMBATState()
-    {
-        
+    { 
         DontMove = false;
         if(IsRush == true)
         {
@@ -189,11 +190,11 @@ public class AliceCOMBAT : AliceFSMState
     public void ReturnDefaultAttack()//특정 패턴이 끝난 후 일반 공격으로 변경
     {
         IsAttack = true;
+        DontMove = false;
         if (IsRush == true)
         {
             IsRush = false;
         }
-        DontMove = false;
         CurPatternCheck(AliceAttackState.Combat);
     }
     void OneCloseAttack()
