@@ -25,6 +25,7 @@ public class AliceCOMBAT : AliceFSMState
     public int CurFarAtkCut = 90;
     public int startAttack;
     public int teleportAft;
+    public Vector3 RushPos;
 
     public bool DontMove = false;
     public bool IsAttack = true;
@@ -60,18 +61,18 @@ public class AliceCOMBAT : AliceFSMState
 
         }
 
-        if(IsAttack == true)
-        {
-           // AliceHPCheck();
-
-        }
 
         if(IsAttack == false)
         {
             Util.CKRotate(transform, manager.playerObj.transform.position, manager.rotateSpeed);
 
         }
-
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            IsAttack = false;
+            TeleportAfterState = AliceAttackState.Rush;
+            CurPatternCheck(AliceAttackState.Teleport);
+        }
 
     }
         
@@ -88,23 +89,23 @@ public class AliceCOMBAT : AliceFSMState
     {
         if (Util.Detect(transform.position, manager.playerObj.transform.position, 4))
         {
-
-            IsAttack = true;
             CurPatternCheck(AliceAttackState.Combat);
+            IsAttack = true;
+
         }
         if (!Util.Detect(transform.position, manager.playerObj.transform.position, 4) &&Util.Detect(transform.position, manager.playerObj.transform.position, 15) &&DontMove == false)
         {
-            IsAttack = false;
             CurPatternCheck(AliceAttackState.Combat);
-        }
-        if(!Util.Detect(transform.position, manager.playerObj.transform.position, 15))
-        {
             IsAttack = false;
-            DontMove = true;
-            TeleportAfterState = AliceAttackState.Rush;
-            CurPatternCheck(AliceAttackState.Combat);
 
         }
+        //if (!Util.Detect(transform.position, manager.playerObj.transform.position, 15) && IsRush == false)
+        //{
+        //    IsAttack = false;
+        //    TeleportAfterState = AliceAttackState.Rush;
+        //    CurPatternCheck(AliceAttackState.Teleport);
+
+        //}
     }
 
 
@@ -117,6 +118,8 @@ public class AliceCOMBAT : AliceFSMState
             if (manager.CurAliceHP < CurFarAtkCut)//공격 체크에 -10 넣기
             {
                 IsAttack = false;
+                //TeleportAfterState = AliceAttackState.Rush;
+                //CurPatternCheck(AliceAttackState.Teleport);
                 TeleportAfterState = AliceAttackState.FarAttack;
                 CurPatternCheck(AliceAttackState.Teleport);
                 return;
@@ -138,6 +141,7 @@ public class AliceCOMBAT : AliceFSMState
         if(IsAttack == false)
         {
             if(manager.CurAliceHP < 50){
+                DontMove = true;
                 TeleportAfterState = AliceAttackState.Summon;
                 CurPatternCheck(AliceAttackState.Teleport);
             }
@@ -174,15 +178,23 @@ public class AliceCOMBAT : AliceFSMState
 
     public void SetCOMBATState()
     {
-        //IsAttack = true;
+        
         DontMove = false;
-        manager.anim.SetInteger("curAttack", 0);
+        if(IsRush == true)
+        {
+            IsRush = false;
+        }
+        CurPatternCheck(AliceAttackState.Combat);
     }
     public void ReturnDefaultAttack()//특정 패턴이 끝난 후 일반 공격으로 변경
     {
         IsAttack = true;
+        if (IsRush == true)
+        {
+            IsRush = false;
+        }
         DontMove = false;
-        manager.anim.SetInteger("curAttack", 0);
+        CurPatternCheck(AliceAttackState.Combat);
     }
     void OneCloseAttack()
     {
@@ -204,7 +216,9 @@ public class AliceCOMBAT : AliceFSMState
     }
     void RushAttack()
     {
-        Util.CKMove(manager.gameObject, manager.transform, manager.playerObj.transform.position, 20, manager.rotateSpeed);
+        IsRush = true;
+        RushPos = manager.playerObj.transform.position;
+
     }
     public void Teleport()
     {
@@ -216,6 +230,7 @@ public class AliceCOMBAT : AliceFSMState
     }
     public void TeleportAfter()
     {
+        Debug.Log("TeleportCheck");
         CurPatternCheck(TeleportAfterState);
         //텔레포트 후 공격 판정
     }
