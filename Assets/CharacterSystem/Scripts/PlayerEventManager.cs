@@ -7,6 +7,7 @@ public class PlayerEventManager : MonoBehaviour
 {
     [SerializeField] UnityEvent[] m_atkEvent;
     [SerializeField] UnityEvent[] m_dodgeEvent;
+    [SerializeField] UnityEvent[] m_damageEvent;
 
     public enum AtkEnum
     {
@@ -21,6 +22,11 @@ public class PlayerEventManager : MonoBehaviour
         DodgeEnd
     }
 
+    public enum DamageEnum
+    {
+        DamageEnd
+    }
+
     /// <summary>
     /// 공격 애니메이션에서 실행시킬 이벤트
     /// </summary>
@@ -33,5 +39,10 @@ public class PlayerEventManager : MonoBehaviour
     public void OnDodgeEvent(DodgeEnum e)
     {
         m_dodgeEvent[(int)e].Invoke();
+    }
+
+    public void OnDamageEvent(DamageEnum e)
+    {
+        m_damageEvent[(int)e].Invoke();
     }
 }
