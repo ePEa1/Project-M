@@ -13,7 +13,7 @@ public class DodgeAction : BaseAction
 
     #region Value
 
-    public float m_nowDodge = 0.0f; //회피 이벤트 지속 시간 체크용
+    float m_nowDodge = 0.0f; //회피 이벤트 지속 시간 체크용
 
     Vector3 m_startPos;
     Vector3 m_finishPos;
