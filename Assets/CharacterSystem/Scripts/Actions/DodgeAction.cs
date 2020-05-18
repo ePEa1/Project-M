@@ -95,8 +95,6 @@ public class DodgeAction : BaseAction
     {
         m_nowDodge = 0.0f;
 
-        Debug.Log("finish Dodge");
-
         if (m_controller.IsMoving())
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
