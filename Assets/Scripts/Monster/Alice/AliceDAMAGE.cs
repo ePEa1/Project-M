@@ -38,6 +38,7 @@ public class AliceDAMAGE : AliceFSMState
             {
                 manager.PlayerIsAttack = true;
             }
+            manager.DamageSound.Play();
             damInfo = other.GetComponent<AtkCollider>();
             //manager.anim.Rebind();
             //manager.anim.Play("DAMAGE");

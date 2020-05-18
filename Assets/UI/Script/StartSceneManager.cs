@@ -20,7 +20,7 @@ public class StartSceneManager : MonoBehaviour
     }
     public void StartGameButton()
     {
-        SceneManager.LoadScene("MonsterTestInGraphic");
+        SceneManager.LoadScene("GraphiWithMonster");
     }
     public void OpenOption()
     {
