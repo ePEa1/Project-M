@@ -26,12 +26,14 @@ public class CharacterCam : MonoBehaviour
     float m_x = 0; //x 회전값
     float m_y = 0; //y 회전값
 
-    float m_stopTime = 0;
+    public float m_stopTime = 0;
 
     AnimationCurve[] m_shakeCurve;
     float m_shakeTime = 0.0f;
     float m_shakeTimeMax = 0.0f;
     Vector3 m_shakeVec = Vector3.zero;
+
+    public bool isStop = false;
 
     private void Awake()
     {
@@ -45,7 +47,8 @@ public class CharacterCam : MonoBehaviour
     {
         SetCamPositionToMouse();
 
-        PlayStop();
+        if (isStop)
+            PlayStop();
     }
 
     /// <summary>
@@ -54,16 +57,21 @@ public class CharacterCam : MonoBehaviour
     /// <param name="t"></param>
     public void StopFrame(float t)
     {
-        Time.timeScale = 0.001f;
+        Time.timeScale = 0.0001f;
         m_stopTime = t * Time.timeScale;
+        isStop = true;
     }
 
 
     void PlayStop()
     {
-        m_stopTime = Mathf.Max(0, m_stopTime - Time.deltaTime);
         if (m_stopTime == 0)
+        {
             Time.timeScale = 1;
+            isStop = false;
+        }
+        if (Time.deltaTime < 0.0001f)
+            m_stopTime = Mathf.Max(0, m_stopTime - Time.deltaTime);
     }
 
     /// <summary>

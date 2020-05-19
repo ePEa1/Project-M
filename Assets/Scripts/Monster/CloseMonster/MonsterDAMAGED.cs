@@ -29,11 +29,13 @@ public class MonsterDAMAGED : MonsterFSMState
         if(other.gameObject.tag == "PCAtkCollider")
         {
             Debug.Log("Check");
-            DamageSound.Play();
+            
             damInfo = other.GetComponent<AtkCollider>();
             manager.anim.Rebind();
             manager.anim.Play("DAMAGE");
-            other.GetComponent<AtkCollider>().AtkEvent();
+
+            if (damInfo.AtkEvent())
+                DamageSound.Play();
 
             IsDamageCheck();
 

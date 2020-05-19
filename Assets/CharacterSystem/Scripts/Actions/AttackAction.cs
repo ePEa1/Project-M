@@ -10,14 +10,12 @@ public class AttackAction : BaseAction
     [SerializeField] float[] m_atkDistance; //타격당 이동거리
     [SerializeField] AnimationCurve[] m_atkDistanceCurve; //타격당 이동 커브
     [SerializeField] float[] m_atkSpeed; //타격당 공격 이동 시간
-    //[SerializeField] float[] m_atkKnockPower; //타격당 넉백 파워
-    //[SerializeField] float[] m_atkDamage; //타격당 공격 데미지
     [SerializeField] BoxCollider[] m_atkRange; //타격당 공격 범위(콜라이더 오브젝트)
-    //[SerializeField] float[] m_atkDamTiming; //타격당 데미지 들어가는 타이밍
-    //[SerializeField] float[] m_effTiming; //타격당 이펙트 생성 타이밍
     [SerializeField] GameObject[] m_atkEff; //타격탕 생성시킬 이펙트
     [SerializeField] Vector3[] m_effPos; //타격당 생성시킬 이펙트 위치
     [SerializeField] Vector3[] m_effAngle; //타격당 생성시킬 이펙트 각도
+    [SerializeField] AudioSource[] m_atkSfx; //타격당 효과음
+
     #endregion
 
     #region Value
@@ -193,6 +191,11 @@ public class AttackAction : BaseAction
         }
     }
 
+    public void PlaySfx()
+    {
+        m_atkSfx[m_currentCombo].Play();
+    }
+
     /// <summary>
     /// 공격 콜라이더 활성화
     /// </summary>
@@ -200,6 +203,7 @@ public class AttackAction : BaseAction
     /// <returns></returns>
     IEnumerator AtkColliderOnOff(BoxCollider atkCol)
     {
+        atkCol.GetComponent<AtkCollider>().isAttacking = false;
         atkCol.gameObject.SetActive(true);
         float t = 0.1f;
 

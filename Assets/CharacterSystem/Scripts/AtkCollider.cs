@@ -24,7 +24,6 @@ public class AtkCollider : MonoBehaviour
         {
             m_atkEvents.Invoke();
             isAttacking = true;
-
             return true;
         }
         else return false;

@@ -15,7 +15,8 @@ public class PlayerEventManager : MonoBehaviour
         NextAtkCheck,
         AtkHitTime,
         CreateEffect,
-        EndAttack
+        EndAttack,
+        PlaySfx
     }
 
     public enum DodgeEnum
