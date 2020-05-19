@@ -5,12 +5,18 @@ using UnityEngine;
 public class MonsterATTACK : MonsterFSMState
 {
     public MonsterCHASE chase;
+    public Collider AttackCol;
     public override void BeginState()
     {
         base.BeginState();
 
     }
+    private void Start()
+    {
+        AttackCol = transform.GetChild(2).GetComponent<Collider>();
+        AttackCol.enabled = false;
 
+    }
     // Update is called once per frame
     void Update()
     {
@@ -35,5 +41,12 @@ public class MonsterATTACK : MonsterFSMState
 
         Util.CKRotate(transform, manager.playerObj.transform.position, manager.stat.rotateSpeed);
         
+    }
+
+    IEnumerator SetCollider()
+    {
+        AttackCol.enabled = true;
+        yield return new WaitForSeconds(0.2f);
+        AttackCol.enabled = false;
     }
 }
