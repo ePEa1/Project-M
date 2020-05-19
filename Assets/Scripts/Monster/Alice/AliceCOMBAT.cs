@@ -92,6 +92,7 @@ public class AliceCOMBAT : AliceFSMState
 
             IsAttack = true;
             CurPatternCheck(AliceAttackState.Combat);
+            //AliceHPCheck();
 
         }
         if (!Util.Detect(transform.position, manager.playerObj.transform.position, 4) &&Util.Detect(transform.position, manager.playerObj.transform.position, 10) &&DontMove == false && manager.PlayerIsAttack == true)
@@ -99,7 +100,7 @@ public class AliceCOMBAT : AliceFSMState
 
             IsAttack = false;
             CurPatternCheck(AliceAttackState.Combat);
-
+           // AliceHPCheck();
 
         }
         //if (!Util.Detect(transform.position, manager.playerObj.transform.position, 10))
