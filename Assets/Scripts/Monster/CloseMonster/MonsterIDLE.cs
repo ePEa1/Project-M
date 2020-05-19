@@ -23,7 +23,7 @@ public class MonsterIDLE : MonsterFSMState
     // Update is called once per frame
     void Update()
     {
-        if (!Util.Detect(transform.position, manager.playerObj.transform.position,6))
+        if (Util.Detect(transform.position, manager.playerObj.transform.position,6))
         {
             manager.SetState(DummyState.CHASE);
             return;

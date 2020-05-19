@@ -31,17 +31,29 @@ public class MonsterDAMAGED : MonsterFSMState
             Debug.Log("Check");
             
             damInfo = other.GetComponent<AtkCollider>();
+
             manager.anim.Rebind();
             manager.anim.Play("DAMAGE");
 
             if (damInfo.AtkEvent())
-                DamageSound.Play();
+                StartCoroutine(StopMoment());
+            DamageSound.Play();
 
             IsDamageCheck();
 
             //StartCoroutine(KnockBack());
             KnockBack();
         }
+    }
+
+    IEnumerator StopMoment()
+    {
+        manager.anim.Play("DAMAGE");
+        yield return new WaitForSeconds(0.2f);
+        manager.anim.speed = 0;
+        yield return new WaitForSeconds(0.5f);
+        manager.anim.speed = 1;
+
     }
     void IsDamageCheck()
     {

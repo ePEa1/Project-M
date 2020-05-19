@@ -46,6 +46,11 @@ public class AliceDAMAGE : AliceFSMState
             KnockBack();
         }
     }
+
+    IEnumerator Damage()
+    {
+        yield return new WaitForSeconds(0.2f);
+    }
     void IsDamageCheck(float damage)
     {
         CreatHitEff();
