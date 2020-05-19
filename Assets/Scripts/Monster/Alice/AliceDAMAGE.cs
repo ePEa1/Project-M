@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class AliceDAMAGE : AliceFSMState
 {
     public GameObject hiteff;
-    public Slider HPGauge;
      AtkCollider damInfo;
     public EnemyHPViewManager HpManager;
 
@@ -16,13 +15,13 @@ public class AliceDAMAGE : AliceFSMState
         base.BeginState();
     }
 
-
     // Start is called before the first frame update
     void Start()
     {
         manager = GetComponentInParent<AliceFSMManager>();
-        HPGauge = GameObject.FindGameObjectWithTag("HPGauge").GetComponent<Slider>();
-        HpManager = HPGauge.GetComponent<EnemyHPViewManager>();
+        HpManager = GameObject.FindGameObjectWithTag("HPGauge").GetComponent<EnemyHPViewManager>();
+        HpManager.m_maxHp = manager.CurAliceHP;
+        HpManager.Setup();
     }
 
     // Update is called once per frame
@@ -38,22 +37,21 @@ public class AliceDAMAGE : AliceFSMState
             {
                 manager.PlayerIsAttack = true;
             }
-            manager.DamageSound.Play();
             damInfo = other.GetComponent<AtkCollider>();
             //manager.anim.Rebind();
             //manager.anim.Play("DAMAGE");
-            IsDamageCheck();
-            HpManager.ShowHP();
-            other.GetComponent<AtkCollider>().AtkEvent();
+            IsDamageCheck(damInfo.atkDamage);
+            if (damInfo.AtkEvent())
+                manager.DamageSound.Play();
             KnockBack();
         }
     }
-    void IsDamageCheck()
+    void IsDamageCheck(float damage)
     {
         CreatHitEff();
         IsDamaged = true;
-        manager.CurAliceHP -= 0.5f;//후에 데미지로 변경
-        HpManager.GaugeVal = manager.CurAliceHP;
+        manager.CurAliceHP -= damage; //후에 데미지로 변경
+        HpManager.ChangeHp(manager.CurAliceHP);
     }
     void CreatHitEff()
     {

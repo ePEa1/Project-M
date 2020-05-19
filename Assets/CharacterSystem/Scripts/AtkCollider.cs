@@ -18,12 +18,15 @@ public class AtkCollider : MonoBehaviour
         isAttacking = false;
     }
 
-    public void AtkEvent()
+    public bool AtkEvent()
     {
         if (!isAttacking)
         {
             m_atkEvents.Invoke();
             isAttacking = true;
+
+            return true;
         }
+        else return false;
     }
 }
