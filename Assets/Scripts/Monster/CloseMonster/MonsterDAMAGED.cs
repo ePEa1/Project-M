@@ -34,9 +34,7 @@ public class MonsterDAMAGED : MonsterFSMState
             manager.anim.Rebind();
             manager.anim.Play("DAMAGE");
             other.GetComponent<AtkCollider>().AtkEvent();
-
             IsDamageCheck();
-
             //StartCoroutine(KnockBack());
             KnockBack();
         }
