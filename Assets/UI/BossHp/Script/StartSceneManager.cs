@@ -7,9 +7,6 @@ using UnityEngine.SceneManagement;
 public class StartSceneManager : MonoBehaviour
 {
     public GameObject OptionPage;
-
-    [SerializeField] string m_nextScene;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +20,7 @@ public class StartSceneManager : MonoBehaviour
     }
     public void StartGameButton()
     {
-        SceneManager.LoadScene(m_nextScene);
+        SceneManager.LoadScene("GraphiWithMonster");
     }
     public void OpenOption()
     {

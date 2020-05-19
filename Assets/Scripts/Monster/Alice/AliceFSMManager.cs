@@ -22,6 +22,7 @@ public enum AliceAttackPattern
 }
 public class AliceFSMManager : MonoBehaviour,IFSMManager
 {
+    public AudioSource DamageSound;
     public AliceState curState;
     public AliceState startState;
     public AliceAttackPattern curAttack;

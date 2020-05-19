@@ -20,7 +20,7 @@ public class AliceShootObjManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if(other.gameObject.tag == "PlayerDamage")
         {
             //데미지 넣는 함수
             Destroy(gameObject);

@@ -5,6 +5,7 @@ using UnityEngine;
 public class MonsterDAMAGED : MonsterFSMState
 {
     public GameObject hiteff;
+    public AudioSource DamageSound;
     AtkCollider damInfo;
     public int SetDamage;
     public bool IsDamaged;
@@ -12,6 +13,7 @@ public class MonsterDAMAGED : MonsterFSMState
     void Start()
     {
         manager = GetComponentInParent<MonsterFSMManager>();
+        DamageSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -27,8 +29,12 @@ public class MonsterDAMAGED : MonsterFSMState
         if(other.gameObject.tag == "PCAtkCollider")
         {
             Debug.Log("Check");
+            DamageSound.Play();
             damInfo = other.GetComponent<AtkCollider>();
-            manager.anim.SetInteger("curState", 3);
+            manager.anim.Rebind();
+            manager.anim.Play("DAMAGE");
+            other.GetComponent<AtkCollider>().AtkEvent();
+
             IsDamageCheck();
 
             //StartCoroutine(KnockBack());
