@@ -33,7 +33,7 @@ public class MonsterMOVE : MonsterFSMState
     // Update is called once per frame
     void Update()
     {
-        if (!Util.Detect(transform.position, manager.playerObj.transform.position))
+        if (!Util.Detect(transform.position, manager.playerObj.transform.position,6))
         {
             manager.SetState(DummyState.CHASE);
             return;
@@ -41,11 +41,10 @@ public class MonsterMOVE : MonsterFSMState
 
         Util.CKMove(
             manager.gameObject,
-    transform,
-    destination,
-    manager.stat.moveSpeed,
-    manager.stat.rotateSpeed,
-    manager.stat.fallSpeed);
+            transform,
+            destination,
+            manager.stat.moveSpeed,
+            manager.stat.rotateSpeed);
         StartCoroutine("WaitForIt");
 
 

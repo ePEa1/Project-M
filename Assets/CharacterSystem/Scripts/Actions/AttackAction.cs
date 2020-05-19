@@ -24,7 +24,7 @@ public class AttackAction : BaseAction
 
     int m_nowCombo = 0; //현재 타격 콤보
     int m_maxCombo; //최대 콤보
-    public int m_currentCombo = 0; //이벤트 실행시 기준 콤보
+    int m_currentCombo = 0; //이벤트 실행시 기준 콤보
 
     bool m_nextAtk = false; //공격 예약이 되있는지 체크
     bool m_nextAtkOk = false; //다음 공격 예약이 가능한 상태인지 체크
@@ -39,10 +39,10 @@ public class AttackAction : BaseAction
 
     protected override BaseAction OnStartAction()
     {
-        SetPath();
         m_animator.SetBool("IsAtk", true);
-        m_nextAtk = false;
-        m_atkTime = 0.0f;
+        m_animator.SetTrigger("Atk");
+        m_nextAtk = true;
+        NextAttacking();
 
         return this;
     }
@@ -58,8 +58,6 @@ public class AttackAction : BaseAction
 
         //애니메이터에 공격 취소 알림
         m_animator.SetBool("IsAtk", false);
-
-        AtkColliderOff();
     }
 
     protected override void AnyStateAction()
@@ -102,13 +100,18 @@ public class AttackAction : BaseAction
     }
 
     /// <summary>
-    /// 공격 예약 불가능 상태로 변경
+    /// 공격 상태 종료
     /// </summary>
-    public void NextAtkClose()
+    public void EndAttack()
     {
-        m_nextAtkOk = false;
+        //m_nextAtkOk = false;
 
-        AtkColliderOff();
+        if (!m_nextAtk)
+        {
+            if (m_controller.IsMoving())
+                m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
+            else m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
+        }
     }
 
     /// <summary>
@@ -119,27 +122,7 @@ public class AttackAction : BaseAction
         if (m_nextAtkOk && m_controller.IsAttack())
         {
             m_nextAtk = true;
-            m_animator.SetBool("IsAtk", true);
         }
-    }
-
-    /// <summary>
-    /// 공격 시작할 때 갱신되는 정보 설정 이벤트
-    /// </summary>
-    public void AtkStartEvent()
-    {
-        //데이터 관련
-        m_atkTime = 0.0f;
-        m_animator.SetBool("IsAtk", false);
-        m_nextAtkOk = false;
-        m_ac = 1.0f / m_atkSpeed[m_nowCombo];
-
-        SetPath();
-        m_currentCombo = m_nowCombo;
-
-        m_nowCombo++;
-        if (m_nowCombo >= m_maxCombo)
-            m_nowCombo = 0;
     }
 
     /// <summary>
@@ -159,38 +142,15 @@ public class AttackAction : BaseAction
     }
 
     /// <summary>
-    /// 공격 예약 했는지 체크(안했으면 공격 상태 종료)
-    /// </summary>
-    public void AtkEndCheck()
-    {
-        if (!m_nextAtk && m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.ATK)
-        {
-            if (m_controller.IsMoving())
-                m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
-            else m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
-        }
-    }
-
-    /// <summary>
-    /// 공격 범위 콜라이더 비활성화
-    /// </summary>
-    void AtkColliderOff()
-    {
-        for (int i = 0; i < m_atkRange.Length; i++)
-        {
-            m_atkRange[i].enabled = false;
-        }
-    }
-
-    /// <summary>
     /// 공격 범위 콜라이더 활성화
     /// </summary>
     public void AtkTiming()
     {
         if (m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.ATK)
         {
-            m_atkRange[m_currentCombo].enabled = true;
-
+            m_atkRange[m_currentCombo].GetComponent<AtkCollider>().isAttacking = false;
+            StartCoroutine(AtkColliderOnOff(m_atkRange[m_currentCombo]));
+            
             Vector3 atkVec = m_owner.transform.rotation * new Vector3(0.0f, 0.0f, -1.0f);
 
             m_atkRange[m_currentCombo].GetComponent<AtkCollider>().knockVec = atkVec.normalized;
@@ -209,6 +169,48 @@ public class AttackAction : BaseAction
             eff.transform.position = m_owner.transform.position + new Vector3(0.0f, m_effPos[m_currentCombo].y, 0.0f)
                 + eff.transform.rotation * -new Vector3(m_effPos[m_currentCombo].x, 0.0f, m_effPos[m_currentCombo].z);
         }
+    }
+
+    /// <summary>
+    /// 다음 공격 예약한거 반영 이벤트
+    /// </summary>
+    public void NextAttacking()
+    {
+        m_nextAtkOk = false;
+
+        if (m_nextAtk) //다음 공격 예약 했을 경우
+        {
+            m_atkTime = 0.0f;
+            m_animator.SetTrigger("Atk");
+            m_ac = 1.0f / m_atkSpeed[m_nowCombo];
+
+            SetPath();
+            m_currentCombo = m_nowCombo;
+
+            m_nowCombo++;
+            if (m_nowCombo >= m_maxCombo)
+                m_nowCombo = 0;
+        }
+    }
+
+    /// <summary>
+    /// 공격 콜라이더 활성화
+    /// </summary>
+    /// <param name="atkCol"></param>
+    /// <returns></returns>
+    IEnumerator AtkColliderOnOff(BoxCollider atkCol)
+    {
+        atkCol.gameObject.SetActive(true);
+        float t = 0.1f;
+
+        while (t > 0.0f)
+        {
+            t -= Time.deltaTime;
+            yield return true;
+        }
+        atkCol.gameObject.SetActive(false);
+
+        yield return null;
     }
 
     #endregion

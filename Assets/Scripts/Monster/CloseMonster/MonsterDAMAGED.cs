@@ -5,6 +5,7 @@ using UnityEngine;
 public class MonsterDAMAGED : MonsterFSMState
 {
     public GameObject hiteff;
+    public AudioSource DamageSound;
     AtkCollider damInfo;
     public int SetDamage;
     public bool IsDamaged;
@@ -12,20 +13,28 @@ public class MonsterDAMAGED : MonsterFSMState
     void Start()
     {
         manager = GetComponentInParent<MonsterFSMManager>();
+        DamageSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(manager.stat.hp <= 0)
+        {
+            manager.SetDead();
+        }
     }
     public void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "PCAtkCollider")
         {
             Debug.Log("Check");
+            DamageSound.Play();
             damInfo = other.GetComponent<AtkCollider>();
-            manager.anim.SetInteger("curState", 3);
+            manager.anim.Rebind();
+            manager.anim.Play("DAMAGE");
+            other.GetComponent<AtkCollider>().AtkEvent();
+
             IsDamageCheck();
 
             //StartCoroutine(KnockBack());
@@ -58,7 +67,7 @@ public class MonsterDAMAGED : MonsterFSMState
         Debug.Log("startcorutine");
         Vector3 knockbackPos = manager.transform.position + damInfo.knockVec * damInfo.knockPower;
         manager.transform.position = knockbackPos;
-
+        manager.stat.hp -= 10;
         //yield return new WaitForSeconds(0.3f);
         IsDamaged = false;
     }

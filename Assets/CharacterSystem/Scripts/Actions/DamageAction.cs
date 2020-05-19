@@ -68,7 +68,7 @@ public class DamageAction : BaseAction
     /// <summary>
     /// 넉백 다 끝났으면 실행되는 함수
     /// </summary>
-    void FinishKnock()
+    public void FinishKnock()
     {
         m_animator.SetBool("IsDamage", false);
 

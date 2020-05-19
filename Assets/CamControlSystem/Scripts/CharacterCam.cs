@@ -26,8 +26,17 @@ public class CharacterCam : MonoBehaviour
     float m_x = 0; //x 회전값
     float m_y = 0; //y 회전값
 
+    float m_stopTime = 0;
+
+    AnimationCurve[] m_shakeCurve;
+    float m_shakeTime = 0.0f;
+    float m_shakeTimeMax = 0.0f;
+    Vector3 m_shakeVec = Vector3.zero;
+
     private void Awake()
     {
+        m_shakeCurve = new AnimationCurve[2];
+
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -35,6 +44,26 @@ public class CharacterCam : MonoBehaviour
     void Update()
     {
         SetCamPositionToMouse();
+
+        PlayStop();
+    }
+
+    /// <summary>
+    /// 프레임스탑
+    /// </summary>
+    /// <param name="t"></param>
+    public void StopFrame(float t)
+    {
+        Time.timeScale = 0.001f;
+        m_stopTime = t * Time.timeScale;
+    }
+
+
+    void PlayStop()
+    {
+        m_stopTime = Mathf.Max(0, m_stopTime - Time.deltaTime);
+        if (m_stopTime == 0)
+            Time.timeScale = 1;
     }
 
     /// <summary>
@@ -50,5 +79,16 @@ public class CharacterCam : MonoBehaviour
 
         transform.rotation = dir;//Quaternion.Slerp(transform.rotation, dir, m_moveSpeed);
         transform.position = Vector3.Lerp(transform.position, pos, m_moveSpeed*Time.deltaTime);
+    }
+
+    /// <summary>
+    /// 커브 카메라쉐이킹
+    /// </summary>
+    void PlayShakeToCurve()
+    {
+        if (m_shakeTimeMax != 0.0f)
+        {
+
+        }
     }
 }
