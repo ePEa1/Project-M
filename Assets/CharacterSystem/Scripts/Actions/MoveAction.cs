@@ -5,9 +5,6 @@ using ProjectM.ePEa.PlayerData;
 
 public class MoveAction : BaseAction
 {
-    bool change = false;
-
-
     #region events
 
     protected override BaseAction OnStartAction()
@@ -26,9 +23,6 @@ public class MoveAction : BaseAction
         if (m_controller.IsMoving())
             m_animator.SetBool("IsMoving", true);
         else m_animator.SetBool("IsMoving", false);
-
-        if (Input.GetKeyDown(KeyCode.M))
-            change = !change;
     }
 
     protected override BaseAction OnUpdateAction()
@@ -56,10 +50,7 @@ public class MoveAction : BaseAction
 
             m_owner.transform.rotation = Quaternion.Slerp(m_owner.transform.rotation, playerDir, Time.deltaTime * PlayerStats.playerStat.m_curveSpeed);
 
-            if (change)
-                m_owner.transform.position += playerDir * new Vector3(0.0f, 0.0f, -PlayerStats.playerStat.m_moveSpeed) * Time.deltaTime;
-            else
-                m_owner.transform.position += m_owner.transform.rotation * new Vector3(0.0f, 0.0f, -PlayerStats.playerStat.m_moveSpeed) * Time.deltaTime;
+            m_owner.transform.position += m_owner.transform.rotation * new Vector3(0.0f, 0.0f, -PlayerStats.playerStat.m_moveSpeed) * Time.deltaTime;
         }
 
         return this;
