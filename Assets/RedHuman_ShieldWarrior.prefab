@@ -47,7 +47,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manager: {fileID: 6940152859740356158}
   hiteff: {fileID: 6598188281045952718, guid: ad5d8ad744c73da4297a5335fe3cabbd, type: 3}
-  HPGauge: {fileID: 0}
   HpManager: {fileID: 0}
   IsDamaged: 0
 --- !u!136 &3651799770427707436
@@ -371,6 +370,7 @@ GameObject:
   - component: {fileID: 3107628533336877683}
   - component: {fileID: 6940152859740356099}
   - component: {fileID: 6940152859740356108}
+  - component: {fileID: 1702056422759789927}
   m_Layer: 0
   m_Name: RedHuman_ShieldWarrior
   m_TagString: Untagged
@@ -603,6 +603,20 @@ MonoBehaviour:
   IsTeleport: 0
   IsRush: 0
   IsSummon: 0
+--- !u!114 &1702056422759789927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6940152859740356097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2518d43e89086b48954f04e9372ec33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OneCloseAtkCol: {fileID: 0}
+  TwoClosetAtkCol: {fileID: 0}
 --- !u!1 &6940166389757903381
 GameObject:
   m_ObjectHideFlags: 0
@@ -2637,6 +2651,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8641752309542741686}
   - component: {fileID: 8641752309542741687}
+  - component: {fileID: 1565040993679480113}
   m_Layer: 0
   m_Name: TwoCloseAtk
   m_TagString: EnemyAtkCollider
@@ -2666,11 +2681,41 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8641752309542741685}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.58, y: 1, z: 2.1195493}
+  m_Center: {x: 0, y: 0, z: 0.55977464}
+--- !u!114 &1565040993679480113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8641752309542741685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f2d70b0dfdb3e439366e020eedb6b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  atkDamage: 1
+  knockPower: 2
+  knockVec: {x: 0, y: 0, z: 0}
+  knockTime: 0
+  m_atkEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8641752309711442950
 GameObject:
   m_ObjectHideFlags: 0
@@ -2777,6 +2822,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8641752310960682326}
   - component: {fileID: 8641752310960682327}
+  - component: {fileID: 6298751713498102006}
   m_Layer: 0
   m_Name: OneCloseAtk
   m_TagString: EnemyAtkCollider
@@ -2806,11 +2852,41 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8641752310960682325}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.57, y: 1, z: 1.69}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6298751713498102006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8641752310960682325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f2d70b0dfdb3e439366e020eedb6b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  atkDamage: 1
+  knockPower: 2
+  knockVec: {x: 0, y: 0, z: 0}
+  knockTime: 0
+  m_atkEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8641752311024450524
 GameObject:
   m_ObjectHideFlags: 0
