@@ -15,13 +15,13 @@ public class AliceRush : AliceCOMBAT
     {
         if (IsRush == true)
         {
-            Vector3 destination = manager.playerObj.transform.position;
 
-            Util.CKMove(manager.gameObject, manager.transform, RushPos, 50, manager.rotateSpeed);
+            transform.position = Vector3.MoveTowards(transform.position, RushPos, 2);
 
-            Vector3 destinationposition = new Vector3(destination.x - transform.position.x, 0, destination.z - transform.position.z);
-            Vector3 diff = destination - destinationposition;
-            Vector3 groundCheck = diff - destination;
+            Vector3 destinationposition = new Vector3(RushPos.x - transform.position.x, 0, RushPos.z - transform.position.z);
+
+            Vector3 diff = RushPos - destinationposition;
+            Vector3 groundCheck = diff - RushPos;
 
             if (groundCheck.sqrMagnitude <= 0.5f)
             {

@@ -127,10 +127,10 @@ public class AliceCOMBAT : AliceFSMState
                 else
                 {
                     IsAttack = false;
-                    //TeleportAfterState = AliceAttackState.Rush;
-                    //CurPatternCheck(AliceAttackState.Teleport);
-                    TeleportAfterState = AliceAttackState.FarAttack;
+                    TeleportAfterState = AliceAttackState.Rush;
                     CurPatternCheck(AliceAttackState.Teleport);
+                    //TeleportAfterState = AliceAttackState.FarAttack;
+                    //CurPatternCheck(AliceAttackState.Teleport);
                     CurFarAtkCut -= 10;
                 }
                 return;
@@ -203,10 +203,14 @@ public class AliceCOMBAT : AliceFSMState
     {
 
     }
+    void SetRushPos()
+    {
+        RushPos = manager.playerObj.transform.position;
+
+    }
     void RushAttack()
     {
         IsRush = true;
-        RushPos = manager.playerObj.transform.position;
 
     }
     public void Teleport()
@@ -214,7 +218,7 @@ public class AliceCOMBAT : AliceFSMState
         DontMove = true;
         
         transform.Translate(new Vector3(0, 0, -10));
-        //transform.position = teleportPos;
+
         //컨트롤러, 모델링 끄고 위치 이동시켜서 다시 켜기
 
     }
