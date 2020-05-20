@@ -381,6 +381,262 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7859980413726479785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2176839081894337539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61379688ec0ff3643afc34fa006d98d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_atkEvent:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6211375064762700809}
+        m_MethodName: NextAtkOk
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6211375064762700809}
+        m_MethodName: NextAttacking
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6211375064762700809}
+        m_MethodName: AtkTiming
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 1
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6211375064762700809}
+        m_MethodName: AtkEff
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6211375064762700809}
+        m_MethodName: EndAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6211375064762700809}
+        m_MethodName: PlaySfx
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_dodgeEvent:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6211375064983477442}
+        m_MethodName: FinishDodge
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_damageEvent:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1619152166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2176839081894337539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ac8d30c6a0d9642a11e5be4c440740, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Root: {fileID: 0}
+  m_UpdateRate: 60
+  m_UpdateMode: 0
+  m_Damping: 0.1
+  m_DampingDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Elasticity: 0.1
+  m_ElasticityDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Stiffness: 0.1
+  m_StiffnessDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Inert: 0
+  m_InertDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Friction: 0
+  m_FrictionDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Radius: 0
+  m_RadiusDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_EndLength: 0
+  m_EndOffset: {x: 0, y: 0, z: 0}
+  m_Gravity: {x: 0, y: 0, z: 0}
+  m_Force: {x: 0, y: 0, z: 0}
+  m_Colliders: []
+  m_Exclusions: []
+  m_FreezeAxis: 0
+  m_DistantDisable: 0
+  m_ReferenceObject: {fileID: 0}
+  m_DistanceToObject: 20
+--- !u!114 &1619152167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2176839081894337539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ac8d30c6a0d9642a11e5be4c440740, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Root: {fileID: 5186528312495958783}
+  m_UpdateRate: 60
+  m_UpdateMode: 0
+  m_Damping: 0.35
+  m_DampingDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Elasticity: 0.06
+  m_ElasticityDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Stiffness: 0.08
+  m_StiffnessDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Inert: 0
+  m_InertDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Friction: 0
+  m_FrictionDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_Radius: 0
+  m_RadiusDistrib:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_EndLength: 0
+  m_EndOffset: {x: 0, y: 0, z: 0}
+  m_Gravity: {x: 0, y: 0, z: 0}
+  m_Force: {x: 0, y: 0, z: 0}
+  m_Colliders: []
+  m_Exclusions:
+  - {fileID: 2743549299908288503}
+  - {fileID: 1461713037299340087}
+  - {fileID: 5186528312495958783}
+  m_FreezeAxis: 0
+  m_DistantDisable: 0
+  m_ReferenceObject: {fileID: 0}
+  m_DistanceToObject: 20
 --- !u!1 &6211375063481365604
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,7 +708,7 @@ Transform:
   m_GameObject: {fileID: 6211375063523530339}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -25.260752, y: 0.8900032, z: 18.019562}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.0000001, y: 0.99999994, z: 1.0000002}
   m_Children:
   - {fileID: 6211375063970007393}
   - {fileID: 2913536783002709520}
@@ -515,9 +771,9 @@ MonoBehaviour:
   m_moveSpeed: 10
   m_movePower: 0
   m_curveSpeed: 10
-  m_dodgeDelay: 1
-  m_dodgeTime: 0.3
-  m_dodgeDistance: 6
+  m_dodgeDelay: 0.7
+  m_dodgeTime: 1
+  m_dodgeDistance: 9
 --- !u!1 &6211375063970007392
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,8 +1013,8 @@ MonoBehaviour:
     m_RotationOrder: 0
   m_atkSpeed:
   - 0.2
-  - 0.2
   - 0.3
+  - 0.4
   m_atkRange:
   - {fileID: 7859980413897908657}
   - {fileID: 7859980413455462295}
@@ -793,7 +1049,7 @@ GameObject:
   - component: {fileID: 6211375064798130380}
   m_Layer: 0
   m_Name: Damage
-  m_TagString: Untagged
+  m_TagString: PlayerDamage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -928,30 +1184,21 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.3
-      inSlope: 17.23749
-      outSlope: 17.23749
+      value: 0.4
+      inSlope: 1.325801
+      outSlope: 1.325801
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.076557636
-    - serializedVersion: 3
-      time: 0.06630484
-      value: 0.9664414
-      inSlope: 6.543638
-      outSlope: 0.108702965
-      tangentMode: 1
-      weightedMode: 3
-      inWeight: 0.48961574
-      outWeight: 0.33333334
+      outWeight: 0.05
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: -0
-      outSlope: -0
+      inSlope: 0.16670877
+      outSlope: 0.16670877
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.085173674
+      inWeight: 0.19583333
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -1272,125 +1519,6 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0.05
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &7859980413726479785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2176839081894337539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61379688ec0ff3643afc34fa006d98d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_atkEvent:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6211375064762700809}
-        m_MethodName: NextAtkOk
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6211375064762700809}
-        m_MethodName: NextAttacking
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6211375064762700809}
-        m_MethodName: AtkTiming
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 1
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6211375064762700809}
-        m_MethodName: AtkEff
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6211375064762700809}
-        m_MethodName: EndAttack
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6211375064762700809}
-        m_MethodName: PlaySfx
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  m_dodgeEvent:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6211375064983477442}
-        m_MethodName: FinishDodge
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  m_damageEvent:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -3122,6 +3250,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -97.252594
+      objectReference: {fileID: 0}
+    - target: {fileID: -3817001862146647299, guid: 2374f343246db71428318e6656703c30,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.12981935
+      objectReference: {fileID: 0}
+    - target: {fileID: -3817001862146647299, guid: 2374f343246db71428318e6656703c30,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.6228677
+      objectReference: {fileID: 0}
+    - target: {fileID: -3817001862146647299, guid: 2374f343246db71428318e6656703c30,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.72026014
+      objectReference: {fileID: 0}
+    - target: {fileID: -3817001862146647299, guid: 2374f343246db71428318e6656703c30,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.2764204
       objectReference: {fileID: 0}
     - target: {fileID: -3757467464340257504, guid: 2374f343246db71428318e6656703c30,
         type: 3}
@@ -5565,15 +5713,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2374f343246db71428318e6656703c30, type: 3}
---- !u!1 &2176839081894337539 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 2374f343246db71428318e6656703c30,
-    type: 3}
-  m_PrefabInstance: {fileID: 7859980414426842378}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2913536783002709520 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 2374f343246db71428318e6656703c30,
+    type: 3}
+  m_PrefabInstance: {fileID: 7859980414426842378}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5186528312495958783 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3093412810150080501, guid: 2374f343246db71428318e6656703c30,
+    type: 3}
+  m_PrefabInstance: {fileID: 7859980414426842378}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2743549299908288503 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3817001862146647299, guid: 2374f343246db71428318e6656703c30,
+    type: 3}
+  m_PrefabInstance: {fileID: 7859980414426842378}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1461713037299340087 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -478139357271140803, guid: 2374f343246db71428318e6656703c30,
     type: 3}
   m_PrefabInstance: {fileID: 7859980414426842378}
   m_PrefabAsset: {fileID: 0}
@@ -5598,6 +5758,12 @@ Transform:
 --- !u!4 &6486301416068540770 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5253525590269465496, guid: 2374f343246db71428318e6656703c30,
+    type: 3}
+  m_PrefabInstance: {fileID: 7859980414426842378}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2176839081894337539 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 2374f343246db71428318e6656703c30,
     type: 3}
   m_PrefabInstance: {fileID: 7859980414426842378}
   m_PrefabAsset: {fileID: 0}
