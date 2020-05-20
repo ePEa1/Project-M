@@ -34,14 +34,22 @@ public class AliceFarAttack : MonoBehaviour
     {
         
     }
-    public void SetObject()
+    public void OneSetObject()
     {
         SetOne = Random.Range(0, 5);
-        SetTwo = Random.Range(0, 5);
-        SetThree = Random.Range(0, 5);
-
         Instantiate(ShootObjs[SetOne], Pos1.transform.position, Quaternion.identity);
+    }
+    public void TwoSetObject()
+    {
+        SetTwo = Random.Range(0, 5);
         Instantiate(ShootObjs[SetTwo], Pos2.transform.position, Quaternion.identity);
+
+    }
+
+    public void ThreeSetObject()
+    {
+        SetThree = Random.Range(0, 5);
         Instantiate(ShootObjs[SetThree], Pos3.transform.position, Quaternion.identity);
+
     }
 }

@@ -2,19 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AliceShootObjManager : AliceATTACK
+public class AliceShootObjManager : AliceFSMState
 {
+    public Vector3 playerPos;
+    public Quaternion playerRot;
     // Start is called before the first frame update
     void Start()
     {
-        transform.Rotate(90, 0, 0);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = transform.position + new Vector3(0, 0, -0.5f) ;
-
+        playerRot = Quaternion.LookRotation(playerPos);
+        transform.Translate(new Vector3(0, 0, 1));
         Destroy(gameObject, 5);
     }
 

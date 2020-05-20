@@ -92,7 +92,6 @@ public class AliceCOMBAT : AliceFSMState
 
             IsAttack = true;
             CurPatternCheck(AliceAttackState.Combat);
-            //AliceHPCheck();
 
         }
         if (!Util.Detect(transform.position, manager.playerObj.transform.position, 4) &&Util.Detect(transform.position, manager.playerObj.transform.position, 10) &&DontMove == false && manager.PlayerIsAttack == true)
@@ -100,7 +99,6 @@ public class AliceCOMBAT : AliceFSMState
 
             IsAttack = false;
             CurPatternCheck(AliceAttackState.Combat);
-           // AliceHPCheck();
 
         }
         //if (!Util.Detect(transform.position, manager.playerObj.transform.position, 10))
@@ -118,12 +116,23 @@ public class AliceCOMBAT : AliceFSMState
             //bool로 다른 패턴 중에는 적용안하게하기 // 기본공격 근거리
 
             if (manager.CurAliceHP < CurFarAtkCut)//공격 체크에 -10 넣기
-            {
-                IsAttack = false;
-                //TeleportAfterState = AliceAttackState.Rush;
-                //CurPatternCheck(AliceAttackState.Teleport);
-                TeleportAfterState = AliceAttackState.FarAttack;
-                CurPatternCheck(AliceAttackState.Teleport);
+            { if (manager.CurAliceHP == 50)
+                {
+                    IsAttack = false;
+                    DontMove = true;
+                    TeleportAfterState = AliceAttackState.Summon;
+                    CurPatternCheck(AliceAttackState.Teleport);
+                    CurFarAtkCut -= 10;
+                }
+                else
+                {
+                    IsAttack = false;
+                    //TeleportAfterState = AliceAttackState.Rush;
+                    //CurPatternCheck(AliceAttackState.Teleport);
+                    TeleportAfterState = AliceAttackState.FarAttack;
+                    CurPatternCheck(AliceAttackState.Teleport);
+                    CurFarAtkCut -= 10;
+                }
                 return;
             }
 
@@ -139,17 +148,7 @@ public class AliceCOMBAT : AliceFSMState
                 }
             
         }
-        if(IsAttack == false)
-        {
-            if (manager.CurAliceHP < 50)
-            {
-                DontMove = true;
-                TeleportAfterState = AliceAttackState.Summon;
-                CurPatternCheck(AliceAttackState.Teleport);
-            }
-            else
-                return;
-        }
+
     }
 
     public void CurPatternCheck(AliceAttackState state)
@@ -211,7 +210,7 @@ public class AliceCOMBAT : AliceFSMState
     public void FarAttack()
     {
         Debug.Log("FarAttack");
-        CurFarAtkCut -= 10;
+
     }
     void Summoning()
     {
@@ -226,8 +225,9 @@ public class AliceCOMBAT : AliceFSMState
     public void Teleport()
     {
         DontMove = true;
-        Vector3 teleportPos = transform.position + new Vector3(0, 0, 1) * 10;
-        transform.position = teleportPos;
+        
+        transform.Translate(new Vector3(0, 0, -10));
+        //transform.position = teleportPos;
         //컨트롤러, 모델링 끄고 위치 이동시켜서 다시 켜기
 
     }
