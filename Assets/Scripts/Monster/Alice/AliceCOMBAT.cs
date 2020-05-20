@@ -198,20 +198,7 @@ public class AliceCOMBAT : AliceFSMState
         }
         CurPatternCheck(AliceAttackState.Combat);
     }
-    void OneCloseAttack()
-    {
 
-    }
-
-    void TwoCloseAttack()
-    {
-
-    }
-    public void FarAttack()
-    {
-        Debug.Log("FarAttack");
-
-    }
     void Summoning()
     {
 

@@ -2,22 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AliceShootObjManager : AliceFSMState
+public class AliceShootObjManager : MonoBehaviour
 {
+    public GameObject Alice;
+    public GameObject player;
     public Vector3 playerPos;
     public Quaternion playerRot;
     // Start is called before the first frame update
     void Start()
     {
-
+        player = GameObject.FindGameObjectWithTag("Player");
+        Alice = GameObject.FindGameObjectWithTag("Alice");
+        transform.rotation = Alice.transform.rotation;
+        playerPos = player.transform.position;
     }
 
+    
     // Update is called once per frame
     void Update()
     {
-        playerRot = Quaternion.LookRotation(playerPos);
-        transform.Translate(new Vector3(0, 0, 1));
-        Destroy(gameObject, 5);
+
+        //transform.Translate(Vector3.forward*2,Space.World);
+        transform.position = Vector3.MoveTowards(transform.position, playerPos, 2);
+        Destroy(gameObject, 2);
     }
 
     private void OnTriggerEnter(Collider other)

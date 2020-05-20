@@ -9,9 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6552166969374822410}
+  - component: {fileID: 3973770612208876909}
+  - component: {fileID: 7379451867271334836}
   m_Layer: 0
   m_Name: Knife
-  m_TagString: Untagged
+  m_TagString: EnemyAtkCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24,13 +26,43 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2312856499144181201}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.069253, y: -1.267304, z: 10.222971}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8958810464347935154}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3973770612208876909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2312856499144181201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af64443a48d6337439cb48aab57ff4ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Alice: {fileID: 0}
+  player: {fileID: 0}
+  playerPos: {x: 0, y: 0, z: 0}
+  playerRot: {x: 0, y: 0, z: 0, w: 0}
+--- !u!136 &7379451867271334836
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2312856499144181201}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.25
+  m_Height: 2.99
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 1.23}
 --- !u!1 &8962013515922153404
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,12 +74,10 @@ GameObject:
   - component: {fileID: 8958810464347935154}
   - component: {fileID: 8947961563132301564}
   - component: {fileID: 8939172100797509884}
-  - component: {fileID: 6146272355140209604}
-  - component: {fileID: 3277892029675087134}
-  - component: {fileID: 2850070078921614969}
+  - component: {fileID: 1566717794995435009}
   m_Layer: 0
   m_Name: Col
-  m_TagString: EnemyAtkCollider
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60,7 +90,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8962013515922153404}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 3.7833452, y: 2.1673055, z: -0.38646507}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 12, y: 12, z: 12}
   m_Children: []
   m_Father: {fileID: 6552166969374822410}
@@ -113,36 +143,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &6146272355140209604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8962013515922153404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af64443a48d6337439cb48aab57ff4ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  manager: {fileID: 0}
-  playerPos: {x: 0, y: 0, z: 0}
-  playerRot: {x: 0, y: 0, z: 0, w: 0}
---- !u!136 &3277892029675087134
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8962013515922153404}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.009670337
-  m_Height: 0.2258468
-  m_Direction: 1
-  m_Center: {x: 0.00014533476, y: 0.10471895, z: 0.00009352869}
---- !u!114 &2850070078921614969
+--- !u!114 &1566717794995435009
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
