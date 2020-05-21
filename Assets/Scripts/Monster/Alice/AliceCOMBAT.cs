@@ -127,10 +127,10 @@ public class AliceCOMBAT : AliceFSMState
                 else
                 {
                     IsAttack = false;
-                    TeleportAfterState = AliceAttackState.Rush;
-                    CurPatternCheck(AliceAttackState.Teleport);
-                    //TeleportAfterState = AliceAttackState.FarAttack;
+                    //TeleportAfterState = AliceAttackState.Rush;
                     //CurPatternCheck(AliceAttackState.Teleport);
+                    TeleportAfterState = AliceAttackState.FarAttack;
+                    CurPatternCheck(AliceAttackState.Teleport);
                     CurFarAtkCut -= 10;
                 }
                 return;
