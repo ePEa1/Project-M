@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class AliceRush : AliceCOMBAT
 {
+    public Collider RushCol;
     // Start is called before the first frame update
     void Start()
     {
-
+        RushCol.enabled = false;
     }
 
     // Update is called once per frame
@@ -29,5 +30,14 @@ public class AliceRush : AliceCOMBAT
                 CurPatternCheck(AliceAttackState.Combat);
             }
         }
+    }
+    public void SetRushCol()
+    {
+        RushCol.enabled = true;
+    }
+
+    public void DeleteRushCol()
+    {
+        RushCol.enabled = false;
     }
 }
