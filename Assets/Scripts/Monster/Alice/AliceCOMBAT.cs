@@ -201,7 +201,7 @@ public class AliceCOMBAT : AliceFSMState
 
     void Summoning()
     {
-
+        //Instantiate(SummonMonster, transform.position, Quaternion.identity);
     }
     void SetRushPos()
     {
@@ -228,4 +228,6 @@ public class AliceCOMBAT : AliceFSMState
         CurPatternCheck(TeleportAfterState);
         //텔레포트 후 공격 판정
     }
+
+
 }
