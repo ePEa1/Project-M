@@ -14,7 +14,7 @@ public class StartSceneManager : MonoBehaviour
     void Start()
     {
         UISound = GetComponent<AudioSource>();
-        RayCastHitButton();
+        //RayCastHitButton();
     }
 
     // Update is called once per frame
