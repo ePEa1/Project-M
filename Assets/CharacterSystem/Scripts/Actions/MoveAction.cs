@@ -5,6 +5,8 @@ using ProjectM.ePEa.PlayerData;
 
 public class MoveAction : BaseAction
 {
+    [SerializeField] LayerMask m_wall;
+
     #region events
 
     protected override BaseAction OnStartAction()
@@ -50,9 +52,24 @@ public class MoveAction : BaseAction
 
             m_owner.transform.rotation = Quaternion.Slerp(m_owner.transform.rotation, playerDir, Time.deltaTime * PlayerStats.playerStat.m_curveSpeed);
 
-            m_owner.transform.position += m_owner.transform.rotation * new Vector3(0.0f, 0.0f, -PlayerStats.playerStat.m_moveSpeed) * Time.deltaTime;
-        }
+            Vector3 moveVec = m_owner.transform.rotation * new Vector3(0.0f, 0.0f, -PlayerStats.playerStat.m_moveSpeed) * Time.deltaTime;
 
+            RaycastHit[] hits = Physics.SphereCastAll(m_owner.transform.position, 0.3f, (m_owner.transform.rotation * -Vector3.forward).normalized, PlayerStats.playerStat.m_moveSpeed * Time.deltaTime, m_wall);
+            if (hits.Length>0)
+            {
+                Vector3 fixedVec = Vector3.zero;
+                for(int i=0;i<hits.Length;i++)
+                {
+                    fixedVec += new Vector3(hits[i].normal.x, 0.0f, hits[i].normal.z).normalized * Vector3.Distance(Vector3.zero, moveVec) * Vector3.Dot(-moveVec.normalized, new Vector3(hits[i].normal.x, 0.0f, hits[i].normal.z).normalized);
+                }
+                m_owner.transform.position += moveVec + fixedVec;
+            }
+            else
+            {
+                m_owner.transform.position += moveVec;
+            }
+        }
+        
         return this;
     }
 

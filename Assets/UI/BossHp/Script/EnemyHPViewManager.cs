@@ -35,10 +35,12 @@ public class EnemyHPViewManager : MonoBehaviour
     public float m_nowHp;
     public float m_maxHp = 0.0f;
 
+    float m_subHp;
+
     bool m_isSetting = false;
 
     float m_hpMaxSize; //hp 한 줄당 체력
-    GameObject[] hps; //hp 줄 객체
+    public GameObject[] hps; //hp 줄 객체
     int m_nowSize = 0; //현재 hp 줄
 
     float m_nowShakePower = 0.0f; //현재 쉐이킹 세기
@@ -72,6 +74,7 @@ public class EnemyHPViewManager : MonoBehaviour
         m_hpMaxSize = m_maxHp / m_hpSize;
         m_nowSize = m_hpSize;
         m_nowHp = m_maxHp;
+        m_subHp = m_nowHp;
 
         //hp바 생성
         hps = new GameObject[m_hpSize];

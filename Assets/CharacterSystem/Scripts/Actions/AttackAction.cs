@@ -20,9 +20,9 @@ public class AttackAction : BaseAction
 
     #region Value
 
-    int m_nowCombo = 0; //현재 타격 콤보
+    public int m_nowCombo = 0; //현재 타격 콤보
     int m_maxCombo; //최대 콤보
-    int m_currentCombo = 0; //이벤트 실행시 기준 콤보
+    public int m_currentCombo = 0; //이벤트 실행시 기준 콤보
 
     bool m_nextAtk = false; //공격 예약이 되있는지 체크
     bool m_nextAtkOk = false; //다음 공격 예약이 가능한 상태인지 체크
@@ -37,8 +37,11 @@ public class AttackAction : BaseAction
 
     protected override BaseAction OnStartAction()
     {
+        m_nowCombo = 0; //공격 콤보 초기화
+        m_currentCombo = 0;
+
+        m_animator.ResetTrigger("Atk");
         m_animator.SetBool("IsAtk", true);
-        m_animator.SetTrigger("Atk");
         m_nextAtk = true;
         NextAttacking();
 
@@ -50,12 +53,14 @@ public class AttackAction : BaseAction
         //공격 예약해놨던거 다 초기화
         m_nextAtk = false;
         m_nextAtkOk = false;
+        
 
         m_nowCombo = 0; //공격 콤보 초기화
         m_currentCombo = 0;
 
         //애니메이터에 공격 취소 알림
         m_animator.SetBool("IsAtk", false);
+        m_animator.ResetTrigger("Atk");
     }
 
     protected override void AnyStateAction()

@@ -15,6 +15,9 @@ public class DodgeAction : BaseAction
 
     float m_nowDodge = 0.0f; //회피 이벤트 지속 시간 체크용
 
+    bool m_nextAtk = false; //공격 예약
+    bool m_nextAtkOk = false; //공격 예약 가능 체크
+
     Vector3 m_startPos;
     Vector3 m_finishPos;
 
@@ -22,6 +25,9 @@ public class DodgeAction : BaseAction
 
     protected override BaseAction OnStartAction()
     {
+        m_nextAtk = false;
+        m_nextAtkOk = false;
+
         if (m_controller.IsMoving())
         {
             Vector3 view = m_owner.transform.position - m_owner.playerCam.position;
@@ -59,6 +65,8 @@ public class DodgeAction : BaseAction
 
     public override void EndAction()
     {
+        m_nextAtk = false;
+        m_nextAtkOk = false;
     }
 
     protected override void AnyStateAction()
@@ -76,12 +84,10 @@ public class DodgeAction : BaseAction
         //캐릭터 포지션 이동
         m_owner.transform.position = Vector3.Lerp(m_startPos, m_finishPos, m_dodgeCurve.Evaluate(m_nowDodge * ac));
 
-        //회피 끝났으면 회피종료함수 실행
-        //이거 애니메이션 이벤트로 뺄거라 애니 나오면 지워야됨
-        //if (m_nowDodge > PlayerStats.playerStat.m_dodgeTime)
-        //{
-        //    FinishDodge();
-        //}
+        if (m_nextAtkOk && m_controller.IsAttack())
+        {
+            m_nextAtk = true;
+        }
 
         return this;
     }
@@ -95,13 +101,27 @@ public class DodgeAction : BaseAction
     {
         m_nowDodge = 0.0f;
 
-        if (m_controller.IsMoving())
+        if (m_nextAtk)
         {
-            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.ATK);
         }
-        else m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
-
+        else
+        {
+            if (m_controller.IsMoving())
+            {
+                m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
+            }
+            else m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
+        }
         m_animator.SetBool("IsDodge", false);
+    }
+    
+    /// <summary>
+    /// 공격 예약 받기 시작
+    /// </summary>
+    public void NextAtkStart()
+    {
+        m_nextAtkOk = true;
     }
 
     #endregion
