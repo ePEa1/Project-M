@@ -47,6 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manager: {fileID: 4358440395676573012}
   hiteff: {fileID: 6598188281045952718, guid: ad5d8ad744c73da4297a5335fe3cabbd, type: 3}
+  skinMat: {fileID: 0}
+  damageMat: {fileID: 0}
+  OriginalMat: {fileID: 0}
   HpManager: {fileID: 0}
   IsDamaged: 0
 --- !u!136 &7962899297598288710
@@ -1164,6 +1167,7 @@ MonoBehaviour:
   TeleportAfterState: 0
   SummonMonster: {fileID: 3347540059428167927, guid: 572c4536ffeb2ab4299b60c37e01a1bc,
     type: 3}
+  SummonPos: {fileID: 0}
   AttackOrder: 
   CurFarAtkCut: 90
   startAttack: 0
@@ -1255,6 +1259,7 @@ MonoBehaviour:
   TeleportAfterState: 0
   SummonMonster: {fileID: 8590232683422074445, guid: 2442a6790ac351f4b9e0dc9e4ada825d,
     type: 3}
+  SummonPos: {fileID: 0}
   AttackOrder: 
   CurFarAtkCut: 90
   startAttack: 0

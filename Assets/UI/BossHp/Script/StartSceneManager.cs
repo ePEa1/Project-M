@@ -34,7 +34,7 @@ public class StartSceneManager : MonoBehaviour
     }
     public void StartGameButton()
     {
-        SceneManager.LoadScene("MonsterScene");
+        SceneManager.LoadScene("0522MonsterScene");
     }
     public void OpenOption()
     {

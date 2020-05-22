@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class AliceDAMAGE : AliceFSMState
 {
     public GameObject hiteff;
+    public SkinnedMeshRenderer skinMat;
+    public Material damageMat;
+    public Material OriginalMat;
      AtkCollider damInfo;
     public EnemyHPViewManager HpManager;
 
@@ -18,6 +21,7 @@ public class AliceDAMAGE : AliceFSMState
     // Start is called before the first frame update
     void Start()
     {
+        //skinMat = GetComponent<SkinnedMeshRenderer>();
         manager = GetComponentInParent<AliceFSMManager>();
         HpManager = GameObject.FindGameObjectWithTag("HPGauge").GetComponent<EnemyHPViewManager>();
         HpManager.m_maxHp = manager.CurAliceHP;
@@ -43,13 +47,18 @@ public class AliceDAMAGE : AliceFSMState
             IsDamageCheck(damInfo.atkDamage);
             if (damInfo.AtkEvent())
                 manager.DamageSound.Play();
+            StartCoroutine(Damage());
             KnockBack();
         }
     }
 
     IEnumerator Damage()
     {
+        skinMat.material = damageMat;
         yield return new WaitForSeconds(0.2f);
+        skinMat.material = OriginalMat;
+
+
     }
     void IsDamageCheck(float damage)
     {

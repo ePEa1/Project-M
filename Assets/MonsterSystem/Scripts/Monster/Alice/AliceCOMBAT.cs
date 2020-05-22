@@ -20,6 +20,7 @@ public class AliceCOMBAT : AliceFSMState
     public AliceAttackState curAtkState;
     public AliceAttackState TeleportAfterState;
     public GameObject SummonMonster;
+    public GameObject SummonPos;
 
     public int[] AttackOrder;
     public int CurFarAtkCut = 90;
@@ -94,11 +95,11 @@ public class AliceCOMBAT : AliceFSMState
             CurPatternCheck(AliceAttackState.Combat);
 
         }
-        if (!Util.Detect(transform.position, manager.playerObj.transform.position, 4) &&Util.Detect(transform.position, manager.playerObj.transform.position, 10) &&DontMove == false && manager.PlayerIsAttack == true)
+        if (!Util.Detect(transform.position, manager.playerObj.transform.position, 4) &&Util.Detect(transform.position, manager.playerObj.transform.position, 10) &&DontMove == false )
         {
 
             IsAttack = false;
-            CurPatternCheck(AliceAttackState.Combat);
+            manager.SetState(AliceState.CHASE);
 
         }
         //if (!Util.Detect(transform.position, manager.playerObj.transform.position, 10))
@@ -201,6 +202,17 @@ public class AliceCOMBAT : AliceFSMState
 
     void Summoning()
     {
+        int x, z;
+        
+        transform.position = Vector3.MoveTowards(transform.position, SummonPos.transform.position, 2);
+        for(int i = 0; i<10; i++)
+        {
+            x = Random.Range(5, 10);
+            z = Random.Range(5, 20);
+            Instantiate(SummonMonster, new Vector3(SummonPos.transform.position.x+x, SummonPos.transform.position.y, transform.transform.position.z+z), Quaternion.identity);
+            i++;
+            return;
+        }
         //Instantiate(SummonMonster, transform.position, Quaternion.identity);
     }
     void SetRushPos()

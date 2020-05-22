@@ -23,7 +23,7 @@ public class AliceShootObjManager : MonoBehaviour
     {
 
         //transform.Translate(Vector3.forward*2,Space.World);
-        transform.position = Vector3.MoveTowards(transform.position, playerPos, 2);
+        transform.position = Vector3.MoveTowards(transform.position, playerPos, 0.5f);
         Destroy(gameObject, 2);
     }
 

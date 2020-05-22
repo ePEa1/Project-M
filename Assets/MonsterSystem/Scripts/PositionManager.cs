@@ -5,7 +5,6 @@ using UnityEngine;
 public class PositionManager : MonoBehaviour
 {
     public GameObject target;
-    public Vector3 LimitPos;
     public GameObject MaxX;
     public GameObject MinX;
     public GameObject MaxZ;
@@ -35,23 +34,23 @@ public class PositionManager : MonoBehaviour
     void Update()
     {
         targetPos = target.transform.position;
-        if(target.transform.position.x >= maxXVal)
+        if(target.transform.position.x > maxXVal)
         {
            target.transform.position = new Vector3(maxXVal, target.transform.position.y, target.transform.position.z);
         }
-        if (target.transform.position.x <= minZVal)
+        else if (target.transform.position.x < minXVal)
         {
             target.transform.position = new Vector3(minXVal, target.transform.position.y, target.transform.position.z);
         }
-        if (target.transform.position.z >= maxZVal)
+        if (target.transform.position.z > maxZVal)
         {
             target.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, maxZVal);
         }
-        if (target.transform.position.z <= minZVal)
+        else if (target.transform.position.z < minZVal)
         {
             target.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, minZVal);
         }
     }
-
+    
     
 }
