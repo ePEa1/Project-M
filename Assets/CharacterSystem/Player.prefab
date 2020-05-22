@@ -643,7 +643,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7db51782d5f6bf7449ba5891cf2c9e1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHp: 0
+  m_size: 0.6
+  m_maxHp: 5
   m_moveSpeed: 10
   m_movePower: 0
   m_curveSpeed: 10
@@ -728,6 +729,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0592007236e4aaf44bba0edf8afd628d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_wall:
+    serializedVersion: 2
+    m_Bits: 3072
 --- !u!1 &5447655127755071445
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,9 +915,9 @@ MonoBehaviour:
   - {fileID: 1892095019}
   - {fileID: 1697049439}
   - {fileID: 393340078}
-  m_nowCombo: 0
-  m_currentCombo: 0
-  m_nextAtk: 0
+  m_wall:
+    serializedVersion: 2
+    m_Bits: 3072
 --- !u!1 &5447655127832443668
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,6 +1095,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  m_wall:
+    serializedVersion: 2
+    m_Bits: 3072
 --- !u!1 &8124083906628262502
 GameObject:
   m_ObjectHideFlags: 0

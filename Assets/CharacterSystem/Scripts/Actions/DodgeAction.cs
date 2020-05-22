@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using ProjectM.ePEa.PlayerData;
 
+using static ProjectM.ePEa.CustomFunctions.CustomFunction;
+
 public class DodgeAction : BaseAction
 {
     #region Inspector
 
     [SerializeField] AnimationCurve m_dodgeCurve; //회피 이동애니 커브
+    [SerializeField] LayerMask m_wall;
 
     #endregion
 
@@ -79,10 +82,22 @@ public class DodgeAction : BaseAction
         //커브에서 0~1 값으로 만드려고 곱하기 위해 만들어둔거
         float ac = 1.0f / PlayerStats.playerStat.m_dodgeTime;
 
+        //캐릭터 포지션 이동--------------------------------------
+        Vector3 beforePos = Vector3.Lerp(m_startPos, m_finishPos, m_dodgeCurve.Evaluate(m_nowDodge * ac));
         m_nowDodge += Time.deltaTime;
+        Vector3 afterPos = Vector3.Lerp(m_startPos, m_finishPos, m_dodgeCurve.Evaluate(m_nowDodge * ac));
 
-        //캐릭터 포지션 이동
-        m_owner.transform.position = Vector3.Lerp(m_startPos, m_finishPos, m_dodgeCurve.Evaluate(m_nowDodge * ac));
+        Vector3 fixedPos = FixedMovePos(m_owner.transform.position, PlayerStats.playerStat.m_size, (afterPos - beforePos).normalized, Vector3.Distance(beforePos, afterPos),
+            m_wall);
+        if (fixedPos!=Vector3.zero)
+        {
+            m_owner.transform.position += (afterPos - beforePos) + fixedPos;
+        }
+        else
+        {
+            m_owner.transform.position += afterPos - beforePos;
+        }
+        //--------------------------------------------------------
 
         if (m_nextAtkOk && m_controller.IsAttack())
         {

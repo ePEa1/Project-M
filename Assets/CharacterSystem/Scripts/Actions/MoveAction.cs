@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using ProjectM.ePEa.PlayerData;
 
+using static ProjectM.ePEa.CustomFunctions.CustomFunction;
+
 public class MoveAction : BaseAction
 {
+    #region Inspector
+
     [SerializeField] LayerMask m_wall;
+
+    #endregion
 
     #region events
 
@@ -51,23 +57,22 @@ public class MoveAction : BaseAction
             Quaternion playerDir = dir * v;
 
             m_owner.transform.rotation = Quaternion.Slerp(m_owner.transform.rotation, playerDir, Time.deltaTime * PlayerStats.playerStat.m_curveSpeed);
-
             Vector3 moveVec = m_owner.transform.rotation * new Vector3(0.0f, 0.0f, -PlayerStats.playerStat.m_moveSpeed) * Time.deltaTime;
 
-            RaycastHit[] hits = Physics.SphereCastAll(m_owner.transform.position, 0.3f, (m_owner.transform.rotation * -Vector3.forward).normalized, PlayerStats.playerStat.m_moveSpeed * Time.deltaTime, m_wall);
-            if (hits.Length>0)
+            //이동---------------------------------------------
+            Vector3 fixedVec = Vector3.zero;
+            fixedVec += FixedMovePos(m_owner.transform.position, PlayerStats.playerStat.m_size, (m_owner.transform.rotation * -Vector3.forward).normalized,
+                    PlayerStats.playerStat.m_moveSpeed * Time.deltaTime, m_wall);
+
+            if (fixedVec != Vector3.zero)
             {
-                Vector3 fixedVec = Vector3.zero;
-                for(int i=0;i<hits.Length;i++)
-                {
-                    fixedVec += new Vector3(hits[i].normal.x, 0.0f, hits[i].normal.z).normalized * Vector3.Distance(Vector3.zero, moveVec) * Vector3.Dot(-moveVec.normalized, new Vector3(hits[i].normal.x, 0.0f, hits[i].normal.z).normalized);
-                }
                 m_owner.transform.position += moveVec + fixedVec;
             }
             else
             {
                 m_owner.transform.position += moveVec;
             }
+            //--------------------------------------------------
         }
         
         return this;
