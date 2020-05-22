@@ -20,10 +20,10 @@ public class PositionManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //MaxX = transform.GetChild(0).GetComponent<GameObject>();
-        //MinX = transform.GetChild(1).GetComponent<GameObject>();
-        //MaxZ = transform.GetChild(2).GetComponent<GameObject>();
-        //MinZ = transform.GetChild(3).GetComponent<GameObject>();
+        MaxX = transform.GetChild(0).gameObject;
+        MinX = transform.GetChild(1).gameObject;
+        MaxZ = transform.GetChild(2).gameObject;
+        MinZ = transform.GetChild(3).gameObject;
         maxXVal = MaxX.transform.position.x;
         minXVal = MinX.transform.position.x;
         maxZVal = MaxZ.transform.position.z;
