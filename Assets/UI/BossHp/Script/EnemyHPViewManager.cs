@@ -9,7 +9,9 @@ public class EnemyHPViewManager : MonoBehaviour
 
     [SerializeField] int m_hpSize= 5; //hp 줄 수
     [SerializeField] GameObject m_hpBar; //hp 줄 프리팹
-    [SerializeField] Text m_hpSizeText; //hp 줄 수 텍스트 프리팹
+    [SerializeField] Text m_hpSizeText; //hp 줄 수 텍스트
+    [SerializeField] Text m_hpData; //현재 hp 수치 텍스트
+    [SerializeField] Image m_hpBox; //hp바 틀
 
     //hp바 쉐이킹----------------------------------
     [SerializeField] float m_shakePower = 3.0f;
@@ -21,8 +23,8 @@ public class EnemyHPViewManager : MonoBehaviour
     [SerializeField] Color[] m_hpColor; //hp 바 색상
 
     //hp줄 수 크기
-    [SerializeField] int m_fontMinSize = 20;
-    [SerializeField] int m_fontMaxSize = 40;
+    //[SerializeField] int m_fontMinSize = 20;
+    //[SerializeField] int m_fontMaxSize = 40;
 
     [SerializeField] float m_fontSpeed = 2.0f; //폰트 크기 애니메이션 속도
 
@@ -62,7 +64,7 @@ public class EnemyHPViewManager : MonoBehaviour
             //hp 바 쉐이킹
             PlayShake();
             //hp줄 수 텍스트 설정
-            m_hpSizeText.fontSize = (int)Mathf.Max(m_fontMinSize, m_hpSizeText.fontSize - Time.deltaTime * m_fontSpeed);
+            //m_hpSizeText.fontSize = (int)Mathf.Max(m_fontMinSize, m_hpSizeText.fontSize - Time.deltaTime * m_fontSpeed);
         }
     }
 
@@ -84,10 +86,14 @@ public class EnemyHPViewManager : MonoBehaviour
             hps[i].transform.parent = transform;
             hps[i].transform.localPosition = m_originPos + Vector3.forward * i * 1.0f;
             hps[i].GetComponent<Image>().color = m_hpColor[i % m_hpColor.Length];
+            hps[i].GetComponent<RectTransform>().sizeDelta = new Vector2(GetComponent<RectTransform>().rect.width, GetComponent<RectTransform>().rect.height);
             hps[i].transform.localScale = new Vector3(1, 1, 1);
         }
-
+        m_hpData.transform.SetAsLastSibling();
+        m_hpData.text = m_nowHp.ToString() + " / " + m_maxHp.ToString();
+        m_hpSizeText.transform.SetAsLastSibling();
         m_hpSizeText.text = "X " + (int)Mathf.Ceil(m_nowHp / m_hpMaxSize);
+        m_hpBox.transform.SetAsLastSibling();
 
         //셋팅 끝 체크
         m_isSetting = true;
@@ -101,6 +107,7 @@ public class EnemyHPViewManager : MonoBehaviour
     {
         m_nowHp = changeHp;
         m_nowShakePower = m_shakePower;
+        m_hpData.text = m_nowHp.ToString() + " / " + m_maxHp.ToString();
 
         for (int i = 0; i < hps.Length; i++)
         {
@@ -138,6 +145,6 @@ public class EnemyHPViewManager : MonoBehaviour
     {
         m_nowSize = size;
         m_hpSizeText.text = "X " + m_nowSize;
-        m_hpSizeText.fontSize = m_fontMaxSize;
+        //m_hpSizeText.fontSize = m_fontMaxSize;
     }
 }
