@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using ProjectM.ePEa.PlayerData;
 
+using static ProjectM.ePEa.CustomFunctions.CustomFunction;
+
 public class AttackAction : BaseAction
 {
     #region Inspectors
@@ -10,14 +12,13 @@ public class AttackAction : BaseAction
     [SerializeField] float[] m_atkDistance; //타격당 이동거리
     [SerializeField] AnimationCurve[] m_atkDistanceCurve; //타격당 이동 커브
     [SerializeField] float[] m_atkSpeed; //타격당 공격 이동 시간
-    //[SerializeField] float[] m_atkKnockPower; //타격당 넉백 파워
-    //[SerializeField] float[] m_atkDamage; //타격당 공격 데미지
     [SerializeField] BoxCollider[] m_atkRange; //타격당 공격 범위(콜라이더 오브젝트)
-    //[SerializeField] float[] m_atkDamTiming; //타격당 데미지 들어가는 타이밍
-    //[SerializeField] float[] m_effTiming; //타격당 이펙트 생성 타이밍
     [SerializeField] GameObject[] m_atkEff; //타격탕 생성시킬 이펙트
     [SerializeField] Vector3[] m_effPos; //타격당 생성시킬 이펙트 위치
     [SerializeField] Vector3[] m_effAngle; //타격당 생성시킬 이펙트 각도
+    [SerializeField] AudioSource[] m_atkSfx; //타격당 효과음
+    [SerializeField] LayerMask m_wall;
+
     #endregion
 
     #region Value
@@ -39,8 +40,11 @@ public class AttackAction : BaseAction
 
     protected override BaseAction OnStartAction()
     {
+        m_nowCombo = 0; //공격 콤보 초기화
+        m_currentCombo = 0;
+
+        m_animator.ResetTrigger("Atk");
         m_animator.SetBool("IsAtk", true);
-        m_animator.SetTrigger("Atk");
         m_nextAtk = true;
         NextAttacking();
 
@@ -52,12 +56,14 @@ public class AttackAction : BaseAction
         //공격 예약해놨던거 다 초기화
         m_nextAtk = false;
         m_nextAtkOk = false;
+        
 
         m_nowCombo = 0; //공격 콤보 초기화
         m_currentCombo = 0;
 
         //애니메이터에 공격 취소 알림
         m_animator.SetBool("IsAtk", false);
+        m_animator.ResetTrigger("Atk");
     }
 
     protected override void AnyStateAction()
@@ -75,10 +81,24 @@ public class AttackAction : BaseAction
         //다음 공격 할건지 체크
         NextAtkCheck();
 
-        //공격중 이동
+        //공격중 이동--------------------------------------------
+        Vector3 beforePos = Vector3.Lerp(m_startPos, m_finishPos, m_atkDistanceCurve[m_currentCombo].Evaluate(m_atkTime * m_ac));
         m_atkTime += Time.deltaTime;
-        m_owner.transform.position = Vector3.Lerp(m_startPos, m_finishPos, m_atkDistanceCurve[m_currentCombo].Evaluate(m_atkTime * m_ac));
-        
+        Vector3 afterPos = Vector3.Lerp(m_startPos, m_finishPos, m_atkDistanceCurve[m_currentCombo].Evaluate(m_atkTime * m_ac));
+
+        Vector3 fixedPos = FixedMovePos(m_owner.transform.position, PlayerStats.playerStat.m_size, (afterPos - beforePos).normalized, Vector3.Distance(beforePos, afterPos),
+            m_wall);
+
+        if (fixedPos != Vector3.zero)
+        {
+            m_owner.transform.position += (afterPos - beforePos) + fixedPos;
+        }
+        else
+        {
+            m_owner.transform.position += afterPos - beforePos;
+        }
+        //--------------------------------------------------------
+
         return this;
     }
 
@@ -193,6 +213,11 @@ public class AttackAction : BaseAction
         }
     }
 
+    public void PlaySfx()
+    {
+        m_atkSfx[m_currentCombo].Play();
+    }
+
     /// <summary>
     /// 공격 콜라이더 활성화
     /// </summary>
@@ -200,6 +225,7 @@ public class AttackAction : BaseAction
     /// <returns></returns>
     IEnumerator AtkColliderOnOff(BoxCollider atkCol)
     {
+        atkCol.GetComponent<AtkCollider>().isAttacking = false;
         atkCol.gameObject.SetActive(true);
         float t = 0.1f;
 

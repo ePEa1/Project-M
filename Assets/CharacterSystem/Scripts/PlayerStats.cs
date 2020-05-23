@@ -8,6 +8,8 @@ namespace ProjectM.ePEa.PlayerData
     {
         #region Inspector
 
+        [SerializeField] public float m_size; //캐릭터 부피
+
         [SerializeField] public float m_maxHp; //캐릭터 최대체력
         [SerializeField] public float m_moveSpeed; //캐릭터 이동속도
         [SerializeField] public float m_movePower; //이동 가속도

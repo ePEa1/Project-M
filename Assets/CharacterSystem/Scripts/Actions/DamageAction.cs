@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ProjectM.ePEa.PlayerData;
+using UnityEngine.Events;
 
 public class DamageAction : BaseAction
 {
     #region Inspector
 
     [SerializeField] AnimationCurve m_knockAC; //넉백 이동 커브
+    [SerializeField] GameObject m_damEff; //피격 이펙트
 
     #endregion
 
@@ -18,8 +20,9 @@ public class DamageAction : BaseAction
     Vector3 m_startPos; //맞기 시작한 위치
     Vector3 m_finishPos; //맞은 후 도달하는 위치
 
-    public float m_knockTime = 0.0f;
-    public float m_maxTime;
+    float m_knockTime = 0.0f;
+    float m_maxTime;
+
     float m_ac;
 
     #endregion
@@ -36,9 +39,15 @@ public class DamageAction : BaseAction
         m_startPos = m_owner.transform.position;
         m_finishPos = m_startPos + m_enemyAtk.knockVec * m_enemyAtk.knockPower;
 
+        //피격 시 이벤트 실행
+        OnDamAnimation();
+
         m_knockTime = 0.0f;
         m_maxTime = m_enemyAtk.knockTime;
         m_ac = 1.0f / m_maxTime;
+
+        GameObject eff = Instantiate(m_damEff);
+        eff.transform.position = transform.position;
 
         return this;
     }
@@ -87,4 +96,13 @@ public class DamageAction : BaseAction
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DAMAGE);
         }
     }
+
+    /// <summary>
+    /// 피격 즉시 실행되는 이벤트 함수
+    /// </summary>
+    public void OnDamAnimation()
+    {
+        //무지개효과
+        m_owner.playerCam.GetComponent<RGBCameraScript>().PlayAnimation();
+;    }
 }

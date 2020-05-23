@@ -15,12 +15,14 @@ public class PlayerEventManager : MonoBehaviour
         NextAtkCheck,
         AtkHitTime,
         CreateEffect,
-        EndAttack
+        EndAttack,
+        PlaySfx
     }
 
     public enum DodgeEnum
     {
-        DodgeEnd
+        DodgeEnd,
+        NextAtkOpen
     }
 
     public enum DamageEnum
