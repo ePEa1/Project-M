@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ProjectM.ePEa.PlayerData;
+using UnityEngine.Events;
 
 public class DamageAction : BaseAction
 {
@@ -37,6 +38,9 @@ public class DamageAction : BaseAction
         //맞아서 밀려나는 위치 설정
         m_startPos = m_owner.transform.position;
         m_finishPos = m_startPos + m_enemyAtk.knockVec * m_enemyAtk.knockPower;
+
+        //피격 시 이벤트 실행
+        OnDamAnimation();
 
         m_knockTime = 0.0f;
         m_maxTime = m_enemyAtk.knockTime;
@@ -92,4 +96,13 @@ public class DamageAction : BaseAction
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DAMAGE);
         }
     }
+
+    /// <summary>
+    /// 피격 즉시 실행되는 이벤트 함수
+    /// </summary>
+    public void OnDamAnimation()
+    {
+        //무지개효과
+        m_owner.playerCam.GetComponent<RGBCameraScript>().PlayAnimation();
+;    }
 }
