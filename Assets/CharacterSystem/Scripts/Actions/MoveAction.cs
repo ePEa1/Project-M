@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using ProjectM.ePEa.PlayerData;
 
+using static ProjectM.ePEa.CustomFunctions.CustomFunction;
+
 public class MoveAction : BaseAction
 {
-    bool change = false;
+    #region Inspector
 
+    [SerializeField] LayerMask m_wall;
+
+    #endregion
 
     #region events
 
@@ -26,9 +31,6 @@ public class MoveAction : BaseAction
         if (m_controller.IsMoving())
             m_animator.SetBool("IsMoving", true);
         else m_animator.SetBool("IsMoving", false);
-
-        if (Input.GetKeyDown(KeyCode.M))
-            change = !change;
     }
 
     protected override BaseAction OnUpdateAction()
@@ -55,13 +57,24 @@ public class MoveAction : BaseAction
             Quaternion playerDir = dir * v;
 
             m_owner.transform.rotation = Quaternion.Slerp(m_owner.transform.rotation, playerDir, Time.deltaTime * PlayerStats.playerStat.m_curveSpeed);
+            Vector3 moveVec = m_owner.transform.rotation * new Vector3(0.0f, 0.0f, -PlayerStats.playerStat.m_moveSpeed) * Time.deltaTime;
 
-            if (change)
-                m_owner.transform.position += playerDir * new Vector3(0.0f, 0.0f, -PlayerStats.playerStat.m_moveSpeed) * Time.deltaTime;
+            //이동---------------------------------------------
+            Vector3 fixedVec = Vector3.zero;
+            fixedVec += FixedMovePos(m_owner.transform.position, PlayerStats.playerStat.m_size, (m_owner.transform.rotation * -Vector3.forward).normalized,
+                    PlayerStats.playerStat.m_moveSpeed * Time.deltaTime, m_wall);
+
+            if (fixedVec != Vector3.zero)
+            {
+                m_owner.transform.position += moveVec + fixedVec;
+            }
             else
-                m_owner.transform.position += m_owner.transform.rotation * new Vector3(0.0f, 0.0f, -PlayerStats.playerStat.m_moveSpeed) * Time.deltaTime;
+            {
+                m_owner.transform.position += moveVec;
+            }
+            //--------------------------------------------------
         }
-
+        
         return this;
     }
 

@@ -21,7 +21,8 @@ public class PlayerEventManager : MonoBehaviour
 
     public enum DodgeEnum
     {
-        DodgeEnd
+        DodgeEnd,
+        NextAtkOpen
     }
 
     public enum DamageEnum

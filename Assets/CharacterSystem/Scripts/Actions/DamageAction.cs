@@ -8,6 +8,7 @@ public class DamageAction : BaseAction
     #region Inspector
 
     [SerializeField] AnimationCurve m_knockAC; //넉백 이동 커브
+    [SerializeField] GameObject m_damEff; //피격 이펙트
 
     #endregion
 
@@ -18,8 +19,9 @@ public class DamageAction : BaseAction
     Vector3 m_startPos; //맞기 시작한 위치
     Vector3 m_finishPos; //맞은 후 도달하는 위치
 
-    public float m_knockTime = 0.0f;
-    public float m_maxTime;
+    float m_knockTime = 0.0f;
+    float m_maxTime;
+
     float m_ac;
 
     #endregion
@@ -39,6 +41,9 @@ public class DamageAction : BaseAction
         m_knockTime = 0.0f;
         m_maxTime = m_enemyAtk.knockTime;
         m_ac = 1.0f / m_maxTime;
+
+        GameObject eff = Instantiate(m_damEff);
+        eff.transform.position = transform.position;
 
         return this;
     }
