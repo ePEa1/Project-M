@@ -9,7 +9,7 @@ public class RGBCameraScript : MonoBehaviour
 {
     //private Camera cam;
 
-    //[Range(0f,0.5f)]    
+    //[Range(0f,0.5f)]
     public AnimationCurve RGBVal2 = AnimationCurve.Linear(0.0f,0.0f,1.0f,1.0f);
     public float RGBVal;
 
