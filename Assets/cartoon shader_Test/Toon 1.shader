@@ -5,6 +5,7 @@
 		[HDR]_Color ("Color", color) = (1,1,1,1)
 		[HDR]_Color2("Color2", color) = (1,1,1,1)
 		[HDR]_Color3 ("Color3", color) = (1,1,1,1)
+		[HDR]_Color4 ("ShadowColor", color) = (1,1,1,1)
 
 		_rimPow ("Rim Power", int) = 0
 		_OutlinePow ("Outline", Range(0,0.02)) = 0.001
@@ -16,7 +17,7 @@
 	}
 		SubShader
 	{
-		Tags { "RenderType" = "Opaque" }
+		Tags { "RenderType" = "Opaque"}
 		LOD 200
 
 		cull back
@@ -28,6 +29,7 @@
 		float4 _Color;
 		float4 _Color2;
 		float4 _Color3;
+		float4 _Color4;
 
         sampler2D _MainTex;
 		sampler2D _LitTex;
@@ -76,7 +78,7 @@
 			float ndotl = dot(s.Normal, lightDir) * 0.5 + 0.5;
 
 			float ceilNum = 3;
-			diffColor = ceil(ndotl * ceilNum) / ceilNum;
+			diffColor = ceil(ndotl * ceilNum) / 10;
 
 
 			float3 H = normalize(lightDir + viewDir);
@@ -101,6 +103,8 @@
 
 
 		//2pass
+		
+		Tags { "RenderType" = "Opaque"}
 
 		cull front
 
