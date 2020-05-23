@@ -1241,6 +1241,7 @@ GameObject:
   - component: {fileID: 8590232683422074446}
   - component: {fileID: 8590232683422074447}
   - component: {fileID: 8590232683422074444}
+  - component: {fileID: 248736228384803367}
   m_Layer: 0
   m_Name: AliceSummon
   m_TagString: Untagged
@@ -1341,9 +1342,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24511682056d41d4393a9b2dd52bff67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
-  chase: {fileID: 0}
-  AttackCol: {fileID: 0}
+  manager: {fileID: 8590232683422074448}
+  chase: {fileID: 8590232683422074450}
+  AttackCol: {fileID: 2246644923188965846}
 --- !u!114 &8590232683422074450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1458,6 +1459,21 @@ MonoBehaviour:
   hp: 100
   currentHp: 0
   lastHitBy: {fileID: 0}
+--- !u!114 &248736228384803367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8590232683422074445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87ca819dc64b56d418082cf814d50d24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  master: {fileID: 0}
+  IsDead: 0
 --- !u!1 &8590250691586641227
 GameObject:
   m_ObjectHideFlags: 0
