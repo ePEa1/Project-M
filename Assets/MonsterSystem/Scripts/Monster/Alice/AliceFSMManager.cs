@@ -42,6 +42,7 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
 
     public bool CantMove = false;
     public bool PlayerIsAttack = false;
+    public bool IsDead = false;
 
 
     Dictionary<AliceState, AliceFSMState> states = new Dictionary<AliceState, AliceFSMState>();

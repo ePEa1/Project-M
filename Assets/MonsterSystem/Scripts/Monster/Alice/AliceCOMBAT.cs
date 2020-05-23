@@ -80,7 +80,14 @@ public class AliceCOMBAT : AliceFSMState
 
         if (manager.CurAliceHP <= 0)
         {
-            manager.SetState(AliceState.DEAD);
+            if(manager.IsDead == false)
+            {
+                manager.SetDead();
+                manager.IsDead = true;
+
+                return;
+            }
+
         }
     }
         
