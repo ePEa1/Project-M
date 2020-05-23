@@ -55,7 +55,7 @@ public class AliceDAMAGE : AliceFSMState
     IEnumerator Damage()
     {
         skinMat.material = damageMat;
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.1f);
         skinMat.material = OriginalMat;
 
 
