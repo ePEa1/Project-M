@@ -40,11 +40,11 @@ public class RGBCameraScript : MonoBehaviour
 
     public void PlayAnimation()
     {
-        RGBVal = 0.0f;
+        RGBVal = 1.0f;
     }
 
     private void Update()
     {
-        RGBVal = Mathf.Min(1, RGBVal + Time.deltaTime * m_animSpeed);
+        RGBVal = Mathf.Max(0, RGBVal - Time.deltaTime * m_animSpeed);
     }
 }
