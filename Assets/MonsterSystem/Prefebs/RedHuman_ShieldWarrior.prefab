@@ -495,7 +495,7 @@ BoxCollider:
   m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1.58, y: 1, z: 2.1195493}
-  m_Center: {x: 0, y: 0, z: 0.55977464}
+  m_Center: {x: -0.13, y: 0, z: 0.55977464}
 --- !u!114 &5301878390088758875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1309,6 +1309,7 @@ MonoBehaviour:
   CurAliceHP: 0
   CantMove: 0
   PlayerIsAttack: 0
+  IsDead: 0
 --- !u!114 &5213304384683359700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1351,6 +1352,7 @@ MonoBehaviour:
   IsTeleport: 0
   IsRush: 0
   IsSummon: 0
+  SummonEnd: 0
 --- !u!114 &4491607794890419075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1427,23 +1429,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cd11621c0174514580d45d4a72fa328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
-  curAtkState: 0
-  TeleportAfterState: 0
-  SummonMonster: {fileID: 0}
-  SummonPos: {fileID: 0}
-  AttackOrder: 
-  CurFarAtkCut: 90
-  startAttack: 0
-  teleportAft: 0
-  Summons: 0
-  RushPos: {x: 0, y: 0, z: 0}
-  DontMove: 0
-  IsAttack: 1
-  IsTeleport: 0
-  IsRush: 0
-  IsSummon: 0
   RushCol: {fileID: 5090518299580093872}
+  combat: {fileID: 0}
 --- !u!114 &5454634852974007821
 MonoBehaviour:
   m_ObjectHideFlags: 0
