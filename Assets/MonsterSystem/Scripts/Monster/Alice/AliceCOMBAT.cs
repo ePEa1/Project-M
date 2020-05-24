@@ -263,8 +263,8 @@ public class AliceCOMBAT : AliceFSMState
             transform.position = Vector3.MoveTowards(transform.position, SummonPos.transform.position, 2);
             for (int i = 0; i < 10; i++)
             {
-                x = Random.Range(5, 20);
-                z = Random.Range(5, 20);
+                x = Random.Range(-15, 15);
+                z = Random.Range(-15, 15);
                 Instantiate(SummonMonster, new Vector3(SummonPos.transform.position.x + x, 0.9f, transform.transform.position.z + z), Quaternion.identity);
                 
             }
