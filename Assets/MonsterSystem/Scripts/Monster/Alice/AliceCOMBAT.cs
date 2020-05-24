@@ -193,6 +193,7 @@ public class AliceCOMBAT : AliceFSMState
                 manager.anim.SetInteger("curAttack", 5);
                 break;
             case AliceAttackState.Teleport://텔레포트
+                DontMove = true;
                 manager.anim.SetInteger("curAttack", 6);
                 break;
         }
