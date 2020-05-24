@@ -42,6 +42,7 @@ public class PlayerFsmManager : MonoBehaviour
         m_currentController = GetComponent<PlayerController>(); //컨트롤러 연결
         g_playerFsmManager = this;
         m_currentAction = m_playerActions[(int)m_currentStat].StartAction(); //시작 상태에 따라 액션 실행
+        m_cam = GameObject.FindWithTag("MainCamera").transform;
 
         m_currentAni.Play("Idle", 0);
     }

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7402736142049612405}
   - component: {fileID: 7402736142049612406}
+  - component: {fileID: 4754158874736082263}
   - component: {fileID: 1988297344352354033}
   - component: {fileID: 7402736142049612363}
   - component: {fileID: 4253367677627398076}
@@ -81,6 +82,22 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &4754158874736082263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7402736142049612400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0128797cf9ea0c4e9742c4a24533b72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blurSize: 0.1
+  blurCenterPos: {x: 0.5, y: 0.5}
+  samples: 0
+  mat3: {fileID: 0}
 --- !u!114 &1988297344352354033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,8 +110,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 595968cc46b6a3a49a99b0aca1f81566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mat2: {fileID: 0}
+  blurSize: -0.45
+  blurCenterPos: {x: 0.5, y: 0.5}
+  samples: 15
   RGBVal: 0
+  mat2: {fileID: 2100000, guid: 0c01aaa2937943f40b416cab75aa608c, type: 2}
 --- !u!114 &7402736142049612363
 MonoBehaviour:
   m_ObjectHideFlags: 0
