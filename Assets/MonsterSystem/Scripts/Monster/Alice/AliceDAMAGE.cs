@@ -48,7 +48,7 @@ public class AliceDAMAGE : AliceFSMState
             if (damInfo.AtkEvent())
                 manager.DamageSound.Play();
             StartCoroutine(Damage());
-            KnockBack();
+            //KnockBack();
         }
     }
 
