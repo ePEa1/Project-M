@@ -24,15 +24,21 @@ public class AliceShootObjManager : MonoBehaviour
 
         //transform.Translate(Vector3.forward*2,Space.World);
         transform.position = Vector3.MoveTowards(transform.position, playerPos, 0.8f);
-        Destroy(gameObject, 2);
+        Destroy(gameObject, 1.5f);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "PlayerDamage")
+        if (other.gameObject.tag == "Ground")
+        {
+            Debug.Log("IsGround");
+            Destroy(gameObject);
+        }
+        if (other.gameObject.tag == "PlayerDamage")
         {
             //데미지 넣는 함수
             Destroy(gameObject);
         }
+
     }
 }

@@ -168,18 +168,22 @@ public class AliceCOMBAT : AliceFSMState
 
     public void CurPatternCheck(AliceAttackState state)
     {
+
         switch (state)
         {
             case AliceAttackState.Combat://대기
                 manager.anim.SetInteger("curAttack", 0);
                 break;
             case AliceAttackState.OneCloseAttack://근접 공격 1
+                DontMove = true;
                 manager.anim.SetInteger("curAttack", 1);
                 break;
             case AliceAttackState.TwoCloseAttack://근접 공격 2
+                DontMove = true;
                 manager.anim.SetInteger("curAttack", 2);
                 break;
             case AliceAttackState.FarAttack://원거리 공격
+                DontMove = true;
                 manager.anim.SetInteger("curAttack", 3);
                 break;
             case AliceAttackState.Summon://소환술
