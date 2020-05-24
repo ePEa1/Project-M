@@ -64,9 +64,9 @@
 				float radialGradient = saturate(dot(texture2, texture2));
 				radialGradient = radialGradient * radialGradient * radialGradient;
 
-				float colR = tex2D(_MainTex, IN.uv + float2 (_RGBVal2, _RGBVal2) * 0.1 * radialGradient).r;
+				float colR = tex2D(_MainTex, IN.uv + float2 (_RGBVal, _RGBVal) * 0.1 * radialGradient).r;
 				float colG = tex2D(_MainTex, IN.uv).g;
-				float colB = tex2D(_MainTex, IN.uv - float2 (_RGBVal2, _RGBVal2) * 0.1 * radialGradient).b;
+				float colB = tex2D(_MainTex, IN.uv - float2 (_RGBVal, _RGBVal) * 0.1 * radialGradient).b;
 
                 col.rgb = float3 (colR, colG, colB);
 
