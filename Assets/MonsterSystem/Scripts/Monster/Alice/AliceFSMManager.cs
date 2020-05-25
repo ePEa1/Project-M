@@ -73,15 +73,7 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
         SetState(startState);
     }
 
-    public void Update()
-    {
-        if (CurAliceHP <= 0)
-        {
-                    CurAliceHP = 0;
-                    SetDead();
 
-        }
-    }
     public void SetState(AliceState newState)
     {
         if (curState == AliceState.DEAD)
