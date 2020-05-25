@@ -7,9 +7,6 @@ public class AliceDAMAGE : AliceFSMState
 {
     public GameObject hiteff;
     public IsDamagedEff[] ChildSkinned;
-    public SkinnedMeshRenderer skinMat;
-    public Material damageMat;
-    public Material OriginalMat;
      AtkCollider damInfo;
     public EnemyHPViewManager HpManager;
 
@@ -52,19 +49,12 @@ public class AliceDAMAGE : AliceFSMState
             IsDamageCheck(damInfo.atkDamage);
             if (damInfo.AtkEvent())
                 manager.DamageSound.Play();
-            //StartCoroutine(Damage());
+
             //KnockBack();
         }
     }
 
-    IEnumerator Damage()
-    {
-        skinMat.material = damageMat;
-        yield return new WaitForSeconds(0.1f);
-        skinMat.material = OriginalMat;
 
-
-    }
     void IsDamageCheck(float damage)
     {
         CreatHitEff();

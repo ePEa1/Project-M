@@ -32,6 +32,7 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
     public Camera CloseSight;
     public GameObject playerObj;
     public Collider playerdamagedCol;
+    public Collider AliceDamageCol;
 
     public float moveSpeed = 3;
     public float rotateSpeed =540;
@@ -92,7 +93,7 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
 
     public void SetDead()
     {
-        playerdamagedCol.enabled = false;
+        AliceDamageCol.enabled = false;
         SetState(AliceState.DEAD);
     }
     

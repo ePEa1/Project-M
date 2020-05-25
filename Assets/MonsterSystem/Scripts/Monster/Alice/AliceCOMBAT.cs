@@ -252,7 +252,7 @@ public class AliceCOMBAT : AliceFSMState
 
     void Summoning()
     {
-
+        manager.AliceDamageCol.enabled = false;
         //보호막 생성
         int x, z;
 
@@ -278,6 +278,7 @@ public class AliceCOMBAT : AliceFSMState
     {
         if (Summons <= 0)
         {
+            manager.AliceDamageCol.enabled = true;
             SummonEnd = true;
             ReturnDefaultAttack();
             DistanceCheck();
