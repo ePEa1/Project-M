@@ -78,17 +78,7 @@ public class AliceCOMBAT : AliceFSMState
         }
 
 
-        if (manager.CurAliceHP <= 0)
-        {
-            if(manager.IsDead == false)
-            {
-                manager.CurAliceHP = 0;
-                manager.IsDead = true;
-                manager.SetDead();
-                return;
-            }
-
-        }
+  
     }
         
     public void RotatePlayer()
