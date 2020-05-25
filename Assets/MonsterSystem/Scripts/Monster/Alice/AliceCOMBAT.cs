@@ -26,6 +26,7 @@ public class AliceCOMBAT : AliceFSMState
     public int CurFarAtkCut = 90;
     public int startAttack;
     public int teleportAft;
+    public int Summons = 0;
     public Vector3 RushPos;
 
     public bool DontMove = false;
@@ -33,6 +34,7 @@ public class AliceCOMBAT : AliceFSMState
     public bool IsTeleport = false;
     public bool IsRush = false;
     public bool IsSummon = false;
+    public bool SummonEnd = false;
     public override void BeginState()
     {
         base.BeginState();
@@ -75,6 +77,18 @@ public class AliceCOMBAT : AliceFSMState
             CurPatternCheck(AliceAttackState.Teleport);
         }
 
+
+        if (manager.CurAliceHP <= 0)
+        {
+            if(manager.IsDead == false)
+            {
+                manager.SetDead();
+                manager.IsDead = true;
+
+                return;
+            }
+
+        }
     }
         
     public void RotatePlayer()
@@ -117,12 +131,12 @@ public class AliceCOMBAT : AliceFSMState
             //bool로 다른 패턴 중에는 적용안하게하기 // 기본공격 근거리
 
             if (manager.CurAliceHP < CurFarAtkCut)//공격 체크에 -10 넣기
-            { if (manager.CurAliceHP == 50)
+            { if (manager.CurAliceHP <= 50 && CurFarAtkCut == 50)
                 {
                     IsAttack = false;
                     DontMove = true;
-                    TeleportAfterState = AliceAttackState.Summon;
-                    CurPatternCheck(AliceAttackState.Teleport);
+                    //TeleportAfterState = AliceAttackState.Summon;
+                    CurPatternCheck(AliceAttackState.Summon);
                     CurFarAtkCut -= 10;
                 }
                 else
@@ -154,18 +168,22 @@ public class AliceCOMBAT : AliceFSMState
 
     public void CurPatternCheck(AliceAttackState state)
     {
+
         switch (state)
         {
             case AliceAttackState.Combat://대기
                 manager.anim.SetInteger("curAttack", 0);
                 break;
             case AliceAttackState.OneCloseAttack://근접 공격 1
+                DontMove = true;
                 manager.anim.SetInteger("curAttack", 1);
                 break;
             case AliceAttackState.TwoCloseAttack://근접 공격 2
+                DontMove = true;
                 manager.anim.SetInteger("curAttack", 2);
                 break;
             case AliceAttackState.FarAttack://원거리 공격
+                DontMove = true;
                 manager.anim.SetInteger("curAttack", 3);
                 break;
             case AliceAttackState.Summon://소환술
@@ -175,6 +193,7 @@ public class AliceCOMBAT : AliceFSMState
                 manager.anim.SetInteger("curAttack", 5);
                 break;
             case AliceAttackState.Teleport://텔레포트
+                DontMove = true;
                 manager.anim.SetInteger("curAttack", 6);
                 break;
         }
@@ -197,24 +216,13 @@ public class AliceCOMBAT : AliceFSMState
         {
             IsRush = false;
         }
+        if(IsSummon == true)
+        {
+            IsSummon = false;
+        }
         CurPatternCheck(AliceAttackState.Combat);
     }
 
-    void Summoning()
-    {
-        int x, z;
-        
-        transform.position = Vector3.MoveTowards(transform.position, SummonPos.transform.position, 2);
-        for(int i = 0; i<10; i++)
-        {
-            x = Random.Range(5, 10);
-            z = Random.Range(5, 20);
-            Instantiate(SummonMonster, new Vector3(SummonPos.transform.position.x+x, SummonPos.transform.position.y, transform.transform.position.z+z), Quaternion.identity);
-            i++;
-            return;
-        }
-        //Instantiate(SummonMonster, transform.position, Quaternion.identity);
-    }
     void SetRushPos()
     {
         RushPos = manager.playerObj.transform.position;
@@ -242,4 +250,41 @@ public class AliceCOMBAT : AliceFSMState
     }
 
 
+    void Summoning()
+    {
+        manager.AliceDamageCol.enabled = false;
+        //보호막 생성
+        int x, z;
+
+        if (IsSummon == false && SummonEnd == false)
+        {
+            IsSummon = true;
+            Summons = 10;
+            transform.position = Vector3.MoveTowards(transform.position, SummonPos.transform.position, 2);
+            for (int i = 0; i < 10; i++)
+            {
+                x = Random.Range(-15, 15);
+                z = Random.Range(-15, 15);
+                Instantiate(SummonMonster, new Vector3(SummonPos.transform.position.x + x, 0.9f, transform.transform.position.z + z), Quaternion.identity);
+                
+            }
+        }
+        else
+            return;
+    
+    }
+
+    void SummonEndCheck()
+    {
+        if (Summons <= 0)
+        {
+            manager.AliceDamageCol.enabled = true;
+            SummonEnd = true;
+            ReturnDefaultAttack();
+            DistanceCheck();
+            
+        }
+        else
+            return;
+    }
 }
