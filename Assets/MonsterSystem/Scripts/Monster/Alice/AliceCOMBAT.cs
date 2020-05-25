@@ -82,9 +82,9 @@ public class AliceCOMBAT : AliceFSMState
         {
             if(manager.IsDead == false)
             {
-                manager.SetDead();
+                manager.CurAliceHP = 0;
                 manager.IsDead = true;
-
+                manager.SetDead();
                 return;
             }
 
