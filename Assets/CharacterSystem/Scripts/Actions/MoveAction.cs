@@ -64,14 +64,7 @@ public class MoveAction : BaseAction
             fixedVec += FixedMovePos(m_owner.transform.position, PlayerStats.playerStat.m_size, (m_owner.transform.rotation * -Vector3.forward).normalized,
                     PlayerStats.playerStat.m_moveSpeed * Time.deltaTime, m_wall);
 
-            if (fixedVec != Vector3.zero)
-            {
-                m_owner.transform.position += moveVec + fixedVec;
-            }
-            else
-            {
-                m_owner.transform.position += moveVec;
-            }
+            m_owner.transform.position += moveVec + fixedVec;
             //--------------------------------------------------
         }
         

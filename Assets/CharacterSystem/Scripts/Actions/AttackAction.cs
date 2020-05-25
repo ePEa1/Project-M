@@ -89,14 +89,7 @@ public class AttackAction : BaseAction
         Vector3 fixedPos = FixedMovePos(m_owner.transform.position, PlayerStats.playerStat.m_size, (afterPos - beforePos).normalized, Vector3.Distance(beforePos, afterPos),
             m_wall);
 
-        if (fixedPos != Vector3.zero)
-        {
-            m_owner.transform.position += (afterPos - beforePos) + fixedPos;
-        }
-        else
-        {
-            m_owner.transform.position += afterPos - beforePos;
-        }
+        m_owner.transform.position += afterPos - beforePos + fixedPos;
         //--------------------------------------------------------
 
         return this;

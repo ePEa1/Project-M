@@ -59,5 +59,14 @@ namespace ProjectM.ePEa.CustomFunctions
 
             return fixedPos;
         }
+
+        public static Vector3 StopMovePos()
+        {
+            Vector3 stopPos = Vector3.zero;
+
+
+
+            return stopPos;
+        }
     }
 }
