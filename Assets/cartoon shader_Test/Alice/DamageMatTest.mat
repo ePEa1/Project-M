@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mat_RGB_SP
-  m_Shader: {fileID: 4800000, guid: ab59f7ed3ac5d254f9f368660ebc4706, type: 3}
+  m_Name: New Material 12
+  m_Shader: {fileID: 4800000, guid: 9782c3a81d48d4d4bbabbcc529c25a34, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -39,6 +39,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _LitTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -66,18 +70,17 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
+    - _OutlinePow: 0.00141
     - _Parallax: 0.02
-    - _RGBSplit: 0
-    - _RGBVal: 0.004258275
-    - _RGBVal2: 0.13
     - _SmoothnessTextureChannel: 0
+    - _SpecVal: 1364.3
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _Tiling: 1
     - _UVSec: 0
-    - _Val: 0
     - _ZWrite: 1
+    - _rimPow: 6.4
     m_Colors:
-    - _BlurCenterPos: {r: 0.5, g: 0.5, b: 0, a: 0}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.5188679, g: 0.5188679, b: 0.5188679, a: 1}
+    - _Color2: {r: 1, g: 1, b: 1, a: 1}
+    - _Color3: {r: 0, g: 1, b: 0.9414587, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

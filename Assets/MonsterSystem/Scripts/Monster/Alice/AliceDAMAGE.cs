@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class AliceDAMAGE : AliceFSMState
 {
     public GameObject hiteff;
+    public IsDamagedEff[] ChildSkinned;
     public SkinnedMeshRenderer skinMat;
     public Material damageMat;
     public Material OriginalMat;
@@ -41,13 +42,17 @@ public class AliceDAMAGE : AliceFSMState
             {
                 manager.PlayerIsAttack = true;
             }
+            for(int i = 0; i<ChildSkinned.Length; i++)
+            {
+                ChildSkinned[i].CallDamageCoroutine();
+            }
             damInfo = other.GetComponent<AtkCollider>();
             //manager.anim.Rebind();
             //manager.anim.Play("DAMAGE");
             IsDamageCheck(damInfo.atkDamage);
             if (damInfo.AtkEvent())
                 manager.DamageSound.Play();
-            StartCoroutine(Damage());
+            //StartCoroutine(Damage());
             //KnockBack();
         }
     }
