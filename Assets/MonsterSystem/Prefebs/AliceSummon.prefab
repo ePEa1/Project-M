@@ -312,6 +312,9 @@ MonoBehaviour:
   manager: {fileID: 0}
   hiteff: {fileID: 6598188281045952718, guid: ad5d8ad744c73da4297a5335fe3cabbd, type: 3}
   DamageSound: {fileID: 0}
+  skinned: {fileID: 1138607356397050831}
+  originalMat: {fileID: 2100000, guid: a116a09c435ca95479bd0ce0a59ed79a, type: 2}
+  damageMat: {fileID: 2100000, guid: 07fc56a89be20744786b63e212226bd4, type: 2}
   SetDamage: 0
   IsDamaged: 0
 --- !u!136 &8349254805161654739
@@ -1852,6 +1855,12 @@ PrefabInstance:
 --- !u!4 &2425938884521467136 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 0782006a172d505498f0d6b20fc4b682,
+    type: 3}
+  m_PrefabInstance: {fileID: 7264339465402594842}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1138607356397050831 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -1504981713932161579, guid: 0782006a172d505498f0d6b20fc4b682,
     type: 3}
   m_PrefabInstance: {fileID: 7264339465402594842}
   m_PrefabAsset: {fileID: 0}

@@ -6,6 +6,9 @@ public class MonsterDAMAGED : MonsterFSMState
 {
     public GameObject hiteff;
     public AudioSource DamageSound;
+    public MeshRenderer skinned;
+    public Material originalMat;
+    public Material damageMat;
     AtkCollider damInfo;
     public int SetDamage;
     public bool IsDamaged;
@@ -41,7 +44,7 @@ public class MonsterDAMAGED : MonsterFSMState
 
             IsDamageCheck();
 
-            //StartCoroutine(KnockBack());
+            StartCoroutine(Damage());
             KnockBack();
         }
     }
@@ -53,6 +56,14 @@ public class MonsterDAMAGED : MonsterFSMState
         manager.anim.speed = 0;
         yield return new WaitForSeconds(0.5f);
         manager.anim.speed = 1;
+
+    }
+    IEnumerator Damage()
+    {
+        skinned.material = damageMat;
+        yield return new WaitForSeconds(0.1f);
+        skinned.material = originalMat;
+
 
     }
     void IsDamageCheck()
