@@ -27,8 +27,14 @@ public class AliceDAMAGE : AliceFSMState
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
+        if (manager.CurAliceHP <= 0)
+        {
+            manager.CurAliceHP = 0;
+            manager.SetDead();
+
+        }
     }
 
     public void OnTriggerEnter(Collider other)

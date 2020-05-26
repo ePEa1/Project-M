@@ -13,30 +13,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Root: {fileID: 4138231331047977885}
-  m_UpdateRate: 60
+  m_UpdateRate: 120
   m_UpdateMode: 0
-  m_Damping: 0.071
+  m_Damping: 0.2
   m_DampingDistrib:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Elasticity: 0.1
+  m_Elasticity: 0.005
   m_ElasticityDistrib:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Stiffness: 0.1
+  m_Stiffness: 0.9
   m_StiffnessDistrib:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Inert: 0
+  m_Inert: 0.5
   m_InertDistrib:
     serializedVersion: 2
     m_Curve: []
@@ -84,21 +84,21 @@ MonoBehaviour:
   m_Root: {fileID: 2728213666657844095}
   m_UpdateRate: 60
   m_UpdateMode: 0
-  m_Damping: 0.64
+  m_Damping: 0.3
   m_DampingDistrib:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Elasticity: 0.67
+  m_Elasticity: 0.1
   m_ElasticityDistrib:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_Stiffness: 0.1
+  m_Stiffness: 0.8
   m_StiffnessDistrib:
     serializedVersion: 2
     m_Curve: []
@@ -1374,7 +1374,8 @@ MonoBehaviour:
   CloseSight: {fileID: 0}
   playerObj: {fileID: 0}
   playerdamagedCol: {fileID: 0}
-  AliceCol: {fileID: 7962899297598288710}
+  AliceDamageCol: {fileID: 7962899297598288710}
+  CombatState: {fileID: 0}
   moveSpeed: 6
   rotateSpeed: 540
   fallSpeed: 20

@@ -78,17 +78,7 @@ public class AliceCOMBAT : AliceFSMState
         }
 
 
-        if (manager.CurAliceHP <= 0)
-        {
-            if(manager.IsDead == false)
-            {
-                manager.SetDead();
-                manager.IsDead = true;
-
-                return;
-            }
-
-        }
+  
     }
         
     public void RotatePlayer()
@@ -210,6 +200,8 @@ public class AliceCOMBAT : AliceFSMState
     }
     public void ReturnDefaultAttack()//특정 패턴이 끝난 후 일반 공격으로 변경
     {
+        manager.AliceDamageCol.enabled = true;
+
         IsAttack = true;
         DontMove = false;
         if (IsRush == true)

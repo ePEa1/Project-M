@@ -17,6 +17,7 @@ public class DamageAction : BaseAction
 
     #region Value
 
+    public AudioSource damagesound;
     AtkCollider m_enemyAtk; //적 공격범위 데이터
 
     Vector3 m_startPos; //맞기 시작한 위치
@@ -103,6 +104,7 @@ public class DamageAction : BaseAction
         {
             m_enemyAtk = other.GetComponent<AtkCollider>();
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DAMAGE);
+            damagesound.Play();
         }
     }
 
