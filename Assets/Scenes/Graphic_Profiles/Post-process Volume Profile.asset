@@ -22,7 +22,7 @@ MonoBehaviour:
     defaultState: 1
   intensity:
     overrideState: 1
-    value: 0.118
+    value: 0.171
   fastMode:
     overrideState: 1
     value: 0
@@ -130,7 +130,7 @@ MonoBehaviour:
     value: 100
   lift:
     overrideState: 1
-    value: {x: 1, y: 0.99762726, z: 0.9777458, w: 0}
+    value: {x: 0.8335342, y: 0.8783295, z: 1, w: 0}
   gamma:
     overrideState: 1
     value: {x: 0.9923054, y: 0.99764645, z: 1, w: 0}
@@ -1355,16 +1355,16 @@ MonoBehaviour:
     value: 1
   focusDistance:
     overrideState: 1
-    value: 3.96
+    value: 4.21
   aperture:
     overrideState: 1
-    value: 15.3
+    value: 22.1
   focalLength:
     overrideState: 1
-    value: 71
+    value: 116
   kernelSize:
     overrideState: 1
-    value: 0
+    value: 3
 --- !u!114 &-164180629403631560
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1377,7 +1377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a34fa72bd4185749832024e9c8010bf, type: 3}
   m_Name: ScreenSpaceReflections
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
@@ -1467,13 +1467,13 @@ MonoBehaviour:
     value: 0
   color:
     overrideState: 1
-    value: {r: 0.48235294, g: 0.22352943, b: 0.27323326, a: 1}
+    value: {r: 0.6509434, g: 0.31626025, b: 0.38218263, a: 1}
   center:
     overrideState: 1
     value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0.452
+    value: 0.333
   smoothness:
     overrideState: 1
     value: 0.2
@@ -1508,13 +1508,13 @@ MonoBehaviour:
     value: 1
   mode:
     overrideState: 1
-    value: 0
+    value: 1
   intensity:
     overrideState: 1
-    value: 1
+    value: 0.6
   color:
     overrideState: 1
-    value: {r: 0.43529412, g: 0.14117649, b: 0.29910073, a: 1}
+    value: {r: 0, g: 0, b: 0, a: 1}
   ambientOnly:
     overrideState: 1
     value: 0
@@ -1529,7 +1529,7 @@ MonoBehaviour:
     value: -12
   thicknessModifier:
     overrideState: 1
-    value: 1.91
+    value: 2.18
   directLightingStrength:
     overrideState: 1
     value: 0
