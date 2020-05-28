@@ -8,7 +8,7 @@ public class AliceDEAD : AliceFSMState
 
     public override void BeginState()
     {
-        base.BeginState();
-        Destroy(gameObject, 10);
+
+        Destroy(gameObject, 0.5f);
     }
 }

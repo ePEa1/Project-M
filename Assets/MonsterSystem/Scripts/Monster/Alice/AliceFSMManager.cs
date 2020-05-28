@@ -32,6 +32,8 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
     public Camera CloseSight;
     public GameObject playerObj;
     public Collider playerdamagedCol;
+    public Collider AliceDamageCol;
+    public AliceCOMBAT CombatState;
 
     public float moveSpeed = 3;
     public float rotateSpeed =540;
@@ -42,6 +44,7 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
 
     public bool CantMove = false;
     public bool PlayerIsAttack = false;
+    public bool IsDead = false;
 
 
     Dictionary<AliceState, AliceFSMState> states = new Dictionary<AliceState, AliceFSMState>();
@@ -70,6 +73,7 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
         SetState(startState);
     }
 
+
     public void SetState(AliceState newState)
     {
         if (curState == AliceState.DEAD)
@@ -91,7 +95,8 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
 
     public void SetDead()
     {
-        playerdamagedCol.enabled = false;
+        AliceDamageCol.enabled = false;
+        //CombatState.enabled = false;
         SetState(AliceState.DEAD);
     }
     

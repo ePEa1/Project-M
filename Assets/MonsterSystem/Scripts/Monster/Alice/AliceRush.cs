@@ -2,32 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AliceRush : AliceCOMBAT
+public class AliceRush : MonoBehaviour
 {
     public Collider RushCol;
+    public AliceCOMBAT combat;
     // Start is called before the first frame update
     void Start()
     {
         RushCol.enabled = false;
+        combat = GetComponent<AliceCOMBAT>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (IsRush == true)
+        if (combat.IsRush == true)
         {
 
-            transform.position = Vector3.MoveTowards(transform.position, RushPos, 2);
+            transform.position = Vector3.MoveTowards(transform.position, combat.RushPos, 2);
 
-            Vector3 destinationposition = new Vector3(RushPos.x - transform.position.x, 0, RushPos.z - transform.position.z);
+            Vector3 destinationposition = new Vector3(combat.RushPos.x - transform.position.x, 0, combat.RushPos.z - transform.position.z);
 
-            Vector3 diff = RushPos - destinationposition;
-            Vector3 groundCheck = diff - RushPos;
+            Vector3 diff = combat.RushPos - destinationposition;
+            Vector3 groundCheck = diff - combat.RushPos;
 
             if (groundCheck.sqrMagnitude <= 0.5f)
             {
-                IsRush = false;
-                CurPatternCheck(AliceAttackState.Combat);
+                combat.IsRush = false;
+                combat.CurPatternCheck(AliceAttackState.Combat);
             }
         }
     }

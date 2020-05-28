@@ -13,9 +13,13 @@ public class MonsterATTACK : MonsterFSMState
     }
     private void Start()
     {
-        AttackCol = transform.GetChild(2).GetComponent<Collider>();
-        AttackCol.enabled = false;
+        //AttackCol = transform.GetChild(2).GetComponent<Collider>();
 
+
+    }
+    private void Awake()
+    {
+        AttackCol.enabled = false;
     }
     // Update is called once per frame
     void Update()
