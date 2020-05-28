@@ -33,6 +33,12 @@
                 float4 vertex : SV_POSITION;
             };
 
+			sampler2D _MainTex;
+            float4 _MainTex_TexelSize;
+            float2 _BlurCenterPos;
+            half _BlurSize;
+            half _Samplers;
+
             v2f vert (appdata v)
             {
                 v2f o;
@@ -42,11 +48,6 @@
             }
 
 
-            sampler2D _MainTex;
-            float4 _MainTex_TexelSize;
-            float2 _BlurCenterPos;
-            half _BlurSize;
-            half _Samplers;
 
             float4 frag (v2f IN) : SV_Target
             {
