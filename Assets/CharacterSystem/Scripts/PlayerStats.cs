@@ -23,9 +23,9 @@ namespace ProjectM.ePEa.PlayerData
 
         #region Value
 
-        public static PlayerStats playerStat { get; private set; }
-        public float m_currentHp { get; private set; }
-        public float m_currentDodgeDelay { get; private set; }
+        public static PlayerStats playerStat { get; private set; } //외부에서 접근할 때의 용도
+        public float m_currentHp { get; private set; } //현재 캐릭터 체력
+        public float m_currentDodgeDelay { get; private set; } //현재 회피 쿨타임
 
         #endregion
 
@@ -44,19 +44,31 @@ namespace ProjectM.ePEa.PlayerData
             }
         }
 
+        /// <summary>
+        /// 캐릭터 체력 차감 이벤트
+        /// </summary>
+        /// <param name="damage">깎을 체력 수치</param>
         public void TakeDamage(float damage)
         {
             m_currentHp -= damage;
         }
 
+        
         private void Update()
         {
+            //회피 쿨타임 갱신
             m_currentDodgeDelay = Mathf.Max(0, m_currentDodgeDelay - Time.deltaTime);
         }
 
+        /// <summary>
+        /// 회피 쿨타임 설정 함수
+        /// </summary>
+        /// <param name="time">설정할 쿨타임 시간</param>
         public void SetDodgeDelay(float time)
         {
             m_currentDodgeDelay = time;
         }
     }
 }
+
+//

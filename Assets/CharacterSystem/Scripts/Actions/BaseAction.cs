@@ -17,7 +17,7 @@ public abstract class BaseAction : MonoBehaviour
 
     /// <summary>
     /// 액션이 시작될 경우 최초 실행되는 이벤트
-    /// 상속받아서 추가로 안에 채워넣기
+    /// 자식에서 재작성 필요
     /// </summary>
     /// <returns></returns>
     protected virtual BaseAction OnStartAction()
@@ -38,6 +38,7 @@ public abstract class BaseAction : MonoBehaviour
 
     /// <summary>
     /// 액션이 처음 시작될 때 실행시킬 이벤트
+    /// 외부에서 호출하는 용도
     /// </summary>
     /// <returns></returns>
     public BaseAction StartAction()
@@ -47,6 +48,7 @@ public abstract class BaseAction : MonoBehaviour
 
     /// <summary>
     /// 지정 상태일 경우 계속 실행되는 액션
+    /// 외부에서 호출하는 용도
     /// </summary>
     /// <returns></returns>
     public BaseAction UpdateAction()
@@ -55,8 +57,9 @@ public abstract class BaseAction : MonoBehaviour
     }
 
     /// <summary>
-    /// 상태 관계없이 실행되는 업데이트 이벤트
+    /// 상태 관계없이 계속 실행되는 업데이트 이벤트
     /// 실행할거 없으면 그냥 구현만 해놓기
+    /// 상태 처리가 꼬일 수 있기 때문에 진짜 필요한 게 아니면 가급적 사용하지 않는 것을 권장함
     /// </summary>
     protected abstract void AnyStateAction();
 

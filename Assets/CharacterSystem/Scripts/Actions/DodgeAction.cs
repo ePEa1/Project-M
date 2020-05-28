@@ -108,7 +108,7 @@ public class DodgeAction : BaseAction
     /// </summary>
     public void FinishDodge()
     {
-        m_nowDodge = 0.0f;
+        m_nowDodge = 0.0f; //회피 지속시간 초기화
 
         if (m_nextAtk)
         {
@@ -135,3 +135,5 @@ public class DodgeAction : BaseAction
 
     #endregion
 }
+
+//

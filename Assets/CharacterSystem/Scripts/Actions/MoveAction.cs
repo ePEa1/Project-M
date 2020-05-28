@@ -9,7 +9,7 @@ public class MoveAction : BaseAction
 {
     #region Inspector
 
-    [SerializeField] LayerMask m_wall;
+    [SerializeField] LayerMask m_wall; //막히는 오브젝트 레이어
 
     #endregion
 
@@ -73,3 +73,5 @@ public class MoveAction : BaseAction
 
     #endregion
 }
+
+//

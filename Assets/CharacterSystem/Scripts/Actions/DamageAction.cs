@@ -113,7 +113,7 @@ public class DamageAction : BaseAction
     /// </summary>
     public void OnDamAnimation()
     {
-        //무지개효과
+        //피격 연출효과 실행
         m_owner.playerCam.GetComponent<RGBCameraScript>().PlayAnimation();
 ;    }
 }

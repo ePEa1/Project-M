@@ -38,18 +38,21 @@ public class PlayerFsmManager : MonoBehaviour
 
     private void Awake()
     {
-        m_currentStat = m_startStat; //시작 시 상태 설정
-        m_currentController = GetComponent<PlayerController>(); //컨트롤러 연결
-        g_playerFsmManager = this;
-        m_currentAction = m_playerActions[(int)m_currentStat].StartAction(); //시작 상태에 따라 액션 실행
-        m_cam = GameObject.FindWithTag("MainCamera").transform;
+        //싱글톤 설정
+        if (g_playerFsmManager != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            m_currentStat = m_startStat; //시작 시 상태 설정
+            m_currentController = GetComponent<PlayerController>(); //컨트롤러 연결
+            g_playerFsmManager = this; //싱글톤 객체 설정
+            m_currentAction = m_playerActions[(int)m_currentStat].StartAction(); //시작 상태에 따라 액션 실행
+            m_cam = GameObject.FindWithTag("MainCamera").transform; //캐릭터가 사용할 카메라 설정
 
-        m_currentAni.Play("Idle", 0);
-    }
-
-    private void Start()
-    {
-        
+            m_currentAni.Play("Idle", 0); //시작 시 캐릭터 애니메이션 설정
+        }
     }
 
     // Update is called once per frame
@@ -82,3 +85,15 @@ public class PlayerFsmManager : MonoBehaviour
 
     #endregion
 }
+
+//※처리 구조※----------------------------------
+//캐릭터가 가질 수 있는 상태를 Enum에 작성하고, 같은 수만큼의 각 상태 처리 함수(BaseAction)를 m_playerActions에 넣음
+//매 업데이트마다 현재 상태 액션에 있는 UpdateAction을 실행시킴
+//ChangeAction을 사용하면 현재 상태값을 변경시키고 기존 상태처리 함수의 EndAction을 한번 실행시키고, 바꿀 상태 처리함수의 StartAction을 실행시킴
+//그 후 바뀐 상태값에 따라 업데이트에서는 UpdateAction을 계속 실행
+
+
+//-----------------------------------------------------------
+//※만약 새로운 상태를 추가하고싶다면
+//1. PlayerEnum 에 새로운 상태를 추가한다
+//2. BaseAction을 상속받는 새로운 스크립트를 작성하여 m_playerActions에 집어넣는다
