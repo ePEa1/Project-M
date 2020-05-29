@@ -1,4 +1,4 @@
-﻿Shader "MFD/Toon"
+﻿Shader "DGR/Toon"
 {
     Properties
     {
@@ -20,7 +20,7 @@
 		Tags { "RenderType" = "Opaque"}
 		LOD 200
 
-		cull back
+		cull off
 
 		CGPROGRAM
 		#pragma surface surf Toon
