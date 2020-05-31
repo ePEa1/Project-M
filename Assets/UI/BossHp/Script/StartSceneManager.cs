@@ -14,6 +14,7 @@ public class StartSceneManager : MonoBehaviour
     void Start()
     {
         UISound = GetComponent<AudioSource>();
+        Time.timeScale = 1;
         //RayCastHitButton();
     }
 

@@ -22,6 +22,7 @@ public class PlayerFsmManager : MonoBehaviour
     public Animator m_currentAc { get { return m_currentAni; } } // 캐릭터 애니메이터 접근
     public static PlayerFsmManager g_playerFsmManager { get; private set; } //캐릭터 설정
     public Transform playerCam { get { return m_cam; } } //캐릭터 카메라에 접근
+    public bool IsDead = false;
     #endregion
 
     #region Inspector

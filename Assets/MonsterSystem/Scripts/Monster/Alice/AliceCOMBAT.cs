@@ -223,7 +223,7 @@ public class AliceCOMBAT : AliceFSMState
     void RushAttack()
     {
         IsRush = true;
-
+        
     }
     public void Teleport()
     {

@@ -29,12 +29,7 @@ public class AliceDAMAGE : AliceFSMState
     // Update is called once per frame
     public void Update()
     {
-        if (manager.CurAliceHP <= 0)
-        {
-            manager.CurAliceHP = 0;
-            manager.SetDead();
 
-        }
     }
 
     public void OnTriggerEnter(Collider other)
@@ -67,6 +62,10 @@ public class AliceDAMAGE : AliceFSMState
         IsDamaged = true;
         manager.CurAliceHP -= damage; //후에 데미지로 변경
         HpManager.ChangeHp(manager.CurAliceHP);
+        if(manager.CurAliceHP <= 0)
+        {
+            manager.IsDead = true;
+        }
     }
     void CreatHitEff()
     {

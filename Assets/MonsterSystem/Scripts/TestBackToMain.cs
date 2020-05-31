@@ -19,28 +19,31 @@ public class TestBackToMain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (manager.CurAliceHP <= 0)
-        {
-            IsEnd = true;
-            main.SetActive(true);
-        }
-        else
-        {
-            main.SetActive(false);
-            IsEnd = false;
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if(IsEnd == true)
-            {
-                SceneManager.LoadScene("StartScene");
+        //if (manager.CurAliceHP <= 0)
+        //{
+        //    IsEnd = true;
+        //    main.SetActive(true);
+        //}
+        //else
+        //{
+        //    main.SetActive(false);
+        //    IsEnd = false;
+        //}
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    if(IsEnd == true)
+        //    {
+        //        SceneManager.LoadScene("StartScene");
 
-            }
-        }
+        //    }
+        //}
     }
 
    public  void GotoMain()
     {
+        Time.timeScale = 1;
+        Debug.Log(Time.timeScale);
         SceneManager.LoadScene("StartScene");
+
     }
 }
