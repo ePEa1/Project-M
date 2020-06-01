@@ -64,7 +64,8 @@ public class AliceDAMAGE : AliceFSMState
         HpManager.ChangeHp(manager.CurAliceHP);
         if(manager.CurAliceHP <= 0)
         {
-            manager.IsDead = true;
+            //manager.IsDead = true;
+            manager.SetDead();
         }
     }
     void CreatHitEff()

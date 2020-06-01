@@ -31,9 +31,14 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
     public Animator anim;
     public Camera CloseSight;
     public GameObject playerObj;
+    public GameObject damageObj;
+    public GameObject atkObj;
     public Collider playerdamagedCol;
     public Collider AliceDamageCol;
     public AliceCOMBAT CombatState;
+    public AliceFarAttack FarAtk;
+    public AliceRush RushAtk;
+
 
     public float moveSpeed = 3;
     public float rotateSpeed =540;
@@ -56,6 +61,9 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
         CloseSight = GetComponentInChildren<Camera>();
         playerObj = GameObject.FindGameObjectWithTag("Player");
         playerdamagedCol = playerObj.transform.GetChild(0).GetChild(4).GetComponent<Collider>();
+        CombatState = GetComponent<AliceCOMBAT>();
+        FarAtk = GetComponent<AliceFarAttack>();
+        RushAtk = GetComponent<AliceRush>();
         
 
         states.Add(AliceState.IDLE, GetComponent<AliceIDLE>());
@@ -95,9 +103,15 @@ public class AliceFSMManager : MonoBehaviour,IFSMManager
 
     public void SetDead()
     {
-        AliceDamageCol.enabled = false;
-        //CombatState.enabled = false;
         SetState(AliceState.DEAD);
+        anim.SetTrigger("death");
+        AliceDamageCol.enabled = false;
+        //damageObj.SetActive(false);
+        atkObj.SetActive(false);
+        FarAtk.enabled = false;
+        RushAtk.enabled = false;
+        CombatState.enabled = false;
+
     }
     
     public void NotifyTargetDead()
