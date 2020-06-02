@@ -8,6 +8,10 @@ namespace ProjectM.ePEa.CustomFunctions
     {
         /// <summary>
         /// 이동 보정 함수
+        /// 이동시킬 값에 이 함수의 반환값을 더해줘야 벽을 안뚫음
+        /// 자세한 계산 방식에 대한 설명은 생략하고
+        /// 벽을 뚫어서 이동하려고 하면 뚫은 거리만큼 벽의 노말방향대로 다시 밀어내는 방식.
+        /// 이 함수는 그 밀어내는 수치를 계산해서 반환해주는 함수
         /// </summary>
         /// <param name="startPos">시작위치</param>
         /// <param name="size">구체 반지름</param>
@@ -61,3 +65,6 @@ namespace ProjectM.ePEa.CustomFunctions
         }
     }
 }
+
+//※사용법※----------------------------
+//사용해야 하는 스크립트에서 using static ProjectM.ePEa.CustomFunctions.CustomFunction; 작성

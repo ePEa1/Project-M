@@ -86,17 +86,11 @@ public class AttackAction : BaseAction
         m_atkTime += Time.deltaTime;
         Vector3 afterPos = Vector3.Lerp(m_startPos, m_finishPos, m_atkDistanceCurve[m_currentCombo].Evaluate(m_atkTime * m_ac));
 
-        Vector3 fixedPos = FixedMovePos(m_owner.transform.position, PlayerStats.playerStat.m_size, (afterPos - beforePos).normalized, Vector3.Distance(beforePos, afterPos),
+        Vector3 tall = new Vector3(0.0f, PlayerStats.playerStat.m_hikingHeight + PlayerStats.playerStat.m_size, 0.0f);
+        Vector3 fixedPos = FixedMovePos(m_owner.transform.position + tall, PlayerStats.playerStat.m_size, (afterPos - beforePos).normalized, Vector3.Distance(beforePos, afterPos),
             m_wall);
 
-        if (fixedPos != Vector3.zero)
-        {
-            m_owner.transform.position += (afterPos - beforePos) + fixedPos;
-        }
-        else
-        {
-            m_owner.transform.position += afterPos - beforePos;
-        }
+        m_owner.transform.position += afterPos - beforePos + fixedPos;
         //--------------------------------------------------------
 
         return this;

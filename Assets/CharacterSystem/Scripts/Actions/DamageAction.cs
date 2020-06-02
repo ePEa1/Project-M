@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ProjectM.ePEa.PlayerData;
 using UnityEngine.Events;
+using static ProjectM.ePEa.CustomFunctions.CustomFunction;
 
 public class DamageAction : BaseAction
 {
@@ -10,6 +11,7 @@ public class DamageAction : BaseAction
 
     [SerializeField] AnimationCurve m_knockAC; //넉백 이동 커브
     [SerializeField] GameObject m_damEff; //피격 이펙트
+    [SerializeField] LayerMask m_wall;
 
     #endregion
 
@@ -63,8 +65,16 @@ public class DamageAction : BaseAction
 
     protected override BaseAction OnUpdateAction()
     {
+
+        Vector3 beforePos = Vector3.Lerp(m_startPos, m_finishPos, m_knockAC.Evaluate(m_knockTime * m_ac));
         m_knockTime = Mathf.Min(m_maxTime, m_knockTime + Time.deltaTime);
-        m_owner.transform.position = Vector3.Lerp(m_startPos, m_finishPos, m_knockAC.Evaluate(m_knockTime * m_ac));
+        Vector3 afterPos = Vector3.Lerp(m_startPos, m_finishPos, m_knockAC.Evaluate(m_knockTime * m_ac));
+
+        Vector3 tall = new Vector3(0.0f, PlayerStats.playerStat.m_hikingHeight + PlayerStats.playerStat.m_size, 0.0f);
+        Vector3 fixedPos = FixedMovePos(m_owner.transform.position + tall, PlayerStats.playerStat.m_size, (afterPos - beforePos).normalized,
+            PlayerStats.playerStat.m_moveSpeed * Time.deltaTime, m_wall);
+
+        m_owner.transform.position += beforePos - afterPos + fixedPos;
 
         //넉백 시간 다 끝나면
         if (m_knockTime >= m_maxTime)
@@ -104,7 +114,7 @@ public class DamageAction : BaseAction
     /// </summary>
     public void OnDamAnimation()
     {
-        //무지개효과
+        //피격 연출효과 실행
         m_owner.playerCam.GetComponent<RGBCameraScript>().PlayAnimation();
 ;    }
 }

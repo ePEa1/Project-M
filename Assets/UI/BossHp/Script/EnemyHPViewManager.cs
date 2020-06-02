@@ -26,7 +26,7 @@ public class EnemyHPViewManager : MonoBehaviour
     //[SerializeField] int m_fontMinSize = 20;
     //[SerializeField] int m_fontMaxSize = 40;
 
-    [SerializeField] float m_fontSpeed = 2.0f; //폰트 크기 애니메이션 속도
+    //[SerializeField] float m_fontSpeed = 2.0f; //폰트 크기 애니메이션 속도
 
     #endregion
 
@@ -90,7 +90,7 @@ public class EnemyHPViewManager : MonoBehaviour
             hps[i].transform.localScale = new Vector3(1, 1, 1);
         }
         m_hpData.transform.SetAsLastSibling();
-        m_hpData.text = m_nowHp.ToString() + " / " + m_maxHp.ToString();
+        m_hpData.text = ((int)Mathf.Floor(m_nowHp)).ToString() + " / " + m_maxHp.ToString();
         m_hpSizeText.transform.SetAsLastSibling();
         m_hpSizeText.text = "X " + (int)Mathf.Ceil(m_nowHp / m_hpMaxSize);
         m_hpBox.transform.SetAsLastSibling();
@@ -107,7 +107,7 @@ public class EnemyHPViewManager : MonoBehaviour
     {
         m_nowHp = changeHp;
         m_nowShakePower = m_shakePower;
-        m_hpData.text = m_nowHp.ToString() + " / " + m_maxHp.ToString();
+        m_hpData.text = ((int)Mathf.Floor(m_nowHp)).ToString() + " / " + m_maxHp.ToString();
 
         for (int i = 0; i < hps.Length; i++)
         {

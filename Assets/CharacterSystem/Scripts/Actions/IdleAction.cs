@@ -21,6 +21,7 @@ public class IdleAction : BaseAction
 
     protected override BaseAction OnUpdateAction()
     {
+        //어느 상태로도 이동할 수 있도록 처리
         if (m_controller.IsMoving())
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
@@ -37,3 +38,6 @@ public class IdleAction : BaseAction
         return this;
     }
 }
+
+//※처리 구조※
+//대기 상태이므로 이 다음 어떤 행동을 취하든지 바로 상태가 바뀔 수 있도록 키입력 받자마자 상태변경 함수 실행
