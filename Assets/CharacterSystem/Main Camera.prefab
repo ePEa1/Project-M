@@ -56,7 +56,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 12
+  m_FocalLength: 15.638705
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -65,7 +65,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 1000
-  field of view: 90
+  field of view: 75
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -108,15 +108,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7402736142049612400}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0128797cf9ea0c4e9742c4a24533b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blurSize: 0.1
+  blurSize: 0.79
   blurCenterPos: {x: 0.5, y: 0.5}
-  samples: 0
-  mat3: {fileID: 0}
+  samples: 20
+  mat3: {fileID: 2100000, guid: d85f464b588e5734f9a13338a11de0f8, type: 2}
 --- !u!114 &1988297344352354033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,26 +134,35 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 1
-      tangentMode: 0
-      weightedMode: 0
+      value: -0.0004849136
+      inSlope: 36.761726
+      outSlope: 9.533963
+      tangentMode: 1
+      weightedMode: 3
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.39403218
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
+      time: 0.021469116
+      value: 0.3328882
+      inSlope: 9.346024
+      outSlope: -0.35881433
+      tangentMode: 1
+      weightedMode: 3
+      inWeight: 0.36954853
+      outWeight: 0.1740978
+    - serializedVersion: 3
+      time: 0.9999155
+      value: 0.0002399087
+      inSlope: -0.2048533
+      outSlope: -2.1874945
+      tangentMode: 1
+      weightedMode: 3
+      inWeight: 0.1781049
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_animSpeed: 1
+  m_animSpeed: 5.5
   mat2: {fileID: 2100000, guid: 0c01aaa2937943f40b416cab75aa608c, type: 2}
 --- !u!114 &7402736142049612363
 MonoBehaviour:
@@ -261,10 +270,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  m_centerPos: {x: 0, y: 2.35, z: 0}
-  m_distance: 3.2
+  m_centerPos: {x: 0, y: 1.4, z: 0}
+  m_distance: 4.41
   m_moveSpeed: 10
-  m_yMin: -40
+  m_yMin: -13
   m_yMax: 50
   m_xSpeed: 100
   m_ySpeed: 70
@@ -282,7 +291,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 890926afb063a6d4787bc40d67e07cda, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.02
   m_Pitch: 1
   Loop: 0
   Mute: 0
