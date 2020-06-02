@@ -13,7 +13,8 @@ public class PlayerFsmManager : MonoBehaviour
         MOVE,
         ATK,
         DODGE,
-        DAMAGE
+        DAMAGE,
+        DASHATK
     }
 
     public PlayerENUM m_currentStat; //{ get; private set; } //현재 상태
@@ -23,6 +24,8 @@ public class PlayerFsmManager : MonoBehaviour
     public static PlayerFsmManager g_playerFsmManager { get; private set; } //캐릭터 설정
     public Transform playerCam { get { return m_cam; } } //캐릭터 카메라에 접근
     public bool IsDead = false;
+    public float MaxHP;
+    public float HPcheck; 
     #endregion
 
     #region Inspector
@@ -59,6 +62,8 @@ public class PlayerFsmManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        MaxHP = transform.GetComponent<PlayerStats>().m_maxHp;
+
         m_currentAction.UpdateAction(); //현재 상태에 맞는 액션 실행
     }
 

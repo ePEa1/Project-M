@@ -8,9 +8,16 @@ public class PlayerEventManager : MonoBehaviour
     [SerializeField] UnityEvent[] m_atkEvent;
     [SerializeField] UnityEvent[] m_dodgeEvent;
     [SerializeField] UnityEvent[] m_damageEvent;
+    [SerializeField] UnityEvent[] m_dashatkEvent;
 
     [SerializeField] UnityEvent[] m_testEvent;
 
+    public enum DashAtkEnum
+    {
+        SetCollider,
+        DeleteCollider,
+        CreatEff
+    }
     public enum AtkEnum
     {
         NextAtkOpen,
@@ -64,6 +71,10 @@ public class PlayerEventManager : MonoBehaviour
         m_damageEvent[(int)e].Invoke();
     }
 
+    public void OnDashAtkEvent(DashAtkEnum e)
+    {
+        m_dashatkEvent[(int)e].Invoke();
+    }
     /// <summary>
     /// 예시용 함수
     /// </summary>

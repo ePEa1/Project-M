@@ -44,6 +44,8 @@ namespace ProjectM.ePEa.PlayerData
                 Debug.Log("Player Stat is enabled");
                 Destroy(this.gameObject);
             }
+            transform.GetComponent<PlayerFsmManager>().HPcheck = m_currentHp;
+
         }
 
         /// <summary>
@@ -53,11 +55,13 @@ namespace ProjectM.ePEa.PlayerData
         public void TakeDamage(float damage)
         {
             m_currentHp -= damage;
+            transform.GetComponent<PlayerFsmManager>().HPcheck = m_currentHp;
             Debug.Log("Player get Damage" + m_currentHp);
             if(m_currentHp <= 0)
             {
                 Debug.Log("GameOver");
                 transform.GetComponent<PlayerFsmManager>().IsDead = true;
+
             }
             else
             {
