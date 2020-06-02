@@ -23,12 +23,14 @@ public class DashAtkAction : BaseAction
     //쓰지 않기
     protected override void AnyStateAction()
     {
+
     }
 
     protected override BaseAction OnUpdateAction()
     {
 
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
+        return this;
     }
 
     public void SetCollider()

@@ -36,14 +36,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        LeftDashAttack();
-        RightDashAttack();
-        BackDashAttack();
+        //IsLeftDashAttack();
+        //IsRightDashAttack();
+        //IsBackDashAttack();
         leftdash = Mathf.Max(0,leftdash-Time.deltaTime);
         rightdash = Mathf.Max(0, rightdash-Time.deltaTime);
         backdash = Mathf.Max(0, backdash-Time.deltaTime);
-
-
     }
     /// <summary>
     /// 이동키 입력했는지 체크
@@ -100,7 +98,7 @@ public class PlayerController : MonoBehaviour
         else return false;
     }
 
-    public bool LeftDashAttack()
+    public bool IsLeftDashAttack()
     {
         if (Input.GetKeyDown(m_leftMove))
         {
@@ -117,7 +115,7 @@ public class PlayerController : MonoBehaviour
         }
             return false;
     }
-    public bool RightDashAttack()
+    public bool IsRightDashAttack()
     {
         if (Input.GetKeyDown(m_rightMove))
         {
@@ -134,7 +132,7 @@ public class PlayerController : MonoBehaviour
         }
          return false;
     }
-    public bool BackDashAttack()
+    public bool IsBackDashAttack()
     {
         if (Input.GetKeyDown(m_backMove))
         {
