@@ -95,12 +95,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10e2059f7a5f5f44ca199976ef277d20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DownSample: 0
+  DownSample: 0.644
   RadianBlur: {fileID: 0}
-  BlurCenterX: 0
-  BlurCenterY: 0
-  BlurRatio: 0
-  ClearDis: 0
+  BlurCenterX: 0.5
+  BlurCenterY: 0.5
+  BlurRatio: 0.0722
+  ClearDis: 0.179
 --- !u!114 &4754158874736082263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,19 +145,19 @@ MonoBehaviour:
       time: 0.021469116
       value: 0.3328882
       inSlope: 9.346024
-      outSlope: -0.35881433
+      outSlope: -0.44744694
       tangentMode: 1
       weightedMode: 3
       inWeight: 0.36954853
-      outWeight: 0.1740978
+      outWeight: 0.53614336
     - serializedVersion: 3
-      time: 0.9999155
+      time: 0.969731
       value: 0.0002399087
-      inSlope: -0.2048533
+      inSlope: -0.110959224
       outSlope: -2.1874945
       tangentMode: 1
       weightedMode: 3
-      inWeight: 0.1781049
+      inWeight: 0.118797466
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7402736142049612400}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2fac86915c4f2d14f91c3fe398c1a885, type: 3}
   m_Name: 
