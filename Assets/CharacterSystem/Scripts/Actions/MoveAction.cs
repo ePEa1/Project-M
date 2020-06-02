@@ -38,8 +38,9 @@ public class MoveAction : BaseAction
             m_animator.SetBool("IsMoving", true);
         else m_animator.SetBool("IsMoving", false);
 
-        float hikingHeight = PlayerStats.playerStat.m_hikingHeight;
 
+        //중력(+경사면) 연산---------------------------------
+        float hikingHeight = PlayerStats.playerStat.m_hikingHeight;
         float gravity = m_gravity * Time.deltaTime;
 
         RaycastHit hit;
@@ -54,6 +55,7 @@ public class MoveAction : BaseAction
             m_owner.transform.position += Vector3.down * gravity;
             m_gravity += Time.deltaTime * PlayerStats.playerStat.m_gravity;
         }
+        //--------------------------------------------------------
     }
 
     protected override BaseAction OnUpdateAction()
