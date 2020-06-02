@@ -10,7 +10,6 @@ public class MoveAction : BaseAction
     #region Inspector
 
     [SerializeField] LayerMask m_wall; //막히는 오브젝트 레이어
-    [SerializeField] LayerMask m_block; //바닥 오브젝트 레이어
 
     #endregion
 
@@ -44,7 +43,7 @@ public class MoveAction : BaseAction
         float gravity = m_gravity * Time.deltaTime;
 
         RaycastHit hit;
-        if (Physics.Raycast(m_owner.transform.position + Vector3.up * hikingHeight, Vector3.down, out hit, hikingHeight + gravity, m_block))
+        if (Physics.Raycast(m_owner.transform.position + Vector3.up * hikingHeight, Vector3.down, out hit, hikingHeight + gravity, m_wall))
         {
             Debug.Log(hit.point.y);
             m_gravity = 0.0f;
@@ -85,7 +84,8 @@ public class MoveAction : BaseAction
 
             //이동---------------------------------------------
             Vector3 fixedVec = Vector3.zero;
-            fixedVec += FixedMovePos(m_owner.transform.position, PlayerStats.playerStat.m_size, (m_owner.transform.rotation * -Vector3.forward).normalized,
+            Vector3 tall = new Vector3(0.0f, PlayerStats.playerStat.m_hikingHeight + PlayerStats.playerStat.m_size, 0.0f);
+            fixedVec += FixedMovePos(m_owner.transform.position + tall, PlayerStats.playerStat.m_size, (m_owner.transform.rotation * -Vector3.forward).normalized,
                     PlayerStats.playerStat.m_moveSpeed * Time.deltaTime, m_wall);
 
             m_owner.transform.position += moveVec + fixedVec;
