@@ -9,6 +9,8 @@ namespace ProjectM.ePEa.PlayerData
         #region Inspector
 
         [SerializeField] public float m_size; //캐릭터 부피
+        [SerializeField] public float m_hikingHeight; //오를 수 있는 경사면 높이
+        [SerializeField] public float m_gravity; //중력가속도
 
         [SerializeField] public float m_maxHp; //캐릭터 최대체력
         [SerializeField] public float m_moveSpeed; //캐릭터 이동속도

@@ -5380,6 +5380,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  m_testEvent: []
 --- !u!1 &5447655126482157498
 GameObject:
   m_ObjectHideFlags: 0
@@ -5511,6 +5512,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_size: 0.6
+  m_hikingHeight: 1
+  m_gravity: 50
   m_maxHp: 5
   m_moveSpeed: 10
   m_movePower: 0
@@ -5599,6 +5602,9 @@ MonoBehaviour:
   m_wall:
     serializedVersion: 2
     m_Bits: 3072
+  m_block:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!1 &5447655127755071445
 GameObject:
   m_ObjectHideFlags: 0
@@ -5856,6 +5862,10 @@ MonoBehaviour:
     m_RotationOrder: 4
   m_damEff: {fileID: 6598188281045952718, guid: ad5d8ad744c73da4297a5335fe3cabbd,
     type: 3}
+  m_wall:
+    serializedVersion: 2
+    m_Bits: 0
+  damagesound: {fileID: 0}
 --- !u!54 &5447655127832443667
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -10,6 +10,13 @@ public class MoveAction : BaseAction
     #region Inspector
 
     [SerializeField] LayerMask m_wall; //막히는 오브젝트 레이어
+    [SerializeField] LayerMask m_block; //바닥 오브젝트 레이어
+
+    #endregion
+
+    #region Value
+
+    float m_gravity = 0.0f;
 
     #endregion
 
@@ -31,6 +38,23 @@ public class MoveAction : BaseAction
         if (m_controller.IsMoving())
             m_animator.SetBool("IsMoving", true);
         else m_animator.SetBool("IsMoving", false);
+
+        float hikingHeight = PlayerStats.playerStat.m_hikingHeight;
+
+        float gravity = m_gravity * Time.deltaTime;
+
+        RaycastHit hit;
+        if (Physics.Raycast(m_owner.transform.position + Vector3.up * hikingHeight, Vector3.down, out hit, hikingHeight + gravity, m_block))
+        {
+            Debug.Log(hit.point.y);
+            m_gravity = 0.0f;
+            m_owner.transform.position = new Vector3(m_owner.transform.position.x, hit.point.y, m_owner.transform.position.z);
+        }
+        else
+        {
+            m_owner.transform.position += Vector3.down * gravity;
+            m_gravity += Time.deltaTime * PlayerStats.playerStat.m_gravity;
+        }
     }
 
     protected override BaseAction OnUpdateAction()
