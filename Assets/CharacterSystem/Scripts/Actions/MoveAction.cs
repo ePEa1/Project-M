@@ -47,6 +47,11 @@ public class MoveAction : BaseAction
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
         }
+        if(m_controller.IsLeftDashAttack() || m_controller.IsRightDashAttack())
+        {
+            Debug.Log("DashAtkCheck");
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
+        }
 
         else if (m_controller.IsMoving())
         {

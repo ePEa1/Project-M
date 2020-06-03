@@ -122,6 +122,7 @@ public class DodgeAction : BaseAction
             }
             else m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
         }
+        m_animator.ResetTrigger("DashAtk");
         m_animator.SetBool("IsDodge", false);
     }
     
