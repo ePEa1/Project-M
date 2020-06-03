@@ -70,7 +70,8 @@ public class DamageAction : BaseAction
         m_knockTime = Mathf.Min(m_maxTime, m_knockTime + Time.deltaTime);
         Vector3 afterPos = Vector3.Lerp(m_startPos, m_finishPos, m_knockAC.Evaluate(m_knockTime * m_ac));
 
-        Vector3 fixedPos = FixedMovePos(m_owner.transform.position, PlayerStats.playerStat.m_size, (afterPos - beforePos).normalized,
+        Vector3 tall = new Vector3(0.0f, PlayerStats.playerStat.m_hikingHeight + PlayerStats.playerStat.m_size, 0.0f);
+        Vector3 fixedPos = FixedMovePos(m_owner.transform.position + tall, PlayerStats.playerStat.m_size, (afterPos - beforePos).normalized,
             PlayerStats.playerStat.m_moveSpeed * Time.deltaTime, m_wall);
 
         m_owner.transform.position += beforePos - afterPos + fixedPos;

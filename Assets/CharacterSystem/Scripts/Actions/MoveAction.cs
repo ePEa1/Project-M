@@ -13,6 +13,12 @@ public class MoveAction : BaseAction
 
     #endregion
 
+    #region Value
+
+    float m_gravity = 0.0f;
+
+    #endregion
+
     #region events
 
     protected override BaseAction OnStartAction()
@@ -31,6 +37,24 @@ public class MoveAction : BaseAction
         if (m_controller.IsMoving())
             m_animator.SetBool("IsMoving", true);
         else m_animator.SetBool("IsMoving", false);
+
+
+        //중력(+경사면) 연산---------------------------------
+        float hikingHeight = PlayerStats.playerStat.m_hikingHeight;
+        float gravity = m_gravity * Time.deltaTime;
+
+        RaycastHit hit;
+        if (Physics.Raycast(m_owner.transform.position + Vector3.up * hikingHeight, Vector3.down, out hit, hikingHeight + gravity, m_wall))
+        {
+            m_gravity = 0.0f;
+            m_owner.transform.position = new Vector3(m_owner.transform.position.x, hit.point.y, m_owner.transform.position.z);
+        }
+        else
+        {
+            m_owner.transform.position += Vector3.down * gravity;
+            m_gravity += Time.deltaTime * PlayerStats.playerStat.m_gravity;
+        }
+        //--------------------------------------------------------
     }
 
     protected override BaseAction OnUpdateAction()
@@ -66,7 +90,8 @@ public class MoveAction : BaseAction
 
             //이동---------------------------------------------
             Vector3 fixedVec = Vector3.zero;
-            fixedVec += FixedMovePos(m_owner.transform.position, PlayerStats.playerStat.m_size, (m_owner.transform.rotation * -Vector3.forward).normalized,
+            Vector3 tall = new Vector3(0.0f, PlayerStats.playerStat.m_hikingHeight + PlayerStats.playerStat.m_size, 0.0f);
+            fixedVec += FixedMovePos(m_owner.transform.position + tall, PlayerStats.playerStat.m_size, (m_owner.transform.rotation * -Vector3.forward).normalized,
                     PlayerStats.playerStat.m_moveSpeed * Time.deltaTime, m_wall);
 
             m_owner.transform.position += moveVec + fixedVec;
