@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class MonsterDAMAGED : MonsterFSMState
 {
-    public GameObject hiteff;
-    public AudioSource DamageSound;
-    public MeshRenderer skinned;
-    public Material originalMat;
-    public Material damageMat;
-    AtkCollider damInfo;
-    public int SetDamage;
-    public bool IsDamaged;
+    public GameObject hiteff;//이펙트
+    public AudioSource DamageSound;//사운드
+    public MeshRenderer skinned;//피격 마테리얼 바꾸는 렌더러
+    public Material originalMat;//원래 마테리얼
+    public Material damageMat;//피격 마테리얼
+    AtkCollider damInfo;//받아오는 콜리더
+    public bool IsDamaged;//데미지 상태
     // Start is called before the first frame update
     void Start()
     {

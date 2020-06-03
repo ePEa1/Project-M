@@ -16,13 +16,13 @@ public enum DummyState
 
 public class MonsterFSMManager : MonoBehaviour, IFSMManager
 {
-    public DummyState currentState;
-    public DummyState startState;
-    public Collider DamageCol;
-    public Animator anim;
-    public Camera sight;
-    public GameObject playerObj;
-    public MobStat stat;
+    public DummyState currentState;//최근 상태
+    public DummyState startState;//시작 상태
+    public Collider DamageCol;//데미지 콜라이더
+    public Animator anim;//애니메이터
+    public Camera sight;//몬스터 시야
+    public GameObject playerObj;//캐릭터 오브젝트
+    public MobStat stat;//몬스터 기본 상태
 
 
     //상태와 동시에 스크립트 저장

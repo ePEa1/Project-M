@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MonsterATTACK : MonsterFSMState
 {
-    public MonsterCHASE chase;
-    public Collider AttackCol;
+    public MonsterCHASE chase;//쫓아가는 상태 
+    public Collider AttackCol;//공격 콜리더
     public override void BeginState()
     {
         base.BeginState();
