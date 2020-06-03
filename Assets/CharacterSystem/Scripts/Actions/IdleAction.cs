@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ProjectM.ePEa.PlayerData;
+using UnityEngine.SceneManagement;
 
 public class IdleAction : BaseAction
 {
@@ -16,7 +17,11 @@ public class IdleAction : BaseAction
 
     protected override void AnyStateAction()
     {
-
+        //씬 재시작
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 
     protected override BaseAction OnUpdateAction()

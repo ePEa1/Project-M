@@ -46,7 +46,6 @@ public class MoveAction : BaseAction
         RaycastHit hit;
         if (Physics.Raycast(m_owner.transform.position + Vector3.up * hikingHeight, Vector3.down, out hit, hikingHeight + gravity, m_wall))
         {
-            Debug.Log(hit.point.y);
             m_gravity = 0.0f;
             m_owner.transform.position = new Vector3(m_owner.transform.position.x, hit.point.y, m_owner.transform.position.z);
         }
