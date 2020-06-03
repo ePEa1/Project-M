@@ -27,7 +27,7 @@
 		//_LitTex ("LightMap", 2D) = "white" {}
 		
 		[Toggle] _TestToggle ("RampTex On", Float) = 0
-		[Toggle] _TestToggle2 ("토글", Float) = 0
+		[Toggle] _TestToggle2 ("Ceil Shadow", Float) = 0
 	}
 		SubShader
 	{
@@ -37,7 +37,7 @@
 		cull off
 
 		CGPROGRAM
-		#pragma surface surf Toon
+		#pragma surface surf Toon addshadow
 		#pragma target 3.0
 
 		float4 _Color;
@@ -113,7 +113,7 @@
 			final.rgb = (s.Albedo + SpecColor * _Color2) * (1 + diffColor * _TestToggle2 - _TestToggle2) * _LightColor0.rgb;
 			final.a = s.Alpha;
 
-			float4 ffinal = final * (1+RampColor*_TestToggle - _TestToggle);
+			float4 ffinal = final * (1+RampColor*_TestToggle - _TestToggle) * atten;
 
 
 
