@@ -12,6 +12,7 @@ public class DashAtkAction : BaseAction
     [SerializeField] LayerMask m_wall;
 
     [SerializeField] float speed;
+    [SerializeField] float movePos;
 
     Vector3 m_startPos;
     Vector3 m_finishPos;
@@ -21,8 +22,7 @@ public class DashAtkAction : BaseAction
 
     protected override BaseAction OnStartAction()
     {
-        m_startPos = m_owner.transform.position;
-        m_finishPos = m_startPos * speed;
+        CheckDistance();
 
         m_animator.SetTrigger("DashAtk");
         m_animator.SetBool("IsDashAtk", true);
@@ -43,11 +43,11 @@ public class DashAtkAction : BaseAction
 
     protected override BaseAction OnUpdateAction()
     {
-        float ac = 1.0f / PlayerStats.playerStat.m_dodgeTime;
 
-        Vector3 beforePos = Vector3.Lerp(m_startPos, m_finishPos, m_AtkDistance.Evaluate(m_curdashAtk * ac));
+
+        Vector3 beforePos = Vector3.Lerp(m_startPos, m_finishPos, m_AtkDistance.Evaluate(m_curdashAtk * speed));
         m_curdashAtk += Time.deltaTime;
-        Vector3 afterPos = Vector3.Lerp(m_startPos, m_finishPos, m_AtkDistance.Evaluate(m_curdashAtk * ac));
+        Vector3 afterPos = Vector3.Lerp(m_startPos, m_finishPos, m_AtkDistance.Evaluate(m_curdashAtk * speed));
 
         Vector3 fixedPos = FixedMovePos(m_owner.transform.position, PlayerStats.playerStat.m_size, (afterPos - beforePos).normalized, Vector3.Distance(beforePos, afterPos),
             m_wall);
@@ -82,6 +82,17 @@ public class DashAtkAction : BaseAction
         }
 
         m_animator.SetBool("IsDashAtk", false);
+
+    }
+
+    public void CheckDistance()
+    {
+        Vector3 viewVec = m_owner.transform.position - m_owner.playerCam.transform.position;
+        viewVec.y = 0;
+        viewVec = viewVec.normalized;
+
+        m_startPos = m_owner.transform.position;
+        m_finishPos = m_startPos + viewVec*movePos;
 
     }
 
