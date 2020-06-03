@@ -61,6 +61,8 @@ namespace ProjectM.ePEa.CustomFunctions
                 }
             }
 
+            Debug.Log(fixedPos.normalized);
+
             return fixedPos;
         }
     }

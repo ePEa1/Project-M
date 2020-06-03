@@ -21,12 +21,13 @@ public class MonsterProto : MonoBehaviour
 
     NavMeshAgent m_navi;
     Transform target; //쫓아갈 캐릭터
-
+    
     enum state
     {
         MOVE,
         ATK,
-        DAMAGE
+        DAMAGE,
+        DEAD
     }
 
     state m_nowState = state.MOVE;
@@ -45,7 +46,22 @@ public class MonsterProto : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
+        switch(m_nowState)
+        {
+            case state.MOVE:
+                Move();
+                break;
+
+            case state.ATK:
+                Atk();
+                break;
+
+            case state.DAMAGE:
+                break;
+
+            case state.DEAD:
+                break;
+        }
     }
 
     void Move()
@@ -57,10 +73,16 @@ public class MonsterProto : MonoBehaviour
         {
             m_navi.speed = 0;
             m_navi.velocity = Vector3.zero;
+            //if ()
         }
         else
         {
             m_navi.speed = m_moveSpeed;
         }
+    }
+
+    void Atk()
+    {
+
     }
 }
