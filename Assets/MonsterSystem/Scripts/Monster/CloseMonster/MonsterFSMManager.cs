@@ -18,7 +18,6 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
 {
     public DummyState currentState;
     public DummyState startState;
-    public CharacterController cc;
     public Collider DamageCol;
     public Animator anim;
     public Camera sight;
@@ -26,19 +25,20 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
     public MobStat stat;
 
 
-
+    //상태와 동시에 스크립트 저장
     Dictionary<DummyState, MonsterFSMState> states = new Dictionary<DummyState, MonsterFSMState>();
 
 
     private void Awake()
     {
-        cc = GetComponent<CharacterController>();
         DamageCol = GetComponentInChildren<Collider>();
         anim = GetComponentInChildren<Animator>();
         sight = GetComponentInChildren<Camera>();
         playerObj = GameObject.FindGameObjectWithTag("Player");
         stat = GetComponent<MobStat>();
 
+
+        //상태 추가
         states.Add(DummyState.IDLE, GetComponent<MonsterIDLE>());
         states.Add(DummyState.MOVE, GetComponent<MonsterMOVE>());
         states.Add(DummyState.CHASE, GetComponent<MonsterCHASE>());
@@ -47,6 +47,7 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
         states.Add(DummyState.FIRSTATK, GetComponent<MonsterATTACK>());
     }
     // Start is called before the first frame update
+    //처음 스테이트 지정
     void Start()
     {
         SetState(startState);
@@ -66,20 +67,22 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
         anim.SetInteger("CurrentState", (int)currentState);
         }
 
+    //이미 공격 구현되어있으니 안써도 됨.
     public void AttackCheck()
-    {
-        //CharacterStat targetStat = playerCC.GetComponent<CharacterStat>();
-
+    { 
        // targetStat.ApplyDamage(stat);
     }
 
 
-
+    //죽는 판정 다른 상태 스크립트에 적용할려면 manager.SetDead()라고 하면 됨.
     public void SetDead()
     {
         DamageCol.enabled = false;
         SetState(DummyState.DEAD);
     }
+
+
+    //플레이어가 죽으면 일반 상태로 돌아옴
 
     public void NotifyTargetDead()
     {
