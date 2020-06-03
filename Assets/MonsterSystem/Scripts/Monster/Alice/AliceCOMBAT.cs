@@ -22,6 +22,7 @@ public class AliceCOMBAT : AliceFSMState
     public GameObject SummonMonster;
     public GameObject SummonPos;
 
+
     public int[] AttackOrder;
     public int CurFarAtkCut = 90;
     public int startAttack;
@@ -223,7 +224,7 @@ public class AliceCOMBAT : AliceFSMState
     void RushAttack()
     {
         IsRush = true;
-
+        
     }
     public void Teleport()
     {

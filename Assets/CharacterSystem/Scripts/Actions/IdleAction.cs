@@ -39,7 +39,11 @@ public class IdleAction : BaseAction
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
         }
-
+        if(m_controller.IsRightDashAttack() || m_controller.IsLeftDashAttack())
+        {
+            Debug.Log("DashAttack");
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
+        }
         return this;
     }
 }

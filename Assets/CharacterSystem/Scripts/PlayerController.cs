@@ -23,10 +23,26 @@ public class PlayerController : MonoBehaviour
     //회피키
     [SerializeField] public KeyCode m_dodge;
 
+    //연타값
+    float leftdash = 0;
+    float rightdash = 0;
+    float backdash = 0;
+    [SerializeField] float dashTime = 1.0f;
+
     #endregion
 
     #region Function
 
+
+    private void Update()
+    {
+        //IsLeftDashAttack();
+        //IsRightDashAttack();
+        //IsBackDashAttack();
+        leftdash = Mathf.Max(0,leftdash-Time.deltaTime);
+        rightdash = Mathf.Max(0, rightdash-Time.deltaTime);
+        backdash = Mathf.Max(0, backdash-Time.deltaTime);
+    }
     /// <summary>
     /// 이동키 입력했는지 체크
     /// </summary>
@@ -81,6 +97,60 @@ public class PlayerController : MonoBehaviour
             return true;
         else return false;
     }
+
+    public bool IsLeftDashAttack()
+    {
+        if (Input.GetKeyDown(m_leftMove))
+        {
+            if(leftdash == 0)
+            {
+                leftdash = dashTime;
+            }
+            else
+            {
+                leftdash = 0;
+                //Debug.Log("LeftDashCheck");
+                return true;
+            }
+        }
+            return false;
+    }
+    public bool IsRightDashAttack()
+    {
+        if (Input.GetKeyDown(m_rightMove))
+        {
+            if (rightdash == 0)
+            {
+                rightdash = dashTime;
+            }
+            else
+            {
+                rightdash = 0;
+                //Debug.Log("RightDashCheck");
+                return true;
+            }
+        }
+         return false;
+    }
+    public bool IsBackDashAttack()
+    {
+        if (Input.GetKeyDown(m_backMove))
+        {
+            if (backdash == 0)
+            {
+                backdash = dashTime;
+            }
+            else
+            {
+                backdash = 0;
+                //Debug.Log("BackDashCheck");
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
 
     /// <summary>
     /// 회피키 눌렀는지 체크

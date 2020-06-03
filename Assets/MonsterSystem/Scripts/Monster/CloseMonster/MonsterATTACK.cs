@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MonsterATTACK : MonsterFSMState
 {
-    public MonsterCHASE chase;
-    public Collider AttackCol;
+    public MonsterCHASE chase;//쫓아가는 상태 
+    public Collider AttackCol;//공격 콜리더
     public override void BeginState()
     {
         base.BeginState();
@@ -13,7 +13,6 @@ public class MonsterATTACK : MonsterFSMState
     }
     private void Start()
     {
-        //AttackCol = transform.GetChild(2).GetComponent<Collider>();
 
 
     }
@@ -29,6 +28,7 @@ public class MonsterATTACK : MonsterFSMState
             manager.SetState(DummyState.CHASE);
             return;
         }
+
         Vector3 destination = manager.playerObj.transform.position;
 
         Vector3 destinationposition = new Vector3(destination.x - transform.position.x, 0, destination.z - transform.position.z);
@@ -36,7 +36,7 @@ public class MonsterATTACK : MonsterFSMState
         Vector3 groundCheck = diff - destination;
 
 
-
+        //일정 거리 멀어졌을 때 쫓아가기
         if (groundCheck.sqrMagnitude > manager.stat.attackRange * manager.stat.attackRange)
             {
                 manager.SetState(DummyState.CHASE);
@@ -47,6 +47,7 @@ public class MonsterATTACK : MonsterFSMState
         
     }
 
+    //공격 콜리더 생성
     IEnumerator SetCollider()
     {
         AttackCol.enabled = true;
