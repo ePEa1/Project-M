@@ -43,6 +43,19 @@ public class DashAtkAction : BaseAction
 
     protected override BaseAction OnUpdateAction()
     {
+        if (m_controller.IsRightDashAttack())
+        {
+
+        }
+        Vector3 view = m_owner.transform.position - m_owner.playerCam.position;
+        view.y = 0.0f;
+
+        Quaternion dir = m_controller.GetDirection();
+
+        Quaternion playerDir = dir * Quaternion.LookRotation(new Vector3(view.x, 0, view.z));
+        Vector3 playerVec = playerDir * new Vector3(0, 0, -PlayerStats.playerStat.m_dodgeDistance);
+
+        m_owner.transform.rotation = playerDir;
 
 
         Vector3 beforePos = Vector3.Lerp(m_startPos, m_finishPos, m_AtkDistance.Evaluate(m_curdashAtk * speed));
@@ -53,7 +66,6 @@ public class DashAtkAction : BaseAction
             m_wall);
 
         m_owner.transform.position += afterPos - beforePos + fixedPos;
-        // throw new System.NotImplementedException();
         return this;
     }
 
@@ -80,7 +92,7 @@ public class DashAtkAction : BaseAction
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
         }
-
+        m_curdashAtk = 0;
         m_animator.SetBool("IsDashAtk", false);
 
     }
@@ -88,6 +100,7 @@ public class DashAtkAction : BaseAction
     public void CheckDistance()
     {
         Vector3 viewVec = m_owner.transform.position - m_owner.playerCam.transform.position;
+
         viewVec.y = 0;
         viewVec = viewVec.normalized;
 
@@ -95,5 +108,6 @@ public class DashAtkAction : BaseAction
         m_finishPos = m_startPos + viewVec*movePos;
 
     }
+    
 
 }
