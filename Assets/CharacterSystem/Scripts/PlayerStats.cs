@@ -25,6 +25,7 @@ namespace ProjectM.ePEa.PlayerData
 
         #region Value
 
+        public PlayerFsmManager manager;
         public static PlayerStats playerStat { get; private set; } //외부에서 접근할 때의 용도
         public float m_currentHp { get; private set; } //현재 캐릭터 체력
         public float m_currentDodgeDelay { get; private set; } //현재 회피 쿨타임
@@ -33,6 +34,7 @@ namespace ProjectM.ePEa.PlayerData
 
         private void Awake()
         {
+            
             //싱글톤인데 또 생성할라하면 삭제시킴
             if (playerStat == null)
             {
@@ -44,18 +46,32 @@ namespace ProjectM.ePEa.PlayerData
                 Debug.Log("Player Stat is enabled");
                 Destroy(this.gameObject);
             }
+            transform.GetComponent<PlayerFsmManager>().HPcheck = m_currentHp;
+
         }
 
         /// <summary>
-        /// 캐릭터 체력 차감 이벤트
         /// </summary>
+        /// 캐릭터 체력 차감 이벤트
         /// <param name="damage">깎을 체력 수치</param>
         public void TakeDamage(float damage)
         {
             m_currentHp -= damage;
+            transform.GetComponent<PlayerFsmManager>().HPcheck = m_currentHp;
+            Debug.Log("Player get Damage" + m_currentHp);
+            if(m_currentHp <= 0)
+            {
+                Debug.Log("GameOver");
+                transform.GetComponent<PlayerFsmManager>().IsDead = true;
+
+            }
+            else
+            {
+                transform.GetComponent<PlayerFsmManager>().IsDead = false;
+            }
         }
 
-        
+
         private void Update()
         {
             //회피 쿨타임 갱신

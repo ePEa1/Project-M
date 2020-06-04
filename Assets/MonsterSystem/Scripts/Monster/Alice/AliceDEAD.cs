@@ -9,6 +9,6 @@ public class AliceDEAD : AliceFSMState
     public override void BeginState()
     {
 
-        Destroy(gameObject, 0.5f);
+        Destroy(gameObject, 3);
     }
 }

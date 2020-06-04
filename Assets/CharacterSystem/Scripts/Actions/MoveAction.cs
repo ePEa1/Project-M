@@ -38,14 +38,14 @@ public class MoveAction : BaseAction
             m_animator.SetBool("IsMoving", true);
         else m_animator.SetBool("IsMoving", false);
 
-        float hikingHeight = PlayerStats.playerStat.m_hikingHeight;
 
+        //중력(+경사면) 연산---------------------------------
+        float hikingHeight = PlayerStats.playerStat.m_hikingHeight;
         float gravity = m_gravity * Time.deltaTime;
 
         RaycastHit hit;
         if (Physics.Raycast(m_owner.transform.position + Vector3.up * hikingHeight, Vector3.down, out hit, hikingHeight + gravity, m_wall))
         {
-            Debug.Log(hit.point.y);
             m_gravity = 0.0f;
             m_owner.transform.position = new Vector3(m_owner.transform.position.x, hit.point.y, m_owner.transform.position.z);
         }
@@ -54,6 +54,7 @@ public class MoveAction : BaseAction
             m_owner.transform.position += Vector3.down * gravity;
             m_gravity += Time.deltaTime * PlayerStats.playerStat.m_gravity;
         }
+        //--------------------------------------------------------
     }
 
     protected override BaseAction OnUpdateAction()
@@ -69,6 +70,11 @@ public class MoveAction : BaseAction
         if (m_controller.IsDodge() && PlayerStats.playerStat.m_currentDodgeDelay == 0)
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
+        }
+        if(m_controller.IsLeftDashAttack() || m_controller.IsRightDashAttack())
+        {
+            Debug.Log("DashAtkCheck");
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
         }
 
         else if (m_controller.IsMoving())

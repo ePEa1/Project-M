@@ -104,6 +104,7 @@ public class DamageAction : BaseAction
         if (other.tag == "EnemyAtkCollider" && m_owner.m_currentStat != PlayerFsmManager.PlayerENUM.DODGE)
         {
             m_enemyAtk = other.GetComponent<AtkCollider>();
+            
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DAMAGE);
             damagesound.Play();
         }

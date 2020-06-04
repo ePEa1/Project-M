@@ -33,6 +33,7 @@ public class CharacterCam : MonoBehaviour
     private void Awake()
     {
         //카메라 커서 고정
+
         Cursor.lockState = CursorLockMode.Locked;
     }
 

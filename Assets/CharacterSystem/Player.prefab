@@ -5380,6 +5380,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  m_dashatkEvent: []
   m_testEvent: []
 --- !u!1 &5447655126482157498
 GameObject:
@@ -5472,6 +5473,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_currentStat: 0
+  IsDead: 0
+  MaxHP: 0
+  HPcheck: 0
   m_startStat: 0
   m_playerActions:
   - {fileID: 5447655126482157492}
@@ -5499,6 +5503,7 @@ MonoBehaviour:
   m_leftMove: 97
   m_attack: 323
   m_dodge: 32
+  dashTime: 1
 --- !u!114 &5447655126556827065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5521,6 +5526,7 @@ MonoBehaviour:
   m_dodgeDelay: 1
   m_dodgeTime: 0.3
   m_dodgeDistance: 6
+  manager: {fileID: 0}
 --- !u!1 &5447655127004316350
 GameObject:
   m_ObjectHideFlags: 0
@@ -5601,10 +5607,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_wall:
     serializedVersion: 2
-    m_Bits: 3072
-  m_block:
-    serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 7168
 --- !u!1 &5447655127755071445
 GameObject:
   m_ObjectHideFlags: 0
@@ -7520,7 +7523,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: daae97cc293843c4b9b964ab8757fd40, type: 2}
+      objectReference: {fileID: 9100000, guid: a3abc5f90abef2946848924293c54afe, type: 2}
     - target: {fileID: -5917679157510041788, guid: 2374f343246db71428318e6656703c30,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

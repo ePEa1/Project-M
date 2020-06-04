@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ProjectM.ePEa.PlayerData;
+using UnityEngine.SceneManagement;
 
 public class IdleAction : BaseAction
 {
@@ -16,7 +17,11 @@ public class IdleAction : BaseAction
 
     protected override void AnyStateAction()
     {
-
+        //씬 재시작
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 
     protected override BaseAction OnUpdateAction()
@@ -34,7 +39,11 @@ public class IdleAction : BaseAction
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
         }
-
+        if(m_controller.IsRightDashAttack() || m_controller.IsLeftDashAttack())
+        {
+            Debug.Log("DashAttack");
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
+        }
         return this;
     }
 }
