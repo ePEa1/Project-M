@@ -153,7 +153,8 @@ namespace ProjectM.ePEa.ProtoMon
             m_animator.SetTrigger("Atk");
 
             GameObject eff = Instantiate(m_eff);
-            eff.transform.position = transform.position + Vector3.up * 1.0f;
+            eff.transform.parent=transform;
+            eff.transform.localPosition = new Vector3(0.0f,1.0f,1.0f);
 
             transform.rotation = Quaternion.LookRotation(m_endPos - m_startPos);
             m_nowState = state.ATK;
