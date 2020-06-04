@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7402736142049612405}
   - component: {fileID: 7402736142049612406}
+  - component: {fileID: 6407493668830232936}
   - component: {fileID: 4754158874736082263}
   - component: {fileID: 1988297344352354033}
   - component: {fileID: 7402736142049612363}
@@ -55,7 +56,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 12
+  m_FocalLength: 15.638705
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -64,7 +65,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 1000
-  field of view: 90
+  field of view: 75
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -82,7 +83,7 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &4754158874736082263
+--- !u!114 &6407493668830232936
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,13 +92,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 7402736142049612400}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10e2059f7a5f5f44ca199976ef277d20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DownSample: 0.644
+  RadianBlur: {fileID: 0}
+  BlurCenterX: 0.5
+  BlurCenterY: 0.5
+  BlurRatio: 0.0722
+  ClearDis: 0.179
+--- !u!114 &4754158874736082263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7402736142049612400}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0128797cf9ea0c4e9742c4a24533b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blurSize: 0.1
+  blurSize: 0.79
   blurCenterPos: {x: 0.5, y: 0.5}
-  samples: 0
-  mat3: {fileID: 0}
+  samples: 20
+  mat3: {fileID: 2100000, guid: d85f464b588e5734f9a13338a11de0f8, type: 2}
 --- !u!114 &1988297344352354033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,10 +129,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 595968cc46b6a3a49a99b0aca1f81566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blurSize: -0.45
-  blurCenterPos: {x: 0.5, y: 0.5}
-  samples: 15
-  RGBVal: 0
+  RGBVal2:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: -0.0004849136
+      inSlope: 36.761726
+      outSlope: 9.533963
+      tangentMode: 1
+      weightedMode: 3
+      inWeight: 0
+      outWeight: 0.39403218
+    - serializedVersion: 3
+      time: 0.021469116
+      value: 0.3328882
+      inSlope: 9.346024
+      outSlope: -0.44744694
+      tangentMode: 1
+      weightedMode: 3
+      inWeight: 0.36954853
+      outWeight: 0.53614336
+    - serializedVersion: 3
+      time: 0.969731
+      value: 0.0002399087
+      inSlope: -0.110959224
+      outSlope: -2.1874945
+      tangentMode: 1
+      weightedMode: 3
+      inWeight: 0.118797466
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_animSpeed: 5.5
   mat2: {fileID: 2100000, guid: 0c01aaa2937943f40b416cab75aa608c, type: 2}
 --- !u!114 &7402736142049612363
 MonoBehaviour:
@@ -122,7 +171,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7402736142049612400}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2fac86915c4f2d14f91c3fe398c1a885, type: 3}
   m_Name: 
@@ -221,10 +270,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  m_centerPos: {x: 0, y: 2.35, z: 0}
-  m_distance: 3.2
+  m_centerPos: {x: 0, y: 1.4, z: 0}
+  m_distance: 4.41
   m_moveSpeed: 10
-  m_yMin: -40
+  m_yMin: -13
   m_yMax: 50
   m_xSpeed: 100
   m_ySpeed: 70
@@ -242,7 +291,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 890926afb063a6d4787bc40d67e07cda, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.02
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using static ProjectM.ePEa.CustomFunctions.CustomFunction;
+
+
 public class PlayerHP : MonoBehaviour
 {
     public Image HP;

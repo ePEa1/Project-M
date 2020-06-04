@@ -12,6 +12,7 @@ public class DashAtkAction : BaseAction
     [SerializeField] LayerMask m_wall;
 
     [SerializeField] float speed;
+    [SerializeField] float movePos;
 
     Vector3 m_startPos;
     Vector3 m_finishPos;
@@ -21,8 +22,7 @@ public class DashAtkAction : BaseAction
 
     protected override BaseAction OnStartAction()
     {
-        m_startPos = m_owner.transform.position;
-        m_finishPos = m_startPos * speed;
+        CheckDistance();
 
         m_animator.SetTrigger("DashAtk");
         m_animator.SetBool("IsDashAtk", true);
@@ -43,17 +43,29 @@ public class DashAtkAction : BaseAction
 
     protected override BaseAction OnUpdateAction()
     {
-        float ac = 1.0f / PlayerStats.playerStat.m_dodgeTime;
+        if (m_controller.IsRightDashAttack())
+        {
 
-        Vector3 beforePos = Vector3.Lerp(m_startPos, m_finishPos, m_AtkDistance.Evaluate(m_curdashAtk * ac));
+        }
+        Vector3 view = m_owner.transform.position - m_owner.playerCam.position;
+        view.y = 0.0f;
+
+        Quaternion dir = m_controller.GetDirection();
+
+        Quaternion playerDir = dir * Quaternion.LookRotation(new Vector3(view.x, 0, view.z));
+        Vector3 playerVec = playerDir * new Vector3(0, 0, -PlayerStats.playerStat.m_dodgeDistance);
+
+        m_owner.transform.rotation = playerDir;
+
+
+        Vector3 beforePos = Vector3.Lerp(m_startPos, m_finishPos, m_AtkDistance.Evaluate(m_curdashAtk * speed));
         m_curdashAtk += Time.deltaTime;
-        Vector3 afterPos = Vector3.Lerp(m_startPos, m_finishPos, m_AtkDistance.Evaluate(m_curdashAtk * ac));
+        Vector3 afterPos = Vector3.Lerp(m_startPos, m_finishPos, m_AtkDistance.Evaluate(m_curdashAtk * speed));
 
         Vector3 fixedPos = FixedMovePos(m_owner.transform.position, PlayerStats.playerStat.m_size, (afterPos - beforePos).normalized, Vector3.Distance(beforePos, afterPos),
             m_wall);
 
         m_owner.transform.position += afterPos - beforePos + fixedPos;
-        // throw new System.NotImplementedException();
         return this;
     }
 
@@ -80,9 +92,22 @@ public class DashAtkAction : BaseAction
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
         }
-
+        m_curdashAtk = 0;
         m_animator.SetBool("IsDashAtk", false);
 
     }
+
+    public void CheckDistance()
+    {
+        Vector3 viewVec = m_owner.transform.position - m_owner.playerCam.transform.position;
+
+        viewVec.y = 0;
+        viewVec = viewVec.normalized;
+
+        m_startPos = m_owner.transform.position;
+        m_finishPos = m_startPos + viewVec*movePos;
+
+    }
+    
 
 }

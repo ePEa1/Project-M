@@ -2,8 +2,15 @@
 {
     Properties
     {
+
         _MainTex ("Texture", 2D) = "white" {}
-		_RGBVal ("RGBVal", float) = 0
+
+        [Header(BlurPos)]
+        _BlurCenterPosX ("BlurCenterPosX", float) = 0.5
+        _BlurCenterPosY ("BlurCenterPosY", float) = 0.5
+
+        _BlurQuality ("BQ", Range(0,1)) = 0.5
+
 
         //_BlurCenterPos ("BlurCenterPos", vector) = (0,0,0,0)
 
@@ -33,6 +40,15 @@
                 float4 vertex : SV_POSITION;
             };
 
+			sampler2D _MainTex;
+            float4 _MainTex_TexelSize;
+            float _BlurCenterPosX;
+            float _BlurCenterPosY;
+            half _BlurSize;
+            half _Samplers;
+            float _BlurQuality;
+
+
             v2f vert (appdata v)
             {
                 v2f o;
@@ -42,22 +58,24 @@
             }
 
 
-            sampler2D _MainTex;
-            float4 _MainTex_TexelSize;
-            float2 _BlurCenterPos;
-            half _BlurSize;
-            half _Samplers;
 
-            float4 frag (v2f IN) : SV_Target
+            float4 frag (v2f i) : SV_Target
             {
-                float4 col = float4(1,1,1,1);
+                float4 col = tex2D(_MainTex, i.uv);
                 
-                half2 movedTexcoord = IN.uv - _BlurCenterPos;
+                float2 BlurCenter = float2(_BlurCenterPosX, _BlurCenterPosY);
+                
+                float dis2Center = distance(BlurCenter, i.uv);
 
-				for( int i = 0; i < _Samplers; i++ )
+                float2 BlurDir = normalize(i.uv - BlurCenter);
+
+                float4 BlurCol = float4 (0,0,0,1);
+
+
+				for( int BB = 0; BB < _Samplers; i++ )
                 {
-                    half Scale = 1.0f - _BlurSize * _MainTex_TexelSize.x * i;
-                    col.rgb += tex2D( _MainTex, movedTexcoord * Scale + _BlurCenterPos ).rgb;
+                    half Scale = i.uv + BlurDir * i * max(0, dis2Center - );
+                    
                 }
                 
 				col *= 1 / _Samplers;
