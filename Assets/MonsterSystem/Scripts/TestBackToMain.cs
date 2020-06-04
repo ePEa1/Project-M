@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class TestBackToMain : MonoBehaviour
 {
-    public AliceFSMManager manager;
     public GameObject main;
 
     public bool IsEnd = false;
