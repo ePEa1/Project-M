@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class TestBackToMain : MonoBehaviour
 {
-    public GameObject main;
 
     public bool IsEnd = false;
     // Start is called before the first frame update

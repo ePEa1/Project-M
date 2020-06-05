@@ -17,10 +17,10 @@ public class GameClearTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (boss.GetComponent<AliceFSMManager>().IsDead == true)
-        {
-            getGameClear();
-        }
+        //if (boss.GetComponent<AliceFSMManager>().IsDead == true)
+        //{
+        //    getGameClear();
+        //}
 
     }
 
