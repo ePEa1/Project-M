@@ -58,7 +58,7 @@ namespace ProjectM.ePEa.PlayerData
         {
             m_currentHp -= damage;
             transform.GetComponent<PlayerFsmManager>().HPcheck = m_currentHp;
-            Debug.Log("Player get Damage" + m_currentHp);
+            //Debug.Log("Player get Damage" + m_currentHp);
             if(m_currentHp <= 0)
             {
                 Debug.Log("GameOver");

@@ -237,7 +237,7 @@ public class AliceCOMBAT : AliceFSMState
     }
     public void TeleportAfter()
     {
-        Debug.Log("TeleportCheck");
+        //Debug.Log("TeleportCheck");
         CurPatternCheck(TeleportAfterState);
         //텔레포트 후 공격 판정
     }

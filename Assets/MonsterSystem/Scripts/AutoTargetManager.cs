@@ -5,13 +5,14 @@ using UnityEngine.UI;
 
 public class AutoTargetManager : MonoBehaviour
 {
-
     Camera cam;
     TargetView target;
     Image targetImg;
 
-    bool TargetOn;
+    public bool TargetOn;
+    public Vector3 TargetPos;
     int TargetCount;
+    public GameObject targetObj;
 
     public static List<TargetView> nearOrder = new List<TargetView>();
 
@@ -50,23 +51,37 @@ public class AutoTargetManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if(TargetCount == nearOrder.Count - 1)
-            {
-                TargetCount = 0;
-                target = nearOrder[TargetCount];
-            }
-            else
-            {
-                TargetCount++;
-                target = nearOrder[TargetCount];
-            }
+            TargetChane();
         }
         if (TargetOn)
         {
-            target = nearOrder[TargetCount];
-            gameObject.transform.position = cam.WorldToScreenPoint(target.transform.position+new Vector3(0,target.YPos,0));
 
-            gameObject.transform.Rotate(new Vector3(0, 0, -1));
+            target = nearOrder[TargetCount];
+                gameObject.transform.position = cam.WorldToScreenPoint(target.transform.position + new Vector3(0, target.YPos, 0));
+
+            
+            targetObj = target.gameObject;
+            TargetPos = targetObj.transform.position;
+            //gameObject.transform.Rotate(new Vector3(0, 0, -1));
+        }
+
+
+
+    }
+    
+    void TargetChane()
+    {
+        if (TargetCount == nearOrder.Count - 1)
+        {
+            TargetCount = 0;
+            target = nearOrder[TargetCount];
+        }
+        else
+        {
+            TargetCount++;
+            target = nearOrder[TargetCount];
+
+
         }
     }
 }

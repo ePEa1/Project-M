@@ -35,6 +35,10 @@ public class AttackAction : BaseAction
     Vector3 m_startPos; //공격 시작 지점 좌표
     Vector3 m_finishPos; //공격 도착 지점 좌표
     float m_ac; //애니메이션커브에 곱할 값
+    Quaternion dir; //회전 값
+    Vector3 viewVec;//방향 벡터
+
+    
 
     #endregion
 
@@ -67,8 +71,7 @@ public class AttackAction : BaseAction
     }
 
     protected override void AnyStateAction()
-    {
-
+    {   
     }
 
     protected override BaseAction OnUpdateAction()
@@ -144,15 +147,37 @@ public class AttackAction : BaseAction
     /// </summary>
     void SetPath()
     {
-        Vector3 viewVec = m_owner.transform.position - m_owner.playerCam.transform.position;
-        viewVec.y = 0;
-        viewVec = viewVec.normalized;
+        if (m_autotarget.TargetOn)
+        {
+            viewVec =m_autotarget.targetObj.transform.position - m_owner.transform.position ;
+            viewVec.y = 0;
+            viewVec = viewVec.normalized;
 
-        Quaternion dir = Quaternion.LookRotation(-new Vector3(viewVec.x, 0, viewVec.z));
-        m_owner.transform.rotation = dir;
+            dir = Quaternion.LookRotation(-new Vector3(viewVec.x, 0, viewVec.z));
+            m_owner.transform.rotation = dir;
 
-        m_startPos = m_owner.transform.position;
-        m_finishPos = m_startPos + viewVec * m_atkDistance[m_nowCombo];
+            m_startPos = m_owner.transform.position;
+            m_finishPos = m_startPos + viewVec * m_atkDistance[m_nowCombo];
+        }
+        else
+        {
+             viewVec = m_owner.transform.position - m_owner.playerCam.transform.position;
+            viewVec.y = 0;
+            viewVec = viewVec.normalized;
+
+            dir = Quaternion.LookRotation(-new Vector3(viewVec.x, 0, viewVec.z));
+            m_owner.transform.rotation = dir;
+
+            m_startPos = m_owner.transform.position;
+            m_finishPos = m_startPos + viewVec * m_atkDistance[m_nowCombo];
+        }
+
+
+
+
+
+
+
     }
 
     /// <summary>
@@ -203,7 +228,10 @@ public class AttackAction : BaseAction
 
             m_nowCombo++;
             if (m_nowCombo >= m_maxCombo)
+            {
                 m_nowCombo = 0;
+            }
+
         }
     }
 

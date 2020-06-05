@@ -114,7 +114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4126c713aa52bd64c95ce2caf8b18284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
   main: {fileID: 0}
   IsEnd: 0
 --- !u!114 &4653250533036695005
@@ -377,7 +376,7 @@ GameObject:
   - component: {fileID: 4653250533379759046}
   m_Layer: 5
   m_Name: AutoTargetImf
-  m_TagString: Untagged
+  m_TagString: TargetUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -450,6 +449,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68df5033a4a0a6743b634b2906631f9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TargetOn: 0
+  TargetPos: {x: 0, y: 0, z: 0}
 --- !u!1 &4653250533470176513
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,6 +594,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4126c713aa52bd64c95ce2caf8b18284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
   main: {fileID: 0}
   IsEnd: 0
