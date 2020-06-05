@@ -44,7 +44,7 @@ namespace ProjectM.ePEa.ProtoMon
         float m_time = 0.0f;
         float m_nowDelay = 0.0f;
 
-        enum state
+        public enum state
         {
             MOVE,
             ATK,
@@ -52,7 +52,7 @@ namespace ProjectM.ePEa.ProtoMon
             DEAD
         }
 
-        state m_nowState = state.MOVE;
+        public state m_nowState = state.MOVE;
 
         #endregion
 
@@ -101,12 +101,12 @@ namespace ProjectM.ePEa.ProtoMon
 
         void Move()
         {
-            m_navi.SetDestination(target.position);
             Vector3 charPos = new Vector3(transform.position.x, 0, transform.position.z);
-            Vector3 destPos = new Vector3(m_navi.destination.x, 0, m_navi.destination.z);
+            Vector3 destPos = new Vector3(target.position.x, 0, target.position.z);
             if (Vector3.Distance(charPos, destPos) < m_atkRange)
             {
                 m_navi.speed = 0;
+                m_navi.SetDestination(transform.position);
                 m_navi.velocity = Vector3.zero;
 
                 if (m_nowDelay == 0)
@@ -116,6 +116,9 @@ namespace ProjectM.ePEa.ProtoMon
             }
             else
             {
+                m_navi.isStopped = false;
+                m_navi.updatePosition = true;
+                m_navi.SetDestination(target.position);
                 m_navi.speed = m_moveSpeed;
                 Quaternion dir = Quaternion.LookRotation(m_navi.desiredVelocity);
                 transform.rotation = Quaternion.Slerp(transform.rotation, dir, Time.deltaTime * 8.0f);
@@ -131,8 +134,12 @@ namespace ProjectM.ePEa.ProtoMon
             Vector3 afterPos = Vector3.Lerp(m_startPos, m_endPos, m_atkAc.Evaluate(m_time * ac));
 
             Vector3 fixedPos = FixedMovePos(transform.position, 0.6f, (afterPos - beforePos).normalized, Vector3.Distance(beforePos, afterPos), m_wall);
+            Debug.Log(fixedPos);
 
-            transform.position += afterPos - beforePos + fixedPos;
+            if (!float.IsNaN(fixedPos.x))
+                transform.position += afterPos - beforePos + fixedPos;
+            else
+                transform.position += afterPos - beforePos;
 
             if (m_time >= m_colliderOpenTime)
             {
@@ -159,7 +166,7 @@ namespace ProjectM.ePEa.ProtoMon
             transform.rotation = Quaternion.LookRotation(m_endPos - m_startPos);
             m_nowState = state.ATK;
             m_atkCollider.GetComponent<AtkCollider>().knockPower = 3.0f;
-            m_atkCollider.GetComponent<AtkCollider>().knockVec = -(m_endPos - m_startPos).normalized;
+            m_atkCollider.GetComponent<AtkCollider>().knockVec = (m_endPos - m_startPos).normalized;
         }
 
         void AtkEnd()

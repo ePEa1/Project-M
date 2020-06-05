@@ -28,7 +28,7 @@ namespace ProjectM.ePEa.CustomFunctions
 
             if (hits.Length > 0)
             {
-                for(int i=0;i<hits.Length;i++)
+                for (int i = 0; i < hits.Length; i++)
                 {
                     Vector3 hitPos = new Vector3(hits[i].point.x, 0.0f, hits[i].point.z);
                     Vector3 normal = new Vector3(hits[i].normal.x, 0.0f, hits[i].normal.z).normalized;
