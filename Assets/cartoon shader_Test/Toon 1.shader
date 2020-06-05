@@ -113,7 +113,7 @@
 			final.rgb = (s.Albedo + SpecColor * _Color2) * (1 + diffColor * _TestToggle2 - _TestToggle2) * _LightColor0.rgb;
 			final.a = s.Alpha;
 
-			float4 ffinal = final * (1+RampColor*_TestToggle - _TestToggle) * atten;
+			float4 ffinal = final * (1+RampColor*_TestToggle - _TestToggle);//* atten
 
 
 
