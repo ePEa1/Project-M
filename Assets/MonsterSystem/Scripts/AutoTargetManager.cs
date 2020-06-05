@@ -64,7 +64,7 @@ public class AutoTargetManager : MonoBehaviour
         if (TargetOn)
         {
             target = nearOrder[TargetCount];
-            gameObject.transform.position = cam.WorldToScreenPoint(target.transform.position);
+            gameObject.transform.position = cam.WorldToScreenPoint(target.transform.position+new Vector3(0,target.YPos,0));
 
             gameObject.transform.Rotate(new Vector3(0, 0, -1));
         }

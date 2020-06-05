@@ -6,6 +6,7 @@ public class TargetView : MonoBehaviour
 {
     Camera cam;
     bool addOnlyOnce;
+    [SerializeField] public float YPos; //자꾸 바닥에 생겨서 중간 값을 체크
 
     // Start is called before the first frame update
     void Start()
