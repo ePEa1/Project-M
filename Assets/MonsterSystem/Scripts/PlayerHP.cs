@@ -29,9 +29,9 @@ public class PlayerHP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HPText.text = player.GetComponent<PlayerFsmManager>().HPcheck + "/" + m_hpMaxSize;
+        HPText.text = player.GetComponent<PlayerFsmManager>().HPcheck + "/" + PlayerStats.playerStat.m_maxHp;
 
-        HP.GetComponent<Image>().fillAmount = PlayerStats.playerStat.m_currentHp / m_hpMaxSize;
+        HP.GetComponent<Image>().fillAmount = PlayerStats.playerStat.m_currentHp / PlayerStats.playerStat.m_maxHp;
 
 
 
