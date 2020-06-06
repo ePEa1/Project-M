@@ -88,21 +88,10 @@ public class AttackAction : BaseAction
         Vector3 afterPos = Vector3.Lerp(m_startPos, m_finishPos, m_atkDistanceCurve[m_currentCombo].Evaluate(m_atkTime * m_ac));
 
         Vector3 tall = new Vector3(0.0f, PlayerStats.playerStat.m_hikingHeight + PlayerStats.playerStat.m_size, 0.0f);
-        Vector3 fixedPos = FixedMovePos(m_owner.transform.position + tall, PlayerStats.playerStat.m_size, (afterPos - beforePos).normalized, Vector3.Distance(beforePos, afterPos),
-            m_wall);
+        Vector3 fixedPos = FixedMovePos(m_owner.transform.position + tall, PlayerStats.playerStat.m_size, (afterPos - beforePos).normalized,
+            Vector3.Distance(beforePos, afterPos), m_wall);
 
-        RaycastHit hit;
-        if (Physics.SphereCast(m_owner.transform.position + tall, PlayerStats.playerStat.m_size, (afterPos - beforePos).normalized, out hit,
-            Vector3.Distance(beforePos, afterPos), m_enemy))
-        {
-            if (hit.point != Vector3.zero)
-            {
-                m_owner.transform.position = new Vector3(hit.point.x, m_owner.transform.position.y, hit.point.z) + new Vector3(hit.normal.x, 0.0f, hit.normal.z)
-                    * PlayerStats.playerStat.m_size;
-            }
-        }
-        else
-            m_owner.transform.position += afterPos - beforePos + fixedPos;
+        m_owner.transform.position += afterPos - beforePos + fixedPos;
         //--------------------------------------------------------
 
         return this;
