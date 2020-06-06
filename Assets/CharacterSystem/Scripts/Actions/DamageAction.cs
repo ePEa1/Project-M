@@ -12,12 +12,12 @@ public class DamageAction : BaseAction
     [SerializeField] AnimationCurve m_knockAC; //넉백 이동 커브
     [SerializeField] GameObject m_damEff; //피격 이펙트
     [SerializeField] LayerMask m_wall;
+    [SerializeField] AudioSource m_damSound;
 
     #endregion
 
     #region Value
 
-    public AudioSource damagesound;
     AtkCollider m_enemyAtk; //적 공격범위 데이터
 
     Vector3 m_startPos; //맞기 시작한 위치
@@ -44,6 +44,9 @@ public class DamageAction : BaseAction
 
         //피격 시 이벤트 실행
         OnDamAnimation();
+
+        //피격 사운드 재생
+        m_damSound.Play();
 
         m_knockTime = 0.0f;
         m_maxTime = m_enemyAtk.knockTime;
@@ -72,9 +75,9 @@ public class DamageAction : BaseAction
 
         Vector3 tall = new Vector3(0.0f, PlayerStats.playerStat.m_hikingHeight + PlayerStats.playerStat.m_size, 0.0f);
         Vector3 fixedPos = FixedMovePos(m_owner.transform.position + tall, PlayerStats.playerStat.m_size, (afterPos - beforePos).normalized,
-            PlayerStats.playerStat.m_moveSpeed * Time.deltaTime, m_wall);
+            Vector3.Distance(afterPos, beforePos), m_wall);
 
-        m_owner.transform.position += beforePos - afterPos + fixedPos;
+        m_owner.transform.position += afterPos - beforePos + fixedPos;
 
         //넉백 시간 다 끝나면
         if (m_knockTime >= m_maxTime)
@@ -106,7 +109,6 @@ public class DamageAction : BaseAction
             m_enemyAtk = other.GetComponent<AtkCollider>();
             
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DAMAGE);
-            damagesound.Play();
         }
     }
 

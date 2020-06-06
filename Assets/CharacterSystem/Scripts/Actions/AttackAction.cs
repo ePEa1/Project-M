@@ -18,6 +18,7 @@ public class AttackAction : BaseAction
     [SerializeField] Vector3[] m_effAngle; //타격당 생성시킬 이펙트 각도
     [SerializeField] AudioSource[] m_atkSfx; //타격당 효과음
     [SerializeField] LayerMask m_wall;
+    [SerializeField] LayerMask m_enemy;
 
     #endregion
 
@@ -90,7 +91,18 @@ public class AttackAction : BaseAction
         Vector3 fixedPos = FixedMovePos(m_owner.transform.position + tall, PlayerStats.playerStat.m_size, (afterPos - beforePos).normalized, Vector3.Distance(beforePos, afterPos),
             m_wall);
 
-        m_owner.transform.position += afterPos - beforePos + fixedPos;
+        RaycastHit hit;
+        if (Physics.SphereCast(m_owner.transform.position + tall, PlayerStats.playerStat.m_size, (afterPos - beforePos).normalized, out hit,
+            Vector3.Distance(beforePos, afterPos), m_enemy))
+        {
+            if (hit.point != Vector3.zero)
+            {
+                m_owner.transform.position = new Vector3(hit.point.x, m_owner.transform.position.y, hit.point.z) + new Vector3(hit.normal.x, 0.0f, hit.normal.z)
+                    * PlayerStats.playerStat.m_size;
+            }
+        }
+        else
+            m_owner.transform.position += afterPos - beforePos + fixedPos;
         //--------------------------------------------------------
 
         return this;
