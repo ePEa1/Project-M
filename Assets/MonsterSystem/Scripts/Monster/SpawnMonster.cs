@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnMonster : MonoBehaviour
 {
     public GameObject Monster;
+    [SerializeField] float Time;
 
     public bool IsSpawn = false;
     // Start is called before the first frame update
@@ -24,7 +25,7 @@ public class SpawnMonster : MonoBehaviour
         {
             Instantiate(Monster, transform.position, Quaternion.identity);
 
-            yield return new WaitForSeconds(10.0f);
+            yield return new WaitForSeconds(Time);
         }
 
     }

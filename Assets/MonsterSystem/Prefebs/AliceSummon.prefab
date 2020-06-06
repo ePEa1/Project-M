@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 4484648054088815001}
   m_Layer: 0
   m_Name: Attack
-  m_TagString: Untagged
+  m_TagString: EnemyAtkCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -315,7 +315,6 @@ MonoBehaviour:
   skinned: {fileID: 1138607356397050831}
   originalMat: {fileID: 2100000, guid: a116a09c435ca95479bd0ce0a59ed79a, type: 2}
   damageMat: {fileID: 2100000, guid: 07fc56a89be20744786b63e212226bd4, type: 2}
-  SetDamage: 0
   IsDamaged: 0
 --- !u!136 &8349254805161654739
 CapsuleCollider:
@@ -1389,7 +1388,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   startState: 0
-  cc: {fileID: 0}
   DamageCol: {fileID: 0}
   anim: {fileID: 0}
   sight: {fileID: 0}
@@ -1439,10 +1437,7 @@ MonoBehaviour:
   manager: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}
   diff: {x: 0, y: 0, z: 0}
-  groundCheck: {x: 0, y: 0, z: 0}
-  Speed: 0.1
   Moving: 0
-  rig: {fileID: 8590232683422074455}
 --- !u!114 &8590232683422074444
 MonoBehaviour:
   m_ObjectHideFlags: 0

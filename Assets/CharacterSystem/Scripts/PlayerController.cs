@@ -72,6 +72,7 @@ public class PlayerController : MonoBehaviour
     /// <returns></returns>
     public Quaternion GetDirection()
     {
+        
         int h = 0;
         if (Input.GetKey(m_leftMove))
             h++;

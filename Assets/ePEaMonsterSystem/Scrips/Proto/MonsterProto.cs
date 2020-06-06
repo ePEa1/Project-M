@@ -180,6 +180,7 @@ namespace ProjectM.ePEa.ProtoMon
         public void TakeDamage(float damage)
         {
             m_nowHp -= damage;
+            Debug.Log(m_nowHp);
         }
     }
 }
