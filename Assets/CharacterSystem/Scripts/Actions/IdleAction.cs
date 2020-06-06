@@ -41,8 +41,15 @@ public class IdleAction : BaseAction
         }
         if(m_controller.IsRightDashAttack() || m_controller.IsLeftDashAttack())
         {
-            Debug.Log("DashAttack");
-            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
+            if (m_owner.DelayDashAtk == true)
+            {
+                Debug.Log("CantAtk");
+            }
+            else
+            {
+                Debug.Log("DashAtkCheck");
+                m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
+            }
         }
         return this;
     }

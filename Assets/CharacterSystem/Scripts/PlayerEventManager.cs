@@ -17,7 +17,8 @@ public class PlayerEventManager : MonoBehaviour
         SetCollider,
         DeleteCollider,
         CreatEff,
-        EndDashAtk
+        EndDashAtk,
+        SetSound
     }
     public enum AtkEnum
     {

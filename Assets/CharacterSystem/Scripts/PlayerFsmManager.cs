@@ -26,8 +26,8 @@ public class PlayerFsmManager : MonoBehaviour
     public  AutoTargetManager m_autotarget { get; private set; } //캐릭터 조작 처리
 
     public bool IsDead = false;
-    public float MaxHP;
-    public float HPcheck; 
+    public bool DelayDashAtk = false;
+    
     #endregion
 
     #region Inspector
@@ -65,7 +65,6 @@ public class PlayerFsmManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MaxHP = transform.GetComponent<PlayerStats>().m_maxHp;
 
         m_currentAction.UpdateAction(); //현재 상태에 맞는 액션 실행
     }

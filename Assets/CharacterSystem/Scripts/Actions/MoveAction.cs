@@ -73,8 +73,15 @@ public class MoveAction : BaseAction
         }
         if(m_controller.IsLeftDashAttack() || m_controller.IsRightDashAttack())
         {
-            Debug.Log("DashAtkCheck");
-            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
+            if(m_owner.DelayDashAtk == true)
+            {
+                Debug.Log("CantAtk");
+            }
+            else
+            {
+                Debug.Log("DashAtkCheck");
+                m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
+            }
         }
 
         else if (m_controller.IsMoving())

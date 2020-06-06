@@ -20,6 +20,7 @@ namespace ProjectM.ePEa.PlayerData
         [SerializeField] public float m_dodgeDelay; //회피 쿨타임
         [SerializeField] public float m_dodgeTime; //회피 무적 지속시간
         [SerializeField] public float m_dodgeDistance; //회피 거리
+        [SerializeField] public float m_timeDashAtk;//이동 스킬 쿨타임
 
         #endregion
 
@@ -46,7 +47,6 @@ namespace ProjectM.ePEa.PlayerData
                 Debug.Log("Player Stat is enabled");
                 Destroy(this.gameObject);
             }
-            transform.GetComponent<PlayerFsmManager>().HPcheck = m_currentHp;
 
         }
 
@@ -57,7 +57,6 @@ namespace ProjectM.ePEa.PlayerData
         public void TakeDamage(float damage)
         {
             m_currentHp -= damage;
-            transform.GetComponent<PlayerFsmManager>().HPcheck = m_currentHp;
             //Debug.Log("Player get Damage" + m_currentHp);
             if(m_currentHp <= 0)
             {

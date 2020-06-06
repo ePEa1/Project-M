@@ -110,7 +110,6 @@ public class PlayerController : MonoBehaviour
             else
             {
                 leftdash = 0;
-                //Debug.Log("LeftDashCheck");
                 return true;
             }
         }
@@ -127,7 +126,6 @@ public class PlayerController : MonoBehaviour
             else
             {
                 rightdash = 0;
-                //Debug.Log("RightDashCheck");
                 return true;
             }
         }
