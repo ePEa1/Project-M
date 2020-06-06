@@ -60,7 +60,6 @@ public class BackAtkAction : BaseAction
 
     public override void EndAction()
     {
-        
     }
 
     protected override void AnyStateAction()
@@ -87,14 +86,17 @@ public class BackAtkAction : BaseAction
         m_owner.transform.position += afterPos - beforePos + fixedPos;
         return this;
     }
+
     public void SetCollider()
     {
         BackAtkCol.enabled = true;
     }
+
     public void DeleteCollider()
     {
         BackAtkCol.enabled = false;
     }
+
     public void CreatEff()
     {
         GameObject effobj = Instantiate(m_atkEff);
@@ -104,7 +106,8 @@ public class BackAtkAction : BaseAction
 
         //이펙트 생성
     }
-    public void EndDashAtk()
+
+    public void EndBackAtk()
     {
         if (m_controller.IsMoving())
         {

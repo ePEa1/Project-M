@@ -60,15 +60,11 @@ public class DashAtkAction : BaseAction
     }
     public override void EndAction()
     {
-
-
-
     }
 
     //쓰지 않기
     protected override void AnyStateAction()
     {
-
     }
 
     protected override BaseAction OnUpdateAction()

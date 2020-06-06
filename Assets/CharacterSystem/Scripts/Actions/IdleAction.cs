@@ -43,13 +43,15 @@ public class IdleAction : BaseAction
         {
             if (m_owner.DelayDashAtk == true)
             {
-                Debug.Log("CantAtk");
             }
             else
             {
-                Debug.Log("DashAtkCheck");
                 m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
             }
+        }
+        if (m_controller.IsBackDashAttack())
+        {
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.BACKATK);
         }
         return this;
     }
