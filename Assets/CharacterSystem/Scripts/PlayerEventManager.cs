@@ -97,7 +97,7 @@ public class PlayerEventManager : MonoBehaviour
     /// 후방 이동 스킬 애니메이션에서 실행시킬 이벤트
     /// </summary>
     /// <param name="e"></param>
-    public void OnBackAtkEvent(DashAtkEnum e)
+    public void OnBackAtkEvent(BackAtkEnum e)
     {
         m_backatkEvent[(int)e].Invoke();
     }

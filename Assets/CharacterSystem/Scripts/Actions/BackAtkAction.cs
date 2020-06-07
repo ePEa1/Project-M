@@ -23,11 +23,12 @@ public class BackAtkAction : BaseAction
     Vector3 m_finishPos;
 
     public Collider BackAtkCol;
-    float m_curdashAtk;
+    float m_curbackAtk;
 
     protected override BaseAction OnStartAction()
     {
         CheckDistance();
+        m_curbackAtk = 0;
 
         m_animator.SetTrigger("DashAtk");
         m_animator.SetBool("IsDashAtk", true);
@@ -74,9 +75,9 @@ public class BackAtkAction : BaseAction
         }
 
         float value = 1.0f / speed;
-        Vector3 beforePos = Vector3.Lerp(m_startPos, m_finishPos, m_AtkDistance.Evaluate(m_curdashAtk * speed));
-        m_curdashAtk += Time.deltaTime;
-        Vector3 afterPos = Vector3.Lerp(m_startPos, m_finishPos, m_AtkDistance.Evaluate(m_curdashAtk * speed));
+        Vector3 beforePos = Vector3.Lerp(m_startPos, m_finishPos, m_AtkDistance.Evaluate(m_curbackAtk * speed));
+        m_curbackAtk += Time.deltaTime;
+        Vector3 afterPos = Vector3.Lerp(m_startPos, m_finishPos, m_AtkDistance.Evaluate(m_curbackAtk * speed));
 
         Vector3 tall = new Vector3(0.0f, PlayerStats.playerStat.m_hikingHeight + PlayerStats.playerStat.m_size, 0.0f);
 
@@ -112,14 +113,16 @@ public class BackAtkAction : BaseAction
         if (m_controller.IsMoving())
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
+            m_curbackAtk = 0;
 
         }
         else
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
+            m_curbackAtk = 0;
+
         }
-        m_curdashAtk = 0;
-        StartCoroutine(DelayDashAtk());
+        //StartCoroutine(DelayDashAtk());
         m_animator.SetBool("IsDashAtk", false);
 
     }
