@@ -10,9 +10,14 @@ public class DashAtkAction : BaseAction
 {
     [SerializeField] AnimationCurve m_AtkDistance;
     [SerializeField] LayerMask m_wall;
+    [SerializeField] AudioSource atkSound;
+    [SerializeField] GameObject m_atkEff;
 
+    [SerializeField] Vector3 atkPos;
     [SerializeField] float speed;
     [SerializeField] float movePos;
+
+
 
     Vector3 playerVec;
     Vector3 m_startPos;
@@ -55,15 +60,11 @@ public class DashAtkAction : BaseAction
     }
     public override void EndAction()
     {
-
-
-
     }
 
     //쓰지 않기
     protected override void AnyStateAction()
     {
-
     }
 
     protected override BaseAction OnUpdateAction()
@@ -97,6 +98,11 @@ public class DashAtkAction : BaseAction
     }
     public void CreatEff()
     {
+        GameObject effobj = Instantiate(m_atkEff);
+        effobj.transform.parent = m_owner.transform;
+        effobj.transform.position = m_owner.transform.position + atkPos;
+
+
         //이펙트 생성
     }
     public void EndDashAtk()
@@ -111,6 +117,7 @@ public class DashAtkAction : BaseAction
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
         }
         m_curdashAtk = 0;
+        StartCoroutine(DelayDashAtk());
         m_animator.SetBool("IsDashAtk", false);
 
     }
@@ -118,16 +125,21 @@ public class DashAtkAction : BaseAction
     public void CheckDistance()
     {
         Vector3 viewVec = m_owner.transform.position - m_owner.playerCam.transform.position;
-
-
-
-
         viewVec.y = 0;
         viewVec = viewVec.normalized;
-
-
-
     }
     
+    public void SetSound()
+    {
+        atkSound.Play();
+    }
+
+
+    IEnumerator DelayDashAtk()
+    {
+        m_owner.DelayDashAtk = true;
+        yield return new WaitForSeconds(PlayerStats.playerStat.m_timeDashAtk);
+        m_owner.DelayDashAtk = false;
+    }
 
 }

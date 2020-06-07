@@ -110,7 +110,6 @@ public class PlayerController : MonoBehaviour
             else
             {
                 leftdash = 0;
-                //Debug.Log("LeftDashCheck");
                 return true;
             }
         }
@@ -127,12 +126,13 @@ public class PlayerController : MonoBehaviour
             else
             {
                 rightdash = 0;
-                //Debug.Log("RightDashCheck");
                 return true;
             }
         }
          return false;
     }
+
+
     public bool IsBackDashAttack()
     {
         if (Input.GetKeyDown(m_backMove))
@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour
         
         return false;
     }
-
+    
 
     /// <summary>
     /// 회피키 눌렀는지 체크
