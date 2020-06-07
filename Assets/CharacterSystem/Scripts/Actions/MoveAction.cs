@@ -94,8 +94,6 @@ public class MoveAction : BaseAction
             fixedVec += FixedMovePos(m_owner.transform.position + tall, PlayerStats.playerStat.m_size, (m_owner.transform.rotation * -Vector3.forward).normalized,
                     PlayerStats.playerStat.m_moveSpeed * Time.deltaTime, m_wall);
 
-            Debug.Log(fixedVec);
-
             m_owner.transform.position += moveVec + fixedVec;
             //--------------------------------------------------
         }

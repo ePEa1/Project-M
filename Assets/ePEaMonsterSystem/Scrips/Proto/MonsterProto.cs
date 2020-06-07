@@ -134,7 +134,6 @@ namespace ProjectM.ePEa.ProtoMon
             Vector3 afterPos = Vector3.Lerp(m_startPos, m_endPos, m_atkAc.Evaluate(m_time * ac));
 
             Vector3 fixedPos = FixedMovePos(transform.position, 0.6f, (afterPos - beforePos).normalized, Vector3.Distance(beforePos, afterPos), m_wall);
-            Debug.Log(fixedPos);
 
             if (!float.IsNaN(fixedPos.x))
                 transform.position += afterPos - beforePos + fixedPos;

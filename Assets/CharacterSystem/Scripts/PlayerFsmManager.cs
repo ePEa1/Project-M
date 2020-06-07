@@ -56,7 +56,7 @@ public class PlayerFsmManager : MonoBehaviour
             g_playerFsmManager = this; //싱글톤 객체 설정
             m_currentAction = m_playerActions[(int)m_currentStat].StartAction(); //시작 상태에 따라 액션 실행
             m_cam = GameObject.FindWithTag("MainCamera").transform; //캐릭터가 사용할 카메라 설정
-            m_autotarget = GameObject.FindGameObjectWithTag("TargetUI").GetComponent<AutoTargetManager>();
+            //m_autotarget = GameObject.FindGameObjectWithTag("TargetUI").GetComponent<AutoTargetManager>();
 
             m_currentAni.Play("Idle", 0); //시작 시 캐릭터 애니메이션 설정
         }
