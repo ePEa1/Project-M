@@ -33,6 +33,7 @@ public class BackAtkAction : BaseAction
 
         m_animator.SetTrigger("DashAtk");
         m_animator.SetBool("IsDashAtk", true);
+        atkSound.volume = DataController.Instance.gameData.EffectSound / 100;
 
         if (m_controller.IsMoving())
         {
@@ -137,7 +138,6 @@ public class BackAtkAction : BaseAction
 
     public void SetSound()
     {
-        atkSound.volume = DataController.Instance.gameData.EffectSound;
         atkSound.Play();
     }
 

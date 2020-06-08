@@ -132,7 +132,7 @@ public class DashAtkAction : BaseAction
     
     public void SetSound()
     {
-        atkSound.volume = DataController.Instance.gameData.EffectSound;
+        atkSound.volume = DataController.Instance.gameData.EffectSound/100;
         atkSound.Play();
     }
 
