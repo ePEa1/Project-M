@@ -35,7 +35,7 @@ public class StartSceneManager : MonoBehaviour
     }
     public void StartGameButton()
     {
-        SceneManager.LoadScene("0604GraphicLast");
+        SceneManager.LoadScene("0605GraphicLast");
     }
     public void OpenOption()
     {
