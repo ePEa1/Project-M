@@ -30,12 +30,15 @@ namespace ProjectM.ePEa.ProtoMon
         [SerializeField] float m_colliderOpenTime;
 
         [SerializeField] GameObject m_eff;
+
+        [SerializeField] GameObject m_damEff;
         #endregion
 
         #region Value
 
-        NavMeshAgent m_navi;
         Transform target; //쫓아갈 캐릭터
+        Vector3 m_destPos;
+
         Vector3 m_startPos;
         Vector3 m_endPos;
 
@@ -54,15 +57,14 @@ namespace ProjectM.ePEa.ProtoMon
 
         public state m_nowState = state.MOVE;
 
+        float m_changeDest = 0.0f;
+
         #endregion
 
         private void Awake()
         {
             target = GameObject.FindWithTag("Player").transform;
-
-            m_navi = GetComponent<NavMeshAgent>();
-            m_navi.SetDestination(target.position);
-            m_navi.updateRotation = false;
+            m_destPos = transform.position;
 
             m_nowHp = m_maxHp;
         }
@@ -87,12 +89,6 @@ namespace ProjectM.ePEa.ProtoMon
                     break;
             }
 
-            if (m_nowState != state.MOVE)
-            {
-                m_navi.speed = 0;
-                m_navi.velocity = Vector3.zero;
-            }
-
             m_nowDelay = Mathf.Max(0, m_nowDelay - Time.deltaTime);
 
             if (m_nowHp <= 0)
@@ -103,27 +99,26 @@ namespace ProjectM.ePEa.ProtoMon
         {
             Vector3 charPos = new Vector3(transform.position.x, 0, transform.position.z);
             Vector3 destPos = new Vector3(target.position.x, 0, target.position.z);
-            if (Vector3.Distance(charPos, destPos) < m_atkRange)
-            {
-                m_navi.speed = 0;
-                m_navi.SetDestination(transform.position);
-                m_navi.velocity = Vector3.zero;
 
-                if (m_nowDelay == 0)
-                {
-                    AtkStart();
-                }
+            m_changeDest = Mathf.Max(0, m_changeDest - Time.deltaTime);
+
+            if (m_changeDest <= 0)
+            {
+                m_destPos = charPos + Quaternion.Euler(0.0f, Random.Range(-60, 60), 0.0f) * (charPos - destPos).normalized * Random.Range(0, m_atkRange);
+            }
+
+            if (Vector3.Distance(charPos, destPos) < m_atkRange && m_nowDelay==0)
+            {
+                AtkStart();
             }
             else
             {
-                m_navi.isStopped = false;
-                m_navi.updatePosition = true;
-                m_navi.SetDestination(target.position);
-                m_navi.speed = m_moveSpeed;
-                Quaternion dir = Quaternion.LookRotation(m_navi.desiredVelocity);
-                transform.rotation = Quaternion.Slerp(transform.rotation, dir, Time.deltaTime * 8.0f);
+                transform.position += (m_destPos - charPos).normalized * m_moveSpeed * Time.deltaTime;
             }
         }
+
+
+
 
         void Atk()
         {
@@ -179,7 +174,6 @@ namespace ProjectM.ePEa.ProtoMon
         public void TakeDamage(float damage)
         {
             m_nowHp -= damage;
-            Debug.Log(m_nowHp);
         }
     }
 }

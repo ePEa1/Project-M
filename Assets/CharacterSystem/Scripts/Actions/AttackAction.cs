@@ -86,15 +86,25 @@ public class AttackAction : BaseAction
         NextAtkCheck();
 
         //공격중 이동--------------------------------------------
-        Vector3 beforePos = Vector3.Lerp(m_startPos, m_finishPos, m_atkDistanceCurve[m_currentCombo].Evaluate(m_atkTime * m_ac));
+        float before = Mathf.Lerp(0.0f, m_atkDistance[m_currentCombo], m_atkDistanceCurve[m_currentCombo].Evaluate(m_atkTime * m_ac));
         m_atkTime += Time.deltaTime;
-        Vector3 afterPos = Vector3.Lerp(m_startPos, m_finishPos, m_atkDistanceCurve[m_currentCombo].Evaluate(m_atkTime * m_ac));
+        float after = Mathf.Lerp(0.0f, m_atkDistance[m_currentCombo], m_atkDistanceCurve[m_currentCombo].Evaluate(m_atkTime * m_ac));
+
+        m_owner.transform.rotation = Quaternion.Euler(0.0f, m_owner.playerCam.transform.eulerAngles.y + 180.0f, 0.0f);
+        Vector3 dir = Quaternion.Euler(0.0f, m_owner.playerCam.transform.eulerAngles.y, 0.0f) * new Vector3(0.0f, 0.0f, after - before);
 
         Vector3 tall = new Vector3(0.0f, PlayerStats.playerStat.m_hikingHeight + PlayerStats.playerStat.m_size, 0.0f);
-        Vector3 fixedPos = FixedMovePos(m_owner.transform.position + tall, PlayerStats.playerStat.m_size, (afterPos - beforePos).normalized,
-            Vector3.Distance(beforePos, afterPos), m_wall);
+        Vector3 fixedPos = FixedMovePos(m_owner.transform.position + tall, PlayerStats.playerStat.m_size, dir.normalized,
+            after-before, m_wall);
 
-        m_owner.transform.position += afterPos - beforePos + fixedPos;
+
+        RaycastHit hit;
+        if (!Physics.BoxCast(m_owner.transform.position + tall + m_owner.transform.rotation * Vector3.forward * 1.0f, new Vector3(1.7f, 1.0f, 0.7f),
+            m_owner.transform.rotation * Vector3.forward.normalized * -1.0f, out hit, Quaternion.Euler(0, transform.eulerAngles.y, 0), after - before + 1.0f, m_enemy))
+        {
+            m_owner.transform.position += dir + fixedPos;
+        }
+        
         //--------------------------------------------------------
 
         return this;
@@ -144,44 +154,6 @@ public class AttackAction : BaseAction
     }
 
     /// <summary>
-    /// 공격 이동 거리 설정
-    /// </summary>
-    void SetPath()
-    {
-        if (m_autotarget.TargetOn)
-        {
-            viewVec =m_autotarget.targetObj.transform.position - m_owner.transform.position ;
-            viewVec.y = 0;
-            viewVec = viewVec.normalized;
-
-            dir = Quaternion.LookRotation(-new Vector3(viewVec.x, 0, viewVec.z));
-            m_owner.transform.rotation = dir;
-
-            m_startPos = m_owner.transform.position;
-            m_finishPos = m_startPos + viewVec * m_atkDistance[m_nowCombo];
-        }
-        else
-        {
-             viewVec = m_owner.transform.position - m_owner.playerCam.transform.position;
-            viewVec.y = 0;
-            viewVec = viewVec.normalized;
-
-            dir = Quaternion.LookRotation(-new Vector3(viewVec.x, 0, viewVec.z));
-            m_owner.transform.rotation = dir;
-
-            m_startPos = m_owner.transform.position;
-            m_finishPos = m_startPos + viewVec * m_atkDistance[m_nowCombo];
-        }
-
-
-
-
-
-
-
-    }
-
-    /// <summary>
     /// 공격 범위 콜라이더 활성화
     /// </summary>
     public void AtkTiming()
@@ -224,7 +196,6 @@ public class AttackAction : BaseAction
             m_animator.SetTrigger("Atk");
             m_ac = 1.0f / m_atkSpeed[m_nowCombo];
 
-            SetPath();
             m_currentCombo = m_nowCombo;
 
             m_nowCombo++;

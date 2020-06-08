@@ -39,6 +39,8 @@ public class MoveAction : BaseAction
         else m_animator.SetBool("IsMoving", false);
 
 
+        m_controller.SetDirectionToKey();
+
         //중력(+경사면) 연산---------------------------------
         float hikingHeight = PlayerStats.playerStat.m_hikingHeight;
         float gravity = m_gravity * Time.deltaTime;
