@@ -1,17 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [SerializeField]
-public class GameData : MonoBehaviour
+public class GameData 
 {
-    public int BackgroundSound = 100;
-    public int EffectSound = 100;
-    public int MouseMoving = 100;
+    public float BackgroundSound = 1;
+    public float EffectSound = 1;
+    public float MouseMoving = 1;
 
+    
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
 }

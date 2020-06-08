@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ProjectM.ePEa.PlayerData;
+using System;
 
 using static ProjectM.ePEa.CustomFunctions.CustomFunction;
 
@@ -131,6 +132,7 @@ public class DashAtkAction : BaseAction
     
     public void SetSound()
     {
+        atkSound.volume = DataController.Instance.gameData.EffectSound;
         atkSound.Play();
     }
 

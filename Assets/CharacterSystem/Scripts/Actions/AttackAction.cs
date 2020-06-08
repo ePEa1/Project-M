@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ProjectM.ePEa.PlayerData;
+using System;
 
 using static ProjectM.ePEa.CustomFunctions.CustomFunction;
 
@@ -159,20 +160,6 @@ public class AttackAction : BaseAction
     /// </summary>
     void SetPath()
     {
-        if (m_autotarget.TargetOn)
-        {
-            viewVec =m_autotarget.targetObj.transform.position - m_owner.transform.position ;
-            viewVec.y = 0;
-            viewVec = viewVec.normalized;
-
-            dir = Quaternion.LookRotation(-new Vector3(viewVec.x, 0, viewVec.z));
-            m_owner.transform.rotation = dir;
-
-            m_startPos = m_owner.transform.position;
-            m_finishPos = m_startPos + viewVec * m_atkDistance[m_nowCombo];
-        }
-        else
-        {
              viewVec = m_owner.transform.position - m_owner.playerCam.transform.position;
             viewVec.y = 0;
             viewVec = viewVec.normalized;
@@ -182,14 +169,6 @@ public class AttackAction : BaseAction
 
             m_startPos = m_owner.transform.position;
             m_finishPos = m_startPos + viewVec * m_atkDistance[m_nowCombo];
-        }
-
-
-
-
-
-
-
     }
 
     /// <summary>
@@ -249,8 +228,8 @@ public class AttackAction : BaseAction
 
     public void PlaySfx()
     {
+        m_atkSfx[m_currentCombo].volume = DataController.Instance.gameData.EffectSound / 100;
         m_atkSfx[m_currentCombo].Play();
-        m_atkSfx[m_currentCombo].volume = DataController.Instance.gameData.EffectSound/100;
     }
 
     /// <summary>

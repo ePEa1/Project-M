@@ -27,14 +27,14 @@ public class DataController : MonoBehaviour
                 _container = new GameObject();
                 _container.name = "DataController";
                 _instance = _container.AddComponent(typeof(DataController)) as DataController;
-                DontDestroyOnLoad(_container);
+                DontDestroyOnLoad(_container);//다른 씬에서도 지워지지 않게하기
             }
 
             return _instance;
         }
     }
 
-    public string GameDataFlieName = "0608DataFile.json";
+    string GameDataFlieName = "0608DataFile.json";
 
     public GameData _gameData;
     public GameData gameData
@@ -44,6 +44,8 @@ public class DataController : MonoBehaviour
             if(_gameData == null)
             {
                 //세이브랑 로드
+                LoadGameData();
+                SaveGameData();
             }
             return _gameData;
         }
@@ -51,25 +53,26 @@ public class DataController : MonoBehaviour
 
     public void LoadGameData()
     {
-        string filePath = Application.dataPath + GameDataFlieName;
+        
+        string filePath = Application.dataPath + GameDataFlieName;//Asset폴더에 저장됨.
         if (File.Exists(filePath))
         {
             string FromJsonData = File.ReadAllText(filePath);
-            _gameData = JsonUtility.FromJson<GameData>(FromJsonData);
+            _gameData = JsonUtility.FromJson<GameData>(FromJsonData);//파일이 존재할 시 파일의 정보를 읽어낸다.
             
         }
         else
         {
-            _gameData = new GameData();
+            _gameData = new GameData();//없을시 새로 생성
         }
-
+        Debug.Log("Load");
     }
 
     public void SaveGameData()
     {
         string TojsonData = JsonUtility.ToJson(gameData);
         string filePath = Application.dataPath + GameDataFlieName;
-        File.WriteAllText(filePath, TojsonData);
+        File.WriteAllText(filePath, TojsonData);//경로에 존재하는 파일에 입력
         Debug.Log("Save");
     }
 
@@ -87,19 +90,9 @@ public class DataController : MonoBehaviour
         }
         else
 
-            Destroy(gameObject);
+            Destroy(gameObject);//씬으로 이동할 시 파일이 두개 이상 존재할 경우 삭제하기.
 
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
+//이 데이터를 사용할 시 데이터 추가할 경우 GameData에 변수 지정.
+//변수를 다른 스크립트로 지정할땐 헤더에 using System; 지정 후 더하거나 곲할 값들은 DataController.Instance.gameData.변수이름
