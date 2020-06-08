@@ -77,10 +77,7 @@ public class AttackAction : BaseAction
 
     protected override BaseAction OnUpdateAction()
     {
-        if (m_controller.IsDodge() && PlayerStats.playerStat.m_currentDodgeDelay == 0)
-        {
-            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
-        }
+        ChangeActions();
 
         //다음 공격 할건지 체크
         NextAtkCheck();
@@ -116,6 +113,22 @@ public class AttackAction : BaseAction
     {
         //최대 콤보 설정
         m_maxCombo = m_atkDistance.Length;
+    }
+
+    /// <summary>
+    /// 다른 액션으로 바뀌는 경우 정리
+    /// </summary>
+    void ChangeActions()
+    {
+        if (m_controller.IsDodge() && PlayerStats.playerStat.m_currentDodgeDelay == 0)
+        {
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
+        }
+
+        if (m_controller.IsLeftDashAttack() || m_controller.IsRightDashAttack())
+        {
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
+        }
     }
 
     /// <summary>
