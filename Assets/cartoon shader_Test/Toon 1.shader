@@ -79,13 +79,16 @@
 			//float3 toon = step ( ndotl * (1 - _Color2), d.g )  * 0.5 + 0.5;
 
 			////diffColor = c.rgb * ndotl * _LightColor0.rgb;// * atten
-
+			
 
 			float rim = dot(o.Normal, IN.viewDir);
 			float Rim = pow(1 - rim, _rimPow);
 
+			float ceilNum2 = 2;
+			float diffColor2 = ceil(Rim * ceilNum2) / 2;
+
 			o.Albedo = c.rgb * _Color;
-			o.Emission = Rim * _Color3.rgb;
+			o.Emission = c.rgb * diffColor2 * _Color3.rgb;
 			o.Alpha = c.a;
         }
 
@@ -107,13 +110,18 @@
 
 			float SpecSmooth = smoothstep(0.005, 0.01, speclitt);
 			float SpecColor = SpecSmooth * 1;
+			
+			float rim = dot(s.Normal, viewDir);
+			float Rim = pow(1 - rim, _rimPow);
 
+			float ceilNum2 = 2;
+			float diffColor2 = ceil(Rim * ceilNum2) / 2;
 
 			float4 final;
 			final.rgb = (s.Albedo + SpecColor * _Color2) * (1 + diffColor * _TestToggle2 - _TestToggle2) * _LightColor0.rgb;
 			final.a = s.Alpha;
 
-			float4 ffinal = final * (1+RampColor*_TestToggle - _TestToggle) * atten;
+			float4 ffinal = final * (1+RampColor*_TestToggle - _TestToggle);//* atten
 
 
 

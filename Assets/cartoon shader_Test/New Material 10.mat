@@ -8,16 +8,15 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: New Material 10
-  m_Shader: {fileID: 211, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _ALPHATEST_ON _EMISSION
-  m_LightmapFlags: 0
+  m_LightmapFlags: 1
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2450
   stringTagMap:
     RenderType: TransparentCutout
-  disabledShaderPasses:
-  - ALWAYS
+  disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -38,7 +37,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: aafde9c275ac0c9449deb19839b06229, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _LitTex:
@@ -79,10 +78,10 @@ Material:
     - _EmissionEnabled: 1
     - _FlipbookMode: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.592
+    - _Glossiness: 0
     - _GlossyReflections: 1
     - _LightingEnabled: 0
-    - _Metallic: 1
+    - _Metallic: 0
     - _Mode: 1
     - _OcclusionStrength: 1
     - _OutlinePow: 0.00118
@@ -104,5 +103,5 @@ Material:
     - _Color3: {r: 0, g: 0, b: 0, a: 1}
     - _Color4: {r: 1, g: 1, b: 1, a: 1}
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0.9811321, g: 0.9811321, b: 0.9811321, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
