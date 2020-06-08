@@ -11,6 +11,9 @@ public class StartSceneManager : MonoBehaviour
     public AudioClip Push;
     public AudioSource UISound;
     // Start is called before the first frame update
+
+    [SerializeField] string m_nextScene;
+
     void Start()
     {
         UISound = GetComponent<AudioSource>();
@@ -35,7 +38,7 @@ public class StartSceneManager : MonoBehaviour
     }
     public void StartGameButton()
     {
-        SceneManager.LoadScene("0605GraphicLast");
+        SceneManager.LoadScene(m_nextScene);
     }
     public void OpenOption()
     {
