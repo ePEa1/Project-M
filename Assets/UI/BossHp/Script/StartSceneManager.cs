@@ -54,7 +54,7 @@ public class StartSceneManager : MonoBehaviour
     }
     public void SetSound(AudioClip uisound, AudioSource Setplayer)
     {
-        Setplayer.volume = DataController.Instance.gameData.EffectSound;
+        Setplayer.volume = DataController.Instance.effectSound;
         Setplayer.Stop();
         Setplayer.clip = uisound;
         Setplayer.time = 0;

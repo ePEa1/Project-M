@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1324311530848265509}
   - component: {fileID: 1324311530848265508}
-  - component: {fileID: 1324311530848265510}
   m_Layer: 0
   m_Name: GameData
   m_TagString: Untagged
@@ -44,20 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 587314567a7b0454d8338405c2c9932d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameDataFlieName: .json
-  _gameData: {fileID: 1324311530848265510}
---- !u!114 &1324311530848265510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1324311530848265511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d53cd21ba27e26489b8e673f713957c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BackgroundSound: 100
-  EffectSound: 100
-  MouseMoving: 100
+  backgroundSound: 1
+  effectSound: 1
+  mouseMoving: 1
+  _gameData:
+    BackgroundSound: 100
+    EffectSound: 100
+    MouseMoving: 100

@@ -47,7 +47,7 @@ public class DamageAction : BaseAction
         OnDamAnimation();
 
         //피격 사운드 재생
-        m_damSound.volume = DataController.Instance.gameData.EffectSound/100;
+        m_damSound.volume = DataController.Instance.effectSound;
 
         m_damSound.Play();
 

@@ -19,9 +19,9 @@ public class OptionManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        BackGroundSound.value = DataController.Instance.gameData.BackgroundSound;
-        EffectsSound.value = DataController.Instance.gameData.EffectSound;
-        MouseMoving.value = DataController.Instance.gameData.MouseMoving;
+        BackGroundSound.value = DataController.Instance.backgroundSound ;
+        EffectsSound.value = DataController.Instance.effectSound;
+        MouseMoving.value = DataController.Instance.mouseMoving;
     }
 
     // Update is called once per frame
@@ -29,12 +29,10 @@ public class OptionManager : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            DataController.Instance.gameData.BackgroundSound = BackGroundSound.value;
-            DataController.Instance.gameData.EffectSound = EffectsSound.value;
-            DataController.Instance.gameData.MouseMoving = MouseMoving.value ;
-            Debug.Log(DataController.Instance.gameData.BackgroundSound);
-            Debug.Log(DataController.Instance.gameData.EffectSound);
-                Debug.Log(DataController.Instance.gameData.MouseMoving);
+            DataController.Instance.SetOption(DataController.Option.backGround, (int)(BackGroundSound.value * 100));
+            DataController.Instance.SetOption(DataController.Option.effect, (int)(EffectsSound.value * 100));
+            DataController.Instance.SetOption(DataController.Option.mouse, (int)(MouseMoving.value * 100));
+
         }
     }
 

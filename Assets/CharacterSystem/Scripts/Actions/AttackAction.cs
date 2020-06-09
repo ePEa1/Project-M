@@ -223,7 +223,9 @@ public class AttackAction : BaseAction
 
     public void PlaySfx()
     {
-        m_atkSfx[m_currentCombo].volume = DataController.Instance.gameData.EffectSound;
+        m_atkSfx[m_currentCombo].volume = DataController.Instance.effectSound;
+        Debug.Log(DataController.Instance.effectSound);
+        Debug.Log(m_atkSfx[m_currentCombo].volume);
 
         m_atkSfx[m_currentCombo].Play();
     }

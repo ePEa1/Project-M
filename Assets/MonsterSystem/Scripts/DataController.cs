@@ -8,6 +8,18 @@ using System;
 
 public class DataController : MonoBehaviour
 {
+
+    public float backgroundSound=1;
+    public float effectSound=1;
+    public float mouseMoving=1;
+
+    public enum Option
+    {
+        backGround,
+        effect,
+        mouse
+
+    }
     static GameObject _container;
     static GameObject Container
     {
@@ -92,6 +104,27 @@ public class DataController : MonoBehaviour
 
             Destroy(gameObject);//씬으로 이동할 시 파일이 두개 이상 존재할 경우 삭제하기.
 
+    }
+    public void SetOption(Option option, int value)
+    {
+        //Debug.Log(value);
+        switch (option)
+        {
+            case Option.backGround:
+                Instance.gameData.BackgroundSound = value;
+                backgroundSound = (float)Instance.gameData.BackgroundSound / 100;
+                //Debug.Log(Instance.gameData.BackgroundSound);
+                Debug.Log(backgroundSound);
+                break;
+            case Option.effect:
+                Instance.gameData.EffectSound = value;
+                effectSound = (float)Instance.gameData.EffectSound / 100;
+                break;
+            case Option.mouse:
+                Instance.gameData.MouseMoving = value;
+                mouseMoving = (float)Instance.gameData.MouseMoving / 100;
+                break;
+        }
     }
 }
 //이 데이터를 사용할 시 데이터 추가할 경우 GameData에 변수 지정.

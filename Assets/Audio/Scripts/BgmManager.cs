@@ -22,7 +22,7 @@ public class BgmManager : MonoBehaviour
         }
         if (pause.IsPause == false)
         {
-            GetComponent<AudioSource>().volume = DataController.Instance.gameData.BackgroundSound;
+            GetComponent<AudioSource>().volume = DataController.Instance.backgroundSound;
 
         }
 
