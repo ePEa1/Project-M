@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
     float h = 0;
     float v = 0;
 
+    public Vector3 m_rushDir;
+
     #endregion
 
     #region Function
@@ -142,6 +144,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                m_rushDir = Vector3.right;
                 leftdash = 0;
                 return true;
             }
@@ -158,6 +161,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                m_rushDir = Vector3.left;
                 rightdash = 0;
                 return true;
             }

@@ -189,7 +189,7 @@ namespace ProjectM.ePEa.ProtoMon
 
             transform.rotation = Quaternion.LookRotation(m_endPos - m_startPos);
             m_nowState = state.ATK;
-            m_atkCollider.GetComponent<AtkCollider>().knockPower = 3.0f;
+            m_atkCollider.GetComponent<AtkCollider>().knockPower = 5.0f;
             m_atkCollider.GetComponent<AtkCollider>().knockVec = (m_endPos - m_startPos).normalized;
         }
 
@@ -218,6 +218,7 @@ namespace ProjectM.ePEa.ProtoMon
 
         void Damage()
         {
+            m_atkCollider.gameObject.SetActive(false);
             Vector3 before = Vector3.Lerp(m_knockStart, m_knockEnd, m_damAc.Evaluate(m_knockTime));
             m_knockTime += Time.deltaTime * 3.5f;
             Vector3 after = Vector3.Lerp(m_knockStart, m_knockEnd, m_damAc.Evaluate(m_knockTime));

@@ -223,7 +223,7 @@ public class AttackAction : BaseAction
     public void PlaySfx()
     {
         m_atkSfx[m_currentCombo].Play();
-        m_atkSfx[m_currentCombo].volume = DataController.Instance.gameData.EffectSound/100;
+        m_atkSfx[m_currentCombo].volume = GameObject.Find("GameData").GetComponent<GameData>().EffectSound * 0.01f;
     }
 
     /// <summary>

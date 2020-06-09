@@ -16,8 +16,7 @@ public class DashAtkAction : BaseAction
     [SerializeField] Vector3 atkPos;
     [SerializeField] float speed;
     [SerializeField] float movePos;
-
-
+    
 
     Vector3 playerVec;
     Vector3 m_startPos;
@@ -33,28 +32,41 @@ public class DashAtkAction : BaseAction
         m_animator.SetTrigger("DashAtk");
         m_animator.SetBool("IsDashAtk", true);
 
-        if (m_controller.IsMoving())
-        {
-            Vector3 view = m_owner.transform.position - m_owner.playerCam.position;
-            view.y = 0.0f;
+        //if (m_controller.IsMoving())
+        //{
+        //    Vector3 view = m_owner.transform.position - m_owner.playerCam.position;
+        //    view.y = 0.0f;
 
-            Quaternion dir = m_controller.GetDirection();
+        //    Quaternion dir = Quaternion.LookRotation(m_controller.m_rushDir);
 
-            Quaternion playerDir = dir * Quaternion.LookRotation(new Vector3(view.x, 0, view.z));
-            Vector3 playerVec = playerDir * new Vector3(0, 0, -movePos);
+        //    Quaternion playerDir = dir * Quaternion.LookRotation(new Vector3(view.x, 0, view.z));
+        //    Vector3 playerVec = playerDir * new Vector3(0, 0, -movePos);
 
-            m_owner.transform.rotation = playerDir;
+        //    m_owner.transform.rotation = playerDir;
 
-            m_startPos = m_owner.transform.position;
-            m_finishPos = m_startPos + playerVec;
-        }
-        else  
-        {
-            Vector3 playerVec = m_owner.transform.rotation * new Vector3(0, 0, -movePos);
+        //    m_startPos = m_owner.transform.position;
+        //    m_finishPos = m_startPos + playerVec;
+        //}
+        //else  
+        //{
+        //    Vector3 playerVec = m_owner.transform.rotation * new Vector3(0, 0, -movePos);
 
-            m_startPos = m_owner.transform.position;
-            m_finishPos = m_startPos + playerVec;
-        }
+        //    m_startPos = m_owner.transform.position;
+        //    m_finishPos = m_startPos + playerVec;
+        //}
+
+        Vector3 view = m_owner.transform.position - m_owner.playerCam.position;
+        view.y = 0.0f;
+
+        Quaternion dir = Quaternion.LookRotation(m_controller.m_rushDir);
+
+        Quaternion playerDir = dir * Quaternion.LookRotation(new Vector3(view.x, 0, view.z));
+        Vector3 playerVec = playerDir * new Vector3(0, 0, -movePos);
+
+        m_owner.transform.rotation = playerDir;
+
+        m_startPos = m_owner.transform.position;
+        m_finishPos = m_startPos + playerVec;
 
         return this;
     }
