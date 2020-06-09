@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6050e2d5de785ce4d931e4dbdbf2d755, type: 3}
   m_Name: ChromaticAberration
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
@@ -22,11 +22,11 @@ MonoBehaviour:
     defaultState: 1
   intensity:
     overrideState: 1
-    value: 0.171
+    value: 0.096
   fastMode:
     overrideState: 1
     value: 0
---- !u!114 &-2788103029182581990
+--- !u!114 &-2850549400683643776
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,7 +97,7 @@ MonoBehaviour:
     value: 0
   postExposure:
     overrideState: 1
-    value: 0.37
+    value: 0.4
   contrast:
     overrideState: 1
     value: 0
@@ -130,13 +130,13 @@ MonoBehaviour:
     value: 100
   lift:
     overrideState: 1
-    value: {x: 1, y: 0.87213475, z: 0.81288916, w: 0}
+    value: {x: 1, y: 0.75165564, z: 0.70015854, w: 0}
   gamma:
     overrideState: 1
-    value: {x: 0.9758761, y: 1, z: 0.956481, w: 0}
+    value: {x: 0.87826324, y: 0.9360077, z: 1, w: 0}
   gain:
     overrideState: 1
-    value: {x: 1, y: 0.9025249, z: 0.87539285, w: 0}
+    value: {x: 1, y: 0.8671487, z: 0.8316475, w: 0}
   masterCurve:
     overrideState: 1
     value:
@@ -1355,13 +1355,13 @@ MonoBehaviour:
     value: 1
   focusDistance:
     overrideState: 1
-    value: 2.27
+    value: 7.45
   aperture:
     overrideState: 1
-    value: 15.3
+    value: 13.5
   focalLength:
     overrideState: 1
-    value: 62
+    value: 125
   kernelSize:
     overrideState: 1
     value: 3
@@ -1415,7 +1415,7 @@ MonoBehaviour:
   m_Name: Post-process Volume Profile
   m_EditorClassIdentifier: 
   settings:
-  - {fileID: -2788103029182581990}
+  - {fileID: -2850549400683643776}
   - {fileID: 6593442418159113148}
   - {fileID: 6823627179203689648}
   - {fileID: -7280903630825144198}
@@ -1442,10 +1442,10 @@ MonoBehaviour:
     value: 1
   shutterAngle:
     overrideState: 1
-    value: 170
+    value: 91
   sampleCount:
     overrideState: 1
-    value: 17
+    value: 25
 --- !u!114 &2734060334065303921
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1467,16 +1467,16 @@ MonoBehaviour:
     value: 0
   color:
     overrideState: 1
-    value: {r: 0.4063345, g: 0.31764707, b: 0.6509804, a: 1}
+    value: {r: 0.3490566, g: 0.2552065, b: 0.28374603, a: 1}
   center:
     overrideState: 1
     value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0.363
+    value: 0.373
   smoothness:
     overrideState: 1
-    value: 0.2
+    value: 0.412
   roundness:
     overrideState: 1
     value: 1
@@ -1508,13 +1508,13 @@ MonoBehaviour:
     value: 1
   mode:
     overrideState: 1
-    value: 0
+    value: 1
   intensity:
     overrideState: 1
-    value: 0.73
+    value: 0.81
   color:
     overrideState: 1
-    value: {r: 0.3490566, g: 0.23219277, b: 0.07409222, a: 1}
+    value: {r: 0, g: 0, b: 0, a: 1}
   ambientOnly:
     overrideState: 1
     value: 0
@@ -1535,10 +1535,10 @@ MonoBehaviour:
     value: 0
   radius:
     overrideState: 1
-    value: 0.82
+    value: 0.25
   quality:
     overrideState: 1
-    value: 3
+    value: 4
 --- !u!114 &6823627179203689648
 MonoBehaviour:
   m_ObjectHideFlags: 3

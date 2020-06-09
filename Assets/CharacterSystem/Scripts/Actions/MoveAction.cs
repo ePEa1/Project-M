@@ -39,6 +39,8 @@ public class MoveAction : BaseAction
         else m_animator.SetBool("IsMoving", false);
 
 
+        m_controller.SetDirectionToKey();
+
         //중력(+경사면) 연산---------------------------------
         float hikingHeight = PlayerStats.playerStat.m_hikingHeight;
         float gravity = m_gravity * Time.deltaTime;
@@ -100,8 +102,6 @@ public class MoveAction : BaseAction
             Vector3 tall = new Vector3(0.0f, PlayerStats.playerStat.m_hikingHeight + PlayerStats.playerStat.m_size, 0.0f);
             fixedVec += FixedMovePos(m_owner.transform.position + tall, PlayerStats.playerStat.m_size, (m_owner.transform.rotation * -Vector3.forward).normalized,
                     PlayerStats.playerStat.m_moveSpeed * Time.deltaTime, m_wall);
-
-            Debug.Log(fixedVec);
 
             m_owner.transform.position += moveVec + fixedVec;
             //--------------------------------------------------

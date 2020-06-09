@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System;
 
 public class StartSceneManager : MonoBehaviour
 {
@@ -12,6 +11,9 @@ public class StartSceneManager : MonoBehaviour
     public AudioClip Push;
     public AudioSource UISound;
     // Start is called before the first frame update
+
+    [SerializeField] string m_nextScene;
+
     void Start()
     {
         UISound = GetComponent<AudioSource>();
@@ -36,7 +38,7 @@ public class StartSceneManager : MonoBehaviour
     }
     public void StartGameButton()
     {
-        SceneManager.LoadScene("0605GraphicTime");
+        SceneManager.LoadScene(m_nextScene);
     }
     public void OpenOption()
     {
@@ -52,7 +54,6 @@ public class StartSceneManager : MonoBehaviour
     }
     public void SetSound(AudioClip uisound, AudioSource Setplayer)
     {
-        Setplayer.volume = DataController.Instance.gameData.EffectSound;
         Setplayer.Stop();
         Setplayer.clip = uisound;
         Setplayer.time = 0;
@@ -69,4 +70,5 @@ public class StartSceneManager : MonoBehaviour
             SetSound(Select, UISound);
         }
     }
+
 }

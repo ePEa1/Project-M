@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ProjectM.ePEa.PlayerData;
-using System;
 
 using static ProjectM.ePEa.CustomFunctions.CustomFunction;
 
@@ -78,35 +77,31 @@ public class AttackAction : BaseAction
 
     protected override BaseAction OnUpdateAction()
     {
-        if (m_controller.IsDodge() && PlayerStats.playerStat.m_currentDodgeDelay == 0)
-        {
-            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
-        }
+        ChangeActions();
 
         //다음 공격 할건지 체크
         NextAtkCheck();
 
         //공격중 이동--------------------------------------------
-        Vector3 beforePos = Vector3.Lerp(m_startPos, m_finishPos, m_atkDistanceCurve[m_currentCombo].Evaluate(m_atkTime * m_ac));
+        float before = Mathf.Lerp(0.0f, m_atkDistance[m_currentCombo], m_atkDistanceCurve[m_currentCombo].Evaluate(m_atkTime * m_ac));
         m_atkTime += Time.deltaTime;
-        Vector3 afterPos = Vector3.Lerp(m_startPos, m_finishPos, m_atkDistanceCurve[m_currentCombo].Evaluate(m_atkTime * m_ac));
+        float after = Mathf.Lerp(0.0f, m_atkDistance[m_currentCombo], m_atkDistanceCurve[m_currentCombo].Evaluate(m_atkTime * m_ac));
+
+        m_owner.transform.rotation = Quaternion.Euler(0.0f, m_owner.playerCam.transform.eulerAngles.y + 180.0f, 0.0f);
+        Vector3 dir = Quaternion.Euler(0.0f, m_owner.playerCam.transform.eulerAngles.y, 0.0f) * new Vector3(0.0f, 0.0f, after - before);
 
         Vector3 tall = new Vector3(0.0f, PlayerStats.playerStat.m_hikingHeight + PlayerStats.playerStat.m_size, 0.0f);
-        Vector3 fixedPos = FixedMovePos(m_owner.transform.position + tall, PlayerStats.playerStat.m_size, (afterPos - beforePos).normalized, Vector3.Distance(beforePos, afterPos),
-            m_wall);
+        Vector3 fixedPos = FixedMovePos(m_owner.transform.position + tall, PlayerStats.playerStat.m_size, dir.normalized,
+            after-before, m_wall);
+
 
         RaycastHit hit;
-        if (Physics.SphereCast(m_owner.transform.position + tall, PlayerStats.playerStat.m_size, (afterPos - beforePos).normalized, out hit,
-            Vector3.Distance(beforePos, afterPos), m_enemy))
+        if (!Physics.BoxCast(m_owner.transform.position + tall + m_owner.transform.rotation * Vector3.forward * 1.0f, new Vector3(1.7f, 1.0f, 0.7f),
+            m_owner.transform.rotation * Vector3.forward.normalized * -1.0f, out hit, Quaternion.Euler(0, transform.eulerAngles.y, 0), after - before + 1.0f, m_enemy))
         {
-            if (hit.point != Vector3.zero)
-            {
-                m_owner.transform.position = new Vector3(hit.point.x, m_owner.transform.position.y, hit.point.z) + new Vector3(hit.normal.x, 0.0f, hit.normal.z)
-                    * PlayerStats.playerStat.m_size;
-            }
+            m_owner.transform.position += dir + fixedPos;
         }
-        else
-            m_owner.transform.position += afterPos - beforePos + fixedPos;
+        
         //--------------------------------------------------------
 
         return this;
@@ -118,6 +113,22 @@ public class AttackAction : BaseAction
     {
         //최대 콤보 설정
         m_maxCombo = m_atkDistance.Length;
+    }
+
+    /// <summary>
+    /// 다른 액션으로 바뀌는 경우 정리
+    /// </summary>
+    void ChangeActions()
+    {
+        if (m_controller.IsDodge() && PlayerStats.playerStat.m_currentDodgeDelay == 0)
+        {
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
+        }
+
+        if (m_controller.IsLeftDashAttack() || m_controller.IsRightDashAttack())
+        {
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
+        }
     }
 
     /// <summary>
@@ -153,22 +164,6 @@ public class AttackAction : BaseAction
         {
             m_nextAtk = true;
         }
-    }
-
-    /// <summary>
-    /// 공격 이동 거리 설정
-    /// </summary>
-    void SetPath()
-    {
-             viewVec = m_owner.transform.position - m_owner.playerCam.transform.position;
-            viewVec.y = 0;
-            viewVec = viewVec.normalized;
-
-            dir = Quaternion.LookRotation(-new Vector3(viewVec.x, 0, viewVec.z));
-            m_owner.transform.rotation = dir;
-
-            m_startPos = m_owner.transform.position;
-            m_finishPos = m_startPos + viewVec * m_atkDistance[m_nowCombo];
     }
 
     /// <summary>
@@ -214,7 +209,6 @@ public class AttackAction : BaseAction
             m_animator.SetTrigger("Atk");
             m_ac = 1.0f / m_atkSpeed[m_nowCombo];
 
-            SetPath();
             m_currentCombo = m_nowCombo;
 
             m_nowCombo++;
@@ -228,8 +222,8 @@ public class AttackAction : BaseAction
 
     public void PlaySfx()
     {
-        m_atkSfx[m_currentCombo].volume = DataController.Instance.gameData.EffectSound / 100;
         m_atkSfx[m_currentCombo].Play();
+        m_atkSfx[m_currentCombo].volume = GameObject.Find("GameData").GetComponent<GameData>().EffectSound * 0.01f;
     }
 
     /// <summary>

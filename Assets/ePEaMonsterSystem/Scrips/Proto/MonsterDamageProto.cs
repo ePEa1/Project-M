@@ -12,7 +12,12 @@ namespace ProjectM.ePEa.ProtoMon
         {
             if (other.tag =="PCAtkCollider")
             {
-                m_owner.TakeDamage(other.GetComponent<AtkCollider>().atkDamage);
+                m_owner.TakeDamage(other.GetComponent<AtkCollider>().atkDamage, other.GetComponent<AtkCollider>().knockVec, other.GetComponent<AtkCollider>().knockPower);
+                if (other.GetComponent<AtkCollider>().AtkEvent())
+                {
+                    GetComponent<AudioSource>().volume = GameObject.Find("GameData").GetComponent<GameData>().EffectSound / 100;
+                    GetComponent<AudioSource>().Play();
+                }
             }
         }
     }
