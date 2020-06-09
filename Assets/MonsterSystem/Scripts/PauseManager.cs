@@ -7,7 +7,7 @@ public class PauseManager : MonoBehaviour
 
     public GameObject PausePage;
     public GameObject OptionPage;
-    bool IsPause = false;
+    public bool IsPause = false;
 
 
     //public void IsPause()
@@ -29,6 +29,7 @@ public class PauseManager : MonoBehaviour
         {
             if (IsPause == true)
             {
+
                 Cursor.lockState = CursorLockMode.Locked;
 
                 IsPause = false;

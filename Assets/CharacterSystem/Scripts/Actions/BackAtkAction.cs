@@ -138,6 +138,7 @@ public class BackAtkAction : BaseAction
 
     public void SetSound()
     {
+        atkSound.volume = DataController.Instance.gameData.EffectSound;
         atkSound.Play();
     }
 
