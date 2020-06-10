@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
@@ -10,10 +11,6 @@ public class PauseManager : MonoBehaviour
     public bool IsPause = false;
 
 
-    //public void IsPause()
-    //{
-    //    PausePage.SetActive(true);
-    //}
 
 
     // Start is called before the first frame update
@@ -57,5 +54,15 @@ public class PauseManager : MonoBehaviour
     public void OpenOption()
     {
         OptionPage.SetActive(true);
+    }
+
+    public void BackToMain()
+    {
+        SceneManager.LoadScene("StartScene");
+    }
+
+    public void GameQuit()
+    {
+        Application.Quit();
     }
 }
