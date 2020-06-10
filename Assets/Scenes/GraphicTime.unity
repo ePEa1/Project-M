@@ -26806,7 +26806,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &401558450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40501,6 +40501,10 @@ PrefabInstance:
     - target: {fileID: 1037217663, guid: e5e80896addaad14c99020a423394e7c, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1037217666, guid: e5e80896addaad14c99020a423394e7c, type: 3}
+      propertyPath: ShapeModule.m_Scale.z
+      value: 1.01
       objectReference: {fileID: 0}
     - target: {fileID: 1151013062, guid: e5e80896addaad14c99020a423394e7c, type: 3}
       propertyPath: m_Layer
@@ -94228,8 +94232,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd8dfb03bad33854f8868e805e0b5496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeAmount: 0.01
+  shakeAmount: 0.1
   duration: 0.1
+  addPos: 0
+  maxRot: 0.1
+  minRot: 0.1
+  RotCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  shakeRotate: 0
 --- !u!1 &2014850506
 GameObject:
   m_ObjectHideFlags: 0
