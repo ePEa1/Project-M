@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ProjectM.ePEa.PlayerData;
+using System;
 
 using static ProjectM.ePEa.CustomFunctions.CustomFunction;
 
@@ -222,8 +223,11 @@ public class AttackAction : BaseAction
 
     public void PlaySfx()
     {
+        m_atkSfx[m_currentCombo].volume = DataController.Instance.effectSound;
+        Debug.Log(DataController.Instance.effectSound);
+        Debug.Log(m_atkSfx[m_currentCombo].volume);
+
         m_atkSfx[m_currentCombo].Play();
-        m_atkSfx[m_currentCombo].volume = GameObject.Find("GameData").GetComponent<GameData>().EffectSound * 0.01f;
     }
 
     /// <summary>

@@ -1,19 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class BgmManager : MonoBehaviour
+public class BgmManager : MonoBehaviour//이건 스테이지 용도로
 {
-    GameData volumeData;
-
+    public PauseManager pause;
     private void Awake()
     {
-        volumeData = GameObject.Find("GameData").GetComponent<GameData>();
+        pause = GameObject.FindGameObjectWithTag("MainUI").GetComponent<PauseManager>();
     }
 
     // Start is called before the first frame update
     void Update()
     {
-        GetComponent<AudioSource>().volume = volumeData.BackgroundSound * 0.01f;
+        if(pause.IsPause == true)
+        {
+            GetComponent<AudioSource>().volume = 0;
+        }
+        if (pause.IsPause == false)
+        {
+            GetComponent<AudioSource>().volume = DataController.Instance.backgroundSound;
+
+        }
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace ProjectM.ePEa.ProtoMon
 {
@@ -15,7 +16,7 @@ namespace ProjectM.ePEa.ProtoMon
                 m_owner.TakeDamage(other.GetComponent<AtkCollider>().atkDamage, other.GetComponent<AtkCollider>().knockVec, other.GetComponent<AtkCollider>().knockPower);
                 if (other.GetComponent<AtkCollider>().AtkEvent())
                 {
-                    GetComponent<AudioSource>().volume = GameObject.Find("GameData").GetComponent<GameData>().EffectSound / 100;
+                    GetComponent<AudioSource>().volume = DataController.Instance.effectSound;
                     GetComponent<AudioSource>().Play();
                 }
             }

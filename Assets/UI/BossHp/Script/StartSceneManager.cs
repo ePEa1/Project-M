@@ -10,6 +10,7 @@ public class StartSceneManager : MonoBehaviour
     public AudioClip Select;
     public AudioClip Push;
     public AudioSource UISound;
+    public AudioSource BackgroundSound;
     // Start is called before the first frame update
 
     [SerializeField] string m_nextScene;
@@ -24,6 +25,8 @@ public class StartSceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        BackgroundSound.volume = DataController.Instance.backgroundSound;
+
         if (Input.GetKeyDown(KeyCode.DownArrow) ||
             Input.GetKeyDown(KeyCode.LeftArrow)||
             Input.GetKeyDown(KeyCode.RightArrow)||
@@ -54,6 +57,7 @@ public class StartSceneManager : MonoBehaviour
     }
     public void SetSound(AudioClip uisound, AudioSource Setplayer)
     {
+        Setplayer.volume = DataController.Instance.effectSound;
         Setplayer.Stop();
         Setplayer.clip = uisound;
         Setplayer.time = 0;

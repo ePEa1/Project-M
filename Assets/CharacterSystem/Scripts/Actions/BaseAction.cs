@@ -14,7 +14,6 @@ public abstract class BaseAction : MonoBehaviour
         m_owner = PlayerFsmManager.g_playerFsmManager;
         m_controller = m_owner.m_currentController;
         m_animator = m_owner.m_currentAc;
-        m_autotarget = m_owner.m_autotarget;
         
             }
    

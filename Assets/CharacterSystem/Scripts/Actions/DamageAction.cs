@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ProjectM.ePEa.PlayerData;
 using UnityEngine.Events;
+using System;
 using static ProjectM.ePEa.CustomFunctions.CustomFunction;
 
 public class DamageAction : BaseAction
@@ -46,7 +47,10 @@ public class DamageAction : BaseAction
         OnDamAnimation();
 
         //피격 사운드 재생
+        m_damSound.volume = DataController.Instance.effectSound;
+
         m_damSound.Play();
+
 
         m_knockTime = 0.0f;
         m_maxTime = m_enemyAtk.knockTime;
@@ -64,6 +68,7 @@ public class DamageAction : BaseAction
 
     protected override void AnyStateAction()
     {
+
     }
 
     protected override BaseAction OnUpdateAction()
