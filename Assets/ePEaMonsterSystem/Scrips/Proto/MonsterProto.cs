@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using static ProjectM.ePEa.CustomFunctions.CustomFunction;
+using UnityEngine.UI;
 
 namespace ProjectM.ePEa.ProtoMon
 {
@@ -30,19 +30,36 @@ namespace ProjectM.ePEa.ProtoMon
         [SerializeField] float m_colliderOpenTime;
 
         [SerializeField] GameObject m_eff;
+
+        [SerializeField] GameObject m_damEff;
+
+        [SerializeField] AnimationCurve m_damAc;
+
+        [SerializeField] float m_refilMax = 3.0f;
+
+        [SerializeField] Slider m_hpBar;
+        [SerializeField] Slider m_refilBar;
         #endregion
 
         #region Value
 
-        NavMeshAgent m_navi;
         Transform target; //쫓아갈 캐릭터
+        Vector3 m_destPos;
+
         Vector3 m_startPos;
         Vector3 m_endPos;
+
+        float m_refil = 3.0f;
 
         float m_nowHp;
 
         float m_time = 0.0f;
         float m_nowDelay = 0.0f;
+
+        Vector3 m_knockStart;
+        Vector3 m_knockEnd;
+
+        float m_knockTime = 0.0f;
 
         public enum state
         {
@@ -54,16 +71,16 @@ namespace ProjectM.ePEa.ProtoMon
 
         public state m_nowState = state.MOVE;
 
+        float m_changeDest = 0.0f;
+
         #endregion
 
         private void Awake()
         {
             target = GameObject.FindWithTag("Player").transform;
+            m_destPos = transform.position;
 
-            m_navi = GetComponent<NavMeshAgent>();
-            m_navi.SetDestination(target.position);
-            m_navi.updateRotation = false;
-
+            m_refil = m_refilMax;
             m_nowHp = m_maxHp;
         }
 
@@ -81,19 +98,22 @@ namespace ProjectM.ePEa.ProtoMon
                     break;
 
                 case state.DAMAGE:
+                    Damage();
                     break;
 
                 case state.DEAD:
                     break;
             }
 
-            if (m_nowState != state.MOVE)
+            m_refil = Mathf.Min(m_refil + Time.deltaTime, m_refilMax);
+            if (m_refil == m_refilMax)
             {
-                m_navi.speed = 0;
-                m_navi.velocity = Vector3.zero;
+                m_nowHp = m_maxHp;
             }
-
             m_nowDelay = Mathf.Max(0, m_nowDelay - Time.deltaTime);
+
+            m_hpBar.value = m_nowHp / m_maxHp;
+            m_refilBar.value = m_refil / m_refilMax;
 
             if (m_nowHp <= 0)
                 Destroy(gameObject);
@@ -103,27 +123,30 @@ namespace ProjectM.ePEa.ProtoMon
         {
             Vector3 charPos = new Vector3(transform.position.x, 0, transform.position.z);
             Vector3 destPos = new Vector3(target.position.x, 0, target.position.z);
-            if (Vector3.Distance(charPos, destPos) < m_atkRange)
-            {
-                m_navi.speed = 0;
-                m_navi.SetDestination(transform.position);
-                m_navi.velocity = Vector3.zero;
 
-                if (m_nowDelay == 0)
-                {
-                    AtkStart();
-                }
-            }
-            else
+            if (Vector3.Distance(charPos, destPos) > m_atkRange)
+                m_changeDest = Mathf.Max(0, m_changeDest - Time.deltaTime);
+
+            if (m_changeDest <= 0)
             {
-                m_navi.isStopped = false;
-                m_navi.updatePosition = true;
-                m_navi.SetDestination(target.position);
-                m_navi.speed = m_moveSpeed;
-                Quaternion dir = Quaternion.LookRotation(m_navi.desiredVelocity);
-                transform.rotation = Quaternion.Slerp(transform.rotation, dir, Time.deltaTime * 8.0f);
+                m_destPos = destPos + Quaternion.Euler(0.0f, Random.Range(-60, 60), 0.0f) * (charPos - destPos).normalized * Random.Range(0, m_atkRange);
+                m_changeDest = Random.Range(1, 4);
+            }
+
+            if (Vector3.Distance(charPos, destPos) < m_atkRange && m_nowDelay==0)
+            {
+                AtkStart();
+            }
+            else if (Vector3.Distance( charPos, m_destPos) >1.0f)
+            {
+                transform.position += (m_destPos - charPos).normalized * m_moveSpeed * Time.deltaTime;
+                Quaternion dir = Quaternion.LookRotation((m_destPos - charPos).normalized);
+                transform.rotation = Quaternion.Slerp(transform.rotation, dir, Time.deltaTime * 3.0f);
             }
         }
+
+
+
 
         void Atk()
         {
@@ -134,7 +157,6 @@ namespace ProjectM.ePEa.ProtoMon
             Vector3 afterPos = Vector3.Lerp(m_startPos, m_endPos, m_atkAc.Evaluate(m_time * ac));
 
             Vector3 fixedPos = FixedMovePos(transform.position, 0.6f, (afterPos - beforePos).normalized, Vector3.Distance(beforePos, afterPos), m_wall);
-            Debug.Log(fixedPos);
 
             if (!float.IsNaN(fixedPos.x))
                 transform.position += afterPos - beforePos + fixedPos;
@@ -155,6 +177,8 @@ namespace ProjectM.ePEa.ProtoMon
 
         void AtkStart()
         {
+            m_nowDelay = m_atkDelay;
+            m_time = 0.0f;
             m_startPos = transform.position;
             m_endPos = transform.position + (target.position - transform.position).normalized * m_rushRange;
             m_animator.SetTrigger("Atk");
@@ -165,7 +189,7 @@ namespace ProjectM.ePEa.ProtoMon
 
             transform.rotation = Quaternion.LookRotation(m_endPos - m_startPos);
             m_nowState = state.ATK;
-            m_atkCollider.GetComponent<AtkCollider>().knockPower = 3.0f;
+            m_atkCollider.GetComponent<AtkCollider>().knockPower = 5.0f;
             m_atkCollider.GetComponent<AtkCollider>().knockVec = (m_endPos - m_startPos).normalized;
         }
 
@@ -174,12 +198,39 @@ namespace ProjectM.ePEa.ProtoMon
             m_nowState = state.MOVE;
             m_time = 0.0f;
 
-            m_nowDelay = m_atkDelay;
+            m_destPos = new Vector3(transform.position.x, 0.0f, transform.position.z);
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage, Vector3 knockDir, float knockPower)
         {
             m_nowHp -= damage;
+
+            m_knockTime = 0;
+            m_knockStart = new Vector3(transform.position.x, 0.0f, transform.position.z);
+            m_knockEnd = m_knockStart + knockDir * knockPower;
+            m_nowState = state.DAMAGE;
+            transform.rotation = Quaternion.LookRotation(-knockDir);
+            GameObject eff = Instantiate(m_damEff);
+            eff.transform.position = transform.position;
+
+            m_refil = 0;
+        }
+
+        void Damage()
+        {
+            m_atkCollider.gameObject.SetActive(false);
+            Vector3 before = Vector3.Lerp(m_knockStart, m_knockEnd, m_damAc.Evaluate(m_knockTime));
+            m_knockTime += Time.deltaTime * 3.5f;
+            Vector3 after = Vector3.Lerp(m_knockStart, m_knockEnd, m_damAc.Evaluate(m_knockTime));
+
+            Vector3 fixedPos = FixedMovePos(transform.position, 0.6f, (after - before).normalized, Vector3.Distance(before, after), m_wall);
+
+            transform.position += after - before + fixedPos;
+
+            if (m_knockTime > 1)
+            {
+                m_nowState = state.MOVE;
+            }
         }
     }
 }

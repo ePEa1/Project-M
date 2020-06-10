@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ProjectM.ePEa.PlayerData;
 using UnityEngine.Events;
+using System;
 using static ProjectM.ePEa.CustomFunctions.CustomFunction;
 
 public class DamageAction : BaseAction
@@ -46,7 +47,10 @@ public class DamageAction : BaseAction
         OnDamAnimation();
 
         //피격 사운드 재생
+        m_damSound.volume = DataController.Instance.effectSound;
+
         m_damSound.Play();
+
 
         m_knockTime = 0.0f;
         m_maxTime = m_enemyAtk.knockTime;
@@ -64,6 +68,7 @@ public class DamageAction : BaseAction
 
     protected override void AnyStateAction()
     {
+
     }
 
     protected override BaseAction OnUpdateAction()
@@ -104,12 +109,24 @@ public class DamageAction : BaseAction
     private void OnTriggerEnter(Collider other)
     {
         //회피 안한 상태로 적 공격범위에 닿으면 데미지 판정
-        if (other.tag == "EnemyAtkCollider" && m_owner.m_currentStat != PlayerFsmManager.PlayerENUM.DODGE)
+        if (other.tag == "EnemyAtkCollider" && DamageOk())
         {
             m_enemyAtk = other.GetComponent<AtkCollider>();
             
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DAMAGE);
         }
+    }
+
+    /// <summary>
+    /// 데미지 받을 수 있는지 체크
+    /// </summary>
+    /// <returns></returns>
+    bool DamageOk()
+    {
+        if (m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.DODGE || m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.DASHATK ||
+            m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.DAMAGE)
+            return false;
+        else return true;
     }
 
     /// <summary>

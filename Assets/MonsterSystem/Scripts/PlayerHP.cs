@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using ProjectM.ePEa.PlayerData;
+
 
 using static ProjectM.ePEa.CustomFunctions.CustomFunction;
 
@@ -27,9 +29,11 @@ public class PlayerHP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HPText.text = player.GetComponent<PlayerFsmManager>().HPcheck + "/" + m_hpMaxSize;
-        Debug.Log(player.GetComponent<PlayerFsmManager>().HPcheck);
-        HP.GetComponent<Image>().fillAmount = player.GetComponent<PlayerFsmManager>().HPcheck / m_hpMaxSize;
+        HPText.text = PlayerStats.playerStat.m_currentHp+ "/" + PlayerStats.playerStat.m_maxHp;
+
+        HP.GetComponent<Image>().fillAmount = PlayerStats.playerStat.m_currentHp / PlayerStats.playerStat.m_maxHp;
+
+
 
     }
 }

@@ -31,6 +31,15 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
+    #region Value
+
+    float h = 0;
+    float v = 0;
+
+    public Vector3 m_rushDir;
+
+    #endregion
+
     #region Function
 
 
@@ -49,21 +58,60 @@ public class PlayerController : MonoBehaviour
     /// <returns></returns>
     public bool IsMoving()
     {
-        int h = 0;
-        if (Input.GetKey(m_leftMove))
-            h++;
-        if (Input.GetKey(m_rightMove))
-            h--;
+        if (Input.GetKey(m_leftMove) || Input.GetKey(m_rightMove) || Input.GetKey(m_frontMove) || Input.GetKey(m_backMove))
+            return true;
+        else return false;
+    }
 
-        int v = 0;
-        if (Input.GetKey(m_frontMove))
-            v++;
-        if (Input.GetKey(m_backMove))
-            v--;
+    /// <summary>
+    /// 방향키 이동방향 계산
+    /// </summary>
+    public void SetDirectionToKey()
+    {
+        if (Input.GetKeyDown(m_leftMove))
+        {
+            h = 1;
+        }
+        if (Input.GetKeyDown(m_rightMove))
+        {
+            h = -1;
+        }
 
-        if (h == 0 && v == 0)
-            return false;
-        else return true;
+        if (Input.GetKeyUp(m_leftMove))
+        {
+            if (Input.GetKey(m_rightMove))
+                h = -1;
+            else h = 0;
+        }
+        if (Input.GetKeyUp(m_rightMove))
+        {
+            if (Input.GetKey(m_leftMove))
+                h = 1;
+            else h = 0;
+        }
+        //---------------------------------
+
+        if (Input.GetKeyDown(m_frontMove))
+        {
+            v = -1;
+        }
+        if (Input.GetKeyDown(m_backMove))
+        {
+            v = 1;
+        }
+
+        if (Input.GetKeyUp(m_frontMove))
+        {
+            if (Input.GetKey(m_backMove))
+                v = 1;
+            else v = 0;
+        }
+        if (Input.GetKeyUp(m_backMove))
+        {
+            if (Input.GetKey(m_frontMove))
+                v = -1;
+            else v = 0;
+        }
     }
 
     /// <summary>
@@ -72,18 +120,6 @@ public class PlayerController : MonoBehaviour
     /// <returns></returns>
     public Quaternion GetDirection()
     {
-        int h = 0;
-        if (Input.GetKey(m_leftMove))
-            h++;
-        if (Input.GetKey(m_rightMove))
-            h--;
-
-        int v = 0;
-        if (Input.GetKey(m_frontMove))
-            v--;
-        if (Input.GetKey(m_backMove))
-            v++;
-
         return Quaternion.LookRotation(new Vector3(h, 0, v));
     }
 
@@ -108,8 +144,8 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                m_rushDir = Vector3.right;
                 leftdash = 0;
-                //Debug.Log("LeftDashCheck");
                 return true;
             }
         }
@@ -125,13 +161,15 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                m_rushDir = Vector3.left;
                 rightdash = 0;
-                //Debug.Log("RightDashCheck");
                 return true;
             }
         }
          return false;
     }
+
+
     public bool IsBackDashAttack()
     {
         if (Input.GetKeyDown(m_backMove))
@@ -150,7 +188,7 @@ public class PlayerController : MonoBehaviour
         
         return false;
     }
-
+    
 
     /// <summary>
     /// 회피키 눌렀는지 체크

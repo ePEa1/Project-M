@@ -11,6 +11,9 @@ public class StartSceneManager : MonoBehaviour
     public AudioClip Push;
     public AudioSource UISound;
     // Start is called before the first frame update
+
+    [SerializeField] string m_nextScene;
+
     void Start()
     {
         UISound = GetComponent<AudioSource>();
@@ -35,7 +38,7 @@ public class StartSceneManager : MonoBehaviour
     }
     public void StartGameButton()
     {
-        SceneManager.LoadScene("0522MonsterScene");
+        SceneManager.LoadScene(m_nextScene);
     }
     public void OpenOption()
     {
@@ -51,6 +54,7 @@ public class StartSceneManager : MonoBehaviour
     }
     public void SetSound(AudioClip uisound, AudioSource Setplayer)
     {
+        Setplayer.volume = DataController.Instance.effectSound;
         Setplayer.Stop();
         Setplayer.clip = uisound;
         Setplayer.time = 0;

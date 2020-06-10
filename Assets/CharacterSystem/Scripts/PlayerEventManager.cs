@@ -9,15 +9,26 @@ public class PlayerEventManager : MonoBehaviour
     [SerializeField] UnityEvent[] m_dodgeEvent;
     [SerializeField] UnityEvent[] m_damageEvent;
     [SerializeField] UnityEvent[] m_dashatkEvent;
+    [SerializeField] UnityEvent[] m_backatkEvent;
 
     [SerializeField] UnityEvent[] m_testEvent;
+
+    public enum BackAtkEnum
+    {
+        SetCollider,
+        DeleteCollider,
+        CreatEff,
+        EndBackAtk,
+        SetSound
+    }
 
     public enum DashAtkEnum
     {
         SetCollider,
         DeleteCollider,
         CreatEff,
-        EndDashAtk
+        EndDashAtk,
+        SetSound
     }
     public enum AtkEnum
     {
@@ -72,10 +83,25 @@ public class PlayerEventManager : MonoBehaviour
         m_damageEvent[(int)e].Invoke();
     }
 
+
+    /// <summary>
+    /// 좌우 이동스킬 애니메이션에서 실행시킬 이벤트
+    /// </summary>
+    /// <param name="e"></param>
     public void OnDashAtkEvent(DashAtkEnum e)
     {
         m_dashatkEvent[(int)e].Invoke();
     }
+
+    /// <summary>
+    /// 후방 이동 스킬 애니메이션에서 실행시킬 이벤트
+    /// </summary>
+    /// <param name="e"></param>
+    public void OnBackAtkEvent(BackAtkEnum e)
+    {
+        m_backatkEvent[(int)e].Invoke();
+    }
+
     /// <summary>
     /// 예시용 함수
     /// </summary>
