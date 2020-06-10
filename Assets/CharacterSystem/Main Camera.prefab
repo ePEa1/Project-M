@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 7402736142049612404}
   - component: {fileID: 7402736142049612362}
   - component: {fileID: 2231909305792914768}
+  - component: {fileID: 2407325404782822920}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -56,7 +57,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 15.638705
+  m_FocalLength: 18.478378
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -65,7 +66,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 1000
-  field of view: 75
+  field of view: 66
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -80,7 +81,7 @@ Camera:
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 0
+  m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!114 &6407493668830232936
@@ -215,7 +216,7 @@ MonoBehaviour:
     m_Bits: 256
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
-  antialiasingMode: 3
+  antialiasingMode: 1
   temporalAntialiasing:
     jitterSpread: 1
     sharpness: 3
@@ -365,6 +366,93 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.9911499
       value: 0.4939556
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  shakeRotate: 0
+--- !u!114 &2407325404782822920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7402736142049612400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd8dfb03bad33854f8868e805e0b5496, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeAmount: 0.01
+  duration: 0.3
+  addPos: 0.3
+  maxRot: 0.5
+  minRot: 0
+  RotCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.001789093
+      value: 1.0047302
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.10195498
+      value: -0.7545326
+      inSlope: -0.72488904
+      outSlope: -0.72488904
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.2773767
+      value: 0.5251838
+      inSlope: -0.475281
+      outSlope: -0.475281
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.41228876
+      value: -0.23374045
+      inSlope: -0.14892101
+      outSlope: -0.14892101
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.1727048
+    - serializedVersion: 3
+      time: 0.55967456
+      value: 0.29876596
+      inSlope: -0.019129073
+      outSlope: -0.019129073
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.11537307
+    - serializedVersion: 3
+      time: 0.7022019
+      value: -0.12763692
+      inSlope: 0.008899585
+      outSlope: 0.008899585
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.17306903
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.002357483
       inSlope: 0
       outSlope: 0
       tangentMode: 0

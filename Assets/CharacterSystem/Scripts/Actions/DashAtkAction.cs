@@ -22,8 +22,8 @@ public class DashAtkAction : BaseAction
     Vector3 playerVec;
     Vector3 m_startPos;
     Vector3 m_finishPos;
-
-    public Collider DashAtkCol;
+    [SerializeField] Collider DamageCol;
+    [SerializeField] Collider DashAtkCol;
     float m_curdashAtk;
 
     protected override BaseAction OnStartAction()
@@ -103,10 +103,12 @@ public class DashAtkAction : BaseAction
 
     public void SetCollider()
     {
+        DamageCol.enabled = false;
         DashAtkCol.enabled = true;
     }
     public void DeleteCollider()
     {
+        DamageCol.enabled = true;
         DashAtkCol.enabled = false;
     }
     public void CreatEff()
