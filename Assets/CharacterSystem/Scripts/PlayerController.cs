@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
     float backdash = 0;
     [SerializeField] float dashTime = 1.0f;
 
+    public bool CanAttack = true;//pause 상태일때 공격 못하게 하기
+
     #endregion
 
     #region Value
@@ -131,6 +133,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(m_attack))
             return true;
+        
         else return false;
     }
 

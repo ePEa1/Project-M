@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PauseManager : MonoBehaviour
 {
-
+    public PlayerController player;
     public GameObject PausePage;
     public GameObject OptionPage;
     public bool IsPause = false;
@@ -19,6 +19,7 @@ public class PauseManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         PausePage.SetActive(false);
     }
 
@@ -29,18 +30,13 @@ public class PauseManager : MonoBehaviour
         {
             if (IsPause == true)
             {
-
-                Cursor.lockState = CursorLockMode.Locked;
-
-                IsPause = false;
-                Time.timeScale = 1;
-                PausePage.SetActive(false);
-
+                Return();
             }
             else
             {
                 Cursor.lockState = CursorLockMode.None;
                 IsPause = true;
+                player.m_attack = KeyCode.None;
                 Time.timeScale = 0;
                 PausePage.SetActive(true);
             }
@@ -51,12 +47,13 @@ public class PauseManager : MonoBehaviour
     public void Return()
     {
         Cursor.lockState = CursorLockMode.Locked;
-
         IsPause = false;
+        player.m_attack = KeyCode.Mouse0;
         Time.timeScale = 1;
+        OptionPage.SetActive(false);
         PausePage.SetActive(false);
-
     }
+
     public void OpenOption()
     {
         OptionPage.SetActive(true);
