@@ -95,7 +95,7 @@ public class CharacterCam : MonoBehaviour
         //transform.rotation = dir;
         //transform.position = Vector3.Lerp(transform.position, pos, m_moveSpeed*Time.deltaTime);
 
-        return (dir, Vector3.Lerp(transform.position, pos, m_moveSpeed * Time.deltaTime));
+        return (dir, pos/*Vector3.Lerp(transform.position, pos, m_moveSpeed * Time.deltaTime)*/);
     }
 
     /// <summary>
@@ -116,6 +116,7 @@ public class CharacterCam : MonoBehaviour
         {
             shakeTransform.angle = Quaternion.Euler(0, 0, 0);
             shakeTransform.pos = Vector3.zero;
+            defaultTransform.pos = Vector3.Lerp(transform.position, defaultTransform.pos, m_moveSpeed * Time.deltaTime);
         }
 
         dir = Quaternion.Euler(defaultTransform.angle.eulerAngles + shakeTransform.angle.eulerAngles); //최종적으로 카메라에 적용할 회전값 계산
