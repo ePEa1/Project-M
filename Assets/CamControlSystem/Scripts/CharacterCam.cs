@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ProjectM.ePEa.CamSystem;
 
 public class CharacterCam : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class CharacterCam : MonoBehaviour
     [SerializeField] float m_yMax; //회전 최대값
     [SerializeField] float m_xSpeed; //x축 마우스 감도
     [SerializeField] float m_ySpeed; //y축 마우스 감도
-
+    
     #endregion
 
 
@@ -27,6 +28,13 @@ public class CharacterCam : MonoBehaviour
 
     public float m_stopTime = 0; //프레임스탑 남은 시간(0이면 프레임 스탑 종료)
     public bool isStop = false; //프레임 스탑 중인지
+
+    //카메라 쉐이킹--------------------
+    CustomShaking m_shakeData;
+    bool m_isShake = false;
+    float m_shakeTime = 0.0f;
+    int m_shakeNum = 0;
+    //---------------------------------
 
     #endregion
 
@@ -99,10 +107,19 @@ public class CharacterCam : MonoBehaviour
         Vector3 pos;
 
         (Quaternion angle, Vector3 pos) defaultTransform = ToTarget(); //타겟 중심 카메라 트랜스폼 계산값
-        (Quaternion angle, Vector3 pos) fixedTransform = TestFixedCam(); //테스트용 추가 트랜스폼 값
+        (Quaternion angle, Vector3 pos) shakeTransform;
 
-        dir = Quaternion.Euler(defaultTransform.angle.eulerAngles + fixedTransform.angle.eulerAngles); //최종적으로 카메라에 적용할 회전값 계산
-        pos = defaultTransform.pos + fixedTransform.pos; //최종적으로 카메라에 적용할 위치값 계산
+        //쉐이킹 중이면 쉐이킹 값 받아오고 아니면 기본값 넣기
+        if (m_isShake)
+            shakeTransform = ShakeTransform();
+        else
+        {
+            shakeTransform.angle = Quaternion.Euler(0, 0, 0);
+            shakeTransform.pos = Vector3.zero;
+        }
+
+        dir = Quaternion.Euler(defaultTransform.angle.eulerAngles + shakeTransform.angle.eulerAngles); //최종적으로 카메라에 적용할 회전값 계산
+        pos = defaultTransform.pos + dir * shakeTransform.pos; //최종적으로 카메라에 적용할 위치값 계산
 
         //최종계산한 값 실제적용
         transform.rotation = dir;
@@ -110,15 +127,60 @@ public class CharacterCam : MonoBehaviour
     }
 
     /// <summary>
-    /// 카메라 트랜스폼을 추가해야할 때를 위한 예제 함수
+    /// 카메라 쉐이킹에 따른 위치, 회전값 계산
     /// </summary>
     /// <returns></returns>
-    (Quaternion angle, Vector3 dir) TestFixedCam()
+    (Quaternion angle, Vector3 pos) ShakeTransform()
     {
-        Quaternion dir = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+        Quaternion dir = Quaternion.Euler(0, 0, 0);
         Vector3 pos = Vector3.zero;
-        
+
+        if (m_shakeData.ShakingData.Length>0)
+        {
+            ShakingKey[] shakingData = m_shakeData.ShakingData;
+            Vector3 startPos;
+            Vector3 startDir;
+
+            float ac = 1 / shakingData[m_shakeNum].skeyTime;
+
+            if (m_shakeNum>0)
+            {
+                startPos = shakingData[m_shakeNum - 1].sKeyPos;
+                startDir = shakingData[m_shakeNum - 1].sKeyDir;
+            }
+            else
+            {
+                startPos = Vector3.zero;
+                startDir = Vector3.zero;
+            }
+
+            pos = Vector3.Lerp(startPos, shakingData[m_shakeNum].sKeyPos, shakingData[m_shakeNum].sKeyCurve.Evaluate(m_shakeTime * ac));
+            dir = Quaternion.Euler(Vector3.Lerp(startDir, shakingData[m_shakeNum].sKeyDir, shakingData[m_shakeNum].sKeyCurve.Evaluate(m_shakeTime * ac)));
+
+            m_shakeTime += Time.deltaTime;
+            if (m_shakeTime >= shakingData[m_shakeNum].skeyTime)
+            {
+                m_shakeTime -= shakingData[m_shakeNum].skeyTime;
+                m_shakeNum++;
+                if (shakingData.Length <= m_shakeNum)
+                {
+                    m_isShake = false;
+                    m_shakeTime = 0.0f;
+                    m_shakeNum = 0;
+                    m_shakeData = null;
+                }
+            }
+        }
+
         return (dir, pos);
+    }
+
+    public void SetShake(CustomShaking shakeData)
+    {
+        m_shakeTime = 0.0f;
+        m_shakeNum = 0;
+        m_shakeData = shakeData;
+        m_isShake = true;
     }
 }
 
