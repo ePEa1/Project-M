@@ -32,6 +32,8 @@ public class PauseManager : MonoBehaviour
             else
             {
                 Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+
                 IsPause = true;
                 player.m_attack = KeyCode.None;
                 Time.timeScale = 0;
@@ -43,7 +45,9 @@ public class PauseManager : MonoBehaviour
 
     public void Return()
     {
+        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
         IsPause = false;
         player.m_attack = KeyCode.Mouse0;
         Time.timeScale = 1;

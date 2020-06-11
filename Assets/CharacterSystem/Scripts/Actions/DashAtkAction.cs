@@ -103,6 +103,7 @@ public class DashAtkAction : BaseAction
 
     public void SetCollider()
     {
+        DashAtkCol.GetComponent<AtkCollider>().isAttacking = false;
         DamageCol.enabled = false;
         DashAtkCol.enabled = true;
     }

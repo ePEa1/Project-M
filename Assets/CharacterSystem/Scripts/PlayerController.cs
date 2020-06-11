@@ -184,7 +184,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 backdash = 0;
-                //Debug.Log("BackDashCheck");
+                Debug.Log("BackDashCheck");
                 return true;
             }
         }
