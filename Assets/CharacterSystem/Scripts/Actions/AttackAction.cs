@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ProjectM.ePEa.PlayerData;
 using System;
+using ProjectM.ePEa.CamSystem;
 
 using static ProjectM.ePEa.CustomFunctions.CustomFunction;
 
@@ -20,6 +21,7 @@ public class AttackAction : BaseAction
     [SerializeField] AudioSource[] m_atkSfx; //타격당 효과음
     [SerializeField] LayerMask m_wall;
     [SerializeField] LayerMask m_enemy;
+    [SerializeField] CustomShaking[] m_atkShake;
 
     #endregion
 
@@ -211,6 +213,8 @@ public class AttackAction : BaseAction
             m_ac = 1.0f / m_atkSpeed[m_nowCombo];
 
             m_currentCombo = m_nowCombo;
+
+            m_owner.playerCam.GetComponent<CharacterCam>().SetShake(m_atkShake[m_currentCombo]);
 
             m_nowCombo++;
             if (m_nowCombo >= m_maxCombo)
