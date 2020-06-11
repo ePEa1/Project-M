@@ -28,7 +28,7 @@ public class CameraShakeManager : MonoBehaviour
         originPos = transform.position;
         originRot = transform.rotation;
 
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z))//이제 이걸 부딫힐때 하느냐
         {
 
             StartCoroutine(Shake(addPos, duration, maxRot));
