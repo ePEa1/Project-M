@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1338092389}
-  m_IndirectSpecularColor: {r: 0.06576407, g: 0.29671866, b: 0.92974424, a: 1}
+  m_IndirectSpecularColor: {r: 0.065764606, g: 0.29671872, b: 0.92974514, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -28334,6 +28334,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 590176536}
   m_Mesh: {fileID: 920606066834050144, guid: 42cf3abcce7afb444a2d43a8b0861869, type: 3}
+--- !u!4 &615704464 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7402736142049612405, guid: c9ee94b06650d1e45b7ad149a82c76c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1641094925}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &640980295
 GameObject:
   m_ObjectHideFlags: 0
@@ -40805,6 +40811,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5447655126556827071, guid: e5e80896addaad14c99020a423394e7c,
+        type: 3}
+      propertyPath: m_cam
+      value: 
+      objectReference: {fileID: 615704464}
+    - target: {fileID: 5447655127755071447, guid: e5e80896addaad14c99020a423394e7c,
+        type: 3}
+      propertyPath: m_atkShake.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447655127755071447, guid: e5e80896addaad14c99020a423394e7c,
+        type: 3}
+      propertyPath: m_atkShake.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: f60bec04765ebd84cbc14a457410a392,
+        type: 2}
+    - target: {fileID: 5447655127755071447, guid: e5e80896addaad14c99020a423394e7c,
+        type: 3}
+      propertyPath: m_atkShake.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: f60bec04765ebd84cbc14a457410a392,
+        type: 2}
+    - target: {fileID: 5447655127755071447, guid: e5e80896addaad14c99020a423394e7c,
+        type: 3}
+      propertyPath: m_atkShake.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: f60bec04765ebd84cbc14a457410a392,
+        type: 2}
     - target: {fileID: 5447655127832443669, guid: e5e80896addaad14c99020a423394e7c,
         type: 3}
       propertyPath: playerhp
@@ -47560,6 +47594,21 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1097389973}
+    - target: {fileID: 8100373639442198056, guid: 5b2d9aea3e935644fae85d68b9c9d82f,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8100373639442198056, guid: 5b2d9aea3e935644fae85d68b9c9d82f,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8100373639442198056, guid: 5b2d9aea3e935644fae85d68b9c9d82f,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8100373639442198057, guid: 5b2d9aea3e935644fae85d68b9c9d82f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -94667,11 +94716,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MeleeEnemy (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2637687950353754668, guid: 71c0078b2dacbf84ebb65e4cdae75803,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2637687950353754669, guid: 71c0078b2dacbf84ebb65e4cdae75803,
         type: 3}

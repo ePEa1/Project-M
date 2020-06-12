@@ -214,7 +214,7 @@ public class AttackAction : BaseAction
 
             m_currentCombo = m_nowCombo;
 
-            m_owner.playerCam.GetComponent<CharacterCam>().SetShake(m_atkShake[m_currentCombo]);
+            //m_owner.playerCam.GetComponent<CharacterCam>().SetShake(m_atkShake[m_currentCombo]);
 
             m_nowCombo++;
             if (m_nowCombo >= m_maxCombo)

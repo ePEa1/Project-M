@@ -123,13 +123,15 @@ namespace ProjectM.ePEa.ProtoMon
 
             if (IsDecrease)
             {
-                m_backhpBar.fillAmount = Mathf.Lerp(m_backhpBar.fillAmount, m_hpBar.value, Time.deltaTime * 10.0f);
-                if (m_backhpBar.fillAmount >= m_hpBar.value - 0.01f)
+                m_backhpBar.GetComponent<Image>().fillAmount = Mathf.Lerp(m_backhpBar.fillAmount, m_hpBar.value, Time.deltaTime*5.0f );
+                if (m_hpBar.value >= m_backhpBar.fillAmount - 0.01f)
                 {
                     IsDecrease = false;
                     m_backhpBar.fillAmount = m_hpBar.value;
+
                 }
             }
+
         }
 
         void Move()
