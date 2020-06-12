@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using ProjectM.ePEa.PlayerData;
+
 
 public class PauseManager : MonoBehaviour
 {
@@ -24,21 +26,31 @@ public class PauseManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+
             if (IsPause == true)
             {
                 Return();
             }
             else
             {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                if (PlayerStats.playerStat.m_currentHp <= 0)
+                {
+                    IsPause = false;
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
 
-                IsPause = true;
-                player.m_attack = KeyCode.None;
-                Time.timeScale = 0;
-                PausePage.SetActive(true);
+                    IsPause = true;
+                    player.m_attack = KeyCode.None;
+                    Time.timeScale = 0;
+                    PausePage.SetActive(true);
+                }
+                
             }
         }
 

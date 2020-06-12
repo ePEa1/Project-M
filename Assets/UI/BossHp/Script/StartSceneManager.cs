@@ -17,6 +17,9 @@ public class StartSceneManager : MonoBehaviour
 
     void Start()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         UISound = GetComponent<AudioSource>();
         Time.timeScale = 1;
         //RayCastHitButton();
