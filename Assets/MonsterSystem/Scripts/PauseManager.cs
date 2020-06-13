@@ -7,7 +7,7 @@ using ProjectM.ePEa.PlayerData;
 
 public class PauseManager : MonoBehaviour
 {
-    public PlayerController player;
+    public PlayerFsmManager player;
     public GameObject PausePage;
     public GameObject OptionPage;
     public bool IsPause = false;
@@ -19,7 +19,7 @@ public class PauseManager : MonoBehaviour
     void Start()
     {
         Cursor.visible = false;
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFsmManager>();
         PausePage.SetActive(false);
     }
 
@@ -43,10 +43,11 @@ public class PauseManager : MonoBehaviour
                 else
                 {
                     Cursor.lockState = CursorLockMode.None;
+                    player.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
+
                     Cursor.visible = true;
 
                     IsPause = true;
-                    player.m_attack = KeyCode.None;
                     Time.timeScale = 0;
                     PausePage.SetActive(true);
                 }
@@ -62,7 +63,6 @@ public class PauseManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         IsPause = false;
-        player.m_attack = KeyCode.Mouse0;
         Time.timeScale = 1;
         OptionPage.SetActive(false);
         PausePage.SetActive(false);

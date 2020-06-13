@@ -39,11 +39,12 @@ public class StartSceneManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            SetSound(Push, UISound);
         }
     }
     public void StartGameButton()
     {
+        SetSound(Push, UISound);
+
         SceneManager.LoadScene(m_nextScene);
     }
     public void OpenOption()
