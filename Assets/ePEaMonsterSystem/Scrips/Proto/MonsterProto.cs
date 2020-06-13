@@ -41,6 +41,7 @@ namespace ProjectM.ePEa.ProtoMon
         [SerializeField] Slider m_refilBar;
         [SerializeField] Image m_backhpBar;
 
+
         bool IsDecrease = false;
         #endregion
 
@@ -249,6 +250,7 @@ namespace ProjectM.ePEa.ProtoMon
                 m_nowState = state.MOVE;
             }
         }
+
 
         void HPDecrease()
         {
