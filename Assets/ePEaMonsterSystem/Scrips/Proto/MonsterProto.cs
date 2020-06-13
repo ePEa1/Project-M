@@ -39,6 +39,8 @@ namespace ProjectM.ePEa.ProtoMon
 
         [SerializeField] Slider m_hpBar;
         [SerializeField] Slider m_refilBar;
+
+        [SerializeField] GameObject m_damSfx;
         #endregion
 
         #region Value
@@ -231,6 +233,12 @@ namespace ProjectM.ePEa.ProtoMon
             {
                 m_nowState = state.MOVE;
             }
+        }
+
+        public void PlaySound()
+        {
+            GameObject sfx = Instantiate(m_damSfx);
+            sfx.transform.position = transform.position;
         }
     }
 }
