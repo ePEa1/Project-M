@@ -7,13 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mat_water_001
-  m_Shader: {fileID: 4800000, guid: 414d783d1eeecbc44a16d61c5a1932e9, type: 3}
-  m_ShaderKeywords: 
+  m_Name: mat_Tower_000
+  m_Shader: {fileID: 4800000, guid: 9782c3a81d48d4d4bbabbcc529c25a34, type: 3}
+  m_ShaderKeywords: _TESTTOGGLE_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3001
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -39,8 +39,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MainTex:
+    - _LitTex:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 9c4a0377ce4db344f8065ae76037fa11, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -55,9 +59,9 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _TestTex:
-        m_Texture: {fileID: 2800000, guid: a1fb2953ab7dbff4d960d43c71f6d917, type: 3}
-        m_Scale: {x: 2.66, y: 1}
+    - _RampTex:
+        m_Texture: {fileID: 2800000, guid: 109ee0f4c3d800d4e8b7eb5efbfa3a6a, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
@@ -69,19 +73,21 @@ Material:
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
-    - _NoiseValue: -0.2
-    - _NoiseValue2: -1.79
-    - _NoiseValue3: 0.469
-    - _NoiseValue4: 0
     - _OcclusionStrength: 1
+    - _OutlinePow: 0.01275
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
+    - _SpecVal: 93.21
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _TestToggle: 1
+    - _TestToggle2: 0
     - _UVSec: 0
     - _ZWrite: 1
+    - _rimPow: 1.55
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color2: {r: 0, g: 0, b: 0, a: 1}
+    - _Color3: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 1}
+    - _Color4: {r: 0.15419188, g: 0.17336701, b: 0.3301887, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _hdrColor: {r: 1, g: 1, b: 1, a: 1}
-    - _hdrColor2: {r: 1, g: 1, b: 1, a: 1}
