@@ -17,14 +17,17 @@ public class StartSceneManager : MonoBehaviour
 
     void Start()
     {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
 
         UISound = GetComponent<AudioSource>();
         Time.timeScale = 1;
         //RayCastHitButton();
     }
+    private void Awake()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
 
+    }
     // Update is called once per frame
     void Update()
     {
