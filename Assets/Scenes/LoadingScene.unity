@@ -243,6 +243,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progressBar: {fileID: 1032936695}
+  TipsTxt: {fileID: 0}
+  ConceptImg: {fileID: 0}
+  Tips: []
+  ConceptSprite: []
 --- !u!4 &591278014
 Transform:
   m_ObjectHideFlags: 0
@@ -291,8 +295,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -289.5}
-  m_SizeDelta: {x: 1900, y: 30}
+  m_AnchoredPosition: {x: 0, y: -552}
+  m_SizeDelta: {x: 2000, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1032936695
 MonoBehaviour:
@@ -602,7 +606,7 @@ GameObject:
   - component: {fileID: 1909584858}
   - component: {fileID: 1909584857}
   m_Layer: 5
-  m_Name: TipTxt
+  m_Name: LodingTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -624,8 +628,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000011444092, y: -400}
-  m_SizeDelta: {x: 1598.3513, y: 90.3752}
+  m_AnchoredPosition: {x: 698, y: -456}
+  m_SizeDelta: {x: 383.36304, y: 90.3752}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1909584857
 MonoBehaviour:
@@ -648,18 +652,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 35
+    m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
-    m_MaxSize: 40
+    m_MaxSize: 70
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Tip.
+  m_Text: Loading...
 --- !u!222 &1909584858
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -702,8 +706,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000121593475, y: 122.4}
-  m_SizeDelta: {x: 977.21716, y: 636.27435}
+  m_AnchoredPosition: {x: 0.0000121593475, y: 78.2}
+  m_SizeDelta: {x: 1236.6061, y: 724.74445}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2099100006
 MonoBehaviour:
