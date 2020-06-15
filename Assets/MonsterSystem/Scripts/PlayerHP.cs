@@ -20,7 +20,6 @@ public class PlayerHP : MonoBehaviour
     float m_hpMaxSize;
     float m_playerHp;
 
-    bool HPDecrease = false;
 
     float m_blendHp;
     float m_blendTime;
@@ -56,25 +55,8 @@ public class PlayerHP : MonoBehaviour
 
         HPText.text = m_playerHp + "/" + m_hpMaxSize;
         
-        //HP.GetComponent<Image>().fillAmount = m_playerHp / m_hpMaxSize;
-        //if (HPDecrease)
-        //{
-        //    BackHP.GetComponent<Image>().fillAmount = Mathf.Lerp(BackHP.fillAmount, HP.fillAmount, Time.deltaTime * 10f);
-        //    if (HP.fillAmount >= BackHP.fillAmount - 0.01f)
-        //    {
-        //        HPDecrease = false;
-        //        BackHP.fillAmount = HP.fillAmount;
-        //    }
-        //}
+        HP.GetComponent<Image>().fillAmount = m_playerHp / m_hpMaxSize;
+
     }
 
-    public void DamageDecrease()
-    {
-        Invoke("StartDecrese", 0.5f);
-    }
-
-    void StartDecrese()
-    {
-        HPDecrease = true;
-    }
 }
