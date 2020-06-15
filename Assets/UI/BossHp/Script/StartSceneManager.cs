@@ -11,6 +11,7 @@ public class StartSceneManager : MonoBehaviour
     public AudioClip Push;
     public AudioSource UISound;
     public AudioSource BackgroundSound;
+    [SerializeField] AnimationCurve FadeinOut;
     // Start is called before the first frame update
 
     [SerializeField] string m_nextScene;
