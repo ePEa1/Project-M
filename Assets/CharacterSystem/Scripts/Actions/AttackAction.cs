@@ -101,8 +101,8 @@ public class AttackAction : BaseAction
 
 
         RaycastHit hit;
-        if (!Physics.BoxCast(m_owner.transform.position + tall + m_owner.transform.rotation * Vector3.forward * 1.0f, new Vector3(1.7f, 1.0f, 0.7f),
-            m_owner.transform.rotation * Vector3.forward.normalized * -1.0f, out hit, Quaternion.Euler(0, transform.eulerAngles.y, 0), after - before + 1.0f, m_enemy))
+        if (!Physics.BoxCast(m_owner.transform.position + tall + m_owner.transform.rotation * Vector3.forward * -1.0f, new Vector3(1.7f, 1.0f, 0.7f),
+            m_owner.transform.rotation * Vector3.forward.normalized, out hit, Quaternion.Euler(0, transform.eulerAngles.y, 0), after - before + 1.0f, m_enemy))
         {
             m_owner.transform.position += dir + fixedPos;
         }
@@ -181,7 +181,7 @@ public class AttackAction : BaseAction
             m_atkRange[m_currentCombo].GetComponent<AtkCollider>().isAttacking = false;
             StartCoroutine(AtkColliderOnOff(m_atkRange[m_currentCombo]));
             
-            Vector3 atkVec = m_owner.transform.rotation * new Vector3(0.0f, 0.0f, -1.0f);
+            Vector3 atkVec = m_owner.transform.rotation * Vector3.forward;
 
             m_atkRange[m_currentCombo].GetComponent<AtkCollider>().knockVec = atkVec.normalized;
         }
