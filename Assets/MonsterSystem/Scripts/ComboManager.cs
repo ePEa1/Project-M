@@ -43,7 +43,7 @@ public class ComboManager : MonoBehaviour
         {
             ComboTxt.enabled = true;
         }
-        ComboTxt.text = DataController.Instance.gameData.PlayerCombo + "\n" + "Combo";
+        ComboTxt.text = DataController.Instance.gameData.PlayerCombo + " hit";
 
         //ComboDelay();
         if (DataController.Instance.gameData.IsCombo == true)

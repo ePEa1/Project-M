@@ -40,8 +40,13 @@ public class GameOver : MonoBehaviour
     public void GotoMain()
     {
         Time.timeScale = 1;
-        Debug.Log(Time.timeScale);
         SceneManager.LoadScene("StartScene");
 
+    }
+
+    public void GoToStage()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("StageSelectScene");
     }
 }
