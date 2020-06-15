@@ -226,7 +226,9 @@ namespace ProjectM.ePEa.ProtoMon
             m_nowState = state.DAMAGE;
             transform.rotation = Quaternion.LookRotation(-knockDir);
             GameObject eff = Instantiate(m_damEff);
+
             eff.transform.position = transform.position + Vector3.up;
+
 
             m_refil = 0;
             Invoke("HPDecrease",0.5f);
