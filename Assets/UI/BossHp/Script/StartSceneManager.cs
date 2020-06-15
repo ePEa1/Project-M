@@ -17,6 +17,9 @@ public class StartSceneManager : MonoBehaviour
 
     void Start()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         UISound = GetComponent<AudioSource>();
         Time.timeScale = 1;
         //RayCastHitButton();
@@ -36,12 +39,13 @@ public class StartSceneManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            SetSound(Push, UISound);
         }
     }
     public void StartGameButton()
     {
-        SceneManager.LoadScene(m_nextScene);
+        SetSound(Push, UISound);
+
+        LoadingSceneManager.LoadScene(m_nextScene);
     }
     public void OpenOption()
     {
