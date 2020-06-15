@@ -10,7 +10,8 @@ using static ProjectM.ePEa.CustomFunctions.CustomFunction;
 public class AttackAction : BaseAction
 {
     #region Inspectors
-    
+
+    [SerializeField] PCAtkObject[] m_atkData;
     [SerializeField] float[] m_atkDistance; //타격당 이동거리
     [SerializeField] AnimationCurve[] m_atkDistanceCurve; //타격당 이동 커브
     [SerializeField] float[] m_atkSpeed; //타격당 공격 이동 시간
@@ -196,7 +197,7 @@ public class AttackAction : BaseAction
         {
             GameObject eff = Instantiate(m_atkEff[m_currentCombo]);
             eff.transform.rotation = Quaternion.Euler(0.0f, m_owner.transform.eulerAngles.y + 180, 0.0f) * Quaternion.Euler(m_effAngle[m_currentCombo]);
-            eff.transform.position = m_owner.transform.position + new Vector3(0.0f, m_effPos[m_currentCombo].y, 0.0f)
+            eff.transform.position = m_startPos + new Vector3(0.0f, m_effPos[m_currentCombo].y, 0.0f)
                 + m_owner.transform.rotation * new Vector3(m_effPos[m_currentCombo].x, 0.0f, m_effPos[m_currentCombo].z);
         }
     }
@@ -210,6 +211,7 @@ public class AttackAction : BaseAction
 
         if (m_nextAtk) //다음 공격 예약 했을 경우
         {
+            m_startPos = m_owner.transform.position;
             m_atkTime = 0.0f;
             m_animator.SetTrigger("Atk");
             m_ac = 1.0f / m_atkSpeed[m_nowCombo];

@@ -6,9 +6,14 @@ public class DeleteTime : MonoBehaviour
 {
     [SerializeField] float m_lifeTime; //생존 시간
 
-    private void Start()
+    void Start()
     {
-        Destroy(gameObject, m_lifeTime);
+        Destroy(gameObject,m_lifeTime);
+    }
 
+    // Update is called once per frame
+    void Update()
+    {
+        //transform.GetComponent<AudioSource>().volume = DataController.Instance.gameData.EffectSound;
     }
 }
