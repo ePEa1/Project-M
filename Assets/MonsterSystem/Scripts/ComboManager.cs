@@ -8,7 +8,7 @@ public class ComboManager : MonoBehaviour
 {
 
     [SerializeField] float ComboWait;
-    float curcomboWait = 0;
+    [SerializeField] float curcomboWait;
 
     [SerializeField] Text ComboTxt;
     [SerializeField] Slider m_endCombo;
@@ -35,13 +35,29 @@ public class ComboManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ComboTxt.text = DataController.Instance.gameData.PlayerCombo + "\n"+"Combo";
+        if (DataController.Instance.gameData.PlayerCombo <= 0)
+        {
+            ComboTxt.enabled = false;
+        }
+        else
+        {
+            ComboTxt.enabled = true;
+        }
+        ComboTxt.text = DataController.Instance.gameData.PlayerCombo + "\n" + "Combo";
+
         //ComboDelay();
-        if(DataController.Instance.gameData.IsCombo == true)
+        if (DataController.Instance.gameData.IsCombo == true)
         {
             StartCoroutine(Shake());
             DataController.Instance.gameData.IsCombo = false;
         }
+        ComboWait -= Time.deltaTime;
+        if (ComboWait <= 0)
+        {
+            ComboWait = 0;
+            DataController.Instance.gameData.PlayerCombo = 0;
+        }
+
     }
 
     void ComboDelay()
@@ -52,16 +68,17 @@ public class ComboManager : MonoBehaviour
 
     public IEnumerator Shake()
     {
+        ComboWait = 5.0f;
         transform.localScale = new Vector3(1, 1, 1);
         float timer = 0;
         float scaleTime = 0;
         while (timer <= duration)
         {
             Vector3 curScale = transform.localScale;
-            float shakeValue = Mathf.Lerp(minScale, maxScale, ScaleCurve.Evaluate(scaleTime));
-            Vector3 curveresult = new Vector3(shakeValue, shakeValue, shakeValue);
+            float scaleValue = Mathf.Lerp(minScale, maxScale, ScaleCurve.Evaluate(scaleTime));
+            Vector3 curveresult = new Vector3(scaleValue, scaleValue, scaleValue);
             transform.localScale = curScale + curveresult;
-
+            
 
             scaleTime += Time.deltaTime;
             timer += Time.deltaTime;

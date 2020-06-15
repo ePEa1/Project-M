@@ -44,7 +44,7 @@ public class PauseManager : MonoBehaviour
                 {
                     Cursor.lockState = CursorLockMode.None;
                     player.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
-
+                    player.enabled = false;
                     Cursor.visible = true;
 
                     IsPause = true;
@@ -61,7 +61,7 @@ public class PauseManager : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-
+        player.enabled = true;
         IsPause = false;
         Time.timeScale = 1;
         OptionPage.SetActive(false);

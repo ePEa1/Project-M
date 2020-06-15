@@ -45,7 +45,7 @@ public class StartSceneManager : MonoBehaviour
     {
         SetSound(Push, UISound);
 
-        SceneManager.LoadScene(m_nextScene);
+        LoadingSceneManager.LoadScene(m_nextScene);
     }
     public void OpenOption()
     {
