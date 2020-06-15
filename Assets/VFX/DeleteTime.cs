@@ -10,6 +10,7 @@ public class DeleteTime : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.GetComponent<AudioSource>().volume = DataController.Instance.gameData.EffectSound;
         m_currentTime += Time.deltaTime;
         if (m_lifeTime <= m_currentTime)
             Destroy(gameObject);
