@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: CShaPCAtk2
   m_EditorClassIdentifier: 
   shakingKeys:
-  - skeyTime: 0.1
-    sKeyPos: {x: 0, y: 0, z: 0.5}
+  - skeyTime: 0.2
+    sKeyPos: {x: 0, y: 0, z: 0}
     sKeyDir: {x: 0, y: 0, z: 0}
     sKeyCurve:
       serializedVersion: 2
@@ -42,27 +42,54 @@ MonoBehaviour:
       m_RotationOrder: 0
   - skeyTime: 0.1
     sKeyPos: {x: 0, y: 0, z: 0}
+    sKeyDir: {x: 0, y: 0, z: -1}
+    sKeyCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+  - skeyTime: 0.05
+    sKeyPos: {x: 0, y: 0, z: 0}
     sKeyDir: {x: 0, y: 0, z: 0}
     sKeyCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: -0.0017051697
+        time: 0
         value: 0
-        inSlope: 0.20155272
-        outSlope: 0.99829775
-        tangentMode: 69
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
         weightedMode: 0
         inWeight: 0
-        outWeight: 0.2838325
+        outWeight: 0
       - serializedVersion: 3
         time: 1
         value: 1
-        inSlope: 0.99829775
-        outSlope: 0.99829775
-        tangentMode: 69
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
         weightedMode: 0
-        inWeight: 0.33333334
+        inWeight: 0
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2

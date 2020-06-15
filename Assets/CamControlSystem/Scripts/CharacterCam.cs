@@ -17,12 +17,14 @@ public class CharacterCam : MonoBehaviour
     [SerializeField] float m_yMax; //회전 최대값
     [SerializeField] float m_xSpeed; //x축 마우스 감도
     [SerializeField] float m_ySpeed; //y축 마우스 감도
+    
+    [SerializeField] float m_startX;
+    [SerializeField] float m_startY;
 
     #endregion
 
 
     #region Value
-
 
     float m_x = 0; //현재 x 회전값
     float m_y = 0; //현재 y 회전값
@@ -38,10 +40,14 @@ public class CharacterCam : MonoBehaviour
     //---------------------------------
 
     #endregion
+
     private void Awake()
     {
         //카메라 커서 고정
         Cursor.lockState = CursorLockMode.Locked;
+
+        m_x=m_startX;
+        m_y=m_startY;
     }
 
     void Update()
