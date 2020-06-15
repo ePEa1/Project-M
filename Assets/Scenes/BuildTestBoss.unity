@@ -45805,6 +45805,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5447655126556827070, guid: e5e80896addaad14c99020a423394e7c,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447655126556827070, guid: e5e80896addaad14c99020a423394e7c,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447655126556827070, guid: e5e80896addaad14c99020a423394e7c,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8124083907089986751, guid: e5e80896addaad14c99020a423394e7c,
         type: 3}
       propertyPath: m_atkEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -91419,11 +91434,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7243439503520881316, guid: bd1f0434f567a494f9cc4d45fa8d7800,
-        type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 961ba0e8d26d329488fbd036852ee6b9, type: 3}
     - target: {fileID: 7243439503520881317, guid: bd1f0434f567a494f9cc4d45fa8d7800,
         type: 3}
       propertyPath: m_Name
@@ -119417,7 +119427,7 @@ MonoBehaviour:
   duration: 0.1
   minScale: 0
   maxScale: 0.2
-  LimitScale: {x: 2, y: 2, z: 2}
+  LimitScale: {x: 1, y: 1, z: 1}
 --- !u!222 &6750596175765235967
 CanvasRenderer:
   m_ObjectHideFlags: 0
