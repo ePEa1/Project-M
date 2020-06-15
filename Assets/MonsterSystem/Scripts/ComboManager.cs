@@ -19,6 +19,7 @@ public class ComboManager : MonoBehaviour
     [SerializeField] public float duration;//주기 0.05
     [SerializeField] float minScale;
     [SerializeField] float maxScale;
+    [SerializeField] Vector3 LimitScale;
 
 
 
@@ -78,7 +79,10 @@ public class ComboManager : MonoBehaviour
             float scaleValue = Mathf.Lerp(minScale, maxScale, ScaleCurve.Evaluate(scaleTime));
             Vector3 curveresult = new Vector3(scaleValue, scaleValue, scaleValue);
             transform.localScale = curScale + curveresult;
-            
+            if(transform.localScale.x >= LimitScale.x)
+            {
+                transform.localScale = LimitScale;
+            }
 
             scaleTime += Time.deltaTime;
             timer += Time.deltaTime;
