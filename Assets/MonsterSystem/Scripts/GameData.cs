@@ -11,5 +11,7 @@ public class GameData
 
     public int PlayerCombo = 0;
     public bool IsCombo = false;
+
+    public int firstStageMonster = 6;
 }
 

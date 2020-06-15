@@ -4,6 +4,7 @@ using UnityEngine;
 using static ProjectM.ePEa.CustomFunctions.CustomFunction;
 using UnityEngine.UI;
 
+
 namespace ProjectM.ePEa.ProtoMon
 {
     public class MonsterProto : MonoBehaviour
@@ -119,7 +120,12 @@ namespace ProjectM.ePEa.ProtoMon
             m_refilBar.value = m_refil / m_refilMax;
 
             if (m_nowHp <= 0)
+            {
+                DataController.Instance.gameData.firstStageMonster -= 1;
+                Debug.Log(DataController.Instance.gameData.firstStageMonster);
                 Destroy(gameObject);
+
+            }
 
             if (IsDecrease)
             {
