@@ -26,4 +26,21 @@ public class SelectStageManager : MonoBehaviour
     {
         LoadingSceneManager.LoadScene(StageOne);
     }
+
+    public void GoStageTwo()
+    {
+        LoadingSceneManager.LoadScene(StageTwo);
+    }
+
+    public void GoStageThree()
+    {
+        LoadingSceneManager.LoadScene(StageThree);
+    }
+
+    public void GoStageBoss()
+    {
+        LoadingSceneManager.LoadScene(StageBoss);
+
+    }
+
 }
