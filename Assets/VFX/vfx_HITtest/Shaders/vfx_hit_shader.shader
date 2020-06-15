@@ -127,13 +127,13 @@
 			float outline2 = step(c.r, IN.CustomDataFinal.y * 1.7);
 
 
-			o.Emission = (c * _hdrColor2.rgb) + (outline * _hdrColor.rgb) + (outline2 * _hdrColor.rgb);
+			o.Emission = (c * _hdrColor2.rgb) + (outline * _hdrColor.rgb) + (outline2 * _hdrColor.rgb) * IN.color.rgb;
 			o.Alpha = alpha * alpha2 * IN.color.a;
         }
 
 		float4 LightingUnlit(SurfaceOutput s, float3 viewDir, float3 atten)
 		{
-			return float4 (s.Albedo, s.Alpha);
+			return float4 (s.Emission, s.Alpha);
 		}
 
 

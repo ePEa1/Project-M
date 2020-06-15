@@ -18,6 +18,9 @@ public class CharacterCam : MonoBehaviour
     [SerializeField] float m_xSpeed; //x축 마우스 감도
     [SerializeField] float m_ySpeed; //y축 마우스 감도
     
+    [SerializeField] float m_startX;
+    [SerializeField] float m_startY;
+
     #endregion
 
 
@@ -41,8 +44,10 @@ public class CharacterCam : MonoBehaviour
     private void Awake()
     {
         //카메라 커서 고정
-
         Cursor.lockState = CursorLockMode.Locked;
+
+        m_x=m_startX;
+        m_y=m_startY;
     }
 
     void Update()
