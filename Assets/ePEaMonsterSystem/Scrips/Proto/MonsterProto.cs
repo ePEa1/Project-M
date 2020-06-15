@@ -39,6 +39,10 @@ namespace ProjectM.ePEa.ProtoMon
 
         [SerializeField] Slider m_hpBar;
         [SerializeField] Slider m_refilBar;
+        [SerializeField] Image m_backhpBar;
+
+
+        bool IsDecrease = false;
         #endregion
 
         #region Value
@@ -117,6 +121,18 @@ namespace ProjectM.ePEa.ProtoMon
 
             if (m_nowHp <= 0)
                 Destroy(gameObject);
+
+            if (IsDecrease)
+            {
+                m_backhpBar.GetComponent<Image>().fillAmount = Mathf.Lerp(m_backhpBar.fillAmount, m_hpBar.value, Time.deltaTime*5.0f );
+                if (m_hpBar.value >= m_backhpBar.fillAmount - 0.01f)
+                {
+                    IsDecrease = false;
+                    m_backhpBar.fillAmount = m_hpBar.value;
+
+                }
+            }
+
         }
 
         void Move()
@@ -204,7 +220,7 @@ namespace ProjectM.ePEa.ProtoMon
         public void TakeDamage(float damage, Vector3 knockDir, float knockPower)
         {
             m_nowHp -= damage;
-
+            
             m_knockTime = 0;
             m_knockStart = new Vector3(transform.position.x, 0.0f, transform.position.z);
             m_knockEnd = m_knockStart + knockDir * knockPower;
@@ -214,6 +230,8 @@ namespace ProjectM.ePEa.ProtoMon
             eff.transform.position = transform.position + Vector3.up;
 
             m_refil = 0;
+            Invoke("HPDecrease",0.5f);
+
         }
 
         void Damage()
@@ -232,5 +250,12 @@ namespace ProjectM.ePEa.ProtoMon
                 m_nowState = state.MOVE;
             }
         }
+
+
+        void HPDecrease()
+        {
+            IsDecrease = true;
+        }
+        
     }
 }

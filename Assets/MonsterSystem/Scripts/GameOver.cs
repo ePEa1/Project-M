@@ -30,7 +30,8 @@ public class GameOver : MonoBehaviour
 
     public void getGameOver()
     {
-        
+        Cursor.visible = true;
+
         gameOverPanel.SetActive(true);
         Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.Confined;

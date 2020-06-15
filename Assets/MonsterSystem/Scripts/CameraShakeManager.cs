@@ -7,7 +7,7 @@ public class CameraShakeManager : MonoBehaviour
 {
     [SerializeField] public float shakeAmount;//쉐이크 최대 값
     [SerializeField] public float duration;//주기 0.05
-    [SerializeField] public float addPos;//0.03
+    [SerializeField] public float addPos;//0.03 현재 로테이션만 적용되어있음
     [SerializeField] public float maxRot;//0.1
     [SerializeField] public float minRot;
     [SerializeField] public AnimationCurve RotCurve;

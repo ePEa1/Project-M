@@ -8,6 +8,8 @@ namespace ProjectM.ePEa.ProtoMon
     public class MonsterDamageProto : MonoBehaviour
     {
         [SerializeField] MonsterProto m_owner;
+        [SerializeField] AudioSource m_damSfx;
+                
 
         private void OnTriggerEnter(Collider other)
         {
@@ -16,8 +18,10 @@ namespace ProjectM.ePEa.ProtoMon
                 m_owner.TakeDamage(other.GetComponent<AtkCollider>().atkDamage, other.GetComponent<AtkCollider>().knockVec, other.GetComponent<AtkCollider>().knockPower);
                 if (other.GetComponent<AtkCollider>().AtkEvent())
                 {
-                    GetComponent<AudioSource>().volume = DataController.Instance.effectSound;
-                    GetComponent<AudioSource>().Play();
+
+                    DataController.Instance.SetCombo();
+                    m_damSfx.volume = DataController.Instance.effectSound;
+                    m_damSfx.Play();
                 }
             }
         }

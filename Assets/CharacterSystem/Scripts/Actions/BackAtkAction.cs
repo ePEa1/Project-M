@@ -23,7 +23,8 @@ public class BackAtkAction : BaseAction
     Vector3 m_startPos;
     Vector3 m_finishPos;
 
-    public Collider BackAtkCol;
+    [SerializeField] Collider BackAtkCol;
+    [SerializeField] Collider DamageCol;
     float m_curbackAtk;
 
     protected override BaseAction OnStartAction()
@@ -43,7 +44,7 @@ public class BackAtkAction : BaseAction
             Quaternion dir = m_controller.GetDirection();
 
             Quaternion playerDir = dir * Quaternion.LookRotation(-new Vector3(view.x, 0, view.z));
-            Vector3 playerVec = playerDir * new Vector3(0, 0, -movePos);
+            Vector3 playerVec = playerDir * new Vector3(0, 0, movePos);
 
             m_owner.transform.rotation = playerDir;
 
@@ -92,11 +93,14 @@ public class BackAtkAction : BaseAction
 
     public void SetCollider()
     {
+        BackAtkCol.GetComponent<AtkCollider>().isAttacking = false;
+        DamageCol.enabled = false;
         BackAtkCol.enabled = true;
     }
 
     public void DeleteCollider()
     {
+        DamageCol.enabled = true;
         BackAtkCol.enabled = false;
     }
 

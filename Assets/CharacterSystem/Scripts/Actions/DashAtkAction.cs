@@ -22,8 +22,8 @@ public class DashAtkAction : BaseAction
     Vector3 playerVec;
     Vector3 m_startPos;
     Vector3 m_finishPos;
-
-    public Collider DashAtkCol;
+    [SerializeField] Collider DamageCol;
+    [SerializeField] Collider DashAtkCol;
     float m_curdashAtk;
 
     protected override BaseAction OnStartAction()
@@ -103,10 +103,13 @@ public class DashAtkAction : BaseAction
 
     public void SetCollider()
     {
+        DashAtkCol.GetComponent<AtkCollider>().isAttacking = false;
+        DamageCol.enabled = false;
         DashAtkCol.enabled = true;
     }
     public void DeleteCollider()
     {
+        DamageCol.enabled = true;
         DashAtkCol.enabled = false;
     }
     public void CreatEff()
@@ -123,6 +126,11 @@ public class DashAtkAction : BaseAction
         if (m_controller.IsMoving())
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
+
+        }
+        if (m_controller.IsAttack())
+        {
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
 
         }
         else
