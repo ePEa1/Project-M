@@ -114,7 +114,6 @@ public class DamageAction : BaseAction
         if (other.tag == "EnemyAtkCollider" && DamageOk())
         {
             m_enemyAtk = other.GetComponent<AtkCollider>();
-            playerhp.DamageDecrease();
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DAMAGE);
         }
     }
