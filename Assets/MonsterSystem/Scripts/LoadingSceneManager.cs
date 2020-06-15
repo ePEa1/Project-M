@@ -12,12 +12,18 @@ public class LoadingSceneManager : MonoBehaviour
     [SerializeField]
     Image progressBar;
 
+    [SerializeField] Text TipsTxt;
+    [SerializeField] Sprite ConceptImg;
+    [SerializeField] string[] Tips;
+    [SerializeField] Sprite[] ConceptSprite;
 
 
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(LoadScene());
+        int randomTips = Random.Range(0, Tips.Length);
+        TipsTxt.text = "Tip. " + Tips[randomTips];
     }
 
     public static void LoadScene(string sceneName)
