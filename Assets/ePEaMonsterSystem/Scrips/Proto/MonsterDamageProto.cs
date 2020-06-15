@@ -9,7 +9,6 @@ namespace ProjectM.ePEa.ProtoMon
     {
         [SerializeField] MonsterProto m_owner;
         [SerializeField] GameObject m_damSfx;
-                
 
         private void OnTriggerEnter(Collider other)
         {
