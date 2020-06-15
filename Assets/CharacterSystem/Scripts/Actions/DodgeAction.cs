@@ -35,11 +35,12 @@ public class DodgeAction : BaseAction
         {
             Vector3 view = m_owner.transform.position - m_owner.playerCam.position;
             view.y = 0.0f;
+            view = view.normalized;
 
             Quaternion dir = m_controller.GetDirection();
 
             Quaternion playerDir = dir * Quaternion.LookRotation(new Vector3(view.x, 0, view.z));
-            Vector3 playerVec = playerDir * new Vector3(0, 0, -PlayerStats.playerStat.m_dodgeDistance);
+            Vector3 playerVec = playerDir * new Vector3(0, 0, PlayerStats.playerStat.m_dodgeDistance);
 
             //회피 방향에 맞게 회전
             m_owner.transform.rotation = playerDir;
@@ -51,7 +52,7 @@ public class DodgeAction : BaseAction
         else //키입력 안됬으면 
         {
             //현재 바라보는 방향으로 회피
-            Vector3 playerVec = m_owner.transform.rotation * new Vector3(0, 0, -PlayerStats.playerStat.m_dodgeDistance);
+            Vector3 playerVec = m_owner.transform.rotation * new Vector3(0, 0, PlayerStats.playerStat.m_dodgeDistance);
 
             m_startPos = m_owner.transform.position;
             m_finishPos = m_startPos + playerVec;

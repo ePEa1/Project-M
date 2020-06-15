@@ -90,7 +90,9 @@ public class AttackAction : BaseAction
         m_atkTime += Time.deltaTime;
         float after = Mathf.Lerp(0.0f, m_atkDistance[m_currentCombo], m_atkDistanceCurve[m_currentCombo].Evaluate(m_atkTime * m_ac));
 
-        m_owner.transform.rotation = Quaternion.Euler(0.0f, m_owner.playerCam.transform.eulerAngles.y + 180.0f, 0.0f);
+        if (m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.ATK)
+            m_owner.transform.rotation = Quaternion.Euler(0.0f, m_owner.playerCam.transform.eulerAngles.y, 0.0f);
+
         Vector3 dir = Quaternion.Euler(0.0f, m_owner.playerCam.transform.eulerAngles.y, 0.0f) * new Vector3(0.0f, 0.0f, after - before);
 
         Vector3 tall = new Vector3(0.0f, PlayerStats.playerStat.m_hikingHeight + PlayerStats.playerStat.m_size, 0.0f);
@@ -193,9 +195,9 @@ public class AttackAction : BaseAction
         if (m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.ATK)
         {
             GameObject eff = Instantiate(m_atkEff[m_currentCombo]);
-            eff.transform.rotation = Quaternion.Euler(0.0f, m_owner.transform.eulerAngles.y, 0.0f) * Quaternion.Euler(m_effAngle[m_currentCombo]);
+            eff.transform.rotation = Quaternion.Euler(0.0f, m_owner.transform.eulerAngles.y + 180, 0.0f) * Quaternion.Euler(m_effAngle[m_currentCombo]);
             eff.transform.position = m_owner.transform.position + new Vector3(0.0f, m_effPos[m_currentCombo].y, 0.0f)
-                + eff.transform.rotation * -new Vector3(m_effPos[m_currentCombo].x, 0.0f, m_effPos[m_currentCombo].z);
+                + m_owner.transform.rotation * new Vector3(m_effPos[m_currentCombo].x, 0.0f, m_effPos[m_currentCombo].z);
         }
     }
 
@@ -214,8 +216,6 @@ public class AttackAction : BaseAction
 
             m_currentCombo = m_nowCombo;
 
-            //m_owner.playerCam.GetComponent<CharacterCam>().SetShake(m_atkShake[m_currentCombo]);
-
             m_nowCombo++;
             if (m_nowCombo >= m_maxCombo)
             {
@@ -225,6 +225,17 @@ public class AttackAction : BaseAction
         }
     }
 
+    /// <summary>
+    /// 카메라 쉐이킹 이벤트
+    /// </summary>
+    public void Shaking()
+    {
+        m_owner.playerCam.GetComponent<CharacterCam>().SetShake(m_atkShake[m_currentCombo]);
+    }
+
+    /// <summary>
+    /// 공격 효과음 재생
+    /// </summary>
     public void PlaySfx()
     {
         m_atkSfx[m_currentCombo].volume = DataController.Instance.effectSound;
