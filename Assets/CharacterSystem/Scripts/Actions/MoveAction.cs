@@ -12,6 +12,7 @@ public class MoveAction : BaseAction
     [SerializeField] LayerMask m_wall; //막히는 오브젝트 레이어
     [SerializeField] float m_aniBlendSpeed; //블렌딩 속도
     [SerializeField] AudioSource m_footSfx;
+    [SerializeField] AudioClip[] m_footSounds;
 
     #endregion
 
@@ -117,6 +118,7 @@ public class MoveAction : BaseAction
 
     public void FootStep()
     {
+        m_footSfx.clip = m_footSounds[Random.Range(0, m_footSounds.Length)];
         m_footSfx.Play();
     }
 
