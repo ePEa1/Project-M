@@ -7,7 +7,7 @@ namespace ProjectM.ePEa.ProtoMon
     public class ProtoBossFSM : MonoBehaviour
     {
         #region Inspector
-        [SerializeField] float m_maxHp; //최대체력
+        [SerializeField] public float m_maxHp; //최대체력
         [SerializeField] float m_moveSpeed; //이동속도
         [SerializeField] float m_atkDelayMin; //공격 딜레이
         [SerializeField] float m_atkDelayMax; //공격 딜레이
@@ -17,7 +17,7 @@ namespace ProjectM.ePEa.ProtoMon
         #endregion
 
         #region Value
-        float m_currentHp;
+        public float m_currentHp;
         float m_atkDelay;
 
         Transform target;
@@ -64,6 +64,7 @@ namespace ProjectM.ePEa.ProtoMon
                     break;
 
                 case State.ATK3:
+                    Atk3();
                     break;
             }
 
@@ -78,10 +79,22 @@ namespace ProjectM.ePEa.ProtoMon
             {
                 Vector3 centerPos = new Vector3(transform.position.x, 0.0f, transform.position.z);
                 Vector3 targetPos = new Vector3(target.position.x, 0.0f, target.position.z);
-                if (Vector3.Distance(centerPos, targetPos) > 5.0f)
+                if (Vector3.Distance(centerPos, targetPos) > 6.0f)
                     m_currentState = State.ATK1;
                 else
-                    m_currentState = State.ATK2;
+                {
+                    int patton = Random.Range(0, 2);
+                    switch(patton)
+                    {
+                        case 0:
+                            m_currentState = State.ATK2;
+                            break;
+
+                        case 1:
+                            m_currentState = State.ATK3;
+                            break;
+                    }
+                }
             }
         }
 
@@ -221,6 +234,37 @@ namespace ProjectM.ePEa.ProtoMon
         public void TakeDamage(float dam)
         {
             m_currentHp -= dam;
+        }
+
+
+        float atk3 = 0.0f;
+        float atk3end = 0.0f;
+        [SerializeField] GameObject circle;
+        [SerializeField] GameObject circleDam;
+        void Atk3()
+        {
+
+            atk3 = Mathf.Min(0.6f, atk3 + Time.deltaTime);
+            circle.SetActive(true);
+            if (atk3 >= 0.6f)
+            {
+                circle.SetActive(false);
+                circleDam.SetActive(true);
+                atk3end = Mathf.Min(0.3f, atk3end + Time.deltaTime);
+                if (atk3end>=0.3f)
+                {
+                    Vector3 dir = target.position - transform.position;
+                    dir.y = 0;
+                    dir = dir.normalized;
+                    circleDam.GetComponent<AtkCollider>().knockVec = dir;
+                    atk3 = 0.0f;
+                    atk3end = 0.0f;
+                    circle.SetActive(false);
+                    circleDam.SetActive(false);
+                    m_currentState = State.MOVE;
+                    m_atkDelay = Random.Range(m_atkDelayMin, m_atkDelayMax);
+                }
+            }
         }
     }
 

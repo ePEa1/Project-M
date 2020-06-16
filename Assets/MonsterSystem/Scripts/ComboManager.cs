@@ -70,7 +70,7 @@ public class ComboManager : MonoBehaviour
     public IEnumerator Shake()
     {
         ComboWait = 5.0f;
-        transform.localScale = new Vector3(1, 1, 1);
+        transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
         float timer = 0;
         float scaleTime = 0;
         while (timer <= duration)

@@ -14,6 +14,6 @@ public class DeleteTime : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.GetComponent<AudioSource>().volume = DataController.Instance.gameData.EffectSound;
+        //transform.GetComponent<AudioSource>().volume = DataController.Instance.gameData.EffectSound;
     }
 }

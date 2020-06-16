@@ -293,17 +293,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OptionPage: {fileID: 2124708880}
+  PressAnyButtonScreen: {fileID: 1238881881}
+  Buttons: {fileID: 9503654}
   Select: {fileID: 8300000, guid: 5819275cb663e494883d0bd7d14e210e, type: 3}
   Push: {fileID: 8300000, guid: 5f991302eceb1d0488d71142ed5b297f, type: 3}
   UISound: {fileID: 0}
   BackgroundSound: {fileID: 682706048}
   FadeinOut:
     serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  PressButtonFadeOut:
+    serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_nextScene: 0610GraphicTime
+  FadeTime: 0
+  m_nextScene: StageSelectScene
 --- !u!4 &503076970
 Transform:
   m_ObjectHideFlags: 0
@@ -1120,19 +1147,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: b51a3e520f9164da198dc59c8acfccd6, type: 3}
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 4
+    m_MaxSize: 50
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Press Any Button
 --- !u!222 &716007616
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1402,7 +1429,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1238881882
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1420,7 +1447,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.4, y: -0.0012207}
+  m_AnchoredPosition: {x: 2.4, y: -452.38}
   m_SizeDelta: {x: 2007.1047, y: 1096.0488}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1238881883
@@ -1465,7 +1492,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1238881884}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 503076969}
+        m_MethodName: PressAnyButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1238881884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1479,7 +1517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
