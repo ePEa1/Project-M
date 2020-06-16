@@ -5,13 +5,15 @@ using UnityEngine;
 public class DeleteTime : MonoBehaviour
 {
     [SerializeField] float m_lifeTime; //생존 시간
-    float m_currentTime = 0.0f;
+
+    void Start()
+    {
+        Destroy(gameObject,m_lifeTime);
+    }
 
     // Update is called once per frame
     void Update()
     {
-        m_currentTime += Time.deltaTime;
-        if (m_lifeTime <= m_currentTime)
-            Destroy(gameObject);
+        //transform.GetComponent<AudioSource>().volume = DataController.Instance.gameData.EffectSound;
     }
 }

@@ -7,27 +7,30 @@ using UnityEngine.SceneManagement;
 public class StartSceneManager : MonoBehaviour
 {
     public GameObject OptionPage;
+    [SerializeField] GameObject PressAnyButtonScreen;
+    [SerializeField] GameObject Buttons;
     public AudioClip Select;
     public AudioClip Push;
     public AudioSource UISound;
     public AudioSource BackgroundSound;
+    [SerializeField] AnimationCurve FadeinOut;
+    [SerializeField] AnimationCurve PressButtonFadeOut;
     // Start is called before the first frame update
 
+    [SerializeField] float FadeTime;
     [SerializeField] string m_nextScene;
 
     void Start()
     {
+        Buttons.SetActive(false);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
 
         UISound = GetComponent<AudioSource>();
         Time.timeScale = 1;
         //RayCastHitButton();
     }
-    private void Awake()
-    {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
 
-    }
     // Update is called once per frame
     void Update()
     {
@@ -48,7 +51,7 @@ public class StartSceneManager : MonoBehaviour
     {
         SetSound(Push, UISound);
 
-        SceneManager.LoadScene(m_nextScene);
+        LoadingSceneManager.LoadScene(m_nextScene);
     }
     public void OpenOption()
     {
@@ -80,6 +83,22 @@ public class StartSceneManager : MonoBehaviour
         {
             SetSound(Select, UISound);
         }
+    }
+    public void PressAnyButton()
+    {
+
+        PressAnyButtonScreen.SetActive(false);
+        Buttons.SetActive(true);
+        //Color ButtonCol = Buttons.color;
+        //while (ButtonCol.a > 0f)
+        //{
+        //    ButtonCol.a += Time.deltaTime / FadeTime;
+        //    Buttons.color = ButtonCol;
+
+        //    if (ButtonCol.a >= 1f) ButtonCol.a = 1f;
+        //}
+
+        Debug.Log("check");
     }
 
 }

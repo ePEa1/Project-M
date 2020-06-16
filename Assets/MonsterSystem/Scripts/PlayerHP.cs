@@ -15,17 +15,25 @@ public class PlayerHP : MonoBehaviour
     public Text HPText;
     public GameObject player;
 
-    [SerializeField] float m_hpMaxSize;
-    float playerHP;
+    [SerializeField] float m_blendSpeed;
 
-    bool HPDecrease = false;
+    float m_hpMaxSize;
+    float m_playerHp;
+
+
+    float m_blendHp;
+    float m_blendTime;
 
     // Start is called before the first frame update
     void Start()
     {
         //HP = GetComponent<Image>();
         player = GameObject.FindGameObjectWithTag("Player");
-        //m_hpMaxSize = transform.GetComponent<PlayerFsmManager>().MaxHP;
+
+        m_hpMaxSize = PlayerStats.playerStat.m_maxHp;
+        m_playerHp = m_hpMaxSize;
+        m_blendHp = m_hpMaxSize;
+
         HP.GetComponent<Image>().fillAmount = 1;
         BackHP.GetComponent<Image>().fillAmount = 1;
       
@@ -35,28 +43,20 @@ public class PlayerHP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HPText.text = PlayerStats.playerStat.m_currentHp+ "/" + PlayerStats.playerStat.m_maxHp;
-
-        HP.GetComponent<Image>().fillAmount = PlayerStats.playerStat.m_currentHp / PlayerStats.playerStat.m_maxHp;
-        if (HPDecrease)
+        if (m_playerHp != PlayerStats.playerStat.m_currentHp)
         {
-            BackHP.GetComponent<Image>().fillAmount = Mathf.Lerp(BackHP.fillAmount, HP.fillAmount, Time.deltaTime * 10f);
-            if (HP.fillAmount >= BackHP.fillAmount - 0.01f)
-            {
-                HPDecrease = false;
-                BackHP.fillAmount = HP.fillAmount;
-            }
+            m_blendHp = m_playerHp / m_hpMaxSize;
+            m_blendTime = 0;
+            m_playerHp = PlayerStats.playerStat.m_currentHp;
         }
 
+        m_blendTime = Mathf.Min(1, m_blendTime + Time.deltaTime * m_blendSpeed);
+        BackHP.fillAmount = Mathf.Lerp(m_blendHp, m_playerHp / m_hpMaxSize, m_blendTime);
+
+        HPText.text = m_playerHp + "/" + m_hpMaxSize;
+        
+        HP.GetComponent<Image>().fillAmount = m_playerHp / m_hpMaxSize;
 
     }
-    public void DamageDecrease()
-    {
-        Invoke("StartDecrese", 0.5f);
-    }
 
-    void StartDecrese()
-    {
-        HPDecrease = true;
-    }
 }

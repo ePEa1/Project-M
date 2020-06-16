@@ -14,7 +14,6 @@ public class DamageAction : BaseAction
     [SerializeField] GameObject m_damEff; //피격 이펙트
     [SerializeField] LayerMask m_wall;
     [SerializeField] AudioSource m_damSound;
-    public PlayerHP playerhp;
 
     #endregion
 
@@ -114,7 +113,6 @@ public class DamageAction : BaseAction
         if (other.tag == "EnemyAtkCollider" && DamageOk())
         {
             m_enemyAtk = other.GetComponent<AtkCollider>();
-            playerhp.DamageDecrease();
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DAMAGE);
         }
     }

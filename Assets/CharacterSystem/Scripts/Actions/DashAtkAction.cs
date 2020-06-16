@@ -82,10 +82,10 @@ public class DashAtkAction : BaseAction
 
     protected override BaseAction OnUpdateAction()
     {
-        if (m_controller.IsDodge() && PlayerStats.playerStat.m_currentDodgeDelay == 0)
-        {
-            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
-        }
+        //if (m_controller.IsDodge() && PlayerStats.playerStat.m_currentDodgeDelay == 0)
+        //{
+        //    m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
+        //}
 
         float value = 1.0f / speed;
         Vector3 beforePos = Vector3.Lerp(m_startPos, m_finishPos, m_AtkDistance.Evaluate(m_curdashAtk * value));

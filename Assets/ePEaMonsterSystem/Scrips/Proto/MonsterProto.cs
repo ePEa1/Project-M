@@ -4,6 +4,7 @@ using UnityEngine;
 using static ProjectM.ePEa.CustomFunctions.CustomFunction;
 using UnityEngine.UI;
 
+
 namespace ProjectM.ePEa.ProtoMon
 {
     public class MonsterProto : MonoBehaviour
@@ -40,7 +41,6 @@ namespace ProjectM.ePEa.ProtoMon
         [SerializeField] Slider m_hpBar;
         [SerializeField] Slider m_refilBar;
         [SerializeField] Image m_backhpBar;
-
 
         bool IsDecrease = false;
         #endregion
@@ -120,7 +120,12 @@ namespace ProjectM.ePEa.ProtoMon
             m_refilBar.value = m_refil / m_refilMax;
 
             if (m_nowHp <= 0)
+            {
+                DataController.Instance.gameData.firstStageMonster -= 1;
+                Debug.Log(DataController.Instance.gameData.firstStageMonster);
                 Destroy(gameObject);
+
+            }
 
             if (IsDecrease)
             {
@@ -227,7 +232,9 @@ namespace ProjectM.ePEa.ProtoMon
             m_nowState = state.DAMAGE;
             transform.rotation = Quaternion.LookRotation(-knockDir);
             GameObject eff = Instantiate(m_damEff);
+
             eff.transform.position = transform.position + Vector3.up;
+
 
             m_refil = 0;
             Invoke("HPDecrease",0.5f);

@@ -72,46 +72,46 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(m_leftMove))
         {
-            h = 1;
+            h = -1;
         }
         if (Input.GetKeyDown(m_rightMove))
         {
-            h = -1;
+            h = 1;
         }
 
         if (Input.GetKeyUp(m_leftMove))
         {
             if (Input.GetKey(m_rightMove))
-                h = -1;
+                h = 1;
             else h = 0;
         }
         if (Input.GetKeyUp(m_rightMove))
         {
             if (Input.GetKey(m_leftMove))
-                h = 1;
+                h = -1;
             else h = 0;
         }
         //---------------------------------
 
         if (Input.GetKeyDown(m_frontMove))
         {
-            v = -1;
+            v = 1;
         }
         if (Input.GetKeyDown(m_backMove))
         {
-            v = 1;
+            v = -1;
         }
 
         if (Input.GetKeyUp(m_frontMove))
         {
             if (Input.GetKey(m_backMove))
-                v = 1;
+                v = -1;
             else v = 0;
         }
         if (Input.GetKeyUp(m_backMove))
         {
             if (Input.GetKey(m_frontMove))
-                v = -1;
+                v = 1;
             else v = 0;
         }
     }
