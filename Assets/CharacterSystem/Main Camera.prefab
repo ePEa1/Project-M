@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 7402736142049612362}
   - component: {fileID: 2231909305792914768}
   - component: {fileID: 2407325404782822920}
+  - component: {fileID: 2013699894}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -34,13 +35,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7402736142049612400}
-  m_LocalRotation: {x: 0.000190969, y: 0.9996468, z: -0.025495753, w: 0.0074978136}
+  m_LocalRotation: {x: -0.00019112325, y: -0.99964684, z: 0.02549577, w: -0.007493626}
   m_LocalPosition: {x: -0.01, y: 2.0149384, z: 4.5300617}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 2.9580002, y: -223.857, z: -0.192}
+  m_LocalEulerAnglesHint: {x: 2.9220002, y: -180.859, z: 0}
 --- !u!20 &7402736142049612406
 Camera:
   m_ObjectHideFlags: 0
@@ -276,8 +277,10 @@ MonoBehaviour:
   m_moveSpeed: 10
   m_yMin: -13
   m_yMax: 50
-  m_xSpeed: 100
-  m_ySpeed: 70
+  m_xSpeed: 200
+  m_ySpeed: 160
+  m_startX: 180
+  m_startY: 0
   m_stopTime: 0
   isStop: 0
 --- !u!114 &2231909305792914768
@@ -459,6 +462,30 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  shakeRotate: 0
+--- !u!114 &2013699894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7402736142049612400}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd8dfb03bad33854f8868e805e0b5496, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeAmount: 0.1
+  duration: 0.1
+  addPos: 0
+  maxRot: 0.1
+  minRot: 0.1
+  RotCurve:
+    serializedVersion: 2
+    m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4

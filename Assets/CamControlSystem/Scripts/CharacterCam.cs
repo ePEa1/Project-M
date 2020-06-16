@@ -91,8 +91,8 @@ public class CharacterCam : MonoBehaviour
     {
         Vector3[] returnVector = new Vector3[2];
 
-        m_x += Input.GetAxis("Mouse X") * m_xSpeed * Time.deltaTime;
-        m_y = Mathf.Clamp(m_y - Input.GetAxis("Mouse Y") * m_ySpeed * Time.deltaTime, m_yMin, m_yMax);
+        m_x += Input.GetAxis("Mouse X") * m_xSpeed * Time.deltaTime * DataController.Instance.mouseMoving;
+        m_y = Mathf.Clamp(m_y - Input.GetAxis("Mouse Y") * m_ySpeed * Time.deltaTime * DataController.Instance.mouseMoving, m_yMin, m_yMax);
 
         Quaternion dir = Quaternion.Euler(new Vector3(m_y, m_x, 0));
         Vector3 pos = dir * new Vector3(0.0f, 0.0f, -m_distance) + target.position + m_centerPos;

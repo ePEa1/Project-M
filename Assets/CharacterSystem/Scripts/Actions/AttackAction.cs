@@ -197,7 +197,7 @@ public class AttackAction : BaseAction
         {
             GameObject eff = Instantiate(m_atkEff[m_currentCombo]);
             eff.transform.rotation = Quaternion.Euler(0.0f, m_owner.transform.eulerAngles.y + 180, 0.0f) * Quaternion.Euler(m_effAngle[m_currentCombo]);
-            eff.transform.position = m_startPos + new Vector3(0.0f, m_effPos[m_currentCombo].y, 0.0f)
+            eff.transform.position = m_owner.transform.position + new Vector3(0.0f, m_effPos[m_currentCombo].y, 0.0f)
                 + m_owner.transform.rotation * new Vector3(m_effPos[m_currentCombo].x, 0.0f, m_effPos[m_currentCombo].z);
         }
     }

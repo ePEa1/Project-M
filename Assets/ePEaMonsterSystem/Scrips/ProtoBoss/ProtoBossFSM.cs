@@ -7,7 +7,7 @@ namespace ProjectM.ePEa.ProtoMon
     public class ProtoBossFSM : MonoBehaviour
     {
         #region Inspector
-        [SerializeField] float m_maxHp; //최대체력
+        [SerializeField] public float m_maxHp; //최대체력
         [SerializeField] float m_moveSpeed; //이동속도
         [SerializeField] float m_atkDelayMin; //공격 딜레이
         [SerializeField] float m_atkDelayMax; //공격 딜레이
@@ -17,7 +17,7 @@ namespace ProjectM.ePEa.ProtoMon
         #endregion
 
         #region Value
-        float m_currentHp;
+        public float m_currentHp;
         float m_atkDelay;
 
         Transform target;
