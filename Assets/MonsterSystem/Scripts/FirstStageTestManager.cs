@@ -11,6 +11,8 @@ public class FirstStageTestManager : MonoBehaviour
     public MeshRenderer Potalrenderer;
 
     public GameObject FindMonster;
+
+    [SerializeField] string tagName;
     private void Start()
     {
         Potalrenderer.enabled = false;
@@ -20,7 +22,7 @@ public class FirstStageTestManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (null == GameObject.FindGameObjectWithTag("DefaultMob")) 
+        if (null == GameObject.FindGameObjectWithTag(tagName)) 
         {
             Potalrenderer.enabled = true;
             Potal.enabled = true;
