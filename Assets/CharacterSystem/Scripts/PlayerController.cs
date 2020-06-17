@@ -12,16 +12,18 @@ public class PlayerController : MonoBehaviour
     #region Inspector
 
     //이동키
-    [SerializeField] public KeyCode m_frontMove;
-    [SerializeField] public KeyCode m_backMove;
-    [SerializeField] public KeyCode m_rightMove;
-    [SerializeField] public KeyCode m_leftMove;
+    [SerializeField] KeyCode m_frontMove;
+    [SerializeField] KeyCode m_backMove;
+    [SerializeField] KeyCode m_rightMove;
+    [SerializeField] KeyCode m_leftMove;
 
     //공격키
-    [SerializeField] public KeyCode m_attack;
+    [SerializeField] KeyCode m_attack;
+
+    [SerializeField] KeyCode m_rushAttack;
 
     //회피키
-    [SerializeField] public KeyCode m_dodge;
+    [SerializeField] KeyCode m_dodge;
 
     //연타값
     float leftdash = 0;
@@ -134,6 +136,13 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(m_attack))
             return true;
         
+        else return false;
+    }
+
+    public bool IsRushAttack()
+    {
+        if (Input.GetKeyDown(m_rushAttack))
+            return true;
         else return false;
     }
 
