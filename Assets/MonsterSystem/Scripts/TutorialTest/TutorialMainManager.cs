@@ -58,7 +58,17 @@ public class TutorialMainManager : MonoBehaviour
         {
             DailogueOpen = true;
         }
+        if(Movekey.IsReady == true)
+        {
+            DialCount = 4;
+            TutorialKey.SetActive(false);
+            DialogueScreen.SetActive(true);
+            MoveKey.SetActive(false);
+            Movekey.IsReady = false;
 
+            Movekey.enabled = false;
+
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         { 
                 DialCount += 1;
