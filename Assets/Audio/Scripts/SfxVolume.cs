@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProtoSound : MonoBehaviour
+public class SfxVolume : MonoBehaviour
 {
 
     // Update is called once per frame

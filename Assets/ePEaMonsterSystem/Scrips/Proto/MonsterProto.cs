@@ -42,6 +42,8 @@ namespace ProjectM.ePEa.ProtoMon
         [SerializeField] Slider m_refilBar;
         [SerializeField] Image m_backhpBar;
 
+        [SerializeField] 
+
         bool IsDecrease = false;
         #endregion
 

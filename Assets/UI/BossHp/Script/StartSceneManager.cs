@@ -9,6 +9,8 @@ public class StartSceneManager : MonoBehaviour
     public GameObject OptionPage;
     [SerializeField] GameObject PressAnyButtonScreen;
     [SerializeField] GameObject Buttons;
+    [SerializeField] Image FadeImg;
+    [SerializeField] float FadeSpeed;
     public AudioClip Select;
     public AudioClip Push;
     public AudioSource UISound;
@@ -25,7 +27,7 @@ public class StartSceneManager : MonoBehaviour
         Buttons.SetActive(false);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-
+        FadeImg.color = new Vector4(0, 0, 0, 0);
         UISound = GetComponent<AudioSource>();
         Time.timeScale = 1;
         //RayCastHitButton();
@@ -51,7 +53,7 @@ public class StartSceneManager : MonoBehaviour
     {
         SetSound(Push, UISound);
 
-        LoadingSceneManager.LoadScene(m_nextScene);
+        StartCoroutine(FadeInGameStart());
     }
     public void OpenOption()
     {
@@ -89,16 +91,37 @@ public class StartSceneManager : MonoBehaviour
 
         PressAnyButtonScreen.SetActive(false);
         Buttons.SetActive(true);
-        //Color ButtonCol = Buttons.color;
-        //while (ButtonCol.a > 0f)
-        //{
-        //    ButtonCol.a += Time.deltaTime / FadeTime;
-        //    Buttons.color = ButtonCol;
 
-        //    if (ButtonCol.a >= 1f) ButtonCol.a = 1f;
-        //}
 
         Debug.Log("check");
+    }
+
+    IEnumerator FadeInGameStart()
+    {
+        for (float i = 0f; i >= 0; i += 0.005f*FadeSpeed)
+        {
+            Color color = new Vector4(0, 0, 0, i);
+            FadeImg.color = color;
+
+            if(FadeImg.color.a >= 1)
+            {
+                LoadingSceneManager.LoadScene(m_nextScene);
+
+            }
+
+            yield return null;
+        }
+    }
+
+    IEnumerator FadeOut()
+    {
+        for (float i = 0f; i >= 0; i -= 0.005f * FadeSpeed)
+        {
+            Color color = new Vector4(0, 0, 0, i);
+            FadeImg.color = color;
+
+            yield return null;
+        }
     }
 
 }

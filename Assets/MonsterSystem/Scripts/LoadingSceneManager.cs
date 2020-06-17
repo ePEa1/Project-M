@@ -22,8 +22,6 @@ public class LoadingSceneManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(LoadScene());
-        int randomTips = Random.Range(0, Tips.Length);
-        TipsTxt.text = "Tip. " + Tips[randomTips];
     }
 
     public static void LoadScene(string sceneName)

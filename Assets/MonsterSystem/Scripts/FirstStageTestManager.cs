@@ -8,20 +8,30 @@ public class FirstStageTestManager : MonoBehaviour
 {
 
     public Collider Potal;
-    public MeshRenderer renderer;
+    public MeshRenderer Potalrenderer;
+
+    public GameObject FindMonster;
+
+    [SerializeField] string tagName;
     private void Start()
     {
-        renderer.enabled = false;
+        Potalrenderer.enabled = false;
         Potal.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (DataController.Instance.gameData.firstStageMonster <= 0)
+        if (null == GameObject.FindGameObjectWithTag(tagName)) 
         {
-            renderer.enabled = true;
+            Potalrenderer.enabled = true;
             Potal.enabled = true;
+        }
+        else
+        {
+            Potalrenderer.enabled = false;
+            Potal.enabled = false;
+
         }
     }
 
