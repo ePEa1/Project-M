@@ -10,18 +10,11 @@ public class AttackAction : BaseAction
 {
     #region Inspectors
 
-    [SerializeField] PCAtkObject[] m_atkData;
-    [SerializeField] float[] m_atkDistance; //타격당 이동거리
-    [SerializeField] AnimationCurve[] m_atkDistanceCurve; //타격당 이동 커브
-    [SerializeField] float[] m_atkSpeed; //타격당 공격 이동 시간
-    [SerializeField] BoxCollider m_atkRange; //타격당 공격 범위(콜라이더 오브젝트)
-    [SerializeField] GameObject[] m_atkEff; //타격탕 생성시킬 이펙트
-    [SerializeField] Vector3[] m_effPos; //타격당 생성시킬 이펙트 위치
-    [SerializeField] Vector3[] m_effAngle; //타격당 생성시킬 이펙트 각도
-    [SerializeField] AudioSource[] m_atkSfx; //타격당 효과음
+    [SerializeField] PCAtkObject[] m_atkData; //공격 데이터
+    [SerializeField] BoxCollider m_atkRange; //공격 범위 콜라이더
     [SerializeField] LayerMask m_wall;
     [SerializeField] LayerMask m_enemy;
-    [SerializeField] CustomShaking[] m_atkShake;
+    [SerializeField] AudioSource[] m_audio;
 
     #endregion
 
@@ -56,8 +49,13 @@ public class AttackAction : BaseAction
         m_animator.ResetTrigger("Atk");
         m_animator.SetBool("IsAtk", true);
         m_nextAtk = true;
-        NextAttacking();
 
+        m_effNum = 0;
+        m_sfxNum = 0;
+        m_colNum = 0;
+
+        NextAttacking();
+        
         return this;
     }
 
@@ -66,7 +64,10 @@ public class AttackAction : BaseAction
         //공격 예약해놨던거 다 초기화
         m_nextAtk = false;
         m_nextAtkOk = false;
-        
+
+        m_effNum = 0;
+        m_sfxNum = 0;
+        m_colNum = 0;
 
         m_nowCombo = 0; //공격 콤보 초기화
         m_currentCombo = 0;
@@ -224,15 +225,16 @@ public class AttackAction : BaseAction
 
         if (m_nextAtk) //다음 공격 예약 했을 경우
         {
+            m_effNum = 0;
+            m_sfxNum = 0;
+            m_colNum = 0;
+
             m_startPos = m_owner.transform.position;
             m_atkTime = 0.0f;
             m_animator.SetTrigger("Atk");
             m_ac = 1.0f / m_atkData[m_nowCombo].rushSpeed;
 
             m_currentCombo = m_nowCombo;
-
-            m_effNum = 0;
-            m_sfxNum = 0;
 
             m_nowCombo++;
             if (m_nowCombo >= m_maxCombo)
@@ -257,10 +259,9 @@ public class AttackAction : BaseAction
     public void PlaySfx()
     {
         PCAtksData effs = m_atkData[m_currentCombo].atkData[m_sfxNum];
-        AudioSource audio = GetComponent<AudioSource>();
 
-        audio.clip = effs.sfx;
-        audio.Play();
+        m_audio[m_sfxNum].clip = effs.sfx;
+        m_audio[m_sfxNum].Play();
 
         m_sfxNum++;
     }

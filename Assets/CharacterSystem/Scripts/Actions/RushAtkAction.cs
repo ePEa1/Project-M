@@ -31,17 +31,17 @@ public class RushAtkAction : BaseAction
     
     protected override void AnyStateAction()
     {
-        throw new System.NotImplementedException();
+
     }
 
     protected override BaseAction OnUpdateAction()
     {
-        throw new System.NotImplementedException();
+        return this;
     }
 
     public override void EndAction()
     {
-        throw new System.NotImplementedException();
+
     }
 
 
