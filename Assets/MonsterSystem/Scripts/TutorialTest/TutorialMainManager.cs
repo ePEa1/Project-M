@@ -3,21 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum TutorialState
+{
+    MOVE,
+    DEFAULTATK,
+    MOVEATK,
+    PRACTICE,
+    MONSTERSHEILD,
+    COMBORESET,
+    FREEATK,
+}
+
 public class TutorialMainManager : MonoBehaviour
 {
 
-    public GameObject player;
+    public MoveKeyTest Movekey;
 
-    [SerializeField] GameObject PlayerUI;
-    [SerializeField] GameObject SpawnMonster;
-    [SerializeField] Image DialogueBox;
-    [SerializeField] Text DialogueText;
-    [SerializeField] GameObject Potal;//튜토리얼 끝날 때 돌아가기
+    public GameObject player;
+    public GameObject Cam;
+    public GameObject PlayerUI;
+    public GameObject SpawnMonster;
+    public GameObject DialogueScreen;
+    public GameObject TutorialKey;
+    public GameObject MoveKey;
+    public Image DialogueBox;
+    public Text DialogueText;
+
+
+
+
+    [SerializeField] string[] TutorialStart;
+    string ResultText;
+
+    public int DialCount = 0;
+
+    public GameObject Potal;//튜토리얼 끝날 때 돌아가기
+    bool DailogueOpen = false;
+    bool GetKeyTime = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        TutorialKey.SetActive(false);
+        MoveKey.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -25,5 +54,41 @@ public class TutorialMainManager : MonoBehaviour
     void Update()
     {
         
+        if(DialogueBox != null)
+        {
+            DailogueOpen = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        { 
+                DialCount += 1;
+        }
+        SetDialogue(DialCount);
+        DialogueText.text = ResultText;
+    }
+
+    void SetState(TutorialState curState)
+    {
+
+    }
+
+    void SetDialogue(int d)
+    {
+        if(DialCount == 3)
+        {
+            DialogueScreen.SetActive(false);
+            TutorialKey.SetActive(true);
+            MoveKey.SetActive(true);
+            player.GetComponent<PlayerFsmManager>().enabled = true;
+        }
+        else
+        {
+            player.GetComponent<PlayerFsmManager>().enabled = false;
+
+            ResultText = TutorialStart[DialCount];
+
+        }
+
+
     }
 }
