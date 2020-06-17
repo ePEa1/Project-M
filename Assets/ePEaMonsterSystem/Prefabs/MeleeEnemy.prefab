@@ -793,7 +793,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2637687951126758009
 Transform:
   m_ObjectHideFlags: 0
@@ -834,8 +834,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   atkDamage: 1
-  knockPower: 0
-  knockVec: {x: 0, y: 0, z: 0}
+  knockPower: 5
+  knockVec: {x: -0.066180475, y: -0.00022758919, z: 0.9978076}
   knockTime: 1
   m_atkEvents:
     m_PersistentCalls:
@@ -1281,7 +1281,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0.06278851
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
