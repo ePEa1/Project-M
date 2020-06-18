@@ -147,7 +147,8 @@ public class AttackAction : BaseAction
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
         }
-
+        if (m_controller.IsRushAttack())
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.RUSHATK);
         if (m_controller.IsLeftDashAttack() || m_controller.IsRightDashAttack())
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
@@ -203,7 +204,8 @@ public class AttackAction : BaseAction
 
             m_atkRange.GetComponent<AtkCollider>().isAttacking = false;
             m_atkRange.GetComponent<AtkCollider>().atkDamage = data.damage;
-            StartCoroutine(AtkColliderOnOff(m_atkRange));
+
+            m_atkRange.GetComponent<AtkCollider>().Attacking();
 
             m_colNum++;
         }
@@ -284,7 +286,7 @@ public class AttackAction : BaseAction
     {
         atkCol.GetComponent<AtkCollider>().isAttacking = false;
         atkCol.gameObject.SetActive(true);
-        float t = 0.1f;
+        float t = 0.05f;
 
         while (t > 0.0f)
         {

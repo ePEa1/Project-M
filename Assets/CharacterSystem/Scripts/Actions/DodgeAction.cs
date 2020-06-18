@@ -102,7 +102,8 @@ public class DodgeAction : BaseAction
         {
             m_nextAtk = true;
         }
-
+        if (m_controller.IsRushAttack())
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.RUSHATK);
         return this;
     }
 

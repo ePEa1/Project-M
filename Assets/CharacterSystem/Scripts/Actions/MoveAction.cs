@@ -79,6 +79,8 @@ public class MoveAction : BaseAction
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
         }
+        if (m_controller.IsRushAttack())
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.RUSHATK);
         if(m_controller.IsLeftDashAttack() || m_controller.IsRightDashAttack())
         {
             if(m_owner.DelayDashAtk == true)
