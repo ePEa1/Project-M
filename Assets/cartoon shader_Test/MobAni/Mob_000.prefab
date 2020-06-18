@@ -3120,7 +3120,7 @@ PrefabInstance:
     - target: {fileID: 7285576556907084340, guid: c0f4d454674e1604ea654abb400bf187,
         type: 3}
       propertyPath: VelocityModule.y.scalar
-      value: 1.42
+      value: 3.25
       objectReference: {fileID: 0}
     - target: {fileID: 7285576556907084340, guid: c0f4d454674e1604ea654abb400bf187,
         type: 3}
@@ -3130,7 +3130,7 @@ PrefabInstance:
     - target: {fileID: 7285576556907084340, guid: c0f4d454674e1604ea654abb400bf187,
         type: 3}
       propertyPath: ClampVelocityModule.drag.scalar
-      value: 5.13
+      value: 4.28
       objectReference: {fileID: 0}
     - target: {fileID: 7285576556907084340, guid: c0f4d454674e1604ea654abb400bf187,
         type: 3}
@@ -3191,6 +3191,26 @@ PrefabInstance:
         type: 3}
       propertyPath: ShapeModule.radiusThickness
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285576556907084340, guid: c0f4d454674e1604ea654abb400bf187,
+        type: 3}
+      propertyPath: NoiseModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285576556907084340, guid: c0f4d454674e1604ea654abb400bf187,
+        type: 3}
+      propertyPath: NoiseModule.strength.scalar
+      value: 0.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285576556907084340, guid: c0f4d454674e1604ea654abb400bf187,
+        type: 3}
+      propertyPath: NoiseModule.frequency
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285576556907084340, guid: c0f4d454674e1604ea654abb400bf187,
+        type: 3}
+      propertyPath: NoiseModule.scrollSpeed.scalar
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 8372434229110979335, guid: c0f4d454674e1604ea654abb400bf187,
         type: 3}
