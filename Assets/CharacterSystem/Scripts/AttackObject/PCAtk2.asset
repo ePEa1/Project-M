@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468143b2352940741a483c69fb4a6c21, type: 3}
+  m_Name: PCAtk2
+  m_EditorClassIdentifier: 
+  distance: 3
+  distanceCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.5560489
+      outSlope: 0
+      tangentMode: 65
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.113017924
+    - serializedVersion: 3
+      time: 0.13642049
+      value: 0
+      inSlope: -0
+      outSlope: 11.889302
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.2191986
+      value: 0.5033008
+      inSlope: 1.3150576
+      outSlope: 0.08400387
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.1058861
+      outWeight: 0.24209628
+    - serializedVersion: 3
+      time: 0.4931135
+      value: 0.49524373
+      inSlope: -0.0018260272
+      outSlope: 0.7206823
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.32251993
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5304345
+      value: 0.9352852
+      inSlope: 1.0346394
+      outSlope: 0.31413698
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.11721854
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  rushSpeed: 1
+  atkData:
+  - damage: 1
+    colCenter: {x: 0, y: 0.88, z: 0.83}
+    colSize: {x: 4, y: 2, z: 5}
+    eff: {fileID: 5099944319548709020, guid: 3890ecca732b8ca4eb6e0192794355c9, type: 3}
+    effPos: {x: 0, y: 1, z: 1.3}
+    effDir: {x: 0, y: 0, z: 12.1}
+    sfx: {fileID: 8300000, guid: 71c6759705b003643a4290a0264e9ace, type: 3}
+  - damage: 1
+    colCenter: {x: 0, y: 0.88, z: 0.83}
+    colSize: {x: 4, y: 2, z: 5}
+    eff: {fileID: 5099944319548709020, guid: 3890ecca732b8ca4eb6e0192794355c9, type: 3}
+    effPos: {x: 0, y: 1, z: 1.3}
+    effDir: {x: 0, y: 0, z: 12.1}
+    sfx: {fileID: 8300000, guid: 71c6759705b003643a4290a0264e9ace, type: 3}
+  shakeData: {fileID: 11400000, guid: f60bec04765ebd84cbc14a457410a392, type: 2}

@@ -60,6 +60,7 @@ public class DodgeAction : BaseAction
 
         //회피 애니메이션 실행
         m_animator.SetBool("IsDodge", true);
+        m_animator.SetTrigger("Dodge");
 
         //회피 딜레이 설정
         PlayerStats.playerStat.SetDodgeDelay(PlayerStats.playerStat.m_dodgeDelay);
@@ -71,6 +72,8 @@ public class DodgeAction : BaseAction
     {
         m_nextAtk = false;
         m_nextAtkOk = false;
+        m_animator.ResetTrigger("Dodge");
+        m_animator.SetBool("IsDodge", false);
     }
 
     protected override void AnyStateAction()
@@ -126,6 +129,7 @@ public class DodgeAction : BaseAction
         }
         m_animator.ResetTrigger("DashAtk");
         m_animator.SetBool("IsDodge", false);
+        m_animator.ResetTrigger("Dodge");
     }
     
     /// <summary>

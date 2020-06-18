@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ProjectM.ePEa.PlayerData;
-using System;
 using ProjectM.ePEa.CamSystem;
 
 using static ProjectM.ePEa.CustomFunctions.CustomFunction;
@@ -11,18 +10,11 @@ public class AttackAction : BaseAction
 {
     #region Inspectors
 
-    [SerializeField] PCAtkObject[] m_atkData;
-    [SerializeField] float[] m_atkDistance; //타격당 이동거리
-    [SerializeField] AnimationCurve[] m_atkDistanceCurve; //타격당 이동 커브
-    [SerializeField] float[] m_atkSpeed; //타격당 공격 이동 시간
-    [SerializeField] BoxCollider[] m_atkRange; //타격당 공격 범위(콜라이더 오브젝트)
-    [SerializeField] GameObject[] m_atkEff; //타격탕 생성시킬 이펙트
-    [SerializeField] Vector3[] m_effPos; //타격당 생성시킬 이펙트 위치
-    [SerializeField] Vector3[] m_effAngle; //타격당 생성시킬 이펙트 각도
-    [SerializeField] AudioSource[] m_atkSfx; //타격당 효과음
+    [SerializeField] PCAtkObject[] m_atkData; //공격 데이터
+    [SerializeField] BoxCollider m_atkRange; //공격 범위 콜라이더
     [SerializeField] LayerMask m_wall;
     [SerializeField] LayerMask m_enemy;
-    [SerializeField] CustomShaking[] m_atkShake;
+    [SerializeField] AudioSource[] m_audio;
 
     #endregion
 
@@ -43,7 +35,9 @@ public class AttackAction : BaseAction
     Quaternion dir; //회전 값
     Vector3 viewVec;//방향 벡터
 
-    
+    int m_effNum = 0; //n번째 이펙트
+    int m_sfxNum = 0; //n번째 효과음
+    int m_colNum = 0; //n번째 타격범위
 
     #endregion
 
@@ -55,8 +49,13 @@ public class AttackAction : BaseAction
         m_animator.ResetTrigger("Atk");
         m_animator.SetBool("IsAtk", true);
         m_nextAtk = true;
-        NextAttacking();
 
+        m_effNum = 0;
+        m_sfxNum = 0;
+        m_colNum = 0;
+
+        NextAttacking();
+        
         return this;
     }
 
@@ -65,7 +64,10 @@ public class AttackAction : BaseAction
         //공격 예약해놨던거 다 초기화
         m_nextAtk = false;
         m_nextAtkOk = false;
-        
+
+        m_effNum = 0;
+        m_sfxNum = 0;
+        m_colNum = 0;
 
         m_nowCombo = 0; //공격 콤보 초기화
         m_currentCombo = 0;
@@ -86,28 +88,43 @@ public class AttackAction : BaseAction
         //다음 공격 할건지 체크
         NextAtkCheck();
 
+        PCAtkObject atkData = m_atkData[m_currentCombo];
+
         //공격중 이동--------------------------------------------
-        float before = Mathf.Lerp(0.0f, m_atkDistance[m_currentCombo], m_atkDistanceCurve[m_currentCombo].Evaluate(m_atkTime * m_ac));
+        float before = Mathf.Lerp(0.0f, atkData.distance, atkData.distanceCurve.Evaluate(m_atkTime * m_ac));
         m_atkTime += Time.deltaTime;
-        float after = Mathf.Lerp(0.0f, m_atkDistance[m_currentCombo], m_atkDistanceCurve[m_currentCombo].Evaluate(m_atkTime * m_ac));
+        float after = Mathf.Lerp(0.0f, atkData.distance, atkData.distanceCurve.Evaluate(m_atkTime * m_ac));
 
         if (m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.ATK)
             m_owner.transform.rotation = Quaternion.Euler(0.0f, m_owner.playerCam.transform.eulerAngles.y, 0.0f);
 
-        Vector3 dir = Quaternion.Euler(0.0f, m_owner.playerCam.transform.eulerAngles.y, 0.0f) * new Vector3(0.0f, 0.0f, after - before);
+        //넉백 방향 지정-------------
+        Vector3 atkVec = m_owner.transform.rotation * Vector3.forward;
+        m_atkRange.GetComponent<AtkCollider>().knockVec = atkVec.normalized;
+        //---------------------------
 
+        Vector3 dir = Quaternion.Euler(0.0f, m_owner.playerCam.transform.eulerAngles.y, 0.0f) * new Vector3(0.0f, 0.0f, after - before);
+        
         Vector3 tall = new Vector3(0.0f, PlayerStats.playerStat.m_hikingHeight + PlayerStats.playerStat.m_size, 0.0f);
         Vector3 fixedPos = FixedMovePos(m_owner.transform.position + tall, PlayerStats.playerStat.m_size, dir.normalized,
             after-before, m_wall);
-
-
+        
         RaycastHit hit;
         if (!Physics.BoxCast(m_owner.transform.position + tall + m_owner.transform.rotation * Vector3.forward * -1.0f, new Vector3(1.7f, 1.0f, 0.7f),
-            m_owner.transform.rotation * Vector3.forward.normalized, out hit, Quaternion.Euler(0, transform.eulerAngles.y, 0), after - before + 1.0f, m_enemy))
+            m_owner.transform.rotation * Vector3.forward.normalized, out hit, Quaternion.Euler(0, m_owner.playerCam.transform.eulerAngles.y, 0), after - before + 1.0f, m_enemy))
         {
             m_owner.transform.position += dir + fixedPos;
         }
-        
+        else if (!Physics.BoxCast(m_owner.transform.position + tall + m_owner.transform.rotation * Vector3.forward * -1.0f, new Vector3(1.7f, 1.0f, 0.7f),
+            m_owner.transform.rotation * Vector3.forward.normalized, Quaternion.Euler(0, m_owner.playerCam.transform.eulerAngles.y, 0), 2.0f, m_enemy))
+        {
+            float d = Vector3.Dot(dir.normalized,
+                (new Vector3(hit.point.x, 0.0f, hit.point.z) - new Vector3(m_owner.transform.position.x, 0.0f, m_owner.transform.position.z)).normalized);
+
+            m_owner.transform.position += dir.normalized * (Vector3.Distance(new Vector3(hit.point.x, 0.0f, hit.point.z),
+                new Vector3(m_owner.transform.position.x, 0.0f, m_owner.transform.position.z)) * d - 0.6f) + fixedPos;
+            
+        }
         //--------------------------------------------------------
 
         return this;
@@ -118,7 +135,7 @@ public class AttackAction : BaseAction
     private void Awake()
     {
         //최대 콤보 설정
-        m_maxCombo = m_atkDistance.Length;
+        m_maxCombo = m_atkData.Length;
     }
 
     /// <summary>
@@ -179,12 +196,16 @@ public class AttackAction : BaseAction
     {
         if (m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.ATK)
         {
-            m_atkRange[m_currentCombo].GetComponent<AtkCollider>().isAttacking = false;
-            StartCoroutine(AtkColliderOnOff(m_atkRange[m_currentCombo]));
-            
-            Vector3 atkVec = m_owner.transform.rotation * Vector3.forward;
+            PCAtksData data = m_atkData[m_currentCombo].atkData[m_colNum];
 
-            m_atkRange[m_currentCombo].GetComponent<AtkCollider>().knockVec = atkVec.normalized;
+            m_atkRange.center = data.colCenter;
+            m_atkRange.size = data.colSize;
+
+            m_atkRange.GetComponent<AtkCollider>().isAttacking = false;
+            m_atkRange.GetComponent<AtkCollider>().atkDamage = data.damage;
+            StartCoroutine(AtkColliderOnOff(m_atkRange));
+
+            m_colNum++;
         }
     }
 
@@ -195,10 +216,12 @@ public class AttackAction : BaseAction
     {
         if (m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.ATK)
         {
-            GameObject eff = Instantiate(m_atkEff[m_currentCombo]);
-            eff.transform.rotation = Quaternion.Euler(0.0f, m_owner.transform.eulerAngles.y + 180, 0.0f) * Quaternion.Euler(m_effAngle[m_currentCombo]);
-            eff.transform.position = m_owner.transform.position + new Vector3(0.0f, m_effPos[m_currentCombo].y, 0.0f)
-                + m_owner.transform.rotation * new Vector3(m_effPos[m_currentCombo].x, 0.0f, m_effPos[m_currentCombo].z);
+            PCAtksData effs = m_atkData[m_currentCombo].atkData[m_effNum];
+            GameObject eff = Instantiate(effs.eff);
+            eff.transform.rotation = Quaternion.Euler(0.0f, m_owner.transform.eulerAngles.y + 180, 0.0f) * Quaternion.Euler(effs.effDir);
+            eff.transform.position = m_owner.transform.position + new Vector3(0.0f, effs.effPos.y, 0.0f)
+                + m_owner.transform.rotation * new Vector3(effs.effPos.x, 0.0f, effs.effPos.z);
+            m_effNum++;
         }
     }
 
@@ -211,10 +234,14 @@ public class AttackAction : BaseAction
 
         if (m_nextAtk) //다음 공격 예약 했을 경우
         {
+            m_effNum = 0;
+            m_sfxNum = 0;
+            m_colNum = 0;
+
             m_startPos = m_owner.transform.position;
             m_atkTime = 0.0f;
             m_animator.SetTrigger("Atk");
-            m_ac = 1.0f / m_atkSpeed[m_nowCombo];
+            m_ac = 1.0f / m_atkData[m_nowCombo].rushSpeed;
 
             m_currentCombo = m_nowCombo;
 
@@ -232,7 +259,7 @@ public class AttackAction : BaseAction
     /// </summary>
     public void Shaking()
     {
-        m_owner.playerCam.GetComponent<CharacterCam>().SetShake(m_atkShake[m_currentCombo]);
+        m_owner.playerCam.GetComponent<CharacterCam>().SetShake(m_atkData[m_currentCombo].shakeData);
     }
 
     /// <summary>
@@ -240,8 +267,12 @@ public class AttackAction : BaseAction
     /// </summary>
     public void PlaySfx()
     {
-        m_atkSfx[m_currentCombo].volume = DataController.Instance.effectSound;
-        m_atkSfx[m_currentCombo].Play();
+        PCAtksData effs = m_atkData[m_currentCombo].atkData[m_sfxNum];
+
+        m_audio[m_sfxNum].clip = effs.sfx;
+        m_audio[m_sfxNum].Play();
+
+        m_sfxNum++;
     }
 
     /// <summary>
