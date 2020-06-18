@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 468143b2352940741a483c69fb4a6c21, type: 3}
-  m_Name: PCAtk3
+  m_Name: PCRushAtk
   m_EditorClassIdentifier: 
-  distance: 5
+  distance: 12
   distanceCurve:
     serializedVersion: 2
     m_Curve:
@@ -55,9 +55,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  rushSpeed: 1
+  rushSpeed: 0.8
   atkData:
-  - damage: 2
+  - damage: 4
     colCenter: {x: 0, y: 0.88, z: 0.5}
     colSize: {x: 4, y: 2, z: 4}
     eff: {fileID: 5099944319548709020, guid: 3890ecca732b8ca4eb6e0192794355c9, type: 3}

@@ -111,11 +111,20 @@ public class AttackAction : BaseAction
         
         RaycastHit hit;
         if (!Physics.BoxCast(m_owner.transform.position + tall + m_owner.transform.rotation * Vector3.forward * -1.0f, new Vector3(1.7f, 1.0f, 0.7f),
-            m_owner.transform.rotation * Vector3.forward.normalized, out hit, Quaternion.Euler(0, transform.eulerAngles.y, 0), after - before + 1.0f, m_enemy))
+            m_owner.transform.rotation * Vector3.forward.normalized, out hit, Quaternion.Euler(0, m_owner.playerCam.transform.eulerAngles.y, 0), after - before + 1.0f, m_enemy))
         {
             m_owner.transform.position += dir + fixedPos;
         }
-        
+        else if (!Physics.BoxCast(m_owner.transform.position + tall + m_owner.transform.rotation * Vector3.forward * -1.0f, new Vector3(1.7f, 1.0f, 0.7f),
+            m_owner.transform.rotation * Vector3.forward.normalized, Quaternion.Euler(0, m_owner.playerCam.transform.eulerAngles.y, 0), 2.0f, m_enemy))
+        {
+            float d = Vector3.Dot(dir.normalized,
+                (new Vector3(hit.point.x, 0.0f, hit.point.z) - new Vector3(m_owner.transform.position.x, 0.0f, m_owner.transform.position.z)).normalized);
+
+            m_owner.transform.position += dir.normalized * (Vector3.Distance(new Vector3(hit.point.x, 0.0f, hit.point.z),
+                new Vector3(m_owner.transform.position.x, 0.0f, m_owner.transform.position.z)) * d - 0.6f) + fixedPos;
+            
+        }
         //--------------------------------------------------------
 
         return this;
