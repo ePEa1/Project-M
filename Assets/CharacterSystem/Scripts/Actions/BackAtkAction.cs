@@ -41,7 +41,7 @@ public class BackAtkAction : BaseAction
             Vector3 view = m_owner.transform.position - m_owner.playerCam.position;
             view.y = 0.0f;
 
-            Quaternion dir = m_controller.GetDirection();
+            Quaternion dir = m_controller.GetDirection().q;
 
             Quaternion playerDir = dir * Quaternion.LookRotation(-new Vector3(view.x, 0, view.z));
             Vector3 playerVec = playerDir * new Vector3(0, 0, movePos);

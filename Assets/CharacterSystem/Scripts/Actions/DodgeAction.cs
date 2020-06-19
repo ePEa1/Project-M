@@ -37,7 +37,7 @@ public class DodgeAction : BaseAction
             view.y = 0.0f;
             view = view.normalized;
 
-            Quaternion dir = m_controller.GetDirection();
+            Quaternion dir = m_controller.GetDirection().q;
 
             Quaternion playerDir = dir * Quaternion.LookRotation(new Vector3(view.x, 0, view.z));
             Vector3 playerVec = playerDir * new Vector3(0, 0, PlayerStats.playerStat.m_dodgeDistance);
@@ -102,7 +102,8 @@ public class DodgeAction : BaseAction
         {
             m_nextAtk = true;
         }
-
+        if (m_controller.IsRushAttack())
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.RUSHATK);
         return this;
     }
 

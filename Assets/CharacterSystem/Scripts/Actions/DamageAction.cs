@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using System;
 using static ProjectM.ePEa.CustomFunctions.CustomFunction;
 
-public class DamageAction : BaseAction
+public class DamageAction : BaseAction, DamageModel
 {
     #region Inspector
 
@@ -14,6 +14,7 @@ public class DamageAction : BaseAction
     [SerializeField] GameObject m_damEff; //피격 이펙트
     [SerializeField] LayerMask m_wall;
     [SerializeField] AudioSource m_damSound;
+    [SerializeField] float m_DamageDelay; //무적시간
 
     #endregion
 
@@ -29,12 +30,13 @@ public class DamageAction : BaseAction
 
     float m_ac;
 
+    float m_currentDamDelay = 0.0f;
+
     #endregion
 
     protected override BaseAction OnStartAction()
     {
-        
-        //체력 차감
+        //체력 차감 처리
         PlayerStats.playerStat.TakeDamage(m_enemyAtk.atkDamage);
 
         //피격 애니메이션 재생
@@ -69,7 +71,7 @@ public class DamageAction : BaseAction
 
     protected override void AnyStateAction()
     {
-
+        m_currentDamDelay = Mathf.Max(0, m_currentDamDelay - Time.deltaTime);
     }
 
     protected override BaseAction OnUpdateAction()
@@ -107,15 +109,15 @@ public class DamageAction : BaseAction
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        //회피 안한 상태로 적 공격범위에 닿으면 데미지 판정
-        if (other.tag == "EnemyAtkCollider" && DamageOk())
-        {
-            m_enemyAtk = other.GetComponent<AtkCollider>();
-            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DAMAGE);
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    //회피 안한 상태로 적 공격범위에 닿으면 데미지 판정
+    //    if (other.tag == "EnemyAtkCollider" && DamageOk())
+    //    {
+    //        m_enemyAtk = other.GetComponent<AtkCollider>();
+    //        m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DAMAGE);
+    //    }
+    //}
 
     /// <summary>
     /// 데미지 받을 수 있는지 체크
@@ -124,7 +126,7 @@ public class DamageAction : BaseAction
     bool DamageOk()
     {
         if (m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.DODGE || m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.DASHATK ||
-            m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.DAMAGE)
+            m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.DAMAGE || m_currentDamDelay > 0)
             return false;
         else return true;
     }
@@ -137,4 +139,15 @@ public class DamageAction : BaseAction
         //피격 연출효과 실행
         m_owner.playerCam.GetComponent<RGBCameraScript>().PlayAnimation();
 ;    }
+
+    public void TakeDamage(AtkCollider dam)
+    {
+        //회피 안한 상태로 적 공격범위에 닿으면 데미지 판정
+        if (DamageOk())
+        {
+            m_currentDamDelay = m_DamageDelay;
+            m_enemyAtk = dam;
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DAMAGE);
+        }
+    }
 }

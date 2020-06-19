@@ -3,15 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+public interface DamageModel
+{
+    void TakeDamage(AtkCollider dam);
+}
+
 public class AtkCollider : MonoBehaviour
 {
     public float atkDamage; //가할 데미지 수치
     public float knockPower; //넉백시킬 거리
     public Vector3 knockVec; //넉백시킬 방향
     public float knockTime; //넉백 유지시간
+    [SerializeField] string m_target; //타겟 태그
 
     [SerializeField] UnityEvent m_atkEvents; //공격이 들어갔을 때 실행시킬 이벤트
     public bool isAttacking { get; set; } //공격이 들어갔는지 체크
+
+    [SerializeField] Transform m_owner;
+    
+    enum Collider
+    {
+        BOX = 0,
+        CYLLINDER
+    }
+    [SerializeField] Collider m_collider;
 
     private void Awake()
     {
@@ -31,6 +46,22 @@ public class AtkCollider : MonoBehaviour
             return true;
         }
         else return false;
+    }
+
+    public void Attacking()
+    {
+        RaycastHit[] hits;
+        if (m_collider == Collider.BOX)
+            hits = hits = Physics.BoxCastAll(transform.position + GetComponent<BoxCollider>().center, GetComponent<BoxCollider>().size * 0.5f, Vector3.forward, m_owner.rotation, 0);
+        else hits = Physics.SphereCastAll(transform.position, GetComponent<CapsuleCollider>().radius, Vector3.forward, 0.0f); //Physics.CapsuleCastAll(transform.position, transform.position, GetComponent<CapsuleCollider>().radius, Vector3.up, 0);
+
+        foreach (RaycastHit hit in hits)
+        {
+            if (hit.transform.tag == m_target)
+            {
+                hit.transform.GetComponent<DamageModel>().TakeDamage(this);
+            }
+        }
     }
 }
 

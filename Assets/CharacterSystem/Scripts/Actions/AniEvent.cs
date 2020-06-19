@@ -11,6 +11,7 @@ public class AniEvent : MonoBehaviour
     [SerializeField] UnityEvent[] m_damageEvent;
     [SerializeField] UnityEvent[] m_dashatkEvent;
     [SerializeField] UnityEvent[] m_backatkEvent;
+    [SerializeField] UnityEvent[] m_rushEvent;
 
     [SerializeField] UnityEvent[] m_testEvent;
 
@@ -42,6 +43,16 @@ public class AniEvent : MonoBehaviour
         NextAtkCheck,
         AtkHitTime,
         CreateEffect,
+        EndAttack,
+        PlaySfx
+    }
+
+    public enum RushEnum
+    {
+        NextActionOpen,
+        NextActionCheck,
+        AtkHitTime,
+        CreateEff,
         EndAttack,
         PlaySfx
     }
@@ -78,6 +89,15 @@ public class AniEvent : MonoBehaviour
     public void OnAtkEvent(AtkEnum e)
     {
         m_atkEvent[(int)e].Invoke();
+    }
+
+    /// <summary>
+    /// 전방이동스킬 애니메이션에서 실행시킬 이벤트
+    /// </summary>
+    /// <param name="e"></param>
+    public void OnRushEvent(RushEnum e)
+    {
+        m_rushEvent[(int)e].Invoke();
     }
 
     /// <summary>

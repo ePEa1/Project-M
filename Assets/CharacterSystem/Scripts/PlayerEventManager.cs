@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class PlayerEventManager : MonoBehaviour
 {
@@ -23,6 +22,15 @@ public class PlayerEventManager : MonoBehaviour
     public void OnAtkEvent(AniEvent.AtkEnum e)
     {
         m_manager.OnAtkEvent(e);
+    }
+
+    /// <summary>
+    /// 전방이동스킬 애니메이션에서 실행시킬 이벤트
+    /// </summary>
+    /// <param name="e"></param>
+    public void OnRushEvent(AniEvent.RushEnum e)
+    {
+        m_manager.OnRushEvent(e);
     }
 
     /// <summary>

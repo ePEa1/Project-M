@@ -19,54 +19,43 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.354717
-      outSlope: 0
-      tangentMode: 65
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.5512561
-    - serializedVersion: 3
-      time: 0.1486364
-      value: 0
-      inSlope: -0
-      outSlope: 1.7851804
-      tangentMode: 5
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.8
-      value: 1
-      inSlope: 0.5340136
-      outSlope: 0
-      tangentMode: 65
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: -0
+      inSlope: 0
       outSlope: 0
-      tangentMode: 5
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  rushSpeed: 0.8
+  rushSpeed: 0.2
   atkData:
-  - damage: 4
+  - damage: 1
     colCenter: {x: 0, y: 0.88, z: 0.5}
-    colSize: {x: 4, y: 2, z: 4}
+    colSize: {x: 6, y: 2, z: 4}
     eff: {fileID: 5099944319548709020, guid: 3890ecca732b8ca4eb6e0192794355c9, type: 3}
     effPos: {x: 0, y: 1, z: 1.5}
     effDir: {x: 0, y: 0, z: 171.1}
     sfx: {fileID: 8300000, guid: 71c6759705b003643a4290a0264e9ace, type: 3}
-  - damage: 2
+  - damage: 1
     colCenter: {x: 0, y: 0.88, z: 0.5}
-    colSize: {x: 4, y: 2, z: 4}
+    colSize: {x: 6, y: 2, z: 4}
+    eff: {fileID: 5099944319548709020, guid: 3890ecca732b8ca4eb6e0192794355c9, type: 3}
+    effPos: {x: 0, y: 1, z: 1.5}
+    effDir: {x: 0, y: 0, z: 171.1}
+    sfx: {fileID: 8300000, guid: 71c6759705b003643a4290a0264e9ace, type: 3}
+  - damage: 1
+    colCenter: {x: 0, y: 0.88, z: 0.5}
+    colSize: {x: 6, y: 2, z: 4}
     eff: {fileID: 5099944319548709020, guid: 3890ecca732b8ca4eb6e0192794355c9, type: 3}
     effPos: {x: 0, y: 1, z: 1.5}
     effDir: {x: 0, y: 0, z: 171.1}

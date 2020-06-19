@@ -16,12 +16,20 @@ namespace ProjectM.ePEa.PlayerData
         [SerializeField] public float m_moveSpeed; //캐릭터 이동속도
         [SerializeField] public float m_movePower; //이동 가속도
         [SerializeField] public float m_curveSpeed; //캐릭터 회전속도
+        [SerializeField] float m_maxMp; //마나 최대량
+        public float MaxMp { get { return m_maxMp; } }
+        [SerializeField] float m_minMp; //마나 삭제 최소량
+        [SerializeField] float m_mpSpeed; //마나 줄어드는 속도
 
         [SerializeField] public float m_dodgeDelay; //회피 쿨타임
         [SerializeField] public float m_dodgeTime; //회피 무적 지속시간
         [SerializeField] public float m_dodgeDistance; //회피 거리
         [SerializeField] public float m_timeDashAtk;//이동 스킬 쿨타임
 
+        [SerializeField] public float m_rushMp; //전방이동 사용마나
+        [SerializeField] public float m_widthMp; //좌우이동 사용마나
+        [SerializeField] public float m_backMp; //후방이동 사용마나
+        
         #endregion
 
         #region Value
@@ -30,17 +38,18 @@ namespace ProjectM.ePEa.PlayerData
         public static PlayerStats playerStat { get; private set; } //외부에서 접근할 때의 용도
         public float m_currentHp { get; private set; } //현재 캐릭터 체력
         public float m_currentDodgeDelay { get; private set; } //현재 회피 쿨타임
+        public float m_currentMp { get; private set; } //현재 캐릭터 마나
 
         #endregion
 
         private void Awake()
         {
-            
             //싱글톤인데 또 생성할라하면 삭제시킴
             if (playerStat == null)
             {
                 playerStat = this;
                 m_currentHp = m_maxHp;
+                m_currentMp = m_minMp;
             }
             else
             {
@@ -75,6 +84,10 @@ namespace ProjectM.ePEa.PlayerData
         {
             //회피 쿨타임 갱신
             m_currentDodgeDelay = Mathf.Max(0, m_currentDodgeDelay - Time.deltaTime);
+
+            //마나통 갱신
+            if (m_currentMp > m_minMp)
+                m_currentMp = Mathf.Max(m_minMp, m_currentMp - Time.deltaTime * m_mpSpeed);
         }
 
         /// <summary>
@@ -85,7 +98,23 @@ namespace ProjectM.ePEa.PlayerData
         {
             m_currentDodgeDelay = time;
         }
+
+        /// <summary>
+        /// 마나 회복 함수
+        /// </summary>
+        /// <param name="mp">회복 mp 양</param>
+        public void GetMp(float mp)
+        {
+            m_currentMp = Mathf.Min(m_maxMp, m_currentMp + mp);
+        }
+
+        /// <summary>
+        /// 마나 사용 함수
+        /// </summary>
+        /// <param name="mp">사용 mp 양</param>
+        public void UseMp(float mp)
+        {
+            m_currentMp = Mathf.Max(0, m_currentMp - mp);
+        }
     }
 }
-
-//
