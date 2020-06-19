@@ -4993,8 +4993,6 @@ MonoBehaviour:
   m_hpBar: {fileID: 6929113325424997863}
   m_refillBar: {fileID: 6286353242842613257}
   m_backhpBar: {fileID: 5410668461447631433}
-  m_uiPos: {x: 0, y: 2.5, z: 0}
-  m_refillPos: -20
   m_nowState: 0
 --- !u!1 &1657424307092785390
 GameObject:
@@ -11659,7 +11657,7 @@ ParticleSystem:
         key1: {r: 1, g: 0.6055647, b: 0, a: 1}
         key2: {r: 1, g: 0.285713, b: 0, a: 1}
         key3: {r: 0.2735849, g: 0, b: 0, a: 0}
-        key4: {r: 0, g: 0, b: 0, a: 0}
+        key4: {r: 0.254717, g: 0.254717, b: 0.254717, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
@@ -11667,7 +11665,7 @@ ParticleSystem:
         ctime1: 5783
         ctime2: 11565
         ctime3: 50308
-        ctime4: 0
+        ctime4: 40092
         ctime5: 0
         ctime6: 0
         ctime7: 0
@@ -15096,11 +15094,11 @@ ParticleSystemRenderer:
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
-  m_UseCustomVertexStreams: 0
+  m_UseCustomVertexStreams: 1
   m_EnableGPUInstancing: 1
   m_ApplyActiveColorSpace: 1
   m_AllowRoll: 1
-  m_VertexStreams: 00010304
+  m_VertexStreams: 000304
   m_Mesh: {fileID: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
@@ -15521,12 +15519,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 59a829d8d50390043bc940e1d2b2f75d, type: 2}
+      objectReference: {fileID: 2100000, guid: 78b01bfee616de44bae56a7120b7d96e, type: 2}
     - target: {fileID: 1668394680116038431, guid: 7973046cfd2272042bc0e14a1fdcf381,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 78b01bfee616de44bae56a7120b7d96e, type: 2}
+      objectReference: {fileID: 2100000, guid: 59a829d8d50390043bc940e1d2b2f75d, type: 2}
     - target: {fileID: 3429889974318402935, guid: 7973046cfd2272042bc0e14a1fdcf381,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
