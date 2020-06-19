@@ -23,47 +23,43 @@ public class BackAtkAction : BaseAction
     Vector3 m_startPos;
     Vector3 m_finishPos;
 
-    [SerializeField] Collider BackAtkCol;
-    [SerializeField] Collider DamageCol;
+    [SerializeField] GameObject m_backAtkCol;
     float m_curbackAtk;
+
+    GameObject m_atkObject;
 
     protected override BaseAction OnStartAction()
     {
         CheckDistance();
         m_curbackAtk = 0;
 
-        m_animator.SetTrigger("DashAtk");
-        m_animator.SetBool("IsDashAtk", true);
+        PlayerStats.playerStat.UseMp(PlayerStats.playerStat.m_backMp);
+
+        m_animator.SetTrigger("BackAtk");
+        m_animator.SetBool("IsBackAtk", true);
         atkSound.volume = DataController.Instance.gameData.EffectSound / 100;
 
-        if (m_controller.IsMoving())
-        {
-            Vector3 view = m_owner.transform.position - m_owner.playerCam.position;
-            view.y = 0.0f;
+        Vector3 view = m_owner.transform.position - m_owner.playerCam.position;
+        view.y = 0.0f;
+        view = view.normalized;
 
-            Quaternion dir = m_controller.GetDirection().q;
+        Quaternion dir = Quaternion.LookRotation(new Vector3(0, 0, 1.0f));
 
-            Quaternion playerDir = dir * Quaternion.LookRotation(-new Vector3(view.x, 0, view.z));
-            Vector3 playerVec = playerDir * new Vector3(0, 0, movePos);
+        Quaternion playerDir = dir * Quaternion.LookRotation(new Vector3(view.x, 0, view.z));
+        Vector3 playerVec = playerDir * new Vector3(0, 0, -movePos);
 
-            m_owner.transform.rotation = playerDir;
+        m_owner.transform.rotation = playerDir;
 
-            m_startPos = m_owner.transform.position;
-            m_finishPos = m_startPos + playerVec;
-        }
-        else
-        {
-            Vector3 playerVec = m_owner.transform.rotation * new Vector3(0, 0, -movePos);
-
-            m_startPos = m_owner.transform.position;
-            m_finishPos = m_startPos + playerVec;
-        }
+        m_startPos = m_owner.transform.position;
+        m_finishPos = m_startPos + playerVec;
 
         return this;
     }
 
     public override void EndAction()
     {
+        m_animator.SetBool("IsBackAtk", false);
+        m_animator.ResetTrigger("BackAtk");
     }
 
     protected override void AnyStateAction()
@@ -78,9 +74,9 @@ public class BackAtkAction : BaseAction
         }
 
         float value = 1.0f / speed;
-        Vector3 beforePos = Vector3.Lerp(m_startPos, m_finishPos, m_AtkDistance.Evaluate(m_curbackAtk * speed));
+        Vector3 beforePos = Vector3.Lerp(m_startPos, m_finishPos, m_AtkDistance.Evaluate(m_curbackAtk * value));
         m_curbackAtk += Time.deltaTime;
-        Vector3 afterPos = Vector3.Lerp(m_startPos, m_finishPos, m_AtkDistance.Evaluate(m_curbackAtk * speed));
+        Vector3 afterPos = Vector3.Lerp(m_startPos, m_finishPos, m_AtkDistance.Evaluate(m_curbackAtk * value));
 
         Vector3 tall = new Vector3(0.0f, PlayerStats.playerStat.m_hikingHeight + PlayerStats.playerStat.m_size, 0.0f);
 
@@ -93,25 +89,32 @@ public class BackAtkAction : BaseAction
 
     public void SetCollider()
     {
-        BackAtkCol.GetComponent<AtkCollider>().isAttacking = false;
-        DamageCol.enabled = false;
-        BackAtkCol.enabled = true;
+        Vector3 view = m_owner.transform.position - m_owner.playerCam.position;
+        view.y = 0.0f;
+        view = view.normalized;
+
+        m_atkObject = Instantiate(m_backAtkCol);
+        m_atkObject.transform.rotation = Quaternion.LookRotation(view);
+        m_atkObject.transform.position = m_owner.transform.position;
+        m_atkObject.GetComponent<BackAtkCol>().Setup();
+        
+        m_backAtkCol.GetComponent<AtkCollider>().isAttacking = false;
     }
 
     public void DeleteCollider()
     {
-        DamageCol.enabled = true;
-        BackAtkCol.enabled = false;
+        if (m_atkObject != null)
+            Destroy(m_atkObject);
     }
 
+    /// <summary>
+    /// 이펙트 생성 이벤트
+    /// </summary>
     public void CreatEff()
     {
         GameObject effobj = Instantiate(m_atkEff);
         effobj.transform.parent = m_owner.transform;
         effobj.transform.position = m_owner.transform.position + atkPos;
-
-
-        //이펙트 생성
     }
 
     public void EndBackAtk()
@@ -129,8 +132,6 @@ public class BackAtkAction : BaseAction
 
         }
         //StartCoroutine(DelayDashAtk());
-        m_animator.SetBool("IsDashAtk", false);
-
     }
 
     public void CheckDistance()
