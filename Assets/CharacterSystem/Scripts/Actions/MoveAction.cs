@@ -85,6 +85,8 @@ public class MoveAction : BaseAction
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
         }
+        if (m_controller.IsBackDashAttack())
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.BACKATK);
 
         else if (m_controller.IsMoving())
         {

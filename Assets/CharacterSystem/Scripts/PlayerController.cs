@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
 
     public bool IsBackDashAttack()
     {
-        if (Input.GetKeyDown(m_dashAttack) && h == 0 && v == -1)
+        if (Input.GetKeyDown(m_dashAttack) && h == 0 && v == -1 && PlayerStats.playerStat.m_currentMp >= PlayerStats.playerStat.m_backMp)
             return true;
         else return false;
     }
