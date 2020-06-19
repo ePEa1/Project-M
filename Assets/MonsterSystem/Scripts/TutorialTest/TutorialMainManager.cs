@@ -46,9 +46,10 @@ public class TutorialMainManager : MonoBehaviour
 
     [SerializeField] int MoveOrder;
     [SerializeField] int AttackOrder;
+    [SerializeField] int MPExplain;
     [SerializeField] int MoveAttackOrder;
     [SerializeField] int PracticeMonster;
-    //[SerializeField] float FrontAttack;
+    [SerializeField] float FrontAttack;
     [SerializeField] float FreeMoveAttack;
     [SerializeField] float Shield;
     [SerializeField] float FreeAttack;
@@ -72,7 +73,9 @@ public class TutorialMainManager : MonoBehaviour
         AttackMouseKey.SetActive(false);
         MoveAttackKey.SetActive(false);
         Move.enabled = false;
+        Attack.enabled = false;
         MoveAtk.enabled = false;
+
 
         PlayerUI.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player");
@@ -154,6 +157,7 @@ public class TutorialMainManager : MonoBehaviour
         {
             PlayerUI.SetActive(true);
             DailogueOpen = false;
+            Attack.enabled = true;
             KeyExplain.text = "공격 : 왼쪽 마우스";
             DialogueScreen.SetActive(false);
             TutorialKey.SetActive(true);
@@ -165,7 +169,6 @@ public class TutorialMainManager : MonoBehaviour
             DailogueOpen = false;
             MoveAtk.enabled = true;
 
-            KeyExplain.text = "이동 공격 : A or D + Shift";
             DialogueScreen.SetActive(false);
             TutorialKey.SetActive(true);
             MoveAttackKey.SetActive(true);
@@ -174,7 +177,6 @@ public class TutorialMainManager : MonoBehaviour
         else if(DialCount == PracticeMonster)
         {
             DailogueOpen = false;
-            MoveAtk.enabled = true;
 
             KeyExplain.text = "몬스터를 해치우세요!";
             DialogueScreen.SetActive(false);
@@ -187,7 +189,24 @@ public class TutorialMainManager : MonoBehaviour
                 IsSpawn = true;
             }
             player.GetComponent<PlayerFsmManager>().enabled = true;
+        }
+        else if(DialCount == FreeAttack)//자유 전투
+        {
+            DailogueOpen = false;
 
+            KeyExplain.text = "몬스터를 해치우세요!";
+            DialogueScreen.SetActive(false);
+            TutorialKey.SetActive(true);
+            if (IsSpawn == false)
+            {
+                for(int i = 0; i <= FreeAttackPos.Length; i++)
+                {
+                    GameObject curMonster = Instantiate(SpawnMonster, FreeAttackPos[i].transform.position, FreeAttackPos[i].transform.rotation);
+                    curMonster.tag = "Enemy";
+                }
+                IsSpawn = true;
+            }
+            player.GetComponent<PlayerFsmManager>().enabled = true;
         }
         else
         {

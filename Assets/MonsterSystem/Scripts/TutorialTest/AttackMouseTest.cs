@@ -43,7 +43,7 @@ public class AttackMouseTest : MonoBehaviour
     public IEnumerator Shake()
     {
         Clicked = 5.0f;
-        MouseImg.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+        MouseImg.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
         float timer = 0;
         float scaleTime = 0;
         while (timer <= duration)
