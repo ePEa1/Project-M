@@ -42,9 +42,6 @@ namespace ProjectM.ePEa.ProtoMon
         [SerializeField] Slider m_refillBar;
         [SerializeField] Image m_backhpBar;
 
-        [SerializeField] Vector3 m_uiPos;
-        [SerializeField] float m_refillPos;
-
         bool IsDecrease = false;
         #endregion
 
@@ -94,10 +91,8 @@ namespace ProjectM.ePEa.ProtoMon
         // Update is called once per frame
         void Update()
         {
-            Vector3 hpPos = Camera.main.WorldToScreenPoint(transform.position + m_uiPos);
-
-            m_hpBar.transform.position = hpPos;
-            m_refillBar.transform.position = hpPos + Vector3.up * m_refillPos;
+            m_hpBar.transform.rotation = Camera.main.transform.rotation;
+            m_refillBar.transform.rotation = Camera.main.transform.rotation;
 
             switch (m_nowState)
             {

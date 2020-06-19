@@ -41,7 +41,6 @@ public class PlayerController : MonoBehaviour
     float h = 0;
     float v = 0;
 
-    public Vector3 m_rushDir;
 
     #endregion
 
@@ -151,61 +150,13 @@ public class PlayerController : MonoBehaviour
         else return false;
     }
 
-    public bool IsLeftDashAttack()
-    {
-        if (Input.GetKeyDown(m_leftMove))
-        {
-            if(leftdash == 0)
-            {
-                leftdash = dashTime;
-            }
-            else
-            {
-                m_rushDir = Vector3.right;
-                leftdash = 0;
-                return true;
-            }
-        }
-            return false;
-    }
-    public bool IsRightDashAttack()
-    {
-        if (Input.GetKeyDown(m_rightMove))
-        {
-            if (rightdash == 0)
-            {
-                rightdash = dashTime;
-            }
-            else
-            {
-                m_rushDir = Vector3.left;
-                rightdash = 0;
-                return true;
-            }
-        }
-         return false;
-    }
-
 
     public bool IsBackDashAttack()
     {
-        if (Input.GetKeyDown(m_backMove))
-        {
-            if (backdash == 0)
-            {
-                backdash = dashTime;
-            }
-            else
-            {
-                backdash = 0;
-                Debug.Log("BackDashCheck");
-                return true;
-            }
-        }
-        
-        return false;
+        if (Input.GetKeyDown(m_dashAttack) && h == 0 && v == -1)
+            return true;
+        else return false;
     }
-    
 
     /// <summary>
     /// 회피키 눌렀는지 체크
