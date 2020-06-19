@@ -39,10 +39,8 @@ namespace ProjectM.ePEa.ProtoMon
         [SerializeField] float m_refilMax = 3.0f;
 
         [SerializeField] Slider m_hpBar;
-        [SerializeField] Slider m_refilBar;
+        [SerializeField] Slider m_refillBar;
         [SerializeField] Image m_backhpBar;
-
-        [SerializeField] 
 
         bool IsDecrease = false;
         #endregion
@@ -93,6 +91,9 @@ namespace ProjectM.ePEa.ProtoMon
         // Update is called once per frame
         void Update()
         {
+            m_hpBar.transform.rotation = Camera.main.transform.rotation;
+            m_refillBar.transform.rotation = Camera.main.transform.rotation;
+
             switch (m_nowState)
             {
                 case state.MOVE:
@@ -119,7 +120,7 @@ namespace ProjectM.ePEa.ProtoMon
             m_nowDelay = Mathf.Max(0, m_nowDelay - Time.deltaTime);
 
             m_hpBar.value = m_nowHp / m_maxHp;
-            m_refilBar.value = m_refil / m_refilMax;
+            m_refillBar.value = m_refil / m_refilMax;
 
             if (m_nowHp <= 0)
             {

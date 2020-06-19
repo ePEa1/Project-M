@@ -149,6 +149,8 @@ public class AttackAction : BaseAction
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.RUSHATK);
         if (m_controller.IsDashAttack())
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
+        if (m_controller.IsBackDashAttack())
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.BACKATK);
     }
 
     /// <summary>

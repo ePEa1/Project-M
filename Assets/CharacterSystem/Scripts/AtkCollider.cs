@@ -20,13 +20,15 @@ public class AtkCollider : MonoBehaviour
     public bool isAttacking { get; set; } //공격이 들어갔는지 체크
 
     [SerializeField] Transform m_owner;
+
+    public bool m_isArea = false;
     
-    enum Collider
+    enum COLLIDER
     {
         BOX = 0,
         CYLLINDER
     }
-    [SerializeField] Collider m_collider;
+    [SerializeField] COLLIDER m_colliderType;
 
     private void Awake()
     {
@@ -51,7 +53,7 @@ public class AtkCollider : MonoBehaviour
     public void Attacking()
     {
         RaycastHit[] hits;
-        if (m_collider == Collider.BOX)
+        if (m_colliderType == COLLIDER.BOX)
             hits = hits = Physics.BoxCastAll(transform.position + GetComponent<BoxCollider>().center, GetComponent<BoxCollider>().size * 0.5f, Vector3.forward, m_owner.rotation, 0);
         else hits = Physics.SphereCastAll(transform.position, GetComponent<CapsuleCollider>().radius, Vector3.forward, 0.0f); //Physics.CapsuleCastAll(transform.position, transform.position, GetComponent<CapsuleCollider>().radius, Vector3.up, 0);
 
@@ -61,6 +63,14 @@ public class AtkCollider : MonoBehaviour
             {
                 hit.transform.GetComponent<DamageModel>().TakeDamage(this);
             }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag ==m_target && m_isArea)
+        {
+            other.transform.GetComponent<DamageModel>().TakeDamage(this);
         }
     }
 }
