@@ -127,7 +127,7 @@ namespace ProjectM.ePEa.ProtoMon
                 transform.position = Vector3.Lerp(startPos, finishPos, rush);
                 if (rush == 1)
                 {
-                    rushCollider.SetActive(false);
+                    //rushCollider.SetActive(false);
                     rushEnd = Mathf.Min(0.3f, rushEnd + Time.deltaTime);
                     if (rushEnd >= 0.3f)
                     {
@@ -138,12 +138,12 @@ namespace ProjectM.ePEa.ProtoMon
                         m_currentState = State.MOVE;
                         m_atkDelay = Random.Range(m_atkDelayMin, m_atkDelayMax);
                         m_model.GetComponent<Renderer>().material.color = Color.white;
-                        rushCollider.SetActive(false);
+                        //rushCollider.SetActive(false);
                     }
                 }
                 else
                 {
-                    rushCollider.SetActive(true);
+                    rushCollider.GetComponent<AtkCollider>().Attacking();
                 }
             }
         }
@@ -180,7 +180,7 @@ namespace ProjectM.ePEa.ProtoMon
 
                 if (melee1rush >= 1)
                 {
-                    melee1Collider.SetActive(false);
+                    //melee1Collider.SetActive(false);
                     if (melee2StartPos == Vector3.zero)
                     {
                         melee2StartPos = transform.position;
@@ -198,7 +198,7 @@ namespace ProjectM.ePEa.ProtoMon
 
                         if (melee2rush >= 1)
                         {
-                            melee2Collider.SetActive(false);
+                            //melee2Collider.SetActive(false);
                             melee2end = Mathf.Min(0.4f, melee2end + Time.deltaTime);
                             if (melee2end >= 0.4f)
                             {
@@ -212,21 +212,21 @@ namespace ProjectM.ePEa.ProtoMon
                                 melee1FinishPos = Vector3.zero;
                                 melee2StartPos = Vector3.zero;
                                 melee2FinishPos = Vector3.zero;
-                                melee1Collider.SetActive(false);
-                                melee2Collider.SetActive(false);
+                                //melee1Collider.SetActive(false);
+                                //melee2Collider.SetActive(false);
                                 m_model.GetComponent<Renderer>().material.color = Color.white;
                                 m_atkDelay = Random.Range(m_atkDelayMin, m_atkDelayMax);
                             }
                         }
                         else
                         {
-                            melee2Collider.SetActive(true);
+                            melee2Collider.GetComponent<AtkCollider>().Attacking();
                         }
                     }
                 }
                 else
                 {
-                    melee1Collider.SetActive(true);
+                    melee1Collider.GetComponent<AtkCollider>().Attacking();
                 }
             }
         }
@@ -248,19 +248,20 @@ namespace ProjectM.ePEa.ProtoMon
             circle.SetActive(true);
             if (atk3 >= 0.6f)
             {
+                Vector3 dir = target.position - transform.position;
+                dir.y = 0;
+                dir = dir.normalized;
+                circleDam.GetComponent<AtkCollider>().knockVec = dir;
                 circle.SetActive(false);
-                circleDam.SetActive(true);
+                circleDam.GetComponent<AtkCollider>().Attacking();
+                //circleDam.SetActive(true);
                 atk3end = Mathf.Min(0.3f, atk3end + Time.deltaTime);
                 if (atk3end>=0.3f)
                 {
-                    Vector3 dir = target.position - transform.position;
-                    dir.y = 0;
-                    dir = dir.normalized;
-                    circleDam.GetComponent<AtkCollider>().knockVec = dir;
                     atk3 = 0.0f;
                     atk3end = 0.0f;
                     circle.SetActive(false);
-                    circleDam.SetActive(false);
+                    //circleDam.SetActive(false);
                     m_currentState = State.MOVE;
                     m_atkDelay = Random.Range(m_atkDelayMin, m_atkDelayMax);
                 }

@@ -367,7 +367,7 @@ GameObject:
   - component: {fileID: 5639990504513902922}
   m_Layer: 0
   m_Name: Damage
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -775,6 +775,7 @@ MonoBehaviour:
   m_hpBar: {fileID: 4841895277318714225}
   m_refilBar: {fileID: 4508003077512801280}
   m_backhpBar: {fileID: 2138594718830987048}
+  IsDecrease: 0
   m_nowState: 0
 --- !u!1 &2637687951126758008
 GameObject:
@@ -789,7 +790,7 @@ GameObject:
   - component: {fileID: 2637687951126758010}
   m_Layer: 0
   m_Name: Atk
-  m_TagString: EnemyAtkCollider
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -837,9 +838,12 @@ MonoBehaviour:
   knockPower: 5
   knockVec: {x: -0.066180475, y: -0.00022758919, z: 0.9978076}
   knockTime: 1
+  m_target: PlayerDamage
   m_atkEvents:
     m_PersistentCalls:
       m_Calls: []
+  m_owner: {fileID: 2637687950353754669}
+  m_collider: 0
 --- !u!1 &3558084669249200121
 GameObject:
   m_ObjectHideFlags: 0

@@ -39,15 +39,11 @@ public class IdleAction : BaseAction
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
         }
-        if(m_controller.IsRightDashAttack() || m_controller.IsLeftDashAttack())
+        if (m_controller.IsRushAttack())
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.RUSHATK);
+        if (m_controller.IsDashAttack())
         {
-            if (m_owner.DelayDashAtk == true)
-            {
-            }
-            else
-            {
-                m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
-            }
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
         }
         if (m_controller.IsBackDashAttack())
         {

@@ -15,18 +15,45 @@ MonoBehaviour:
   distance: 2
   distanceCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 3.897875
+      outSlope: 3.897875
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.07630478
+    - serializedVersion: 3
+      time: 0.11242902
+      value: 0.96281266
+      inSlope: 0.5141061
+      outSlope: 0.041897874
+      tangentMode: 65
+      weightedMode: 0
+      inWeight: 0.15225211
+      outWeight: 0.09228441
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  rushSpeed: 0
-  range: {fileID: 0}
-  effs:
-  - {fileID: 0}
-  effPos:
-  - {x: 0, y: 0, z: 0}
-  effDir:
-  - {x: 0, y: 0, z: 0}
-  sfx:
-  - {fileID: 0}
-  shakeData: {fileID: 0}
+  rushSpeed: 1
+  atkData:
+  - getMp: 3.5
+    damage: 1
+    colCenter: {x: 0, y: 0.88, z: 0.83}
+    colSize: {x: 4, y: 2, z: 5}
+    eff: {fileID: 5099944319548709020, guid: 3890ecca732b8ca4eb6e0192794355c9, type: 3}
+    effPos: {x: 0.5, y: 1.2, z: 1.8}
+    effDir: {x: 15, y: 15, z: 136.8}
+    sfx: {fileID: 8300000, guid: 71c6759705b003643a4290a0264e9ace, type: 3}
+  shakeData: {fileID: 11400000, guid: f60bec04765ebd84cbc14a457410a392, type: 2}

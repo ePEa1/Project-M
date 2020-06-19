@@ -37,7 +37,7 @@ public class DodgeAction : BaseAction
             view.y = 0.0f;
             view = view.normalized;
 
-            Quaternion dir = m_controller.GetDirection();
+            Quaternion dir = m_controller.GetDirection().q;
 
             Quaternion playerDir = dir * Quaternion.LookRotation(new Vector3(view.x, 0, view.z));
             Vector3 playerVec = playerDir * new Vector3(0, 0, PlayerStats.playerStat.m_dodgeDistance);
@@ -60,6 +60,7 @@ public class DodgeAction : BaseAction
 
         //회피 애니메이션 실행
         m_animator.SetBool("IsDodge", true);
+        m_animator.SetTrigger("Dodge");
 
         //회피 딜레이 설정
         PlayerStats.playerStat.SetDodgeDelay(PlayerStats.playerStat.m_dodgeDelay);
@@ -71,6 +72,8 @@ public class DodgeAction : BaseAction
     {
         m_nextAtk = false;
         m_nextAtkOk = false;
+        m_animator.ResetTrigger("Dodge");
+        m_animator.SetBool("IsDodge", false);
     }
 
     protected override void AnyStateAction()
@@ -99,7 +102,8 @@ public class DodgeAction : BaseAction
         {
             m_nextAtk = true;
         }
-
+        if (m_controller.IsRushAttack())
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.RUSHATK);
         return this;
     }
 
@@ -126,6 +130,7 @@ public class DodgeAction : BaseAction
         }
         m_animator.ResetTrigger("DashAtk");
         m_animator.SetBool("IsDodge", false);
+        m_animator.ResetTrigger("Dodge");
     }
     
     /// <summary>

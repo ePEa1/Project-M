@@ -15,7 +15,8 @@ public class PlayerFsmManager : MonoBehaviour
         DODGE,
         DAMAGE,
         DASHATK,
-        BACKATK
+        BACKATK,
+        RUSHATK
     }
 
     public PlayerENUM m_currentStat; //{ get; private set; } //현재 상태

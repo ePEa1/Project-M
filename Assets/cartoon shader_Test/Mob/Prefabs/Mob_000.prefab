@@ -4795,6 +4795,7 @@ Transform:
   - {fileID: 7724012005143855536}
   - {fileID: 9123512422611714978}
   - {fileID: 901439195937613249}
+  - {fileID: 809451355183585320}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4896,6 +4897,7 @@ MonoBehaviour:
   m_hpBar: {fileID: 6024587891307243547}
   m_refilBar: {fileID: 7246038810715184117}
   m_backhpBar: {fileID: 8693085634004504501}
+  IsDecrease: 0
   m_nowState: 0
 --- !u!1 &2644421945927406866
 GameObject:
@@ -4971,6 +4973,51 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &2654417284743717044
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 809451355183585320}
+  - component: {fileID: 7345158325182162597}
+  m_Layer: 11
+  m_Name: Model
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &809451355183585320
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2654417284743717044}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3812985448888416307}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &7345158325182162597
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2654417284743717044}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.6
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &3943316967245110505
 GameObject:
   m_ObjectHideFlags: 0
@@ -6690,7 +6737,7 @@ GameObject:
   - component: {fileID: 8158830039340474118}
   m_Layer: 0
   m_Name: Damage
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12147,11 +12194,11 @@ GameObject:
   - component: {fileID: 4546407509586066444}
   m_Layer: 0
   m_Name: Atk
-  m_TagString: EnemyAtkCollider
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7724012005143855536
 Transform:
   m_ObjectHideFlags: 0
@@ -12195,9 +12242,12 @@ MonoBehaviour:
   knockPower: 5
   knockVec: {x: -0.5576856, y: 0, z: 0.8300523}
   knockTime: 1
+  m_target: PlayerDamage
   m_atkEvents:
     m_PersistentCalls:
       m_Calls: []
+  m_owner: {fileID: 3812985448888416307}
+  m_collider: 0
 --- !u!1 &9125473050564757977
 GameObject:
   m_ObjectHideFlags: 0

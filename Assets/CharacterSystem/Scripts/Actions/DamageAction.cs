@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using System;
 using static ProjectM.ePEa.CustomFunctions.CustomFunction;
 
-public class DamageAction : BaseAction
+public class DamageAction : BaseAction, DamageModel
 {
     #region Inspector
 
@@ -33,8 +33,7 @@ public class DamageAction : BaseAction
 
     protected override BaseAction OnStartAction()
     {
-        
-        //체력 차감
+        //체력 차감 처리
         PlayerStats.playerStat.TakeDamage(m_enemyAtk.atkDamage);
 
         //피격 애니메이션 재생
@@ -107,15 +106,15 @@ public class DamageAction : BaseAction
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        //회피 안한 상태로 적 공격범위에 닿으면 데미지 판정
-        if (other.tag == "EnemyAtkCollider" && DamageOk())
-        {
-            m_enemyAtk = other.GetComponent<AtkCollider>();
-            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DAMAGE);
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    //회피 안한 상태로 적 공격범위에 닿으면 데미지 판정
+    //    if (other.tag == "EnemyAtkCollider" && DamageOk())
+    //    {
+    //        m_enemyAtk = other.GetComponent<AtkCollider>();
+    //        m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DAMAGE);
+    //    }
+    //}
 
     /// <summary>
     /// 데미지 받을 수 있는지 체크
@@ -137,4 +136,14 @@ public class DamageAction : BaseAction
         //피격 연출효과 실행
         m_owner.playerCam.GetComponent<RGBCameraScript>().PlayAnimation();
 ;    }
+
+    public void TakeDamage(AtkCollider dam)
+    {
+        //회피 안한 상태로 적 공격범위에 닿으면 데미지 판정
+        if (DamageOk())
+        {
+            m_enemyAtk = dam;
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DAMAGE);
+        }
+    }
 }

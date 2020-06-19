@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ProjectM.ePEa.PlayerData;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,16 +13,18 @@ public class PlayerController : MonoBehaviour
     #region Inspector
 
     //이동키
-    [SerializeField] public KeyCode m_frontMove;
-    [SerializeField] public KeyCode m_backMove;
-    [SerializeField] public KeyCode m_rightMove;
-    [SerializeField] public KeyCode m_leftMove;
+    [SerializeField] KeyCode m_frontMove;
+    [SerializeField] KeyCode m_backMove;
+    [SerializeField] KeyCode m_rightMove;
+    [SerializeField] KeyCode m_leftMove;
 
     //공격키
-    [SerializeField] public KeyCode m_attack;
+    [SerializeField] KeyCode m_attack;
+    [SerializeField] KeyCode m_rushAttack;
+    [SerializeField] KeyCode m_dashAttack;
 
     //회피키
-    [SerializeField] public KeyCode m_dodge;
+    [SerializeField] KeyCode m_dodge;
 
     //연타값
     float leftdash = 0;
@@ -47,9 +50,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        //IsLeftDashAttack();
-        //IsRightDashAttack();
-        //IsBackDashAttack();
         leftdash = Mathf.Max(0,leftdash-Time.deltaTime);
         rightdash = Mathf.Max(0, rightdash-Time.deltaTime);
         backdash = Mathf.Max(0, backdash-Time.deltaTime);
@@ -120,9 +120,9 @@ public class PlayerController : MonoBehaviour
     /// 현재 입력중인 이동 방향 쿼터니언 값 반환
     /// </summary>
     /// <returns></returns>
-    public Quaternion GetDirection()
+    public (Quaternion q, Vector3 v) GetDirection()
     {
-        return Quaternion.LookRotation(new Vector3(h, 0, v));
+        return (Quaternion.LookRotation(new Vector3(h, 0, v)), new Vector3(h, 0, v));
     }
 
     /// <summary>
@@ -134,6 +134,20 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(m_attack))
             return true;
         
+        else return false;
+    }
+
+    public bool IsRushAttack()
+    {
+        if (Input.GetKeyDown(m_rushAttack) && PlayerStats.playerStat.m_currentMp >= PlayerStats.playerStat.m_rushMp)
+            return true;
+        else return false;
+    }
+
+    public bool IsDashAttack()
+    {
+        if (Input.GetKeyDown(m_dashAttack) && h != 0 && PlayerStats.playerStat.m_currentMp >= PlayerStats.playerStat.m_widthMp)
+            return true;
         else return false;
     }
 

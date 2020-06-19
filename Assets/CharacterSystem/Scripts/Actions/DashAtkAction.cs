@@ -22,7 +22,6 @@ public class DashAtkAction : BaseAction
     Vector3 playerVec;
     Vector3 m_startPos;
     Vector3 m_finishPos;
-    [SerializeField] Collider DamageCol;
     [SerializeField] Collider DashAtkCol;
     float m_curdashAtk;
 
@@ -33,6 +32,7 @@ public class DashAtkAction : BaseAction
         m_animator.SetTrigger("DashAtk");
         m_animator.SetBool("IsDashAtk", true);
 
+        PlayerStats.playerStat.UseMp(PlayerStats.playerStat.m_widthMp);
         //if (m_controller.IsMoving())
         //{
         //    Vector3 view = m_owner.transform.position - m_owner.playerCam.position;
@@ -58,11 +58,12 @@ public class DashAtkAction : BaseAction
 
         Vector3 view = m_owner.transform.position - m_owner.playerCam.position;
         view.y = 0.0f;
+        view = view.normalized;
 
-        Quaternion dir = Quaternion.LookRotation(m_controller.m_rushDir);
+        Quaternion dir = Quaternion.LookRotation(new Vector3(m_controller.GetDirection().v.x, 0, 0));
 
         Quaternion playerDir = dir * Quaternion.LookRotation(new Vector3(view.x, 0, view.z));
-        Vector3 playerVec = playerDir * new Vector3(0, 0, -movePos);
+        Vector3 playerVec = playerDir * new Vector3(0, 0, movePos);
 
         m_owner.transform.rotation = playerDir;
 
@@ -104,12 +105,10 @@ public class DashAtkAction : BaseAction
     public void SetCollider()
     {
         DashAtkCol.GetComponent<AtkCollider>().isAttacking = false;
-        DamageCol.enabled = false;
-        DashAtkCol.enabled = true;
+        DashAtkCol.GetComponent<AtkCollider>().Attacking();
     }
     public void DeleteCollider()
     {
-        DamageCol.enabled = true;
         DashAtkCol.enabled = false;
     }
     public void CreatEff()
@@ -155,7 +154,6 @@ public class DashAtkAction : BaseAction
         atkSound.volume = DataController.Instance.effectSound;
         atkSound.Play();
     }
-
 
     IEnumerator DelayDashAtk()
     {
