@@ -17,6 +17,7 @@ public class PCAtkObject : ScriptableObject
 [System.Serializable]
 public struct PCAtksData
 {
+    public float getMp;
     public float damage;
     public Vector3 colCenter;
     public Vector3 colSize;

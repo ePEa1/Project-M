@@ -41,7 +41,7 @@ public class IdleAction : BaseAction
         }
         if (m_controller.IsRushAttack())
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.RUSHATK);
-        if (m_controller.IsRightDashAttack() || m_controller.IsLeftDashAttack())
+        if (m_controller.IsDashAttack())
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
         }

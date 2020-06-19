@@ -44,6 +44,8 @@ public class RushAtkAction : BaseAction
 
         m_time = 0;
 
+        PlayerStats.playerStat.UseMp(PlayerStats.playerStat.m_rushMp);
+
         m_isNextAction = false;
         m_nextAction = PlayerFsmManager.PlayerENUM.IDLE;
 
@@ -207,7 +209,7 @@ public class RushAtkAction : BaseAction
     {
         if (m_controller.IsDodge())
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
-        if (m_controller.IsLeftDashAttack())
+        if (m_controller.IsDashAttack())
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
         if (m_controller.IsBackDashAttack())
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.BACKATK);
@@ -220,8 +222,6 @@ public class RushAtkAction : BaseAction
     {
         if (m_controller.IsAttack())
             m_nextAction = PlayerFsmManager.PlayerENUM.ATK;
-        if (m_controller.IsLeftDashAttack() || m_controller.IsRightDashAttack())
-            m_nextAction = PlayerFsmManager.PlayerENUM.DASHATK;
     }
 
     /// <summary>

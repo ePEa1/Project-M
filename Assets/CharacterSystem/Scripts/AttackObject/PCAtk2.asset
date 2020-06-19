@@ -75,14 +75,16 @@ MonoBehaviour:
     m_RotationOrder: 4
   rushSpeed: 0.5
   atkData:
-  - damage: 1
+  - getMp: 2.5
+    damage: 1
     colCenter: {x: 0, y: 0.88, z: 0.83}
     colSize: {x: 4, y: 2, z: 5}
     eff: {fileID: 5099944319548709020, guid: 3890ecca732b8ca4eb6e0192794355c9, type: 3}
     effPos: {x: 0, y: 1, z: 1.3}
     effDir: {x: 0, y: 0, z: 12.1}
     sfx: {fileID: 8300000, guid: 71c6759705b003643a4290a0264e9ace, type: 3}
-  - damage: 1
+  - getMp: 2.5
+    damage: 1
     colCenter: {x: 0, y: 0.88, z: 0.83}
     colSize: {x: 4, y: 2, z: 5}
     eff: {fileID: 5099944319548709020, guid: 3890ecca732b8ca4eb6e0192794355c9, type: 3}

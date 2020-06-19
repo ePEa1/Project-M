@@ -144,15 +144,11 @@ public class AttackAction : BaseAction
     void ChangeActions()
     {
         if (m_controller.IsDodge() && PlayerStats.playerStat.m_currentDodgeDelay == 0)
-        {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
-        }
         if (m_controller.IsRushAttack())
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.RUSHATK);
-        if (m_controller.IsLeftDashAttack() || m_controller.IsRightDashAttack())
-        {
+        if (m_controller.IsDashAttack())
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
-        }
     }
 
     /// <summary>
@@ -278,25 +274,33 @@ public class AttackAction : BaseAction
     }
 
     /// <summary>
-    /// 공격 콜라이더 활성화
+    /// 마나회복 이벤트
     /// </summary>
-    /// <param name="atkCol"></param>
-    /// <returns></returns>
-    IEnumerator AtkColliderOnOff(BoxCollider atkCol)
+    public void GetMp()
     {
-        atkCol.GetComponent<AtkCollider>().isAttacking = false;
-        atkCol.gameObject.SetActive(true);
-        float t = 0.05f;
-
-        while (t > 0.0f)
-        {
-            t -= Time.deltaTime;
-            yield return true;
-        }
-        atkCol.gameObject.SetActive(false);
-
-        yield return null;
+        PlayerStats.playerStat.GetMp(m_atkData[m_currentCombo].atkData[m_colNum].getMp);
     }
+
+    ///// <summary>
+    ///// 공격 콜라이더 활성화
+    ///// </summary>
+    ///// <param name="atkCol"></param>
+    ///// <returns></returns>
+    //IEnumerator AtkColliderOnOff(BoxCollider atkCol)
+    //{
+    //    atkCol.GetComponent<AtkCollider>().isAttacking = false;
+    //    atkCol.gameObject.SetActive(true);
+    //    float t = 0.05f;
+
+    //    while (t > 0.0f)
+    //    {
+    //        t -= Time.deltaTime;
+    //        yield return true;
+    //    }
+    //    atkCol.gameObject.SetActive(false);
+
+    //    yield return null;
+    //}
 
     #endregion
 }

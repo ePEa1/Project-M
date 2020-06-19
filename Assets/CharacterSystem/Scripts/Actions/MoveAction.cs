@@ -81,24 +81,16 @@ public class MoveAction : BaseAction
         }
         if (m_controller.IsRushAttack())
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.RUSHATK);
-        if(m_controller.IsLeftDashAttack() || m_controller.IsRightDashAttack())
+        if(m_controller.IsDashAttack())
         {
-            if(m_owner.DelayDashAtk == true)
-            {
-                Debug.Log("CantAtk");
-            }
-            else
-            {
-                Debug.Log("DashAtkCheck");
-                m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
-            }
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
         }
 
         else if (m_controller.IsMoving())
         {
             Quaternion v = Quaternion.Euler(0, m_owner.playerCam.transform.eulerAngles.y, 0);
 
-            Quaternion dir = m_controller.GetDirection();
+            Quaternion dir = m_controller.GetDirection().q;
 
             Quaternion playerDir = dir * v;
 

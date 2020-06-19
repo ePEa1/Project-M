@@ -170,7 +170,7 @@ namespace ProjectM.ePEa.ProtoMon
 
 
 
-
+        bool isAtk = false;
         void Atk()
         {
             float ac = 1.0f / m_rushSpeed;
@@ -186,20 +186,21 @@ namespace ProjectM.ePEa.ProtoMon
             else
                 transform.position += afterPos - beforePos;
 
-            if (m_time >= m_colliderOpenTime)
+            if (m_time >= m_colliderOpenTime && !isAtk)
             {
-                m_atkCollider.gameObject.SetActive(true);
+                m_atkCollider.Attacking();
+                isAtk = true;
             }
 
             if (m_time >= m_rushSpeed)
             {
                 AtkEnd();
-                m_atkCollider.gameObject.SetActive(false);
             }
         }
 
         void AtkStart()
         {
+            isAtk = false;
             m_nowDelay = m_atkDelay;
             m_time = 0.0f;
             m_startPos = transform.position;
@@ -212,8 +213,8 @@ namespace ProjectM.ePEa.ProtoMon
 
             transform.rotation = Quaternion.LookRotation(m_endPos - m_startPos);
             m_nowState = state.ATK;
-            m_atkCollider.GetComponent<AtkCollider>().knockPower = 5.0f;
-            m_atkCollider.GetComponent<AtkCollider>().knockVec = (m_endPos - m_startPos).normalized;
+            m_atkCollider.knockPower = 5.0f;
+            m_atkCollider.knockVec = (m_endPos - m_startPos).normalized;
         }
 
         void AtkEnd()
@@ -245,7 +246,6 @@ namespace ProjectM.ePEa.ProtoMon
 
         void Damage()
         {
-            m_atkCollider.gameObject.SetActive(false);
             Vector3 before = Vector3.Lerp(m_knockStart, m_knockEnd, m_damAc.Evaluate(m_knockTime));
             m_knockTime += Time.deltaTime * 3.5f;
             Vector3 after = Vector3.Lerp(m_knockStart, m_knockEnd, m_damAc.Evaluate(m_knockTime));
