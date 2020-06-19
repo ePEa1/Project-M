@@ -159,7 +159,8 @@ namespace ProjectM.ePEa.ProtoMon
         Vector3 melee2StartPos = Vector3.zero;
         Vector3 melee2FinishPos = Vector3.zero;
         [SerializeField] GameObject melee2Collider;
-
+        bool melee2atk1 = false;
+        bool melee2atk2 = false;
         void Atk2()
         {
             m_model.GetComponent<Renderer>().material.color = new Color(1.0f, 0.5f, 0.0f);
@@ -212,21 +213,29 @@ namespace ProjectM.ePEa.ProtoMon
                                 melee1FinishPos = Vector3.zero;
                                 melee2StartPos = Vector3.zero;
                                 melee2FinishPos = Vector3.zero;
-                                //melee1Collider.SetActive(false);
-                                //melee2Collider.SetActive(false);
+                                melee2atk1 = false;
+                                melee2atk2 = false;
                                 m_model.GetComponent<Renderer>().material.color = Color.white;
                                 m_atkDelay = Random.Range(m_atkDelayMin, m_atkDelayMax);
                             }
                         }
                         else
                         {
-                            melee2Collider.GetComponent<AtkCollider>().Attacking();
+                            if (!melee2atk2)
+                            {
+                                melee2Collider.GetComponent<AtkCollider>().Attacking();
+                                melee2atk2 = true;
+                            }
                         }
                     }
                 }
                 else
                 {
-                    melee1Collider.GetComponent<AtkCollider>().Attacking();
+                    if (!melee2atk1)
+                    {
+                        melee1Collider.GetComponent<AtkCollider>().Attacking();
+                        melee2atk1 = true;
+                    }
                 }
             }
         }
@@ -241,9 +250,9 @@ namespace ProjectM.ePEa.ProtoMon
         float atk3end = 0.0f;
         [SerializeField] GameObject circle;
         [SerializeField] GameObject circleDam;
+        bool isAtk3 = false;
         void Atk3()
         {
-
             atk3 = Mathf.Min(0.6f, atk3 + Time.deltaTime);
             circle.SetActive(true);
             if (atk3 >= 0.6f)
@@ -253,13 +262,18 @@ namespace ProjectM.ePEa.ProtoMon
                 dir = dir.normalized;
                 circleDam.GetComponent<AtkCollider>().knockVec = dir;
                 circle.SetActive(false);
-                circleDam.GetComponent<AtkCollider>().Attacking();
+                if (!isAtk3)
+                {
+                    circleDam.GetComponent<AtkCollider>().Attacking();
+                    isAtk3 = true;
+                }
                 //circleDam.SetActive(true);
                 atk3end = Mathf.Min(0.3f, atk3end + Time.deltaTime);
                 if (atk3end>=0.3f)
                 {
                     atk3 = 0.0f;
                     atk3end = 0.0f;
+                    isAtk3 = false;
                     circle.SetActive(false);
                     //circleDam.SetActive(false);
                     m_currentState = State.MOVE;
