@@ -63,6 +63,8 @@ public class TutorialMainManager : MonoBehaviour
         TutorialKey.SetActive(false);
         MoveKey.SetActive(false);
         AttackMouseKey.SetActive(false);
+        MoveAttackKey.SetActive(false);
+
         PlayerUI.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player");
     }
@@ -111,10 +113,18 @@ public class TutorialMainManager : MonoBehaviour
         {
             DailogueOpen = false;
             KeyExplain.text = "공격 : 왼쪽 마우스";
-
             DialogueScreen.SetActive(false);
             TutorialKey.SetActive(true);
             AttackMouseKey.SetActive(true);
+            player.GetComponent<PlayerFsmManager>().enabled = true;
+        }
+        else if(DialCount == 9)//대쉬 공격
+        {
+            DailogueOpen = false;
+            KeyExplain.text = "이동 공격 : A or D + Shift";
+            DialogueScreen.SetActive(false);
+            TutorialKey.SetActive(true);
+            MoveAttackKey.SetActive(true);
             player.GetComponent<PlayerFsmManager>().enabled = true;
         }
         else
