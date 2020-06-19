@@ -7,11 +7,14 @@ public class AttackMouseTest : MonoBehaviour
 {
     public Image MouseImg;
     float Clicked;
+    float ClickCount;
     [SerializeField] float minScale;
     [SerializeField] float maxScale;
     [SerializeField] AnimationCurve ScaleCurve;
     [SerializeField] float duration;
     [SerializeField] Vector3 LimitScale;
+
+    public bool IsReady = false;
     
     // Start is called before the first frame update
     void Start()
@@ -24,7 +27,13 @@ public class AttackMouseTest : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            ClickCount += 1;
             StartCoroutine(Shake());
+
+        }
+        if(ClickCount >= 10)
+        {
+            IsReady = true;
         }
     }
 

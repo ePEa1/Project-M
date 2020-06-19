@@ -17,9 +17,13 @@ public enum TutorialState
 public class TutorialMainManager : MonoBehaviour
 {
 
-    public MoveKeyTest Move;
-    public AttackMouseTest Attacke;
-    public MoveAtkKeyTest MoveAtk;
+    public MoveKeyTest Move;//이동
+    public AttackMouseTest Attack;//기본 공격
+    public MoveAtkKeyTest MoveAtk;//이동 공격
+
+    public GameObject PracticeAttackPos;
+    public GameObject[] FreeAttackPos;
+
 
     public GameObject player;
     public GameObject Cam;
@@ -39,9 +43,10 @@ public class TutorialMainManager : MonoBehaviour
     public Text DialogueText;
 
 
-    [SerializeField] float MoveOrder;
-    [SerializeField] float AttackOrder;
-    [SerializeField] float MoveAttackOrder;
+    [SerializeField] int MoveOrder;
+    [SerializeField] int AttackOrder;
+    [SerializeField] int MoveAttackOrder;
+    [SerializeField] int PracticeMonster;
     //[SerializeField] float FrontAttack;
     [SerializeField] float FreeMoveAttack;
     [SerializeField] float Shield;
@@ -55,6 +60,7 @@ public class TutorialMainManager : MonoBehaviour
     public GameObject Potal;//튜토리얼 끝날 때 돌아가기
     bool DailogueOpen = true;
     bool GetKeyTime = false;
+    bool IsSpawn = false;
 
 
     // Start is called before the first frame update
@@ -64,6 +70,8 @@ public class TutorialMainManager : MonoBehaviour
         MoveKey.SetActive(false);
         AttackMouseKey.SetActive(false);
         MoveAttackKey.SetActive(false);
+        Move.enabled = false;
+        MoveAtk.enabled = false;
 
         PlayerUI.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player");
@@ -85,6 +93,27 @@ public class TutorialMainManager : MonoBehaviour
             Move.enabled = false;
 
         }
+        if (Attack.IsReady == true)
+        {
+            DialCount = 10;
+            DailogueOpen = true;
+            TutorialKey.SetActive(false);
+            DialogueScreen.SetActive(true);
+            Attack.IsReady = false;
+
+            Attack.enabled = false;
+        }
+        if(MoveAtk.IsReady == true)
+        {
+            DialCount = 13;
+            DailogueOpen = true;
+            TutorialKey.SetActive(false);
+            DialogueScreen.SetActive(true);
+            MoveAttackKey.SetActive(false);
+            MoveAtk.IsReady = false;
+
+            MoveAtk.enabled = false;
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (DailogueOpen)
@@ -100,16 +129,17 @@ public class TutorialMainManager : MonoBehaviour
 
     void SetDialogue(int d)
     {
-        if(DialCount == 3)//일반 이동
+        if(DialCount == MoveOrder)//일반 이동
         {
             DailogueOpen = false;
+            Move.enabled = true;
             KeyExplain.text = "이동키 : W, A, S, D";
             DialogueScreen.SetActive(false);
             TutorialKey.SetActive(true);
             MoveKey.SetActive(true);
             player.GetComponent<PlayerFsmManager>().enabled = true;
         }
-        else if(DialCount == 6)//일반 공격
+        else if(DialCount == AttackOrder)//일반 공격
         {
             DailogueOpen = false;
             KeyExplain.text = "공격 : 왼쪽 마우스";
@@ -118,14 +148,34 @@ public class TutorialMainManager : MonoBehaviour
             AttackMouseKey.SetActive(true);
             player.GetComponent<PlayerFsmManager>().enabled = true;
         }
-        else if(DialCount == 9)//대쉬 공격
+        else if(DialCount == MoveAttackOrder)//대쉬 공격
         {
             DailogueOpen = false;
+            MoveAtk.enabled = true;
+
             KeyExplain.text = "이동 공격 : A or D + Shift";
             DialogueScreen.SetActive(false);
             TutorialKey.SetActive(true);
             MoveAttackKey.SetActive(true);
             player.GetComponent<PlayerFsmManager>().enabled = true;
+        }
+        else if(DialCount == PracticeMonster)
+        {
+            DailogueOpen = false;
+            MoveAtk.enabled = true;
+
+            KeyExplain.text = "몬스터를 해치우세요!";
+            DialogueScreen.SetActive(false);
+            TutorialKey.SetActive(true);
+            if(IsSpawn == false)
+            {
+                GameObject curMonster = Instantiate(SpawnMonster, PracticeAttackPos.transform.position, PracticeAttackPos.transform.rotation);
+                curMonster.tag = "Enemy";
+
+                IsSpawn = true;
+            }
+            player.GetComponent<PlayerFsmManager>().enabled = true;
+
         }
         else
         {
