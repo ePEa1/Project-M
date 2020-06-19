@@ -14,6 +14,7 @@ public class DamageAction : BaseAction, DamageModel
     [SerializeField] GameObject m_damEff; //피격 이펙트
     [SerializeField] LayerMask m_wall;
     [SerializeField] AudioSource m_damSound;
+    [SerializeField] float m_DamageDelay; //무적시간
 
     #endregion
 
@@ -28,6 +29,8 @@ public class DamageAction : BaseAction, DamageModel
     float m_maxTime;
 
     float m_ac;
+
+    float m_currentDamDelay = 0.0f;
 
     #endregion
 
@@ -68,7 +71,7 @@ public class DamageAction : BaseAction, DamageModel
 
     protected override void AnyStateAction()
     {
-
+        m_currentDamDelay = Mathf.Max(0, m_currentDamDelay - Time.deltaTime);
     }
 
     protected override BaseAction OnUpdateAction()
@@ -123,7 +126,7 @@ public class DamageAction : BaseAction, DamageModel
     bool DamageOk()
     {
         if (m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.DODGE || m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.DASHATK ||
-            m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.DAMAGE)
+            m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.DAMAGE || m_currentDamDelay > 0)
             return false;
         else return true;
     }
@@ -142,6 +145,7 @@ public class DamageAction : BaseAction, DamageModel
         //회피 안한 상태로 적 공격범위에 닿으면 데미지 판정
         if (DamageOk())
         {
+            m_currentDamDelay = m_DamageDelay;
             m_enemyAtk = dam;
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DAMAGE);
         }

@@ -15,7 +15,7 @@ namespace ProjectM.ePEa.ProtoMon
             m_owner.TakeDamage(dam.atkDamage, dam.knockVec, dam.knockPower);
             if (dam.GetComponent<AtkCollider>().AtkEvent())
             {
-                transform.GetComponent<AudioSource>().volume = DataController.Instance.gameData.EffectSound;
+                //transform.GetComponent<AudioSource>().volume = DataController.Instance.gameData.EffectSound;
                 DataController.Instance.SetCombo();
                 GameObject sfx = Instantiate(m_damSfx);
                 sfx.transform.position = m_owner.transform.position;

@@ -17,8 +17,9 @@ public enum TutorialState
 public class TutorialMainManager : MonoBehaviour
 {
 
-    public MoveKeyTest Movekey;
-    public AttackMouseTest AttackMouse;
+    public MoveKeyTest Move;
+    public AttackMouseTest Attacke;
+    public MoveAtkKeyTest MoveAtk;
 
     public GameObject player;
     public GameObject Cam;
@@ -27,17 +28,24 @@ public class TutorialMainManager : MonoBehaviour
     public GameObject SpawnMonster;
     public GameObject DialogueScreen;
 
-    public GameObject TutorialKey;
     public Text KeyExplain;
+    public GameObject TutorialKey;
+
     public GameObject MoveKey;
     public GameObject AttackMouseKey;
+    public GameObject MoveAttackKey;
 
     public Image DialogueBox;
     public Text DialogueText;
 
 
-
-
+    [SerializeField] float MoveOrder;
+    [SerializeField] float AttackOrder;
+    [SerializeField] float MoveAttackOrder;
+    //[SerializeField] float FrontAttack;
+    [SerializeField] float FreeMoveAttack;
+    [SerializeField] float Shield;
+    [SerializeField] float FreeAttack;
 
     [SerializeField] string[] TutorialStart;
     string ResultText;
@@ -63,16 +71,16 @@ public class TutorialMainManager : MonoBehaviour
     void Update()
     {
         
-        if(Movekey.IsReady == true)
+        if(Move.IsReady == true)
         {
             DialCount = 4;
             DailogueOpen = true;
             TutorialKey.SetActive(false);
             DialogueScreen.SetActive(true);
             MoveKey.SetActive(false);
-            Movekey.IsReady = false;
+            Move.IsReady = false;
 
-            Movekey.enabled = false;
+            Move.enabled = false;
 
         }
         if (Input.GetKeyDown(KeyCode.Space))
@@ -108,7 +116,6 @@ public class TutorialMainManager : MonoBehaviour
             TutorialKey.SetActive(true);
             AttackMouseKey.SetActive(true);
             player.GetComponent<PlayerFsmManager>().enabled = true;
-
         }
         else
         {
