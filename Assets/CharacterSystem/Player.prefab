@@ -4897,7 +4897,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3283380087267216
 Transform:
   m_ObjectHideFlags: 0
@@ -4923,7 +4923,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 7, y: 1.51, z: 5}
+  m_Size: {x: 5, y: 1.51, z: 5}
   m_Center: {x: 0, y: 0.93, z: 0}
 --- !u!114 &2540288116583616114
 MonoBehaviour:
@@ -4957,6 +4957,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_owner: {fileID: 5447655126556827070}
+  m_isArea: 1
   m_collider: 0
 --- !u!1 &452315187382539952
 GameObject:
@@ -6235,7 +6236,6 @@ MonoBehaviour:
   m_dodge: 32
   dashTime: 0.2
   CanAttack: 1
-  m_rushDir: {x: 0, y: 0, z: 0}
 --- !u!114 &5447655126556827065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6938,6 +6938,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_owner: {fileID: 5447655126556827070}
+  m_isArea: 0
   m_collider: 0
 --- !u!1 &5983025275779973386
 GameObject:
@@ -12064,6 +12065,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_owner: {fileID: 5447655126556827070}
+  m_isArea: 0
   m_collider: 0
 --- !u!1 &8351544011544388537
 GameObject:
@@ -12269,6 +12271,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_owner: {fileID: 5447655126556827070}
+  m_isArea: 0
   m_collider: 0
 --- !u!65 &5413115754664920949
 BoxCollider:
