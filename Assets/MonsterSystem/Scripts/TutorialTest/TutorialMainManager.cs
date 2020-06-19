@@ -23,6 +23,7 @@ public class TutorialMainManager : MonoBehaviour
 
     public GameObject ReturnPos;
     public GameObject PracticeAttackPos;
+   
     public GameObject[] FreeAttackPos;
 
 
@@ -41,12 +42,14 @@ public class TutorialMainManager : MonoBehaviour
     public GameObject MoveAttackKey;
 
     public Image DialogueBox;
+    public Text NameText;
     public Text DialogueText;
 
 
     [SerializeField] int MoveOrder;
     [SerializeField] int AttackOrder;
     [SerializeField] int MPExplain;
+    [SerializeField] int MoveUICheck;
     [SerializeField] int MoveAttackOrder;
     [SerializeField] int PracticeMonster;
     [SerializeField] float FrontAttack;
@@ -76,7 +79,7 @@ public class TutorialMainManager : MonoBehaviour
         Attack.enabled = false;
         MoveAtk.enabled = false;
 
-
+        NameText.text = "공간의 주관자";
         PlayerUI.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player");
     }
@@ -87,7 +90,7 @@ public class TutorialMainManager : MonoBehaviour
         
         if(Move.IsReady == true)
         {
-            DialCount = 4;
+            DialCount = MoveOrder + 1;
             DailogueOpen = true;
             TutorialKey.SetActive(false);
             DialogueScreen.SetActive(true);
@@ -99,7 +102,7 @@ public class TutorialMainManager : MonoBehaviour
         }
         if (Attack.IsReady == true)
         {
-            DialCount = 7;
+            DialCount = AttackOrder + 1;
             DailogueOpen = true;
             TutorialKey.SetActive(false);
             DialogueScreen.SetActive(true);
@@ -110,7 +113,7 @@ public class TutorialMainManager : MonoBehaviour
         }
         if(MoveAtk.IsReady == true)
         {
-            DialCount = 10;
+            DialCount = MoveAttackOrder + 1;
             DailogueOpen = true;
             TutorialKey.SetActive(false);
             DialogueScreen.SetActive(true);
