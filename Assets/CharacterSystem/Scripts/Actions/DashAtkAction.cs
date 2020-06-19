@@ -76,6 +76,8 @@ public class DashAtkAction : BaseAction
     }
     public override void EndAction()
     {
+        DeleteCollider();
+        m_animator.SetBool("IsDashAtk", false);
     }
 
     //쓰지 않기
