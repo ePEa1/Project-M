@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class AttackMouseTest : MonoBehaviour
 {
     public Image MouseImg;
+    public Image MouseGauge;
+    public float GaugeVal;
     float Clicked;
     float ClickCount;
     [SerializeField] float minScale;
@@ -19,7 +21,7 @@ public class AttackMouseTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GaugeVal = 0;
     }
 
     // Update is called once per frame
@@ -29,12 +31,13 @@ public class AttackMouseTest : MonoBehaviour
         {
             ClickCount += 1;
             StartCoroutine(Shake());
-
+            GaugeVal += 0.1f;
         }
         if(ClickCount >= 10)
         {
             IsReady = true;
         }
+        MouseGauge.fillAmount = GaugeVal;
     }
 
     public IEnumerator Shake()

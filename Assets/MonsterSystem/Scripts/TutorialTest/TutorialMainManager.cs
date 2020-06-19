@@ -21,6 +21,7 @@ public class TutorialMainManager : MonoBehaviour
     public AttackMouseTest Attack;//기본 공격
     public MoveAtkKeyTest MoveAtk;//이동 공격
 
+    public GameObject ReturnPos;
     public GameObject PracticeAttackPos;
     public GameObject[] FreeAttackPos;
 
@@ -95,17 +96,18 @@ public class TutorialMainManager : MonoBehaviour
         }
         if (Attack.IsReady == true)
         {
-            DialCount = 10;
+            DialCount = 7;
             DailogueOpen = true;
             TutorialKey.SetActive(false);
             DialogueScreen.SetActive(true);
+            AttackMouseKey.SetActive(false);
             Attack.IsReady = false;
 
             Attack.enabled = false;
         }
         if(MoveAtk.IsReady == true)
         {
-            DialCount = 13;
+            DialCount = 10;
             DailogueOpen = true;
             TutorialKey.SetActive(false);
             DialogueScreen.SetActive(true);
@@ -113,6 +115,15 @@ public class TutorialMainManager : MonoBehaviour
             MoveAtk.IsReady = false;
 
             MoveAtk.enabled = false;
+        }
+        if (IsSpawn &&  null == GameObject.FindGameObjectWithTag("Enemy"))
+        {
+            DialCount = 13;
+            DailogueOpen = true;
+            TutorialKey.SetActive(false);
+            DialogueScreen.SetActive(true);
+
+            IsSpawn = false;
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -141,6 +152,7 @@ public class TutorialMainManager : MonoBehaviour
         }
         else if(DialCount == AttackOrder)//일반 공격
         {
+            PlayerUI.SetActive(true);
             DailogueOpen = false;
             KeyExplain.text = "공격 : 왼쪽 마우스";
             DialogueScreen.SetActive(false);
@@ -184,7 +196,10 @@ public class TutorialMainManager : MonoBehaviour
             ResultText = TutorialStart[DialCount];
 
         }
+    }
 
-
+    void ReturnPlayer()
+    {
+        player.transform.position = ReturnPos.transform.position;
     }
 }
