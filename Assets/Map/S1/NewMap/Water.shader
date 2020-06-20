@@ -1,4 +1,4 @@
-﻿Shader "Custom/Water"
+﻿Shader "DGR/Water"
 {
     Properties
     {
@@ -19,7 +19,7 @@
 
     SubShader
     {
-        Tags { "RenderType"="Opaque" "Queue" = "Transparent" }
+        Tags { "RenderType"="Transparent" "Queue" = "Transparent" }//"Queue" = "Transparent"
 		//Tags { "RenderType" = "Opaque" }
         LOD 200
 
@@ -49,10 +49,10 @@
 		void vert ( inout appdata_full v )
 		{
 			float wave;
-			wave = sin ( abs ( ( v.texcoord.x * 2 - 1 ) * 25 ) + _Time.y) * 0.002;
-			wave += sin ( abs ( ( v.texcoord.y * 2 - 1 ) * 25 ) + _Time.y) * 0.002;
+			wave = sin ( abs ( ( v.texcoord.x * 2 - 1 ) * 100 ) + _Time.y) * 0.003;
+			wave += sin ( abs ( ( v.texcoord.y * 2 - 1 ) * 100 ) + _Time.y) * 0.003;
 
-			v.vertex.y += wave / 2;
+			v.vertex.y += wave / 4;
 		}
 
         struct Input
