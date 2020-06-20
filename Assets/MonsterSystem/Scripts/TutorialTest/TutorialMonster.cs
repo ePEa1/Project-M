@@ -22,12 +22,11 @@ public class TutorialMonster : MonoBehaviour
     {
         if (other.tag == "PCAtkCollider")
         {
-            if (other.GetComponent<AtkCollider>().AtkEvent())
-            {
-                transform.GetComponent<AudioSource>().volume = DataController.Instance.gameData.EffectSound;
+
+                //transform.GetComponent<AudioSource>().volume = DataController.Instance.gameData.EffectSound;
                 DataController.Instance.SetCombo();
                 GameObject sfx = Instantiate(m_damSfx);
-            }
+            
         }
     }
 }

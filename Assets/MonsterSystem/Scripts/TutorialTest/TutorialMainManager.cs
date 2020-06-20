@@ -81,6 +81,7 @@ public class TutorialMainManager : MonoBehaviour
         MoveAttackKey.SetActive(false);
         MPView.SetActive(false);
         SkillView.SetActive(false);
+        SpawnMonster.SetActive(true);
 
         Move.enabled = false;
         Attack.enabled = false;
@@ -109,18 +110,18 @@ public class TutorialMainManager : MonoBehaviour
             Move.enabled = false;
 
         }
-        if (Attack.IsReady == true)
-        {
-            DialCount = AttackOrder + 1;
-            DailogueOpen = true;
-            TutorialKey.SetActive(false);
-            DialogueScreen.SetActive(true);
-            AttackMouseKey.SetActive(false);
-            Attack.IsReady = false;
+        //if (Attack.IsReady == true)
+        //{
+        //    DialCount = AttackOrder + 1;
+        //DailogueOpen = true;
+        //TutorialKey.SetActive(false);
+        //DialogueScreen.SetActive(true);
+        //AttackMouseKey.SetActive(false);
+        //Attack.IsReady = false;
 
-            Attack.enabled = false;
-        }
-        if(MoveAtk.IsReady == true)
+        //    Attack.enabled = false;
+        //}
+        if (MoveAtk.IsReady == true)
         {
             DialCount = MoveAttackOrder + 1;
             DailogueOpen = true;
@@ -133,10 +134,15 @@ public class TutorialMainManager : MonoBehaviour
         }
         if (IsSpawn &&  null == GameObject.FindGameObjectWithTag("Enemy"))
         {
-                DialCount = 13;
+            if(DialCount == AttackOrder)
+            {
+                DialCount = AttackOrder+1;
+            }
             DailogueOpen = true;
             TutorialKey.SetActive(false);
             DialogueScreen.SetActive(true);
+            AttackMouseKey.SetActive(false);
+            Attack.IsReady = false;
 
             IsSpawn = false;
         }
@@ -167,6 +173,8 @@ public class TutorialMainManager : MonoBehaviour
         }
         else if(DialCount == AttackOrder)//일반 공격
         {
+            IsSpawn = true;
+
             PlayerUI.SetActive(true);
             DailogueOpen = false;
             Attack.enabled = true;
@@ -188,13 +196,14 @@ public class TutorialMainManager : MonoBehaviour
         }
         else if(DialCount == MPExplain)//마나 이미지 표시
         {
+
             TutorialKey.SetActive(true);
             DialogueScreen.SetActive(false);
             MPView.SetActive(true);
         }
         else if(DialCount == (MPExplain + 1))
         {
-            DialCount = MPExplain + 1;
+            ResultText = TutorialStart[MPExplain+1];
 
             TutorialKey.SetActive(false);
             DialogueScreen.SetActive(true);
@@ -202,13 +211,14 @@ public class TutorialMainManager : MonoBehaviour
         }
         else if(DialCount == SkillExplain)
         {
+
             TutorialKey.SetActive(true);
             DialogueScreen.SetActive(false);
             SkillView.SetActive(true);
         }
         else if(DialCount == (SkillExplain + 1))
         {
-            DialCount = SkillExplain + 1;
+            ResultText = TutorialStart[SkillExplain + 1];
             TutorialKey.SetActive(false);
             DialogueScreen.SetActive(true);
             SkillView.SetActive(false);

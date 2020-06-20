@@ -97,7 +97,7 @@ public class BackAtkAction : BaseAction
         m_atkObject.transform.rotation = Quaternion.LookRotation(view);
         m_atkObject.transform.position = m_owner.transform.position;
         m_atkObject.GetComponent<BackAtkCol>().Setup();
-        
+
         m_backAtkCol.GetComponent<AtkCollider>().isAttacking = false;
     }
 
