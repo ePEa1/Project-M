@@ -7,6 +7,10 @@ using System;
 public class OptionManager : MonoBehaviour
 {
     public GameObject OptionScreen;
+    public GameObject SoundPage;
+    public GameObject GraphicPage;
+    public GameObject ControlPage;
+
     public Slider BackGroundSound;
     public Slider EffectsSound;
     public Slider MouseMoving;
@@ -19,6 +23,9 @@ public class OptionManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        SoundPage.SetActive(true);
+        GraphicPage.SetActive(false);
+        ControlPage.SetActive(false);
         BackGroundSound.value = DataController.Instance.backgroundSound ;
         EffectsSound.value = DataController.Instance.effectSound;
         MouseMoving.value = DataController.Instance.mouseMoving;
@@ -44,6 +51,28 @@ public class OptionManager : MonoBehaviour
     public void OpenOption()
     {
         OptionScreen.SetActive(true);
+
+    }
+
+    public void OpenSoundPage()
+    {
+        SoundPage.SetActive(true);
+        GraphicPage.SetActive(false);
+        ControlPage.SetActive(false);
+
+    }
+    public void OpenGraphicPage()
+    {
+        SoundPage.SetActive(false);
+        GraphicPage.SetActive(true);
+        ControlPage.SetActive(false);
+
+    }
+    public void OpenControlPage()
+    {
+        SoundPage.SetActive(false);
+        GraphicPage.SetActive(false);
+        ControlPage.SetActive(true);
 
     }
 }

@@ -32,6 +32,8 @@ public class DashAtkAction : BaseAction
         m_animator.SetTrigger("DashAtk");
         m_animator.SetBool("IsDashAtk", true);
 
+        SetCollider();
+
         PlayerStats.playerStat.UseMp(PlayerStats.playerStat.m_widthMp);
         //if (m_controller.IsMoving())
         //{
@@ -74,6 +76,8 @@ public class DashAtkAction : BaseAction
     }
     public override void EndAction()
     {
+        DeleteCollider();
+        m_animator.SetBool("IsDashAtk", false);
     }
 
     //쓰지 않기
@@ -105,11 +109,11 @@ public class DashAtkAction : BaseAction
     public void SetCollider()
     {
         DashAtkCol.GetComponent<AtkCollider>().isAttacking = false;
-        DashAtkCol.GetComponent<AtkCollider>().Attacking();
+        DashAtkCol.gameObject.SetActive(true);
     }
     public void DeleteCollider()
     {
-        DashAtkCol.enabled = false;
+        DashAtkCol.gameObject.SetActive(false);
     }
     public void CreatEff()
     {

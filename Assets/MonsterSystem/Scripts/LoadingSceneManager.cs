@@ -11,6 +11,8 @@ public class LoadingSceneManager : MonoBehaviour
 
     [SerializeField]
     Image progressBar;
+    [SerializeField] Image RotHourglass;
+    float RotateSpeed = 3;
 
     [SerializeField] Text TipsTxt;
     [SerializeField] Sprite ConceptImg;
@@ -41,6 +43,7 @@ public class LoadingSceneManager : MonoBehaviour
         while (!op.isDone)
         {
             yield return null;
+            RotHourglass.transform.Rotate(new Vector3(0, 0, RotateSpeed), Space.Self);
 
             timer += Time.deltaTime;
 
