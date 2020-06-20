@@ -14,6 +14,7 @@ public class ComboManager : MonoBehaviour
     [SerializeField] Slider m_endCombo;
     [SerializeField] float maxendCombo;
     public int MaxCombo;
+    public string ComboString;
 
     [SerializeField] AnimationCurve ScaleCurve;
     [SerializeField] public float duration;//주기 0.05
@@ -21,11 +22,23 @@ public class ComboManager : MonoBehaviour
     [SerializeField] float maxScale;
     [SerializeField] Vector3 LimitScale;
 
+    public Image OneImg;
+    public Image TenImg;
+    public Image HundredImg;
+    public Image HitImg;
 
+    [SerializeField] Sprite none;
+    [SerializeField] Sprite HitSprite;
+    [SerializeField] Sprite[] ComboNumber;
 
     // Start is called before the first frame update
     void Start()
     {
+        HundredImg.GetComponent<Image>().sprite = none;
+        TenImg.GetComponent<Image>().sprite = none;
+        OneImg.GetComponent<Image>().sprite = none;
+        HitImg.GetComponent<Image>().sprite = none;
+
         MaxCombo = 0;
     }
     private void Awake()
@@ -36,15 +49,40 @@ public class ComboManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (DataController.Instance.gameData.PlayerCombo <= 0)
         {
-            ComboTxt.enabled = false;
+            HundredImg.GetComponent<Image>().sprite = none;
+            TenImg.GetComponent<Image>().sprite = none;
+            OneImg.GetComponent<Image>().sprite = none;
+            HitImg.GetComponent<Image>().sprite = none;
         }
         else
         {
-            ComboTxt.enabled = true;
+            if (DataController.Instance.gameData.PlayerCombo < 100)
+            {
+                if (DataController.Instance.gameData.PlayerCombo < 10)
+                {
+                    TenImg.GetComponent<Image>().sprite = none;
+                    SetImage(OneImg, DataController.Instance.gameData.PlayerCombo);
+
+                }
+                HundredImg.GetComponent<Image>().sprite = none;
+                SetImage(OneImg, DataController.Instance.gameData.PlayerCombo);
+                SetImage(TenImg, DataController.Instance.gameData.PlayerCombo / 10);
+            }
+
         }
-        ComboTxt.text = DataController.Instance.gameData.PlayerCombo + " hit";
+
+        ComboString = DataController.Instance.gameData.PlayerCombo.ToString();
+
+        SetImage(OneImg, DataController.Instance.gameData.PlayerCombo % 10);
+        SetImage(TenImg, DataController.Instance.gameData.PlayerCombo % 10);
+        SetImage(HundredImg, DataController.Instance.gameData.PlayerCombo % 10%10);
+
+        HitImg.GetComponent<Image>().sprite = HitSprite;
+
+        //ComboTxt.text = DataController.Instance.gameData.PlayerCombo + " hit";
 
         //ComboDelay();
         if (DataController.Instance.gameData.IsCombo == true)
@@ -90,4 +128,8 @@ public class ComboManager : MonoBehaviour
         }
     }
 
+    void SetImage(Image img, int number)
+    {
+        img.GetComponent<Image>().sprite = ComboNumber[number];
+    }
 }
