@@ -41,6 +41,9 @@ public class TutorialMainManager : MonoBehaviour
     public GameObject AttackMouseKey;
     public GameObject MoveAttackKey;
 
+    public Image MPView;
+    public Image SkillView;
+
     public Image DialogueBox;
     public Text NameText;
     public Text DialogueText;
@@ -49,9 +52,11 @@ public class TutorialMainManager : MonoBehaviour
     [SerializeField] int MoveOrder;
     [SerializeField] int AttackOrder;
     [SerializeField] int MPExplain;
+    [SerializeField] int SkillExplain;
     [SerializeField] int MoveUICheck;
     [SerializeField] int MoveAttackOrder;
     [SerializeField] int PracticeMonster;
+
     [SerializeField] float FrontAttack;
     [SerializeField] float FreeMoveAttack;
     [SerializeField] float Shield;
@@ -176,6 +181,11 @@ public class TutorialMainManager : MonoBehaviour
             TutorialKey.SetActive(true);
             MoveAttackKey.SetActive(true);
             player.GetComponent<PlayerFsmManager>().enabled = true;
+        }
+        else if(DialCount == MPExplain)//마나 이미지 표시
+        {
+            DialogueScreen.SetActive(false);
+           
         }
         else if(DialCount == PracticeMonster)
         {
