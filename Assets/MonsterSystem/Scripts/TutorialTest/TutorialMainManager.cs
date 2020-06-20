@@ -41,8 +41,8 @@ public class TutorialMainManager : MonoBehaviour
     public GameObject AttackMouseKey;
     public GameObject MoveAttackKey;
 
-    public Image MPView;
-    public Image SkillView;
+    public GameObject MPView;
+    public GameObject SkillView;
 
     public Image DialogueBox;
     public Text NameText;
@@ -53,7 +53,6 @@ public class TutorialMainManager : MonoBehaviour
     [SerializeField] int AttackOrder;
     [SerializeField] int MPExplain;
     [SerializeField] int SkillExplain;
-    [SerializeField] int MoveUICheck;
     [SerializeField] int MoveAttackOrder;
     [SerializeField] int PracticeMonster;
 
@@ -80,9 +79,14 @@ public class TutorialMainManager : MonoBehaviour
         MoveKey.SetActive(false);
         AttackMouseKey.SetActive(false);
         MoveAttackKey.SetActive(false);
+        MPView.SetActive(false);
+        SkillView.SetActive(false);
+
         Move.enabled = false;
         Attack.enabled = false;
         MoveAtk.enabled = false;
+
+
 
         NameText.text = "공간의 주관자";
         PlayerUI.SetActive(false);
@@ -129,7 +133,7 @@ public class TutorialMainManager : MonoBehaviour
         }
         if (IsSpawn &&  null == GameObject.FindGameObjectWithTag("Enemy"))
         {
-            DialCount = 13;
+                DialCount = 13;
             DailogueOpen = true;
             TutorialKey.SetActive(false);
             DialogueScreen.SetActive(true);
@@ -184,8 +188,30 @@ public class TutorialMainManager : MonoBehaviour
         }
         else if(DialCount == MPExplain)//마나 이미지 표시
         {
+            TutorialKey.SetActive(true);
             DialogueScreen.SetActive(false);
-           
+            MPView.SetActive(true);
+        }
+        else if(DialCount == (MPExplain + 1))
+        {
+            DialCount = MPExplain + 1;
+
+            TutorialKey.SetActive(false);
+            DialogueScreen.SetActive(true);
+            MPView.SetActive(false);
+        }
+        else if(DialCount == SkillExplain)
+        {
+            TutorialKey.SetActive(true);
+            DialogueScreen.SetActive(false);
+            SkillView.SetActive(true);
+        }
+        else if(DialCount == (SkillExplain + 1))
+        {
+            DialCount = SkillExplain + 1;
+            TutorialKey.SetActive(false);
+            DialogueScreen.SetActive(true);
+            SkillView.SetActive(false);
         }
         else if(DialCount == PracticeMonster)
         {
