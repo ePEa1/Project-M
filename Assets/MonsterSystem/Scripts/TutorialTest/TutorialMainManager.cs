@@ -22,15 +22,15 @@ public class TutorialMainManager : MonoBehaviour
     public MoveAtkKeyTest MoveAtk;//이동 공격
 
     public GameObject ReturnPos;
-    public GameObject PracticeAttackPos;
-   
+    public GameObject AttackSpawn;
+    public GameObject MoveAttackSpawn;
     public GameObject[] FreeAttackPos;
 
 
     public GameObject player;
     public GameObject Cam;
     public GameObject PlayerUI;
-
+    public GameObject PracticeAttackPos;
     public GameObject SpawnMonster;
     public GameObject DialogueScreen;
 
@@ -51,6 +51,7 @@ public class TutorialMainManager : MonoBehaviour
 
     [SerializeField] int MoveOrder;
     [SerializeField] int AttackOrder;
+    [SerializeField] int SkillSpawnOrder;
     [SerializeField] int MPExplain;
     [SerializeField] int SkillExplain;
     [SerializeField] int MoveAttackOrder;
@@ -81,7 +82,7 @@ public class TutorialMainManager : MonoBehaviour
         MoveAttackKey.SetActive(false);
         MPView.SetActive(false);
         SkillView.SetActive(false);
-        SpawnMonster.SetActive(true);
+        AttackSpawn.SetActive(true);
 
         Move.enabled = false;
         Attack.enabled = false;
@@ -183,6 +184,13 @@ public class TutorialMainManager : MonoBehaviour
             TutorialKey.SetActive(true);
             AttackMouseKey.SetActive(true);
             player.GetComponent<PlayerFsmManager>().enabled = true;
+        }
+        else if(DialCount == SkillSpawnOrder)
+        {
+            player.GetComponent<PlayerFsmManager>().enabled = false;
+            MoveAttackSpawn.SetActive(true);
+            ResultText = TutorialStart[DialCount];
+
         }
         else if(DialCount == MoveAttackOrder)//대쉬 공격
         {
