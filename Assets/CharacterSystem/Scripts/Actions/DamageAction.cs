@@ -103,7 +103,7 @@ public class DamageAction : BaseAction, DamageModel
     {
         m_animator.SetBool("IsDamage", false);
 
-        if (m_controller.IsMoving())
+        if (m_controller.IsMoving)
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
         else
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
@@ -126,7 +126,7 @@ public class DamageAction : BaseAction, DamageModel
     bool DamageOk()
     {
         if (m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.DODGE || m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.DASHATK ||
-            m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.DAMAGE || m_currentDamDelay > 0)
+            m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.DAMAGE || m_owner.m_currentStat == PlayerFsmManager.PlayerENUM.BACKATK || m_currentDamDelay > 0)
             return false;
         else return true;
     }

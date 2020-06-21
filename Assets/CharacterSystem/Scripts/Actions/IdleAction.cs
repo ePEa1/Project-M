@@ -27,7 +27,7 @@ public class IdleAction : BaseAction
     protected override BaseAction OnUpdateAction()
     {
         //어느 상태로도 이동할 수 있도록 처리
-        if (m_controller.IsMoving())
+        if (m_controller.IsMoving)
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
         }

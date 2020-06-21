@@ -38,7 +38,7 @@ public class MoveAction : BaseAction
     protected override void AnyStateAction()
     {
         //애니메이션 이동부분 컨트롤
-        if (m_controller.IsMoving())
+        if (m_controller.IsMoving)
             m_aniBlend = Mathf.Min(1, m_aniBlend + Time.deltaTime * m_aniBlendSpeed);
             //m_animator.SetBool("IsMoving", true);
         else m_aniBlend = Mathf.Max(0, m_aniBlend - Time.deltaTime * m_aniBlendSpeed);
@@ -67,7 +67,7 @@ public class MoveAction : BaseAction
 
     protected override BaseAction OnUpdateAction()
     {
-        if (!m_controller.IsMoving())
+        if (!m_controller.IsMoving)
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
         }
@@ -85,8 +85,10 @@ public class MoveAction : BaseAction
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
         }
+        if (m_controller.IsBackDashAttack())
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.BACKATK);
 
-        else if (m_controller.IsMoving())
+        else if (m_controller.IsMoving)
         {
             Quaternion v = Quaternion.Euler(0, m_owner.playerCam.transform.eulerAngles.y, 0);
 

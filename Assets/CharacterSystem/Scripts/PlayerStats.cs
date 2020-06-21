@@ -29,16 +29,22 @@ namespace ProjectM.ePEa.PlayerData
         [SerializeField] public float m_rushMp; //전방이동 사용마나
         [SerializeField] public float m_widthMp; //좌우이동 사용마나
         [SerializeField] public float m_backMp; //후방이동 사용마나
-        
+
+        [SerializeField] public AtkPowerData m_powerData; //데미지 배율 데이터
         #endregion
 
         #region Value
 
-        public PlayerFsmManager manager;
         public static PlayerStats playerStat { get; private set; } //외부에서 접근할 때의 용도
         public float m_currentHp { get; private set; } //현재 캐릭터 체력
         public float m_currentDodgeDelay { get; private set; } //현재 회피 쿨타임
         public float m_currentMp { get; private set; } //현재 캐릭터 마나
+        public int m_atkLevel { get; private set; } //데미지 배율 레벨
+        public float m_atkPower { get; private set; } //데미지 배율 값
+        public float m_powerGage { get; private set; } //현재 데미지배율 게이지
+        public float m_powerGageMinus { get; private set; } //데미지배율 게이지 보정값
+
+        float m_maxPowerGage = 0.0f;
 
         #endregion
 
@@ -48,8 +54,17 @@ namespace ProjectM.ePEa.PlayerData
             if (playerStat == null)
             {
                 playerStat = this;
+
+                m_atkLevel = 0;
+                m_atkPower = 1.0f;
+                m_powerGage = 0.0f;
+                m_powerGageMinus = 0.0f;
                 m_currentHp = m_maxHp;
                 m_currentMp = m_minMp;
+                for(int i=0;i< m_powerData.level.Length;i++)
+                {
+                    m_maxPowerGage += m_powerData.level[i].nextGage;
+                }
             }
             else
             {
@@ -79,11 +94,49 @@ namespace ProjectM.ePEa.PlayerData
             }
         }
 
+        public void GetAtkGage(float gage)
+        {
+            m_powerGage = Mathf.Min(m_maxPowerGage, m_powerGage + gage);
+        }
+
+        /// <summary>
+        /// 데미지 배율 게이지 차감
+        /// </summary>
+        public void UpdateAtkGage()
+        {
+            m_powerGage = Mathf.Max(0, m_powerGage - Time.deltaTime * m_powerData.level[m_atkLevel].minusSpeed);
+        }
+
+        /// <summary>
+        /// 현재 데미지배율 레벨 설정
+        /// </summary>
+        void UpdatePowLevel()
+        {
+            float gage = m_powerGage;
+            int currentLevel = 0;
+            float gageMinus = 0.0f;
+
+            while (gage > m_powerData.level[currentLevel].nextGage)
+            {
+                gage -= m_powerData.level[currentLevel].nextGage;
+                gageMinus += m_powerData.level[currentLevel].nextGage;
+                currentLevel++;
+            }
+
+            m_powerGageMinus = gageMinus;
+            m_atkLevel = currentLevel;
+            m_atkPower = m_powerData.level[currentLevel].power;
+        }
 
         private void Update()
         {
             //회피 쿨타임 갱신
             m_currentDodgeDelay = Mathf.Max(0, m_currentDodgeDelay - Time.deltaTime);
+
+            //--------------------------
+            UpdateAtkGage();
+            UpdatePowLevel();
+            //--------------------------
 
             //마나통 갱신
             if (m_currentMp > m_minMp)

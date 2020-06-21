@@ -9,17 +9,11 @@ using static ProjectM.ePEa.CustomFunctions.CustomFunction;
 
 public class DashAtkAction : BaseAction
 {
-    [SerializeField] AnimationCurve m_AtkDistance;
+    [SerializeField] PCAtkObject m_atkData;
+
     [SerializeField] LayerMask m_wall;
     [SerializeField] AudioSource atkSound;
-    [SerializeField] GameObject m_atkEff;
-
-    [SerializeField] Vector3 atkPos;
-    [SerializeField] float speed;
-    [SerializeField] float movePos;
     
-
-    Vector3 playerVec;
     Vector3 m_startPos;
     Vector3 m_finishPos;
     [SerializeField] Collider DashAtkCol;
@@ -35,28 +29,6 @@ public class DashAtkAction : BaseAction
         SetCollider();
 
         PlayerStats.playerStat.UseMp(PlayerStats.playerStat.m_widthMp);
-        //if (m_controller.IsMoving())
-        //{
-        //    Vector3 view = m_owner.transform.position - m_owner.playerCam.position;
-        //    view.y = 0.0f;
-
-        //    Quaternion dir = Quaternion.LookRotation(m_controller.m_rushDir);
-
-        //    Quaternion playerDir = dir * Quaternion.LookRotation(new Vector3(view.x, 0, view.z));
-        //    Vector3 playerVec = playerDir * new Vector3(0, 0, -movePos);
-
-        //    m_owner.transform.rotation = playerDir;
-
-        //    m_startPos = m_owner.transform.position;
-        //    m_finishPos = m_startPos + playerVec;
-        //}
-        //else  
-        //{
-        //    Vector3 playerVec = m_owner.transform.rotation * new Vector3(0, 0, -movePos);
-
-        //    m_startPos = m_owner.transform.position;
-        //    m_finishPos = m_startPos + playerVec;
-        //}
 
         Vector3 view = m_owner.transform.position - m_owner.playerCam.position;
         view.y = 0.0f;
@@ -65,7 +37,7 @@ public class DashAtkAction : BaseAction
         Quaternion dir = Quaternion.LookRotation(new Vector3(m_controller.GetDirection().v.x, 0, 0));
 
         Quaternion playerDir = dir * Quaternion.LookRotation(new Vector3(view.x, 0, view.z));
-        Vector3 playerVec = playerDir * new Vector3(0, 0, movePos);
+        Vector3 playerVec = playerDir * new Vector3(0, 0, m_atkData.distance);
 
         m_owner.transform.rotation = playerDir;
 
@@ -76,8 +48,10 @@ public class DashAtkAction : BaseAction
     }
     public override void EndAction()
     {
+        m_curdashAtk = 0;
         DeleteCollider();
-        m_animator.SetBool("IsDashAtk", false);
+        m_animator.SetTrigger("DashAtk");
+        m_animator.SetBool("IsDashAtk", true);
     }
 
     //쓰지 않기
@@ -87,15 +61,11 @@ public class DashAtkAction : BaseAction
 
     protected override BaseAction OnUpdateAction()
     {
-        //if (m_controller.IsDodge() && PlayerStats.playerStat.m_currentDodgeDelay == 0)
-        //{
-        //    m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
-        //}
 
-        float value = 1.0f / speed;
-        Vector3 beforePos = Vector3.Lerp(m_startPos, m_finishPos, m_AtkDistance.Evaluate(m_curdashAtk * value));
+        float value = 1.0f / m_atkData.rushSpeed;
+        Vector3 beforePos = Vector3.Lerp(m_startPos, m_finishPos, m_atkData.distanceCurve.Evaluate(m_curdashAtk * value));
         m_curdashAtk += Time.deltaTime;
-        Vector3 afterPos = Vector3.Lerp(m_startPos, m_finishPos, m_AtkDistance.Evaluate(m_curdashAtk * value));
+        Vector3 afterPos = Vector3.Lerp(m_startPos, m_finishPos, m_atkData.distanceCurve.Evaluate(m_curdashAtk * value));
 
         Vector3 tall = new Vector3(0.0f, PlayerStats.playerStat.m_hikingHeight + PlayerStats.playerStat.m_size, 0.0f);
 
@@ -108,6 +78,7 @@ public class DashAtkAction : BaseAction
 
     public void SetCollider()
     {
+        DashAtkCol.GetComponent<AtkCollider>().atkDamage = m_atkData.atkData[0].damage * PlayerStats.playerStat.m_atkPower;
         DashAtkCol.GetComponent<AtkCollider>().isAttacking = false;
         DashAtkCol.gameObject.SetActive(true);
     }
@@ -117,30 +88,35 @@ public class DashAtkAction : BaseAction
     }
     public void CreatEff()
     {
-        GameObject effobj = Instantiate(m_atkEff);
+        GameObject effobj = Instantiate(m_atkData.atkData[0].eff);
         effobj.transform.parent = m_owner.transform;
-        effobj.transform.position = m_owner.transform.position + atkPos;
-
-
+        effobj.transform.position = m_owner.transform.position;
         //이펙트 생성
     }
+
+    /// <summary>
+    /// 바로 바뀌는 액션
+    /// </summary>
+    void ChangeActions()
+    {
+        if (m_controller.IsBackDashAttack())
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.BACKATK);
+        if (m_controller.IsRushAttack())
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.RUSHATK);
+    }
+
     public void EndDashAtk()
     {
-        if (m_controller.IsMoving())
+        if (m_controller.IsMoving)
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
-
-        }
-        if (m_controller.IsAttack())
-        {
-            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
 
         }
         else
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
         }
-        m_curdashAtk = 0;
+        
         StartCoroutine(DelayDashAtk());
         m_animator.SetBool("IsDashAtk", false);
 
@@ -155,8 +131,13 @@ public class DashAtkAction : BaseAction
     
     public void SetSound()
     {
-        atkSound.volume = DataController.Instance.effectSound;
+        atkSound.clip = m_atkData.atkData[0].sfx;
         atkSound.Play();
+    }
+
+    public void GetGage()
+    {
+        PlayerStats.playerStat.GetAtkGage(m_atkData.atkData[0].getGage);
     }
 
     IEnumerator DelayDashAtk()
