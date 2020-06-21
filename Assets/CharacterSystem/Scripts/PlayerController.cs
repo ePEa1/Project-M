@@ -57,11 +57,9 @@ public class PlayerController : MonoBehaviour
     /// 이동키 입력했는지 체크
     /// </summary>
     /// <returns></returns>
-    public bool IsMoving()
+    public bool IsMoving
     {
-        if (Input.GetKey(m_leftMove) || Input.GetKey(m_rightMove) || Input.GetKey(m_frontMove) || Input.GetKey(m_backMove))
-            return true;
-        else return false;
+        get => (Input.GetKey(m_leftMove) || Input.GetKey(m_rightMove) || Input.GetKey(m_frontMove) || Input.GetKey(m_backMove));
     }
 
     /// <summary>

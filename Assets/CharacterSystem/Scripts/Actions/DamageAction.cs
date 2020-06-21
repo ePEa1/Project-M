@@ -103,7 +103,7 @@ public class DamageAction : BaseAction, DamageModel
     {
         m_animator.SetBool("IsDamage", false);
 
-        if (m_controller.IsMoving())
+        if (m_controller.IsMoving)
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
         else
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
