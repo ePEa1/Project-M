@@ -6,14 +6,14 @@ using UnityEngine.UI;
 
 public class DrawPower : MonoBehaviour
 {
-    //[SerializeField] Text m_damageText;
+    [SerializeField] Image m_damageText;
     [SerializeField] Text m_powerText;
     [SerializeField] Slider m_powerGage;
     [SerializeField] int m_fontSizeMin;
     [SerializeField] int m_fontSizeMax;
     [SerializeField] float m_fontSpeed;
-    [SerializeField] float m_textMinY;
-    [SerializeField] float m_textMaxY;
+    [SerializeField] float m_textMinX;
+    [SerializeField] float m_textMaxX;
 
     float m_currentPower = 1.0f;
 
@@ -53,11 +53,11 @@ public class DrawPower : MonoBehaviour
     
     void UpdateFontSize()
     {
-        //Vector3 originVec = m_damageText.transform.localPosition;
-       // originVec.y = 0;
+        Vector3 originVec = m_damageText.transform.localPosition;
+        originVec.x = 0;
 
         m_powerText.fontSize = (int)Mathf.Lerp(m_fontSizeMin, m_fontSizeMax, m_fontTime);
-       // m_damageText.transform.localPosition = originVec + Vector3.up * Mathf.Lerp(m_textMinY, m_textMaxY, m_fontTime);
+        m_damageText.transform.localPosition = originVec + Vector3.left * Mathf.Lerp(m_textMinX, m_textMaxX, m_fontTime);
         m_fontTime = Mathf.Max(0, m_fontTime - Time.deltaTime * m_fontSpeed);
     }
 
