@@ -29,7 +29,8 @@ namespace ProjectM.ePEa.PlayerData
         [SerializeField] public float m_rushMp; //전방이동 사용마나
         [SerializeField] public float m_widthMp; //좌우이동 사용마나
         [SerializeField] public float m_backMp; //후방이동 사용마나
-        
+
+        [SerializeField] AtkPowerData m_powerData; //데미지 배율 데이터
         #endregion
 
         #region Value
@@ -39,7 +40,9 @@ namespace ProjectM.ePEa.PlayerData
         public float m_currentDodgeDelay { get; private set; } //현재 회피 쿨타임
         public float m_currentMp { get; private set; } //현재 캐릭터 마나
         public float m_atkPower { get; private set; } //데미지 배율 값
-        public float m_powerGage { get; private set; }
+        public float m_powerGage { get; private set; } //현재 데미지배율 게이지
+
+        int m_atkLevel = 0;
         #endregion
 
         private void Awake()
@@ -84,10 +87,41 @@ namespace ProjectM.ePEa.PlayerData
         public void GetAtkGage(float gage)
         { m_powerGage += gage; }
 
+        /// <summary>
+        /// 데미지 배율 게이지 차감
+        /// </summary>
+        public void UpdateAtkGage()
+        {
+            m_powerGage = Mathf.Max(0, m_powerGage - Time.deltaTime * m_powerData.level[m_atkLevel].minusSpeed);
+        }
+
+        /// <summary>
+        /// 현재 데미지배율 레벨 설정
+        /// </summary>
+        void UpdatePowLevel()
+        {
+            float gage = m_powerGage;
+            int currentLevel = 0;
+
+            while (gage > m_powerData.level[currentLevel].nextGage)
+            {
+                gage -= m_powerData.level[currentLevel].nextGage;
+                currentLevel++;
+            }
+
+            m_atkLevel = currentLevel;
+            m_atkPower = m_powerData.level[currentLevel].power;
+        }
+
         private void Update()
         {
             //회피 쿨타임 갱신
             m_currentDodgeDelay = Mathf.Max(0, m_currentDodgeDelay - Time.deltaTime);
+
+            //--------------------------
+            UpdateAtkGage();
+            UpdatePowLevel();
+            //--------------------------
 
             //마나통 갱신
             if (m_currentMp > m_minMp)

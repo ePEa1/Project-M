@@ -65,12 +65,12 @@ MonoBehaviour:
   m_atkEvents:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
+      - m_Target: {fileID: 1688142861043937972}
+        m_MethodName: GetGage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1382,7 +1382,7 @@ MonoBehaviour:
   m_rushMp: 4
   m_widthMp: 2.5
   m_backMp: 2.5
-  manager: {fileID: 0}
+  m_powerData: {fileID: 11400000, guid: e263725d93e38a44b892ac4939e6c8a1, type: 2}
 --- !u!1 &5447655127004316350
 GameObject:
   m_ObjectHideFlags: 0
@@ -6794,39 +6794,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94f6c8b4e2661c5459bf4f618b063906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AtkDistance:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: -0.012167851
-      outSlope: 1.9434342
-      tangentMode: 5
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  m_atkData: {fileID: 11400000, guid: 8d009498a120d674eb5d84ddb194a25a, type: 2}
   m_wall:
     serializedVersion: 2
-    m_Bits: 7168
+    m_Bits: 1024
   atkSound: {fileID: 3621056667232254365}
-  m_atkEff: {fileID: 5099944319548709020, guid: 3890ecca732b8ca4eb6e0192794355c9,
-    type: 3}
-  atkPos: {x: 0, y: 0, z: 0}
-  speed: 0.3
-  movePos: 7
   DashAtkCol: {fileID: 8013487746780216680}
 --- !u!82 &3621056667232254365
 AudioSource:
