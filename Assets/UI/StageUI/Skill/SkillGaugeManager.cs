@@ -14,32 +14,41 @@ public class SkillGaugeManager : MonoBehaviour
     public Image SideSkill;//skill_2
     public Image BackSkill;//skill_3
 
+    float FrontVal;
+    float SideVal;
+    float BackVal;
     [SerializeField] float SkillCoolTime; 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFsmManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (player.m_currentController.IsRushAttack() && FrontSkill.fillAmount<=0.99f)
+        if (player.m_currentController.IsRushAttack() && FrontSkill.fillAmount>=0.99f)
         {
-            FrontSkill.fillAmount = 0;
+            FrontVal = 0;
         }
-        FrontSkill.fillAmount = (int)Mathf.Lerp(0, 1, SkillCoolTime);
-        if (player.m_currentController.IsDashAttack() && FrontSkill.fillAmount <= 0.99f)
+        FrontVal += Time.deltaTime * SkillCoolTime;
+        FrontSkill.fillAmount = Mathf.Min(FrontVal, 1);
+
+        if (player.m_currentController.IsDashAttack() && FrontSkill.fillAmount >= 0.99f)
         {
-            FrontSkill.fillAmount = 0;
+            SideVal = 0;
         }
-        SideSkill.fillAmount = (int)Mathf.Lerp(0, 1, SkillCoolTime);
-        if (player.m_currentController.IsBackDashAttack() && FrontSkill.fillAmount <= 0.99f)
+        SideVal += Time.deltaTime * SkillCoolTime;
+        SideSkill.fillAmount = Mathf.Min(SideVal, 1);
+
+        if (player.m_currentController.IsBackDashAttack() && FrontSkill.fillAmount >= 0.99f)
         {
-            FrontSkill.fillAmount = 0;
+            BackVal = 0;
         }
-        BackSkill.fillAmount = (int)Mathf.Lerp(0, 1, SkillCoolTime);
+        BackVal += Time.deltaTime * SkillCoolTime;
+        BackSkill.fillAmount = Mathf.Min(BackVal, 1);
+
 
     }
 }
