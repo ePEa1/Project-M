@@ -13,5 +13,10 @@ public class GameData
     public bool IsCombo = false;
 
     public int firstStageMonster = 6;
+
+    public bool StageOneIsOpen = false;
+    public bool StageTwoIsOpen = false;
+    public bool StageThreeIsOpen = false;
+    public bool StageBossIsOpen = false;
 }
 
