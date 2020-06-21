@@ -91,6 +91,8 @@ public class BackAtkAction : BaseAction
         }
         if (m_controller.IsRushAttack())
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.RUSHATK);
+        if (m_controller.IsDashAttack())
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
     }
 
     public void SetCollider()

@@ -48,6 +48,7 @@ public class DashAtkAction : BaseAction
     }
     public override void EndAction()
     {
+        m_curdashAtk = 0;
         DeleteCollider();
         m_animator.SetTrigger("DashAtk");
         m_animator.SetBool("IsDashAtk", true);
@@ -90,10 +91,20 @@ public class DashAtkAction : BaseAction
         GameObject effobj = Instantiate(m_atkData.atkData[0].eff);
         effobj.transform.parent = m_owner.transform;
         effobj.transform.position = m_owner.transform.position;
-
-
         //이펙트 생성
     }
+
+    /// <summary>
+    /// 바로 바뀌는 액션
+    /// </summary>
+    void ChangeActions()
+    {
+        if (m_controller.IsBackDashAttack())
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.BACKATK);
+        if (m_controller.IsRushAttack())
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.RUSHATK);
+    }
+
     public void EndDashAtk()
     {
         if (m_controller.IsMoving)
@@ -101,16 +112,11 @@ public class DashAtkAction : BaseAction
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
 
         }
-        if (m_controller.IsAttack())
-        {
-            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
-
-        }
         else
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
         }
-        m_curdashAtk = 0;
+        
         StartCoroutine(DelayDashAtk());
         m_animator.SetBool("IsDashAtk", false);
 
