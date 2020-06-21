@@ -51,7 +51,7 @@ public class EnemyHPViewManager : MonoBehaviour
 
     Vector3 m_centerPos; //hp바 처음 위치
 
-    ProtoBossFSM boss;
+    ProtoBossFSM boss = null;
 
     #endregion
 
@@ -62,9 +62,12 @@ public class EnemyHPViewManager : MonoBehaviour
 
     void Start()
     {
-        boss = GameObject.FindWithTag("Boss").GetComponent<ProtoBossFSM>();
-        m_maxHp = boss.m_maxHp;
-        Setup();
+        if (GameObject.FindWithTag("Boss") != null)
+        {
+            boss = GameObject.FindWithTag("Boss").GetComponent<ProtoBossFSM>();
+            m_maxHp = boss.m_maxHp;
+            Setup();
+        }
     }
 
     private void Update()
@@ -75,11 +78,11 @@ public class EnemyHPViewManager : MonoBehaviour
             PlayShake();
             //hp줄 수 텍스트 설정
             //m_hpSizeText.fontSize = (int)Mathf.Max(m_fontMinSize, m_hpSizeText.fontSize - Time.deltaTime * m_fontSpeed);
-        }
 
-        if (m_nowHp!= boss.m_currentHp)
-        {
-            ChangeHp(boss.m_currentHp);
+            if (m_nowHp != boss.m_currentHp)
+            {
+                ChangeHp(boss.m_currentHp);
+            }
         }
     }
 

@@ -659,9 +659,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   m_refilMax: 3
   m_hpBar: {fileID: 4841895277318714225}
-  m_refilBar: {fileID: 4508003077512801280}
+  m_refillBar: {fileID: 4508003077512801280}
   m_backhpBar: {fileID: 2138594718830987048}
-  IsDecrease: 0
   m_nowState: 0
 --- !u!1 &2637687951126758008
 GameObject:
@@ -729,7 +728,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_owner: {fileID: 2637687950353754669}
-  m_collider: 0
+  m_isArea: 0
+  m_colliderType: 0
 --- !u!1 &3558084669249200121
 GameObject:
   m_ObjectHideFlags: 0

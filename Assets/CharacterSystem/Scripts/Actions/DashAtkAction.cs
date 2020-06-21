@@ -21,7 +21,6 @@ public class DashAtkAction : BaseAction
 
     protected override BaseAction OnStartAction()
     {
-        CheckDistance();
 
         m_animator.SetTrigger("DashAtk");
         m_animator.SetBool("IsDashAtk", true);
@@ -120,13 +119,6 @@ public class DashAtkAction : BaseAction
         StartCoroutine(DelayDashAtk());
         m_animator.SetBool("IsDashAtk", false);
 
-    }
-
-    public void CheckDistance()
-    {
-        Vector3 viewVec = m_owner.transform.position - m_owner.playerCam.transform.position;
-        viewVec.y = 0;
-        viewVec = viewVec.normalized;
     }
     
     public void SetSound()

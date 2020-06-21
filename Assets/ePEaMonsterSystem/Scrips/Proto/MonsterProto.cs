@@ -36,11 +36,11 @@ namespace ProjectM.ePEa.ProtoMon
 
         [SerializeField] AnimationCurve m_damAc;
 
-        [SerializeField] float m_refilMax = 3.0f;
-
         [SerializeField] Slider m_hpBar;
-        [SerializeField] Slider m_refillBar;
         [SerializeField] Image m_backhpBar;
+
+        [SerializeField] float m_refillTime;
+        [SerializeField] float m_refillSpeed;
 
         bool IsDecrease = false;
         #endregion
@@ -52,8 +52,6 @@ namespace ProjectM.ePEa.ProtoMon
 
         Vector3 m_startPos;
         Vector3 m_endPos;
-
-        float m_refil = 3.0f;
 
         float m_nowHp;
 
@@ -77,6 +75,8 @@ namespace ProjectM.ePEa.ProtoMon
 
         float m_changeDest = 0.0f;
 
+        float m_currentReTime = 0;
+
         #endregion
 
         private void Awake()
@@ -84,7 +84,6 @@ namespace ProjectM.ePEa.ProtoMon
             target = GameObject.FindWithTag("Player").transform;
             m_destPos = transform.position;
 
-            m_refil = m_refilMax;
             m_nowHp = m_maxHp;
         }
 
@@ -92,7 +91,6 @@ namespace ProjectM.ePEa.ProtoMon
         void Update()
         {
             m_hpBar.transform.rotation = Camera.main.transform.rotation;
-            m_refillBar.transform.rotation = Camera.main.transform.rotation;
 
             switch (m_nowState)
             {
@@ -112,15 +110,13 @@ namespace ProjectM.ePEa.ProtoMon
                     break;
             }
 
-            m_refil = Mathf.Min(m_refil + Time.deltaTime, m_refilMax);
-            if (m_refil == m_refilMax)
-            {
-                m_nowHp = m_maxHp;
-            }
+            m_currentReTime = Mathf.Max(0.0f, m_currentReTime - Time.deltaTime);
+            if (m_currentReTime <= 0)
+                m_nowHp = Mathf.Min(m_maxHp, m_nowHp + Time.deltaTime * m_refillSpeed);
             m_nowDelay = Mathf.Max(0, m_nowDelay - Time.deltaTime);
 
+
             m_hpBar.value = m_nowHp / m_maxHp;
-            m_refillBar.value = m_refil / m_refilMax;
 
             if (m_nowHp <= 0)
             {
@@ -229,7 +225,9 @@ namespace ProjectM.ePEa.ProtoMon
         public void TakeDamage(float damage, Vector3 knockDir, float knockPower)
         {
             m_nowHp -= damage;
-            
+
+            m_currentReTime = m_refillTime;
+
             m_knockTime = 0;
             m_knockStart = new Vector3(transform.position.x, 0.0f, transform.position.z);
             m_knockEnd = m_knockStart + knockDir * knockPower;
@@ -239,8 +237,6 @@ namespace ProjectM.ePEa.ProtoMon
 
             eff.transform.position = transform.position + Vector3.up;
 
-
-            m_refil = 0;
             Invoke("HPDecrease",0.5f);
 
         }
