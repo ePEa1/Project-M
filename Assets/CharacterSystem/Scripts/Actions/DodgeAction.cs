@@ -31,7 +31,7 @@ public class DodgeAction : BaseAction
         m_nextAtk = false;
         m_nextAtkOk = false;
 
-        if (m_controller.IsMoving())
+        if (m_controller.IsMoving)
         {
             Vector3 view = m_owner.transform.position - m_owner.playerCam.position;
             view.y = 0.0f;
@@ -122,7 +122,7 @@ public class DodgeAction : BaseAction
         }
         else
         {
-            if (m_controller.IsMoving())
+            if (m_controller.IsMoving)
             {
                 m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
             }

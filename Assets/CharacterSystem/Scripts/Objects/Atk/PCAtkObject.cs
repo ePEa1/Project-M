@@ -18,6 +18,7 @@ public class PCAtkObject : ScriptableObject
 public struct PCAtksData
 {
     public float getMp;
+    public float getGage;
     public float damage;
     public Vector3 colCenter;
     public Vector3 colSize;

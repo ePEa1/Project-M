@@ -171,7 +171,7 @@ public class AttackAction : BaseAction
 
         if (!m_nextAtk)
         {
-            if (m_controller.IsMoving())
+            if (m_controller.IsMoving)
                 m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
             else m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
         }
@@ -201,7 +201,7 @@ public class AttackAction : BaseAction
             m_atkRange.size = data.colSize;
 
             m_atkRange.GetComponent<AtkCollider>().isAttacking = false;
-            m_atkRange.GetComponent<AtkCollider>().atkDamage = data.damage;
+            m_atkRange.GetComponent<AtkCollider>().atkDamage = data.damage * PlayerStats.playerStat.m_atkPower;
 
             m_atkRange.GetComponent<AtkCollider>().Attacking();
 
@@ -260,6 +260,11 @@ public class AttackAction : BaseAction
     public void Shaking()
     {
         m_owner.playerCam.GetComponent<CharacterCam>().SetShake(m_atkData[m_currentCombo].shakeData);
+    }
+
+    public void GetAtkGage()
+    {
+        PlayerStats.playerStat.GetAtkGage(m_atkData[m_currentCombo].atkData[m_colNum].getGage);
     }
 
     /// <summary>
