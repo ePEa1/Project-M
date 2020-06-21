@@ -4,7 +4,6 @@ using UnityEngine;
 using ProjectM.ePEa.PlayerData;
 using ProjectM.ePEa.CamSystem;
 using static ProjectM.ePEa.CustomFunctions.CustomFunction;
-using ProjectM.ePEa.CamSystem;
 
 public class RushAtkAction : BaseAction
 {
@@ -143,7 +142,7 @@ public class RushAtkAction : BaseAction
     public void AtkHitTime()
     {
         PCAtksData data = m_atkData.atkData[m_colNum];
-        m_atkCollider.GetComponent<AtkCollider>().atkDamage = data.damage;
+        m_atkCollider.GetComponent<AtkCollider>().atkDamage = data.damage * PlayerStats.playerStat.m_atkPower;
         m_atkCollider.GetComponent<BoxCollider>().size = data.colSize;
         m_atkCollider.GetComponent<BoxCollider>().center = data.colCenter;
         m_atkCollider.GetComponent<AtkCollider>().isAttacking = false;
@@ -160,7 +159,7 @@ public class RushAtkAction : BaseAction
     /// </summary>
     public void EndAttack()
     {
-        if (m_controller.IsMoving())
+        if (m_controller.IsMoving)
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
         else
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
@@ -196,6 +195,11 @@ public class RushAtkAction : BaseAction
     public void Shaking()
     {
         m_owner.playerCam.GetComponent<CharacterCam>().SetShake(m_atkData.shakeData);
+    }
+
+    public void GetGage()
+    {
+        PlayerStats.playerStat.GetAtkGage(m_atkData.atkData[m_colNum].getGage);
     }
 
     #endregion
