@@ -6,17 +6,22 @@ using UnityEngine.UI;
 public class AttackMouseTest : MonoBehaviour
 {
     public Image MouseImg;
+    public Image MouseGauge;
+    public float GaugeVal;
     float Clicked;
+    float ClickCount;
     [SerializeField] float minScale;
     [SerializeField] float maxScale;
     [SerializeField] AnimationCurve ScaleCurve;
     [SerializeField] float duration;
     [SerializeField] Vector3 LimitScale;
+
+    public bool IsReady = false;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        GaugeVal = 0;
     }
 
     // Update is called once per frame
@@ -24,14 +29,21 @@ public class AttackMouseTest : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            ClickCount += 1;
             StartCoroutine(Shake());
+            GaugeVal += 0.1f;
         }
+        if(ClickCount >= 10)
+        {
+            IsReady = true;
+        }
+        MouseGauge.fillAmount = GaugeVal;
     }
 
     public IEnumerator Shake()
     {
         Clicked = 5.0f;
-        MouseImg.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+        MouseImg.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
         float timer = 0;
         float scaleTime = 0;
         while (timer <= duration)
