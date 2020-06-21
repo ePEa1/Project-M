@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public enum TutorialState
 {
@@ -49,7 +50,7 @@ public class TutorialMainManager : MonoBehaviour
     public Text NameText;
     public Text DialogueText;
 
-
+    //각 행동 순서들
     [SerializeField] int MoveOrder;
     [SerializeField] int AttackOrder;
     [SerializeField] int SkillSpawnOrder;
@@ -130,8 +131,7 @@ public class TutorialMainManager : MonoBehaviour
         {
             DialCount = MoveAttackOrder + 1;
             DailogueOpen = true;
-            TutorialKey.SetActive(false);
-            DialogueScreen.SetActive(true);
+            OpenDialogue();
             MoveAttackKey.SetActive(false);
             MoveAtk.IsReady = false;
 
@@ -151,8 +151,7 @@ public class TutorialMainManager : MonoBehaviour
                 DialCount = SkillSpawnOrder + 1;
             }
             DailogueOpen = true;
-            TutorialKey.SetActive(false);
-            DialogueScreen.SetActive(true);
+            OpenDialogue();
 
             IsSpawn = false;
         }
@@ -227,8 +226,7 @@ public class TutorialMainManager : MonoBehaviour
         {
             ResultText = TutorialStart[MPExplain + 1];
 
-            TutorialKey.SetActive(false);
-            DialogueScreen.SetActive(true);
+            OpenDialogue();
             MPView.SetActive(false);
         }
         else if (DialCount == SkillExplain)
@@ -241,8 +239,7 @@ public class TutorialMainManager : MonoBehaviour
         else if (DialCount == (SkillExplain + 1))
         {
             ResultText = TutorialStart[SkillExplain + 1];
-            TutorialKey.SetActive(false);
-            DialogueScreen.SetActive(true);
+            OpenDialogue();
             SkillView.SetActive(false);
         }
         else if (DialCount == PracticeMonster)
@@ -286,7 +283,13 @@ public class TutorialMainManager : MonoBehaviour
     {
         DialogueScreen.SetActive(false);
         TutorialKey.SetActive(true);
+    }
+
+    void OpenDialogue()
+    {
+        TutorialKey.SetActive(false);
+        DialogueScreen.SetActive(true);
 
     }
-    
+
 }

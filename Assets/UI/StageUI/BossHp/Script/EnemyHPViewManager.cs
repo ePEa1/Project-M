@@ -13,6 +13,7 @@ public class EnemyHPViewManager : MonoBehaviour
     [SerializeField] Text m_hpSizeText; //hp 줄 수 텍스트
     [SerializeField] Text m_hpData; //현재 hp 수치 텍스트
     [SerializeField] Image m_hpBox; //hp바 틀
+    [SerializeField] GameObject m_TimeObj;//시간 게이지
 
     //hp바 쉐이킹----------------------------------
     [SerializeField] float m_shakePower = 3.0f;
@@ -112,6 +113,7 @@ public class EnemyHPViewManager : MonoBehaviour
         m_hpSizeText.transform.SetAsLastSibling();
         m_hpSizeText.text = "X " + (int)Mathf.Ceil(m_nowHp / m_hpMaxSize);
         m_hpBox.transform.SetAsLastSibling();
+        m_TimeObj.transform.SetAsLastSibling();
 
         //셋팅 끝 체크
         m_isSetting = true;
