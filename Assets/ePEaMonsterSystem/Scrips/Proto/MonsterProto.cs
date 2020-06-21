@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace ProjectM.ePEa.ProtoMon
 {
-    public class MonsterProto : MonoBehaviour
+    public class MonsterProto : MonoBehaviour, ConnectRader
     {
         #region Inspector
 
@@ -87,6 +87,11 @@ namespace ProjectM.ePEa.ProtoMon
             m_nowHp = m_maxHp;
         }
 
+        void Start()
+        {
+            AddTarget();
+        }
+
         // Update is called once per frame
         void Update()
         {
@@ -122,8 +127,8 @@ namespace ProjectM.ePEa.ProtoMon
             {
                 DataController.Instance.gameData.firstStageMonster -= 1;
                 Debug.Log(DataController.Instance.gameData.firstStageMonster);
+                DestroyTarget();
                 Destroy(gameObject);
-
             }
 
             if (IsDecrease)
@@ -262,6 +267,23 @@ namespace ProjectM.ePEa.ProtoMon
         {
             IsDecrease = true;
         }
-        
+
+        public void AddTarget()
+        {
+            EnemyRader rader = GameObject.FindWithTag("EnemyRader").GetComponent<EnemyRader>();
+            if (rader!=null)
+            {
+                rader.AddTarget(transform);
+            }
+        }
+
+        public void DestroyTarget()
+        {
+            EnemyRader rader = GameObject.FindWithTag("EnemyRader").GetComponent<EnemyRader>();
+            if (rader != null)
+            {
+                rader.DestroyTarget(transform);
+            }
+        }
     }
 }

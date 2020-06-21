@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ProjectM.ePEa.ProtoMon
 {
-    public class ProtoBossFSM : MonoBehaviour
+    public class ProtoBossFSM : MonoBehaviour, ConnectRader
     {
         #region Inspector
         [SerializeField] public float m_maxHp; //최대체력
@@ -46,6 +46,11 @@ namespace ProjectM.ePEa.ProtoMon
             target = GameObject.FindWithTag("Player").transform;
         }
 
+        void Start()
+        {
+            AddTarget();
+        }
+
         // Update is called once per frame
         void Update()
         {
@@ -69,7 +74,11 @@ namespace ProjectM.ePEa.ProtoMon
             }
 
             if (m_currentHp <= 0)
+            {
+                DestroyTarget();
                 Destroy(gameObject);
+            }
+                
         }
 
         void Move()
@@ -279,6 +288,24 @@ namespace ProjectM.ePEa.ProtoMon
                     m_currentState = State.MOVE;
                     m_atkDelay = Random.Range(m_atkDelayMin, m_atkDelayMax);
                 }
+            }
+        }
+
+        public void AddTarget()
+        {
+            EnemyRader rader = GameObject.FindWithTag("EnemyRader").GetComponent<EnemyRader>();
+            if (rader != null)
+            {
+                rader.AddTarget(transform);
+            }
+        }
+
+        public void DestroyTarget()
+        {
+            EnemyRader rader = GameObject.FindWithTag("EnemyRader").GetComponent<EnemyRader>();
+            if (rader != null)
+            {
+                rader.DestroyTarget(transform);
             }
         }
     }
