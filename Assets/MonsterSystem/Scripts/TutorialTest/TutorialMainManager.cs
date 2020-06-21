@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public enum TutorialState
 {
@@ -49,7 +50,7 @@ public class TutorialMainManager : MonoBehaviour
     public Text NameText;
     public Text DialogueText;
 
-
+    //각 행동 순서들
     [SerializeField] int MoveOrder;
     [SerializeField] int AttackOrder;
     [SerializeField] int SkillSpawnOrder;
