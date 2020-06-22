@@ -123,7 +123,7 @@ public class TutorialMainManager : MonoBehaviour
             MoveAtk.IsReady = false;
             MoveAtk.enabled = false;
         }
-        if (IsSpawn &&  null == GameObject.FindGameObjectWithTag("Enemy"))
+        if (IsSpawn &&  null == GameObject.FindGameObjectWithTag("EnemyRader"))
         {
             if(DialCount == AttackOrder)
             {
