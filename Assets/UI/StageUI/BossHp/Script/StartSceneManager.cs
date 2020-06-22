@@ -75,16 +75,9 @@ public class StartSceneManager : MonoBehaviour
         Setplayer.time = 0;
         Setplayer.Play();
     }
-    public void RayCastHitButton()
+    public void HitButton()
     {
-        RaycastHit hit = new RaycastHit();
-
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if(hit.collider.gameObject.tag == "MainUI")
-        {
             SetSound(Select, UISound);
-        }
     }
     public void PressAnyButton()
     {
@@ -98,6 +91,7 @@ public class StartSceneManager : MonoBehaviour
 
     IEnumerator FadeInGameStart()
     {
+
         for (float i = 0f; i >= 0; i += 0.005f*FadeSpeed)
         {
             Color color = new Vector4(0, 0, 0, i);
