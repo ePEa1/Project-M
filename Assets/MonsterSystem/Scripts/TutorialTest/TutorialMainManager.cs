@@ -36,6 +36,7 @@ public class TutorialMainManager : MonoBehaviour
     public GameObject DialogueScreen;
     public GameObject PotalObj;
 
+    public Image DialImage;
     public Text KeyExplain;
     public GameObject TutorialKey;
 
@@ -71,7 +72,7 @@ public class TutorialMainManager : MonoBehaviour
     public int DialCount = 0;
 
     public GameObject Potal;//튜토리얼 끝날 때 돌아가기
-    bool DailogueOpen = true;
+    bool DialogueOpen = true;
     bool GetKeyTime = false;
     public bool IsSpawn = false;
 
@@ -95,7 +96,6 @@ public class TutorialMainManager : MonoBehaviour
 
 
 
-        NameText.text = "공간의 주관자";
         PlayerUI.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player");
     }
@@ -107,34 +107,20 @@ public class TutorialMainManager : MonoBehaviour
         if(Move.IsReady == true)
         {
             DialCount = MoveOrder + 1;
-            DailogueOpen = true;
-            TutorialKey.SetActive(false);
-            DialogueScreen.SetActive(true);
+            DialogueOpen = true;
+            OpenDialogue();
             MoveKey.SetActive(false);
             Move.IsReady = false;
-
             Move.enabled = false;
-
         }
-        //if (Attack.IsReady == true)
-        //{
-        //    DialCount = AttackOrder + 1;
-        //DailogueOpen = true;
-        //TutorialKey.SetActive(false);
-        //DialogueScreen.SetActive(true);
-        //AttackMouseKey.SetActive(false);
-        //Attack.IsReady = false;
 
-        //    Attack.enabled = false;
-        //}
         if (MoveAtk.IsReady == true)
         {
             DialCount = MoveAttackOrder + 1;
-            DailogueOpen = true;
+            DialogueOpen = true;
             OpenDialogue();
             MoveAttackKey.SetActive(false);
             MoveAtk.IsReady = false;
-
             MoveAtk.enabled = false;
         }
         if (IsSpawn &&  null == GameObject.FindGameObjectWithTag("Enemy"))
@@ -144,24 +130,22 @@ public class TutorialMainManager : MonoBehaviour
                 DialCount = AttackOrder+1;
                 AttackMouseKey.SetActive(false);
                 Attack.IsReady = false;
-
             }
             else if(DialCount == SkillSpawnOrder)
             {
                 DialCount = SkillSpawnOrder + 1;
             }
-            DailogueOpen = true;
+            DialogueOpen = true;
             OpenDialogue();
 
             IsSpawn = false;
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (DailogueOpen)
+            if (DialogueOpen)
             {
                 DialCount += 1;
             }
-            
         }
         SetDialogue(DialCount);
         DialogueText.text = ResultText;
@@ -172,7 +156,7 @@ public class TutorialMainManager : MonoBehaviour
     {
         if (DialCount == MoveOrder)//일반 이동
         {
-            DailogueOpen = false;
+            DialogueOpen = false;
             Move.enabled = true;
             KeyExplain.text = "이동키 : W, A, S, D";
             CloseDialogue();
@@ -184,7 +168,7 @@ public class TutorialMainManager : MonoBehaviour
             IsSpawn = true;
 
             PlayerUI.SetActive(true);
-            DailogueOpen = false;
+            DialogueOpen = false;
             Attack.enabled = true;
             KeyExplain.text = "공격 : 왼쪽 마우스";
             CloseDialogue();
@@ -193,7 +177,7 @@ public class TutorialMainManager : MonoBehaviour
         }
         else if (DialCount == SkillSpawnOrder)
         {
-            DailogueOpen = false;
+            DialogueOpen = false;
             if (IsSpawn == false)
             {
                 IsSpawn = true;
@@ -203,12 +187,10 @@ public class TutorialMainManager : MonoBehaviour
             CloseDialogue();
             MoveAttackSpawn.SetActive(true);
             player.GetComponent<PlayerFsmManager>().enabled = true;
-
-
         }
         else if (DialCount == MoveAttackOrder)//대쉬 공격
         {
-            DailogueOpen = false;
+            DialogueOpen = false;
             MoveAtk.enabled = true;
 
             CloseDialogue();
@@ -217,7 +199,7 @@ public class TutorialMainManager : MonoBehaviour
         }
         else if (DialCount == MPExplain)//마나 이미지 표시
         {
-            KeyExplain.text = "";
+            KeyExplain.text = "체력바 밑 MP 확인";
 
             CloseDialogue();
             MPView.SetActive(true);
@@ -231,7 +213,7 @@ public class TutorialMainManager : MonoBehaviour
         }
         else if (DialCount == SkillExplain)
         {
-            KeyExplain.text = "";
+            KeyExplain.text = "오른쪽 스킬 확인";
 
             CloseDialogue();
             SkillView.SetActive(true);
@@ -244,7 +226,7 @@ public class TutorialMainManager : MonoBehaviour
         }
         else if (DialCount == PracticeMonster)
         {
-            DailogueOpen = false;
+            DialogueOpen = false;
 
             KeyExplain.text = "몬스터를 해치우세요!";
             CloseDialogue();
@@ -252,25 +234,22 @@ public class TutorialMainManager : MonoBehaviour
             {
                 GameObject curMonster = Instantiate(SpawnMonster, PracticeAttackPos.transform.position, PracticeAttackPos.transform.rotation);
                 curMonster.tag = "Enemy";
-
                 IsSpawn = true;
             }
             player.GetComponent<PlayerFsmManager>().enabled = true;
         }
         else if (DialCount == EndTutorial)
         {
+            PlayerUI.SetActive(true);
+            DialogueOpen = false;
             PotalObj.SetActive(true);
             DialogueScreen.SetActive(false);
             player.GetComponent<PlayerFsmManager>().enabled = true;
-
-
         }
         else
         {
             player.GetComponent<PlayerFsmManager>().enabled = false;
-
             ResultText = TutorialStart[DialCount];
-
         }
     }
 
@@ -281,14 +260,24 @@ public class TutorialMainManager : MonoBehaviour
 
     void CloseDialogue()
     {
+        PlayerUI.SetActive(true);
+
         DialogueScreen.SetActive(false);
         TutorialKey.SetActive(true);
     }
 
     void OpenDialogue()
     {
+        PlayerUI.SetActive(false);
+
         TutorialKey.SetActive(false);
         DialogueScreen.SetActive(true);
+    }
+
+
+    void DialShow()
+    {
+        //DialImage.transform.position = Mathf.Lerp()
 
     }
 
