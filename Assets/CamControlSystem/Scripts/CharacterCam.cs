@@ -45,7 +45,7 @@ public class CharacterCam : MonoBehaviour
     {
         //카메라 커서 고정
         Cursor.lockState = CursorLockMode.Locked;
-
+        target = GameObject.FindGameObjectWithTag("Player").transform;
         m_x=m_startX;
         m_y=m_startY;
     }
@@ -187,6 +187,11 @@ public class CharacterCam : MonoBehaviour
         m_shakeNum = 0;
         m_shakeData = shakeData;
         m_isShake = true;
+    }
+
+    public void SetTarget(GameObject obj)
+    {
+
     }
 }
 
