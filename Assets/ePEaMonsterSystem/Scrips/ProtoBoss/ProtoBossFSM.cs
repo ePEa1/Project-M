@@ -12,11 +12,13 @@ namespace ProjectM.ePEa.ProtoMon
         [SerializeField] float m_atkDelayMin; //공격 딜레이
         [SerializeField] float m_atkDelayMax; //공격 딜레이
 
-        [SerializeField] GameObject m_model;
+        //[SerializeField] GameObject //m_model;
 
         [SerializeField] public float m_shieldMax;
         [SerializeField] float m_refillTime;
         [SerializeField] float m_refillSpeed;
+
+        [SerializeField] Animator m_animator;
 
         #endregion
 
@@ -94,13 +96,19 @@ namespace ProjectM.ePEa.ProtoMon
 
         void Move()
         {
+            m_animator.SetBool("IsRush", false);
+            m_animator.ResetTrigger("Rush");
             m_atkDelay -= Time.deltaTime;
             if (m_atkDelay <= 0)
             {
                 Vector3 centerPos = new Vector3(transform.position.x, 0.0f, transform.position.z);
                 Vector3 targetPos = new Vector3(target.position.x, 0.0f, target.position.z);
                 if (Vector3.Distance(centerPos, targetPos) > 6.0f)
+                {
                     m_currentState = State.ATK1;
+                    m_animator.SetBool("IsRush", true);
+                    m_animator.SetTrigger("Rush");
+                }
                 else
                 {
                     int patton = Random.Range(0, 2);
@@ -127,14 +135,15 @@ namespace ProjectM.ePEa.ProtoMon
         [SerializeField] GameObject rushCollider;
         void Atk1()
         {
-            m_model.GetComponent<Renderer>().material.color = Color.red;
+            //m_model.GetComponent<Renderer>().material.color = Color.red;
 
             rushTime = Mathf.Min(0.8f, rushTime + Time.deltaTime);
-            if (rushTime >= 0.5f && targetDir == Vector3.zero)
+            if (rushTime < 0.5f /*&& targetDir == Vector3.zero*/)
             {
                 targetDir = target.position - transform.position;
                 targetDir.y = 0;
                 targetDir = targetDir.normalized;
+                transform.rotation = Quaternion.LookRotation(targetDir);
                 startPos = transform.position;
                 finishPos = startPos + targetDir * 20.0f;
                 rushCollider.GetComponent<AtkCollider>().knockVec = targetDir;
@@ -147,6 +156,7 @@ namespace ProjectM.ePEa.ProtoMon
                 transform.position = Vector3.Lerp(startPos, finishPos, rush);
                 if (rush == 1)
                 {
+                    m_animator.SetBool("IsRush", false);
                     //rushCollider.SetActive(false);
                     rushEnd = Mathf.Min(0.3f, rushEnd + Time.deltaTime);
                     if (rushEnd >= 0.3f)
@@ -157,7 +167,7 @@ namespace ProjectM.ePEa.ProtoMon
                         rushEnd = 0.0f;
                         m_currentState = State.MOVE;
                         m_atkDelay = Random.Range(m_atkDelayMin, m_atkDelayMax);
-                        m_model.GetComponent<Renderer>().material.color = Color.white;
+                        //m_model.GetComponent<Renderer>().material.color = Color.white;
                         //rushCollider.SetActive(false);
                     }
                 }
@@ -183,7 +193,7 @@ namespace ProjectM.ePEa.ProtoMon
         bool melee2atk2 = false;
         void Atk2()
         {
-            m_model.GetComponent<Renderer>().material.color = new Color(1.0f, 0.5f, 0.0f);
+            //m_model.GetComponent<Renderer>().material.color = new Color(1.0f, 0.5f, 0.0f);
             if (melee1StartPos == Vector3.zero)
             {
                 melee1StartPos = transform.position;
@@ -235,7 +245,7 @@ namespace ProjectM.ePEa.ProtoMon
                                 melee2FinishPos = Vector3.zero;
                                 melee2atk1 = false;
                                 melee2atk2 = false;
-                                m_model.GetComponent<Renderer>().material.color = Color.white;
+                                //m_model.GetComponent<Renderer>().material.color = Color.white;
                                 m_atkDelay = Random.Range(m_atkDelayMin, m_atkDelayMax);
                             }
                         }
