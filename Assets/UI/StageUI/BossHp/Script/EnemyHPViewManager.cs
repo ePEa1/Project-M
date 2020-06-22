@@ -24,11 +24,7 @@ public class EnemyHPViewManager : MonoBehaviour
     [SerializeField] Vector3 m_originPos; //hp 바 위치
     [SerializeField] Color[] m_hpColor; //hp 바 색상
 
-    //hp줄 수 크기
-    //[SerializeField] int m_fontMinSize = 20;
-    //[SerializeField] int m_fontMaxSize = 40;
-
-    //[SerializeField] float m_fontSpeed = 2.0f; //폰트 크기 애니메이션 속도
+    [SerializeField] Image m_shield; //실드 게이지
 
     #endregion
 
@@ -80,6 +76,8 @@ public class EnemyHPViewManager : MonoBehaviour
             //hp줄 수 텍스트 설정
             //m_hpSizeText.fontSize = (int)Mathf.Max(m_fontMinSize, m_hpSizeText.fontSize - Time.deltaTime * m_fontSpeed);
 
+            UpdateShield();
+
             if (m_nowHp != boss.m_currentHp)
             {
                 ChangeHp(boss.m_currentHp);
@@ -117,6 +115,11 @@ public class EnemyHPViewManager : MonoBehaviour
 
         //셋팅 끝 체크
         m_isSetting = true;
+    }
+
+    void UpdateShield()
+    {
+        m_shield.fillAmount = boss.m_currentShield / boss.m_shieldMax;
     }
 
     /// <summary>

@@ -14,11 +14,17 @@ namespace ProjectM.ePEa.ProtoMon
 
         [SerializeField] GameObject m_model;
 
+        [SerializeField] public float m_shieldMax;
+        [SerializeField] float m_refillTime;
+        [SerializeField] float m_refillSpeed;
+
         #endregion
 
         #region Value
-        public float m_currentHp;
+        public float m_currentHp { get; private set; }
         float m_atkDelay;
+        public float m_currentShield { get; private set; }
+        float m_shieldTime = 0.0f;
 
         Transform target;
 
@@ -42,6 +48,7 @@ namespace ProjectM.ePEa.ProtoMon
         void Awake()
         {
             m_currentHp = m_maxHp;
+            m_currentShield = m_shieldMax;
             m_atkDelay = Random.Range(m_atkDelayMin, m_atkDelayMax);
             target = GameObject.FindWithTag("Player").transform;
         }
@@ -78,7 +85,11 @@ namespace ProjectM.ePEa.ProtoMon
                 DestroyTarget();
                 Destroy(gameObject);
             }
-                
+
+            if (m_shieldTime == 0)
+                m_currentShield = Mathf.Min(m_shieldMax, m_currentShield + Time.deltaTime * m_refillSpeed);
+
+            m_shieldTime = Mathf.Max(0, m_shieldTime - Time.deltaTime);
         }
 
         void Move()
@@ -251,7 +262,19 @@ namespace ProjectM.ePEa.ProtoMon
 
         public void TakeDamage(float dam)
         {
-            m_currentHp -= dam;
+            float d = dam;
+            if (m_currentShield > 0)
+            {
+                m_currentShield -= d;
+                if (m_currentShield < 0)
+                {
+                    d = Mathf.Abs(m_currentShield);
+                    m_currentShield = 0;
+                }
+                else d = 0;
+            }
+            m_currentHp -= d;
+            m_shieldTime = m_refillTime;
         }
 
 
