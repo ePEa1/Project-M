@@ -18,7 +18,6 @@ public class MoveAtkKeyTest : MonoBehaviour
 
     public GameObject FrontMousekey;
 
-
     int Count;
     public bool IsReady = false;
 
@@ -26,9 +25,8 @@ public class MoveAtkKeyTest : MonoBehaviour
     {
         AOnekey.SetActive(true);
         DOnekey.SetActive(false);
-        Shiftkey.SetActive(true);
-
         SOnekey.SetActive(false);
+        Shiftkey.SetActive(true);
 
         FrontMousekey.SetActive(false);
     }
@@ -49,7 +47,6 @@ public class MoveAtkKeyTest : MonoBehaviour
             case 3:
                 TurnFront();
                 break;
-
         }
 
     }
@@ -100,8 +97,11 @@ public class MoveAtkKeyTest : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             IsReady = true;
-
         }
+    }
 
+    void OrderPlus()
+    {
+        Order += 1;
     }
 }
