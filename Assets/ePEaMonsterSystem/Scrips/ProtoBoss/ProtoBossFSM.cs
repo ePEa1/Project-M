@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using static ProjectM.ePEa.CustomFunctions.CustomFunction;
+
 namespace ProjectM.ePEa.ProtoMon
 {
     public class ProtoBossFSM : MonoBehaviour, ConnectRader
@@ -12,11 +14,15 @@ namespace ProjectM.ePEa.ProtoMon
         [SerializeField] float m_atkDelayMin; //공격 딜레이
         [SerializeField] float m_atkDelayMax; //공격 딜레이
 
-        [SerializeField] GameObject m_model;
+        //[SerializeField] GameObject //m_model;
 
         [SerializeField] public float m_shieldMax;
         [SerializeField] float m_refillTime;
         [SerializeField] float m_refillSpeed;
+
+        [SerializeField] Animator m_animator;
+
+        [SerializeField] LayerMask m_wall;
 
         #endregion
 
@@ -94,13 +100,24 @@ namespace ProjectM.ePEa.ProtoMon
 
         void Move()
         {
+            targetDir = target.position - transform.position;
+            targetDir.y = 0;
+            targetDir = targetDir.normalized;
+            transform.rotation = Quaternion.LookRotation(targetDir);
+
+            m_animator.SetBool("IsRush", false);
+            m_animator.ResetTrigger("Rush");
             m_atkDelay -= Time.deltaTime;
             if (m_atkDelay <= 0)
             {
                 Vector3 centerPos = new Vector3(transform.position.x, 0.0f, transform.position.z);
                 Vector3 targetPos = new Vector3(target.position.x, 0.0f, target.position.z);
                 if (Vector3.Distance(centerPos, targetPos) > 6.0f)
+                {
                     m_currentState = State.ATK1;
+                    m_animator.SetBool("IsRush", true);
+                    m_animator.SetTrigger("Rush");
+                }
                 else
                 {
                     int patton = Random.Range(0, 2);
@@ -108,10 +125,14 @@ namespace ProjectM.ePEa.ProtoMon
                     {
                         case 0:
                             m_currentState = State.ATK2;
+                            m_animator.SetBool("IsAtk2", true);
+                            m_animator.SetTrigger("Atk2");
                             break;
 
                         case 1:
                             m_currentState = State.ATK3;
+                            m_animator.SetBool("IsAtk3", true);
+                            m_animator.SetTrigger("Atk3");
                             break;
                     }
                 }
@@ -127,14 +148,15 @@ namespace ProjectM.ePEa.ProtoMon
         [SerializeField] GameObject rushCollider;
         void Atk1()
         {
-            m_model.GetComponent<Renderer>().material.color = Color.red;
+            //m_model.GetComponent<Renderer>().material.color = Color.red;
 
             rushTime = Mathf.Min(0.8f, rushTime + Time.deltaTime);
-            if (rushTime >= 0.5f && targetDir == Vector3.zero)
+            if (rushTime < 0.5f )
             {
                 targetDir = target.position - transform.position;
                 targetDir.y = 0;
                 targetDir = targetDir.normalized;
+                transform.rotation = Quaternion.LookRotation(targetDir);
                 startPos = transform.position;
                 finishPos = startPos + targetDir * 20.0f;
                 rushCollider.GetComponent<AtkCollider>().knockVec = targetDir;
@@ -142,11 +164,18 @@ namespace ProjectM.ePEa.ProtoMon
 
             if (rushTime >= 0.8f)
             {
-                rush = Mathf.Min(1, rush + Time.deltaTime * 5.0f);
                 transform.rotation = Quaternion.LookRotation(targetDir);
-                transform.position = Vector3.Lerp(startPos, finishPos, rush);
+
+                Vector3 beforePos = Vector3.Lerp(startPos, finishPos, rush);
+                rush = Mathf.Min(1, rush + Time.deltaTime * 5.0f);
+                Vector3 afterPos = Vector3.Lerp(startPos, finishPos, rush);
+
+                Vector3 fixedPos = FixedMovePos(transform.position + Vector3.up * 0.75f, 0.75f, (afterPos - beforePos).normalized, Vector3.Distance(beforePos, afterPos), m_wall);
+
+                transform.position += afterPos - beforePos + fixedPos;
                 if (rush == 1)
                 {
+                    m_animator.SetBool("IsRush", false);
                     //rushCollider.SetActive(false);
                     rushEnd = Mathf.Min(0.3f, rushEnd + Time.deltaTime);
                     if (rushEnd >= 0.3f)
@@ -157,7 +186,7 @@ namespace ProjectM.ePEa.ProtoMon
                         rushEnd = 0.0f;
                         m_currentState = State.MOVE;
                         m_atkDelay = Random.Range(m_atkDelayMin, m_atkDelayMax);
-                        m_model.GetComponent<Renderer>().material.color = Color.white;
+                        //m_model.GetComponent<Renderer>().material.color = Color.white;
                         //rushCollider.SetActive(false);
                     }
                 }
@@ -183,12 +212,13 @@ namespace ProjectM.ePEa.ProtoMon
         bool melee2atk2 = false;
         void Atk2()
         {
-            m_model.GetComponent<Renderer>().material.color = new Color(1.0f, 0.5f, 0.0f);
+            //m_model.GetComponent<Renderer>().material.color = new Color(1.0f, 0.5f, 0.0f);
             if (melee1StartPos == Vector3.zero)
             {
                 melee1StartPos = transform.position;
                 melee1FinishPos = target.transform.position - transform.position;
                 melee1FinishPos.y = 0;
+                transform.rotation = Quaternion.LookRotation(melee1FinishPos.normalized);
                 melee1Collider.GetComponent<AtkCollider>().knockVec = melee1FinishPos.normalized;
                 melee1FinishPos = melee1StartPos + melee1FinishPos.normalized * 5;
             }
@@ -196,9 +226,6 @@ namespace ProjectM.ePEa.ProtoMon
             melee1 = Mathf.Min(0.5f, melee1 + Time.deltaTime);
             if (melee1 >= 0.5f)
             {
-                melee1rush = Mathf.Min(1, melee1rush + Time.deltaTime * 10.0f);
-                transform.position = Vector3.Lerp(melee1StartPos, melee1FinishPos, melee1rush);
-
                 if (melee1rush >= 1)
                 {
                     //melee1Collider.SetActive(false);
@@ -207,6 +234,7 @@ namespace ProjectM.ePEa.ProtoMon
                         melee2StartPos = transform.position;
                         melee2FinishPos = target.transform.position - transform.position;
                         melee2FinishPos.y = 0.0f;
+                        transform.rotation = Quaternion.LookRotation(melee2FinishPos.normalized);
                         melee2Collider.GetComponent<AtkCollider>().knockVec = melee2FinishPos.normalized;
                         melee2FinishPos = melee2StartPos + melee2FinishPos.normalized * 6;
                     }
@@ -214,8 +242,11 @@ namespace ProjectM.ePEa.ProtoMon
                     melee2 = Mathf.Min(0.4f, melee2 + Time.deltaTime);
                     if (melee2 >= 0.4f)
                     {
+                        Vector3 beforePos = Vector3.Lerp(melee2StartPos, melee2FinishPos, melee2rush);
                         melee2rush = Mathf.Min(1, melee2rush + Time.deltaTime * 10.0f);
-                        transform.position = Vector3.Lerp(melee2StartPos, melee2FinishPos, melee2rush);
+                        Vector3 afterPos = Vector3.Lerp(melee2StartPos, melee2FinishPos, melee2rush);
+                        Vector3 fixedPos = FixedMovePos(transform.position + Vector3.up * 0.75f, 0.75f, (afterPos - beforePos).normalized, Vector3.Distance(beforePos, afterPos), m_wall);
+                        transform.position += afterPos - beforePos + fixedPos;
 
                         if (melee2rush >= 1)
                         {
@@ -235,8 +266,9 @@ namespace ProjectM.ePEa.ProtoMon
                                 melee2FinishPos = Vector3.zero;
                                 melee2atk1 = false;
                                 melee2atk2 = false;
-                                m_model.GetComponent<Renderer>().material.color = Color.white;
+                                //m_model.GetComponent<Renderer>().material.color = Color.white;
                                 m_atkDelay = Random.Range(m_atkDelayMin, m_atkDelayMax);
+                                m_animator.SetBool("IsAtk2", false);
                             }
                         }
                         else
@@ -251,6 +283,11 @@ namespace ProjectM.ePEa.ProtoMon
                 }
                 else
                 {
+                    Vector3 beforePos = Vector3.Lerp(melee1StartPos, melee1FinishPos, melee1rush);
+                    melee1rush = Mathf.Min(1, melee1rush + Time.deltaTime * 10.0f);
+                    Vector3 afterPos = Vector3.Lerp(melee1StartPos, melee1FinishPos, melee1rush);
+                    Vector3 fixedPos = FixedMovePos(transform.position + Vector3.up * 0.75f, 0.75f, (afterPos - beforePos).normalized, Vector3.Distance(afterPos, beforePos), m_wall);
+                    transform.position += afterPos - beforePos + fixedPos;
                     if (!melee2atk1)
                     {
                         melee1Collider.GetComponent<AtkCollider>().Attacking();
@@ -310,6 +347,7 @@ namespace ProjectM.ePEa.ProtoMon
                     //circleDam.SetActive(false);
                     m_currentState = State.MOVE;
                     m_atkDelay = Random.Range(m_atkDelayMin, m_atkDelayMax);
+                    m_animator.SetBool("IsAtk3", false);
                 }
             }
         }

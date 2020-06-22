@@ -158,12 +158,15 @@ namespace ProjectM.ePEa.ProtoMon
                 m_changeDest = Random.Range(1, 4);
             }
 
-            if (Vector3.Distance(charPos, destPos) < m_atkRange && m_nowDelay==0)
+            if (Vector3.Distance(charPos, destPos) < m_atkRange)
             {
-                AtkStart();
+                m_animator.SetBool("Moving", false);
+                if (m_nowDelay == 0)
+                    AtkStart();
             }
             else if (Vector3.Distance( charPos, m_destPos) >1.0f)
             {
+                m_animator.SetBool("Moving", true);
                 transform.position += (m_destPos - charPos).normalized * m_moveSpeed * Time.deltaTime;
                 Quaternion dir = Quaternion.LookRotation((m_destPos - charPos).normalized);
                 transform.rotation = Quaternion.Slerp(transform.rotation, dir, Time.deltaTime * 3.0f);
@@ -208,6 +211,7 @@ namespace ProjectM.ePEa.ProtoMon
             m_startPos = transform.position;
             m_endPos = transform.position + (target.position - transform.position).normalized * m_rushRange;
             m_animator.SetTrigger("Atk");
+            m_animator.SetBool("IsAtk", true);
 
             GameObject eff = Instantiate(m_eff);
             eff.transform.parent=transform;
@@ -225,13 +229,21 @@ namespace ProjectM.ePEa.ProtoMon
             m_time = 0.0f;
 
             m_destPos = new Vector3(transform.position.x, 0.0f, transform.position.z);
+
+            m_animator.ResetTrigger("Atk");
+            m_animator.SetBool("IsAtk", false);
         }
 
         public void TakeDamage(float damage, Vector3 knockDir, float knockPower)
         {
             m_nowHp -= damage;
 
+            m_time = 0.0f;
+
             m_currentReTime = m_refillTime;
+
+            m_animator.SetTrigger("Damage");
+            m_animator.SetBool("IsDamage", true);
 
             m_knockTime = 0;
             m_knockStart = new Vector3(transform.position.x, 0.0f, transform.position.z);
@@ -258,6 +270,8 @@ namespace ProjectM.ePEa.ProtoMon
 
             if (m_knockTime > 1)
             {
+                m_animator.ResetTrigger("Damage");
+                m_animator.SetBool("IsDamage", false);
                 m_nowState = state.MOVE;
             }
         }
