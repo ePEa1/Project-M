@@ -14,6 +14,12 @@ public class SkillGaugeManager : MonoBehaviour
     public Image SideSkill;//skill_2
     public Image BackSkill;//skill_3
 
+    public Image FrontIcon;
+    public Image SideIcon;
+    public Image BackIcon;
+
+
+    [SerializeField] float fadeSpeed;
     float FrontVal;
     float SideVal;
     float BackVal;
@@ -28,27 +34,77 @@ public class SkillGaugeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.m_currentController.IsRushAttack() && FrontSkill.fillAmount>=0.99f)
+        if (PlayerStats.playerStat.m_currentMp <= PlayerStats.playerStat.m_rushMp)
         {
-            FrontVal = 0;
+            SetCantUse(FrontSkill, FrontIcon);
         }
-        FrontVal += Time.deltaTime * SkillCoolTime;
-        FrontSkill.fillAmount = Mathf.Min(FrontVal, 1);
+
+        if (PlayerStats.playerStat.m_currentMp <= PlayerStats.playerStat.m_backMp)
+        {
+            SetCantUse(BackSkill, BackIcon);
+        }
+
+        if (PlayerStats.playerStat.m_currentMp <= PlayerStats.playerStat.m_widthMp)
+        {
+            SetCantUse(SideSkill, SideIcon);
+        }
+
+
 
         if (player.m_currentController.IsDashAttack() && FrontSkill.fillAmount >= 0.99f)
         {
             SideVal = 0;
         }
-        SideVal += Time.deltaTime * SkillCoolTime;
-        SideSkill.fillAmount = Mathf.Min(SideVal, 1);
 
         if (player.m_currentController.IsBackDashAttack() && FrontSkill.fillAmount >= 0.99f)
         {
             BackVal = 0;
         }
-        BackVal += Time.deltaTime * SkillCoolTime;
-        BackSkill.fillAmount = Mathf.Min(BackVal, 1);
 
 
+    }
+
+
+    void CheckCanUse()
+    {
+
+    }
+
+    void SetCantUse(Image back, Image logo)
+    {
+        back.color = new Vector4(back.color.r, back.color.g, back.color.b, 0);
+        logo.color = new Vector4(0, 0, 0, 1);
+    }
+    IEnumerator FadeIn(Image FadeImg)
+    {
+        for (float i = 0f; i >= 0; i += 0.005f * fadeSpeed)
+        {
+            Color color = new Vector4(0, 0, 0, i);
+            FadeImg.color = color;
+
+            if (FadeImg.color.a >= 1)
+            {
+
+            }
+
+            yield return null;
+        }
+    }
+
+    
+    IEnumerator FadeOut(Image FadeImg)
+    {
+        for (float i = 0f; i >= 0; i -= 0.005f * fadeSpeed)
+        {
+            Color color = new Vector4(0, 0, 0, i);
+            FadeImg.color = color;
+
+            if (FadeImg.color.a >= 1)
+            {
+
+            }
+
+            yield return null;
+        }
     }
 }
