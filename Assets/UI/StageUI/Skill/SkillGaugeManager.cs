@@ -23,8 +23,10 @@ public class SkillGaugeManager : MonoBehaviour
     float FrontVal;
     float SideVal;
     float BackVal;
-    [SerializeField] float SkillCoolTime; 
 
+    bool CanFront;
+    bool CanSide;
+    bool CanBack;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,56 +36,65 @@ public class SkillGaugeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerStats.playerStat.m_currentMp <= PlayerStats.playerStat.m_rushMp)
+        CheckFrontUse();
+        CheckSideUse();
+        CheckBackUse();
+    }
+
+
+    void CheckFrontUse()
+    {
+        if (PlayerStats.playerStat.m_currentMp < PlayerStats.playerStat.m_rushMp)
         {
             SetCantUse(FrontSkill, FrontIcon);
         }
+        else
+            SetUse(FrontSkill, FrontIcon);
 
-        if (PlayerStats.playerStat.m_currentMp <= PlayerStats.playerStat.m_backMp)
-        {
-            SetCantUse(BackSkill, BackIcon);
-        }
-
+    }
+    void CheckSideUse()
+    {
         if (PlayerStats.playerStat.m_currentMp <= PlayerStats.playerStat.m_widthMp)
         {
             SetCantUse(SideSkill, SideIcon);
         }
-
-
-
-        if (player.m_currentController.IsDashAttack() && FrontSkill.fillAmount >= 0.99f)
+        else
         {
-            SideVal = 0;
+            SetUse(SideSkill, SideIcon);
         }
-
-        if (player.m_currentController.IsBackDashAttack() && FrontSkill.fillAmount >= 0.99f)
-        {
-            BackVal = 0;
-        }
-
 
     }
-
-
-    void CheckCanUse()
+    void CheckBackUse()
     {
-
+        if (PlayerStats.playerStat.m_currentMp <= PlayerStats.playerStat.m_backMp)
+        {
+            SetCantUse(BackSkill, BackIcon);
+        }
+        else
+            SetUse(BackSkill, BackIcon);
     }
-
     void SetCantUse(Image back, Image logo)
     {
         back.color = new Vector4(back.color.r, back.color.g, back.color.b, 0);
         logo.color = new Vector4(0, 0, 0, 1);
     }
-    IEnumerator FadeIn(Image FadeImg)
+    void SetUse(Image back, Image logo)
+    {
+        back.color = new Vector4(back.color.r, back.color.g, back.color.b, 1);
+        logo.color = new Vector4(1, 1, 1, 1);
+    }
+
+
+    IEnumerator FadeIn(Image FadeImg, bool can)
     {
         for (float i = 0f; i >= 0; i += 0.005f * fadeSpeed)
         {
-            Color color = new Vector4(0, 0, 0, i);
+            Color color = new Vector4(i, i, i, 1);
             FadeImg.color = color;
 
-            if (FadeImg.color.a >= 1)
+            if (FadeImg.color.r >= 1)
             {
+                FadeImg.color = new Vector4(1,1,1,1);
 
             }
 
@@ -96,11 +107,12 @@ public class SkillGaugeManager : MonoBehaviour
     {
         for (float i = 0f; i >= 0; i -= 0.005f * fadeSpeed)
         {
-            Color color = new Vector4(0, 0, 0, i);
+            Color color = new Vector4(i, i, i, 0);
             FadeImg.color = color;
 
-            if (FadeImg.color.a >= 1)
+            if (FadeImg.color.r <= 1)
             {
+                FadeImg.color = new Vector4(0, 0, 0, 1);
 
             }
 
