@@ -75,16 +75,9 @@ public class StartSceneManager : MonoBehaviour
         Setplayer.time = 0;
         Setplayer.Play();
     }
-    public void RayCastHitButton()
+    public void HitButton()
     {
-        RaycastHit hit = new RaycastHit();
-
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if(hit.collider.gameObject.tag == "MainUI")
-        {
             SetSound(Select, UISound);
-        }
     }
     public void PressAnyButton()
     {
