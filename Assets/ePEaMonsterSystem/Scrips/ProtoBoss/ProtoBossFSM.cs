@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using static ProjectM.ePEa.CustomFunctions.CustomFunction;
+
 namespace ProjectM.ePEa.ProtoMon
 {
     public class ProtoBossFSM : MonoBehaviour, ConnectRader
@@ -19,6 +21,8 @@ namespace ProjectM.ePEa.ProtoMon
         [SerializeField] float m_refillSpeed;
 
         [SerializeField] Animator m_animator;
+
+        [SerializeField] LayerMask m_wall;
 
         #endregion
 
@@ -151,9 +155,15 @@ namespace ProjectM.ePEa.ProtoMon
 
             if (rushTime >= 0.8f)
             {
-                rush = Mathf.Min(1, rush + Time.deltaTime * 5.0f);
                 transform.rotation = Quaternion.LookRotation(targetDir);
-                transform.position = Vector3.Lerp(startPos, finishPos, rush);
+
+                Vector3 beforePos = Vector3.Lerp(startPos, finishPos, rush);
+                rush = Mathf.Min(1, rush + Time.deltaTime * 5.0f);
+                Vector3 afterPos = Vector3.Lerp(startPos, finishPos, rush);
+
+                Vector3 fixedPos = FixedMovePos(transform.position + Vector3.up * 0.75f, 0.75f, (afterPos - beforePos).normalized, Vector3.Distance(beforePos, afterPos), m_wall);
+
+                transform.position += afterPos - beforePos + fixedPos;
                 if (rush == 1)
                 {
                     m_animator.SetBool("IsRush", false);
@@ -206,9 +216,6 @@ namespace ProjectM.ePEa.ProtoMon
             melee1 = Mathf.Min(0.5f, melee1 + Time.deltaTime);
             if (melee1 >= 0.5f)
             {
-                melee1rush = Mathf.Min(1, melee1rush + Time.deltaTime * 10.0f);
-                transform.position = Vector3.Lerp(melee1StartPos, melee1FinishPos, melee1rush);
-
                 if (melee1rush >= 1)
                 {
                     //melee1Collider.SetActive(false);
@@ -224,8 +231,11 @@ namespace ProjectM.ePEa.ProtoMon
                     melee2 = Mathf.Min(0.4f, melee2 + Time.deltaTime);
                     if (melee2 >= 0.4f)
                     {
+                        Vector3 beforePos = Vector3.Lerp(melee2StartPos, melee2FinishPos, melee2rush);
                         melee2rush = Mathf.Min(1, melee2rush + Time.deltaTime * 10.0f);
-                        transform.position = Vector3.Lerp(melee2StartPos, melee2FinishPos, melee2rush);
+                        Vector3 afterPos = Vector3.Lerp(melee2StartPos, melee2FinishPos, melee2rush);
+                        Vector3 fixedPos = FixedMovePos(transform.position + Vector3.up * 0.75f, 0.75f, (afterPos - beforePos).normalized, Vector3.Distance(beforePos, afterPos), m_wall);
+                        transform.position += afterPos - beforePos + fixedPos;
 
                         if (melee2rush >= 1)
                         {
@@ -261,6 +271,11 @@ namespace ProjectM.ePEa.ProtoMon
                 }
                 else
                 {
+                    Vector3 beforePos = Vector3.Lerp(melee1StartPos, melee1FinishPos, melee1rush);
+                    melee1rush = Mathf.Min(1, melee1rush + Time.deltaTime * 10.0f);
+                    Vector3 afterPos = Vector3.Lerp(melee1StartPos, melee1FinishPos, melee1rush);
+                    Vector3 fixedPos = FixedMovePos(transform.position + Vector3.up * 0.75f, 0.75f, (afterPos - beforePos).normalized, Vector3.Distance(afterPos, beforePos), m_wall);
+                    transform.position += afterPos - beforePos + fixedPos;
                     if (!melee2atk1)
                     {
                         melee1Collider.GetComponent<AtkCollider>().Attacking();
