@@ -100,6 +100,11 @@ namespace ProjectM.ePEa.ProtoMon
 
         void Move()
         {
+            targetDir = target.position - transform.position;
+            targetDir.y = 0;
+            targetDir = targetDir.normalized;
+            transform.rotation = Quaternion.LookRotation(targetDir);
+
             m_animator.SetBool("IsRush", false);
             m_animator.ResetTrigger("Rush");
             m_atkDelay -= Time.deltaTime;
@@ -146,7 +151,7 @@ namespace ProjectM.ePEa.ProtoMon
             //m_model.GetComponent<Renderer>().material.color = Color.red;
 
             rushTime = Mathf.Min(0.8f, rushTime + Time.deltaTime);
-            if (rushTime < 0.5f /*&& targetDir == Vector3.zero*/)
+            if (rushTime < 0.5f )
             {
                 targetDir = target.position - transform.position;
                 targetDir.y = 0;
@@ -213,6 +218,7 @@ namespace ProjectM.ePEa.ProtoMon
                 melee1StartPos = transform.position;
                 melee1FinishPos = target.transform.position - transform.position;
                 melee1FinishPos.y = 0;
+                transform.rotation = Quaternion.LookRotation(melee1FinishPos.normalized);
                 melee1Collider.GetComponent<AtkCollider>().knockVec = melee1FinishPos.normalized;
                 melee1FinishPos = melee1StartPos + melee1FinishPos.normalized * 5;
             }
@@ -228,6 +234,7 @@ namespace ProjectM.ePEa.ProtoMon
                         melee2StartPos = transform.position;
                         melee2FinishPos = target.transform.position - transform.position;
                         melee2FinishPos.y = 0.0f;
+                        transform.rotation = Quaternion.LookRotation(melee2FinishPos.normalized);
                         melee2Collider.GetComponent<AtkCollider>().knockVec = melee2FinishPos.normalized;
                         melee2FinishPos = melee2StartPos + melee2FinishPos.normalized * 6;
                     }
