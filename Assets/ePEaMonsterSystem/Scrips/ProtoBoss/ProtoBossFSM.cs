@@ -320,7 +320,7 @@ namespace ProjectM.ePEa.ProtoMon
                 }
                 else d = 0;
             }
-            m_currentHp -= d;
+            m_currentHp = Mathf.Max(0, m_currentHp - d);
             m_shieldTime = m_refillTime;
         }
 
