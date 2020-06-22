@@ -146,12 +146,14 @@ namespace ProjectM.ePEa.ProtoMon
         Vector3 startPos;
         Vector3 finishPos;
         [SerializeField] GameObject rushCollider;
+        [SerializeField] float m_timeRushReady = 0.5f;
+        [SerializeField] float m_timeRushGo = 0.8f;
         void Atk1()
         {
             //m_model.GetComponent<Renderer>().material.color = Color.red;
 
             rushTime = Mathf.Min(0.8f, rushTime + Time.deltaTime);
-            if (rushTime < 0.5f )
+            if (rushTime < m_timeRushReady)
             {
                 targetDir = target.position - transform.position;
                 targetDir.y = 0;
@@ -162,7 +164,7 @@ namespace ProjectM.ePEa.ProtoMon
                 rushCollider.GetComponent<AtkCollider>().knockVec = targetDir;
             }
 
-            if (rushTime >= 0.8f)
+            if (rushTime >= m_timeRushReady + m_timeRushGo)
             {
                 transform.rotation = Quaternion.LookRotation(targetDir);
 
@@ -210,6 +212,9 @@ namespace ProjectM.ePEa.ProtoMon
         [SerializeField] GameObject melee2Collider;
         bool melee2atk1 = false;
         bool melee2atk2 = false;
+
+        [SerializeField] float m_timeAtk21 = 0.6f;
+        [SerializeField] float m_timeAtk22 = 0.4f;
         void Atk2()
         {
             //m_model.GetComponent<Renderer>().material.color = new Color(1.0f, 0.5f, 0.0f);
@@ -222,9 +227,13 @@ namespace ProjectM.ePEa.ProtoMon
                 melee1Collider.GetComponent<AtkCollider>().knockVec = melee1FinishPos.normalized;
                 melee1FinishPos = melee1StartPos + melee1FinishPos.normalized * 5;
             }
+            else if (melee1< m_timeAtk21)
+            {
+                transform.rotation = Quaternion.LookRotation(melee1FinishPos.normalized) * Quaternion.Euler(0.0f, melee1 * (1.0f / m_timeAtk21) * 360.0f, 0.0f);
+            }
 
-            melee1 = Mathf.Min(0.5f, melee1 + Time.deltaTime);
-            if (melee1 >= 0.5f)
+            melee1 = Mathf.Min(m_timeAtk21, melee1 + Time.deltaTime);
+            if (melee1 >= m_timeAtk21)
             {
                 if (melee1rush >= 1)
                 {
@@ -239,8 +248,8 @@ namespace ProjectM.ePEa.ProtoMon
                         melee2FinishPos = melee2StartPos + melee2FinishPos.normalized * 6;
                     }
 
-                    melee2 = Mathf.Min(0.4f, melee2 + Time.deltaTime);
-                    if (melee2 >= 0.4f)
+                    melee2 = Mathf.Min(m_timeAtk22, melee2 + Time.deltaTime);
+                    if (melee2 >= m_timeAtk22)
                     {
                         Vector3 beforePos = Vector3.Lerp(melee2StartPos, melee2FinishPos, melee2rush);
                         melee2rush = Mathf.Min(1, melee2rush + Time.deltaTime * 10.0f);
@@ -288,6 +297,7 @@ namespace ProjectM.ePEa.ProtoMon
                     Vector3 afterPos = Vector3.Lerp(melee1StartPos, melee1FinishPos, melee1rush);
                     Vector3 fixedPos = FixedMovePos(transform.position + Vector3.up * 0.75f, 0.75f, (afterPos - beforePos).normalized, Vector3.Distance(afterPos, beforePos), m_wall);
                     transform.position += afterPos - beforePos + fixedPos;
+                    transform.rotation = Quaternion.LookRotation(melee1FinishPos.normalized);
                     if (!melee2atk1)
                     {
                         melee1Collider.GetComponent<AtkCollider>().Attacking();
@@ -310,7 +320,7 @@ namespace ProjectM.ePEa.ProtoMon
                 }
                 else d = 0;
             }
-            m_currentHp -= d;
+            m_currentHp = Mathf.Max(0, m_currentHp - d);
             m_shieldTime = m_refillTime;
         }
 
@@ -320,11 +330,12 @@ namespace ProjectM.ePEa.ProtoMon
         [SerializeField] GameObject circle;
         [SerializeField] GameObject circleDam;
         bool isAtk3 = false;
+        [SerializeField] float m_timeAtk3 = 0.6f;
         void Atk3()
         {
-            atk3 = Mathf.Min(0.6f, atk3 + Time.deltaTime);
+            atk3 = Mathf.Min(m_timeAtk3, atk3 + Time.deltaTime);
             circle.SetActive(true);
-            if (atk3 >= 0.6f)
+            if (atk3 >= m_timeAtk3)
             {
                 Vector3 dir = target.position - transform.position;
                 dir.y = 0;
