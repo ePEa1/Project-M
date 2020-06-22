@@ -103,7 +103,7 @@ namespace ProjectM.ePEa.ProtoMon
             targetDir = target.position - transform.position;
             targetDir.y = 0;
             targetDir = targetDir.normalized;
-            transform.rotation = Quaternion.LookRotation(targetDir);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetDir), Time.deltaTime * 5.0f);
 
             m_animator.SetBool("IsRush", false);
             m_animator.ResetTrigger("Rush");
