@@ -98,6 +98,7 @@ public class StartSceneManager : MonoBehaviour
 
     IEnumerator FadeInGameStart()
     {
+
         for (float i = 0f; i >= 0; i += 0.005f*FadeSpeed)
         {
             Color color = new Vector4(0, 0, 0, i);
