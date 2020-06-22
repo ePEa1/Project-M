@@ -29,7 +29,7 @@ public class TutorialMainManager : MonoBehaviour
 
 
     public GameObject playerObj;
-    public Animator player;
+    //public Animator player;
     public GameObject Cam;
     public GameObject PlayerUI;
     public GameObject PracticeAttackPos;
@@ -123,11 +123,11 @@ public class TutorialMainManager : MonoBehaviour
             MoveAtk.IsReady = false;
             MoveAtk.enabled = false;
         }
-        if (IsSpawn &&  null == GameObject.FindGameObjectWithTag("EnemyRader"))
+        if (IsSpawn &&  null == GameObject.FindGameObjectWithTag("Enemy"))
         {
             if(DialCount == AttackOrder)
             {
-                DialCount = AttackOrder+1;
+                DialCount = AttackOrder + 1;
                 AttackMouseKey.SetActive(false);
                 Attack.IsReady = false;
             }
@@ -161,8 +161,8 @@ public class TutorialMainManager : MonoBehaviour
             KeyExplain.text = "이동키 : W, A, S, D";
             CloseDialogue();
             MoveKey.SetActive(true);
-            playerObj.GetComponent<PlayerFsmManager>().enabled = true;
-            player.enabled = true;
+            //playerObj.GetComponent<PlayerFsmManager>().enabled = true;
+            //player.enabled = true;
         }
         else if (DialCount == AttackOrder)//일반 공격
         {
@@ -176,7 +176,7 @@ public class TutorialMainManager : MonoBehaviour
             AttackMouseKey.SetActive(true);
             playerObj.GetComponent<PlayerFsmManager>().enabled = true;
 
-            player.enabled = true;
+            //player.enabled = true;
         }
         else if (DialCount == SkillSpawnOrder)
         {
@@ -191,7 +191,7 @@ public class TutorialMainManager : MonoBehaviour
             MoveAttackSpawn.SetActive(true);
             playerObj.GetComponent<PlayerFsmManager>().enabled = true;
 
-            player.enabled = true;
+            //player.enabled = true;
         }
         else if (DialCount == MoveAttackOrder)//대쉬 공격
         {
@@ -202,14 +202,14 @@ public class TutorialMainManager : MonoBehaviour
             MoveAttackKey.SetActive(true);
             playerObj.GetComponent<PlayerFsmManager>().enabled = true;
 
-            player.enabled = true;
+            //player.enabled = true;
         }
         else if (DialCount == MPExplain)//마나 이미지 표시
         {
             KeyExplain.text = "체력바 밑 MP 확인";
             playerObj.GetComponent<PlayerFsmManager>().enabled = false;
 
-            player.enabled = false;
+            //player.enabled = false;
 
             CloseDialogue();
             MPView.SetActive(true);
@@ -218,7 +218,7 @@ public class TutorialMainManager : MonoBehaviour
         {
             playerObj.GetComponent<PlayerFsmManager>().enabled = false;
 
-            player.enabled = false;
+            //player.enabled = false;
 
             ResultText = TutorialStart[MPExplain + 1];
 
@@ -230,7 +230,7 @@ public class TutorialMainManager : MonoBehaviour
             KeyExplain.text = "오른쪽 스킬 확인";
             playerObj.GetComponent<PlayerFsmManager>().enabled = false;
 
-            player.enabled = false;
+            //player.enabled = false;
 
             CloseDialogue();
             SkillView.SetActive(true);
@@ -239,7 +239,7 @@ public class TutorialMainManager : MonoBehaviour
         {
             playerObj.GetComponent<PlayerFsmManager>().enabled = false;
 
-            player.enabled = false;
+            //player.enabled = false;
 
             ResultText = TutorialStart[SkillExplain + 1];
             OpenDialogue();
@@ -258,7 +258,7 @@ public class TutorialMainManager : MonoBehaviour
                 IsSpawn = true;
             }
             playerObj.GetComponent<PlayerFsmManager>().enabled = true;
-            player.enabled = true;
+            //player.enabled = true;
         }
         else if (DialCount == EndTutorial)
         {
@@ -268,20 +268,20 @@ public class TutorialMainManager : MonoBehaviour
             DialogueScreen.SetActive(false);
             playerObj.GetComponent<PlayerFsmManager>().enabled = true;
 
-            player.enabled = true;
+            //player.enabled = true;
         }
         else
         {
             playerObj.GetComponent<PlayerFsmManager>().enabled = false;
 
-            player.enabled = false;
+            //player.enabled = false;
             ResultText = TutorialStart[DialCount];
         }
     }
 
     void ReturnPlayer()
     {
-        player.transform.position = ReturnPos.transform.position;
+        //player.transform.position = ReturnPos.transform.position;
     }
 
     void CloseDialogue()
@@ -292,7 +292,7 @@ public class TutorialMainManager : MonoBehaviour
         TutorialKey.SetActive(true);
         playerObj.GetComponent<PlayerFsmManager>().enabled = true;
 
-        player.enabled = true;
+       // player.enabled = true;
 
     }
 
