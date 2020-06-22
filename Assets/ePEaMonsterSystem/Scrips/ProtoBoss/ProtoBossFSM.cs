@@ -120,10 +120,14 @@ namespace ProjectM.ePEa.ProtoMon
                     {
                         case 0:
                             m_currentState = State.ATK2;
+                            m_animator.SetBool("IsAtk2", true);
+                            m_animator.SetTrigger("Atk2");
                             break;
 
                         case 1:
                             m_currentState = State.ATK3;
+                            m_animator.SetBool("IsAtk3", true);
+                            m_animator.SetTrigger("Atk3");
                             break;
                     }
                 }
@@ -257,6 +261,7 @@ namespace ProjectM.ePEa.ProtoMon
                                 melee2atk2 = false;
                                 //m_model.GetComponent<Renderer>().material.color = Color.white;
                                 m_atkDelay = Random.Range(m_atkDelayMin, m_atkDelayMax);
+                                m_animator.SetBool("IsAtk2", false);
                             }
                         }
                         else
@@ -335,6 +340,7 @@ namespace ProjectM.ePEa.ProtoMon
                     //circleDam.SetActive(false);
                     m_currentState = State.MOVE;
                     m_atkDelay = Random.Range(m_atkDelayMin, m_atkDelayMax);
+                    m_animator.SetBool("IsAtk3", false);
                 }
             }
         }
