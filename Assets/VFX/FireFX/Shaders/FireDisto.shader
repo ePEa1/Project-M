@@ -34,8 +34,8 @@
 
         void surf (Input IN, inout SurfaceOutput o)
         {
-            float4 d = tex2D (_MainTex2, float2( IN.uv_MainTex2.x, IN.uv_MainTex2.y - _Time.y )) * _RNG;
-            float4 c = tex2D (_MainTex, saturate(IN.uv_MainTex + d.r)) * _Color;
+            float4 d = tex2D (_MainTex2, float2( IN.uv_MainTex2.x, IN.uv_MainTex2.y - _Time.y * 0.72)) * _RNG;
+            float4 c = tex2D (_MainTex, IN.uv_MainTex + d.r* 0.4) * _Color;
 			//float3 LL = lerp (c, d, 0.5);
             o.Emission = c.rgb;
             o.Alpha = c.a;
