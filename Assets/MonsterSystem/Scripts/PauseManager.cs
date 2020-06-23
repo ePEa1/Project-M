@@ -19,7 +19,6 @@ public class PauseManager : MonoBehaviour
     void Start()
     {
         Cursor.visible = false;
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFsmManager>();
         PausePage.SetActive(false);
     }
 
@@ -43,6 +42,8 @@ public class PauseManager : MonoBehaviour
                 else
                 {
                     Cursor.lockState = CursorLockMode.None;
+                    player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFsmManager>();
+
                     player.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
                     player.enabled = false;
                     Cursor.visible = true;
@@ -61,6 +62,8 @@ public class PauseManager : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFsmManager>();
+
         player.enabled = true;
         IsPause = false;
         Time.timeScale = 1;

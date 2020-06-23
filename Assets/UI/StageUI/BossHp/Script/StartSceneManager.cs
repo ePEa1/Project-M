@@ -25,6 +25,7 @@ public class StartSceneManager : MonoBehaviour
     void Start()
     {
         Buttons.SetActive(false);
+        OptionPage.SetActive(false);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
