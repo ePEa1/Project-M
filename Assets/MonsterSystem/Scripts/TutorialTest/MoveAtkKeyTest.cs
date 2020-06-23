@@ -18,7 +18,6 @@ public class MoveAtkKeyTest : MonoBehaviour
 
     public GameObject FrontMousekey;
 
-
     int Count;
     public bool IsReady = false;
 
@@ -26,9 +25,8 @@ public class MoveAtkKeyTest : MonoBehaviour
     {
         AOnekey.SetActive(true);
         DOnekey.SetActive(false);
-        Shiftkey.SetActive(true);
-
         SOnekey.SetActive(false);
+        Shiftkey.SetActive(true);
 
         FrontMousekey.SetActive(false);
     }
@@ -49,7 +47,6 @@ public class MoveAtkKeyTest : MonoBehaviour
             case 3:
                 TurnFront();
                 break;
-
         }
 
     }
@@ -59,9 +56,11 @@ public class MoveAtkKeyTest : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
+            Explain.text = "OK!";
+
             DOnekey.SetActive(true);
             AOnekey.SetActive(false);
-            Order += 1;
+            Invoke("OrderPlus", 2);
             PlayerStats.playerStat.GetMp(4.0f);
         }
 
@@ -72,9 +71,11 @@ public class MoveAtkKeyTest : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
+            Explain.text = "OK!";
+
             DOnekey.SetActive(false);
             SOnekey.SetActive(true);
-            Order += 1;
+            Invoke("OrderPlus", 2);
             PlayerStats.playerStat.GetMp(4.0f);
         }
 
@@ -85,12 +86,14 @@ public class MoveAtkKeyTest : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
+            Explain.text = "OK!";
+
             SOnekey.SetActive(false);
             Shiftkey.SetActive(false);
             FrontMousekey.SetActive(true);
 
             PlayerStats.playerStat.GetMp(4.0f);
-            Order += 1;
+            Invoke("OrderPlus", 2);
         }
     }
     void TurnFront()
@@ -99,9 +102,20 @@ public class MoveAtkKeyTest : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
-            IsReady = true;
+            Explain.text = "OK!";
+            Invoke("TurnIsReady",2);
 
         }
+    }
+
+    void OrderPlus()
+    {
+        Order += 1;
+    }
+
+    void TurnIsReady()
+    {
+        IsReady = true;
 
     }
 }

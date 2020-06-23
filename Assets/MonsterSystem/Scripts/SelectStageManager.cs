@@ -8,39 +8,57 @@ public class SelectStageManager : MonoBehaviour
     [SerializeField] string StageTwo;
     [SerializeField] string StageThree;
     [SerializeField] string StageBoss;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    public AudioSource EffSound;
+    public AudioClip mouseOver;
+    public AudioClip clicked;
 
     public void GotStageOne()
     {
+        SetSound(clicked, EffSound);
+
         LoadingSceneManager.LoadScene(StageOne);
     }
 
     public void GoStageTwo()
     {
+        SetSound(clicked, EffSound);
+
         LoadingSceneManager.LoadScene(StageTwo);
     }
 
     public void GoStageThree()
     {
+        SetSound(clicked, EffSound);
+
         LoadingSceneManager.LoadScene(StageThree);
     }
 
     public void GoStageBoss()
     {
+        SetSound(clicked, EffSound);
+
         LoadingSceneManager.LoadScene(StageBoss);
 
     }
+
+    public void MouseOverButton()
+    {
+        SetSound(mouseOver, EffSound);
+    }
+
+    public void ClickButton()
+    {
+        SetSound(clicked, EffSound);
+    }
+    public void SetSound(AudioClip uisound, AudioSource Setplayer)
+    {
+        Setplayer.volume = DataController.Instance.effectSound;
+        Setplayer.Stop();
+        Setplayer.clip = uisound;
+        Setplayer.time = 0;
+        Setplayer.Play();
+    }
+
 
 }

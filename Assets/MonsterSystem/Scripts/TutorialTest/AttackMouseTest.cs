@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class AttackMouseTest : MonoBehaviour
 {
     public Image MouseImg;
-    public Image MouseGauge;
     public float GaugeVal;
     float Clicked;
     float ClickCount;
@@ -37,7 +36,6 @@ public class AttackMouseTest : MonoBehaviour
         {
             IsReady = true;
         }
-        MouseGauge.fillAmount = GaugeVal;
     }
 
     public IEnumerator Shake()
