@@ -25,8 +25,9 @@ public class StartSceneManager : MonoBehaviour
     void Start()
     {
         Buttons.SetActive(false);
-        Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         FadeImg.color = new Vector4(0, 0, 0, 0);
         UISound = GetComponent<AudioSource>();
         Time.timeScale = 1;
