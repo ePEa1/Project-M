@@ -22,15 +22,15 @@ public class TutorialMainManager : MonoBehaviour
     public MoveAtkKeyTest MoveAtk;//이동 공격
 
     public GameObject ReturnPos;
-    public GameObject PracticeAttackPos;
-   
+    public GameObject AttackSpawn;
+    public GameObject MoveAttackSpawn;
     public GameObject[] FreeAttackPos;
 
 
     public GameObject player;
     public GameObject Cam;
     public GameObject PlayerUI;
-
+    public GameObject PracticeAttackPos;
     public GameObject SpawnMonster;
     public GameObject DialogueScreen;
 
@@ -41,6 +41,9 @@ public class TutorialMainManager : MonoBehaviour
     public GameObject AttackMouseKey;
     public GameObject MoveAttackKey;
 
+    public GameObject MPView;
+    public GameObject SkillView;
+
     public Image DialogueBox;
     public Text NameText;
     public Text DialogueText;
@@ -48,10 +51,12 @@ public class TutorialMainManager : MonoBehaviour
 
     [SerializeField] int MoveOrder;
     [SerializeField] int AttackOrder;
+    [SerializeField] int SkillSpawnOrder;
     [SerializeField] int MPExplain;
-    [SerializeField] int MoveUICheck;
+    [SerializeField] int SkillExplain;
     [SerializeField] int MoveAttackOrder;
     [SerializeField] int PracticeMonster;
+
     [SerializeField] float FrontAttack;
     [SerializeField] float FreeMoveAttack;
     [SerializeField] float Shield;
@@ -75,9 +80,15 @@ public class TutorialMainManager : MonoBehaviour
         MoveKey.SetActive(false);
         AttackMouseKey.SetActive(false);
         MoveAttackKey.SetActive(false);
+        MPView.SetActive(false);
+        SkillView.SetActive(false);
+        AttackSpawn.SetActive(true);
+
         Move.enabled = false;
         Attack.enabled = false;
         MoveAtk.enabled = false;
+
+
 
         NameText.text = "공간의 주관자";
         PlayerUI.SetActive(false);
@@ -100,18 +111,18 @@ public class TutorialMainManager : MonoBehaviour
             Move.enabled = false;
 
         }
-        if (Attack.IsReady == true)
-        {
-            DialCount = AttackOrder + 1;
-            DailogueOpen = true;
-            TutorialKey.SetActive(false);
-            DialogueScreen.SetActive(true);
-            AttackMouseKey.SetActive(false);
-            Attack.IsReady = false;
+        //if (Attack.IsReady == true)
+        //{
+        //    DialCount = AttackOrder + 1;
+        //DailogueOpen = true;
+        //TutorialKey.SetActive(false);
+        //DialogueScreen.SetActive(true);
+        //AttackMouseKey.SetActive(false);
+        //Attack.IsReady = false;
 
-            Attack.enabled = false;
-        }
-        if(MoveAtk.IsReady == true)
+        //    Attack.enabled = false;
+        //}
+        if (MoveAtk.IsReady == true)
         {
             DialCount = MoveAttackOrder + 1;
             DailogueOpen = true;
@@ -124,10 +135,15 @@ public class TutorialMainManager : MonoBehaviour
         }
         if (IsSpawn &&  null == GameObject.FindGameObjectWithTag("Enemy"))
         {
-            DialCount = 13;
+            if(DialCount == AttackOrder)
+            {
+                DialCount = AttackOrder+1;
+            }
             DailogueOpen = true;
             TutorialKey.SetActive(false);
             DialogueScreen.SetActive(true);
+            AttackMouseKey.SetActive(false);
+            Attack.IsReady = false;
 
             IsSpawn = false;
         }
@@ -158,6 +174,8 @@ public class TutorialMainManager : MonoBehaviour
         }
         else if(DialCount == AttackOrder)//일반 공격
         {
+            IsSpawn = true;
+
             PlayerUI.SetActive(true);
             DailogueOpen = false;
             Attack.enabled = true;
@@ -166,6 +184,13 @@ public class TutorialMainManager : MonoBehaviour
             TutorialKey.SetActive(true);
             AttackMouseKey.SetActive(true);
             player.GetComponent<PlayerFsmManager>().enabled = true;
+        }
+        else if(DialCount == SkillSpawnOrder)
+        {
+            player.GetComponent<PlayerFsmManager>().enabled = false;
+            MoveAttackSpawn.SetActive(true);
+            ResultText = TutorialStart[DialCount];
+
         }
         else if(DialCount == MoveAttackOrder)//대쉬 공격
         {
@@ -176,6 +201,35 @@ public class TutorialMainManager : MonoBehaviour
             TutorialKey.SetActive(true);
             MoveAttackKey.SetActive(true);
             player.GetComponent<PlayerFsmManager>().enabled = true;
+        }
+        else if(DialCount == MPExplain)//마나 이미지 표시
+        {
+
+            TutorialKey.SetActive(true);
+            DialogueScreen.SetActive(false);
+            MPView.SetActive(true);
+        }
+        else if(DialCount == (MPExplain + 1))
+        {
+            ResultText = TutorialStart[MPExplain+1];
+
+            TutorialKey.SetActive(false);
+            DialogueScreen.SetActive(true);
+            MPView.SetActive(false);
+        }
+        else if(DialCount == SkillExplain)
+        {
+
+            TutorialKey.SetActive(true);
+            DialogueScreen.SetActive(false);
+            SkillView.SetActive(true);
+        }
+        else if(DialCount == (SkillExplain + 1))
+        {
+            ResultText = TutorialStart[SkillExplain + 1];
+            TutorialKey.SetActive(false);
+            DialogueScreen.SetActive(true);
+            SkillView.SetActive(false);
         }
         else if(DialCount == PracticeMonster)
         {
