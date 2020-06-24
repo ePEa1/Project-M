@@ -21,8 +21,8 @@ public class CinemachineCheck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SetXAcceltime(XAccelTime);
-        SetYAcceltime(YAccelTime);
+        SetXAcceltime(DataController.Instance.mouseMoving);
+        SetYAcceltime(DataController.Instance.mouseMoving);
     }
     void SetXAcceltime(float acTime)
     {
