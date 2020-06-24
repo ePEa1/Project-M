@@ -561,17 +561,17 @@ PrefabInstance:
     - target: {fileID: 1265676283435668500, guid: 63acae5bcb722684a93cc50648c8f8a0,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7903966778697849683, guid: 63acae5bcb722684a93cc50648c8f8a0,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7903966778697849683, guid: 63acae5bcb722684a93cc50648c8f8a0,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63acae5bcb722684a93cc50648c8f8a0, type: 3}
@@ -1923,17 +1923,17 @@ PrefabInstance:
     - target: {fileID: 1265676283435668500, guid: 63acae5bcb722684a93cc50648c8f8a0,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7903966778697849683, guid: 63acae5bcb722684a93cc50648c8f8a0,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7903966778697849683, guid: 63acae5bcb722684a93cc50648c8f8a0,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63acae5bcb722684a93cc50648c8f8a0, type: 3}
@@ -26683,17 +26683,17 @@ PrefabInstance:
     - target: {fileID: 1265676283435668500, guid: 63acae5bcb722684a93cc50648c8f8a0,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7903966778697849683, guid: 63acae5bcb722684a93cc50648c8f8a0,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7903966778697849683, guid: 63acae5bcb722684a93cc50648c8f8a0,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63acae5bcb722684a93cc50648c8f8a0, type: 3}
@@ -32736,17 +32736,17 @@ PrefabInstance:
     - target: {fileID: 1265676283435668500, guid: 63acae5bcb722684a93cc50648c8f8a0,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7903966778697849683, guid: 63acae5bcb722684a93cc50648c8f8a0,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7903966778697849683, guid: 63acae5bcb722684a93cc50648c8f8a0,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63acae5bcb722684a93cc50648c8f8a0, type: 3}
@@ -59737,6 +59737,11 @@ PrefabInstance:
       propertyPath: subpixelMorphologicalAntialiasing.quality
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7402736142049612404, guid: c9ee94b06650d1e45b7ad149a82c76c2,
+        type: 3}
+      propertyPath: fog.enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7402736142049612405, guid: c9ee94b06650d1e45b7ad149a82c76c2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -61966,17 +61971,17 @@ PrefabInstance:
     - target: {fileID: 1265676283435668500, guid: 63acae5bcb722684a93cc50648c8f8a0,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7903966778697849683, guid: 63acae5bcb722684a93cc50648c8f8a0,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7903966778697849683, guid: 63acae5bcb722684a93cc50648c8f8a0,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63acae5bcb722684a93cc50648c8f8a0, type: 3}
@@ -61991,6 +61996,7 @@ GameObject:
   - component: {fileID: 1757049633}
   - component: {fileID: 1757049632}
   - component: {fileID: 1757049634}
+  - component: {fileID: 1757049635}
   m_Layer: 0
   m_Name: PlayerCinemachine
   m_TagString: Untagged
@@ -62037,8 +62043,8 @@ MonoBehaviour:
     Value: 0.5
     m_SpeedMode: 0
     m_MaxSpeed: 4
-    m_AccelTime: 1
-    m_DecelTime: 0.1
+    m_AccelTime: 0.05
+    m_DecelTime: 0.05
     m_InputAxisName: Mouse Y
     m_InputAxisValue: 0
     m_InvertInput: 1
@@ -62089,11 +62095,11 @@ MonoBehaviour:
   m_SplineCurvature: 0
   m_Orbits:
   - m_Height: 4
-    m_Radius: 4
+    m_Radius: 5
   - m_Height: 2
     m_Radius: 6.5
   - m_Height: -1
-    m_Radius: 4
+    m_Radius: 5
   m_LegacyHeadingBias: 3.4028235e+38
   m_Rigs:
   - {fileID: 1702370346}
@@ -62146,6 +62152,21 @@ MonoBehaviour:
   m_Damping: 0.6
   m_DampingWhenOccluded: 0.6
   m_OptimalTargetDistance: 0
+--- !u!114 &1757049635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757049631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 120be1ce8dc1e744785c5aeccd9c6501, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playercin: {fileID: 1757049632}
+  YAccelTime: 0
+  XAccelTime: 0
 --- !u!1 &1761670846
 GameObject:
   m_ObjectHideFlags: 0
