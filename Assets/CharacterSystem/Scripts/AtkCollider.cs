@@ -50,6 +50,11 @@ public class AtkCollider : MonoBehaviour
         else return false;
     }
 
+    public void AddEvent(UnityAction ev)
+    {
+        m_atkEvents.AddListener(ev);
+    }
+
     public void Attacking()
     {
         if (m_owner!=null)

@@ -34,12 +34,12 @@ namespace ProjectM.ePEa.PlayerData
 
         #region Value
 
-        public PlayerFsmManager manager;
         public static PlayerStats playerStat { get; private set; } //외부에서 접근할 때의 용도
         public float m_currentHp { get; private set; } //현재 캐릭터 체력
         public float m_currentDodgeDelay { get; private set; } //현재 회피 쿨타임
         public float m_currentMp { get; private set; } //현재 캐릭터 마나
-
+        public float m_atkPower { get; private set; } //데미지 배율 값
+        public float m_powerGage { get; private set; }
         #endregion
 
         private void Awake()
@@ -48,6 +48,8 @@ namespace ProjectM.ePEa.PlayerData
             if (playerStat == null)
             {
                 playerStat = this;
+                m_atkPower = 1.0f;
+                m_powerGage = 0.0f;
                 m_currentHp = m_maxHp;
                 m_currentMp = m_minMp;
             }
@@ -79,6 +81,8 @@ namespace ProjectM.ePEa.PlayerData
             }
         }
 
+        public void GetAtkGage(float gage)
+        { m_powerGage += gage; }
 
         private void Update()
         {
