@@ -5,6 +5,9 @@
        _Color("Color", Color) = (1,1,1,1)
        [HDR]_ECol("SpecColor", Color) = (1,1,1,1)
        _MainTex ("Albedo (RGB)", 2D) = "white" {}
+       _MainTex2 ("Albedo2 (RGB)", 2D) = "white" {}
+       _Color2 ("AO Color", Color) = (1,1,1,1)
+       _Test ("Test", Range(0,1)) = 0.5
     
        _CubeMap("CubeMap",cube) = ""{}
     }
@@ -19,25 +22,34 @@
         #pragma target 3.0
 
         float4 _Color;
+        float4 _Color2;
         float4 _ECol;
         sampler2D _MainTex;
+        sampler2D _MainTex2;
         samplerCUBE _CubeMap;
+        float _Test;
 
         struct Input
         {
             float2 uv_MainTex;
+            float2 uv_MainTex2;
             float3 worldRefl;
+            float3 worldPos;
+            float3 worldNormal;
+            float2 screenPos;
         };
 
 
         void surf (Input IN, inout SurfaceOutput o)
         {
-            fixed4 c = tex2D (_MainTex, IN.uv_MainTex);
+            float4 c = tex2D (_MainTex, IN.uv_MainTex);
+            float4 d = tex2D (_MainTex2, IN.worldPos.x);//float4 UnityObjectToClipPos(float3 pos)
 
             float4 EC;
             EC = float4(c.rgb, 1) + _ECol;
 
             o.Albedo = c.rgb;
+            o.Albedo += d.rgb *- _Color2;
             o.Emission = (c.rgb * 0.7)+ texCUBE(_CubeMap, WorldReflectionVector(IN,o.Normal)) * c.a * EC;
             o.Alpha = 1;
         }
