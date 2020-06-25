@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5561874253088792158}
   - component: {fileID: 2842444622463642443}
   - component: {fileID: 5749985650325137330}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Damage
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -4991,8 +4991,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   m_hpBar: {fileID: 6929113325424997863}
   m_backhpBar: {fileID: 5410668461447631433}
-  m_refillTime: 0
-  m_refillSpeed: 0
+  m_refillTime: 3
+  m_refillSpeed: 6
   m_nowState: 0
 --- !u!136 &2521407913569903219
 CapsuleCollider:
