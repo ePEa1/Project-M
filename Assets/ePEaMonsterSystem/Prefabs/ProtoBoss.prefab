@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 535748465}
   - component: {fileID: 535748466}
   - component: {fileID: 535748469}
+  - component: {fileID: 909000212062772538}
   m_Layer: 0
   m_Name: Atk3Collider
   m_TagString: Untagged
@@ -66,9 +67,23 @@ MonoBehaviour:
   m_atkEvents:
     m_PersistentCalls:
       m_Calls: []
-  m_owner: {fileID: 5955111794977764881}
   m_isArea: 0
-  m_colliderType: 1
+--- !u!54 &909000212062772538
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535748464}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &1903825495
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,6 +189,7 @@ GameObject:
   - component: {fileID: 4058084471488578983}
   - component: {fileID: 3707850650214583262}
   - component: {fileID: 5147483413560564627}
+  - component: {fileID: 849705419255779353}
   m_Layer: 0
   m_Name: Atk2Collider2
   m_TagString: Untagged
@@ -228,9 +244,23 @@ MonoBehaviour:
   m_atkEvents:
     m_PersistentCalls:
       m_Calls: []
-  m_owner: {fileID: 5955111794977764881}
   m_isArea: 0
-  m_colliderType: 0
+--- !u!54 &849705419255779353
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701084221758566282}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &3134984940378288372
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,6 +272,7 @@ GameObject:
   - component: {fileID: 3928440789784052002}
   - component: {fileID: 161506887510588619}
   - component: {fileID: 130431274019422535}
+  - component: {fileID: 4460651457982084375}
   m_Layer: 0
   m_Name: Atk2Collider1
   m_TagString: Untagged
@@ -296,9 +327,23 @@ MonoBehaviour:
   m_atkEvents:
     m_PersistentCalls:
       m_Calls: []
-  m_owner: {fileID: 5955111794977764881}
   m_isArea: 0
-  m_colliderType: 0
+--- !u!54 &4460651457982084375
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3134984940378288372}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &5955111794813325767
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,6 +905,7 @@ GameObject:
   - component: {fileID: 1226597584146335759}
   - component: {fileID: 5035926526436742320}
   - component: {fileID: 1572936202}
+  - component: {fileID: 5132966684696845224}
   m_Layer: 0
   m_Name: Atk1Collider
   m_TagString: Untagged
@@ -914,9 +960,23 @@ MonoBehaviour:
   m_atkEvents:
     m_PersistentCalls:
       m_Calls: []
-  m_owner: {fileID: 5955111794977764881}
   m_isArea: 0
-  m_colliderType: 0
+--- !u!54 &5132966684696845224
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9139987443689838541}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &2195183465570614897
 PrefabInstance:
   m_ObjectHideFlags: 0

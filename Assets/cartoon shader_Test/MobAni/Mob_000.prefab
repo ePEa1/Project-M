@@ -19450,6 +19450,7 @@ GameObject:
   - component: {fileID: 6378142575952321612}
   - component: {fileID: 1937753822719575009}
   - component: {fileID: 912700845128589808}
+  - component: {fileID: 5446355010103444684}
   m_Layer: 0
   m_Name: Atk
   m_TagString: Untagged
@@ -19504,9 +19505,23 @@ MonoBehaviour:
   m_atkEvents:
     m_PersistentCalls:
       m_Calls: []
-  m_owner: {fileID: 529444603093788111}
   m_isArea: 0
-  m_colliderType: 0
+--- !u!54 &5446355010103444684
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5585090938193728732}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &5636766163889840077
 GameObject:
   m_ObjectHideFlags: 0
