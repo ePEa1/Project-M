@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] KeyCode m_attack;
     [SerializeField] KeyCode m_rushAttack;
     [SerializeField] KeyCode m_dashAttack;
+    [SerializeField] KeyCode m_backAttack;
 
     //회피키
     [SerializeField] KeyCode m_dodge;

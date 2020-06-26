@@ -80,7 +80,11 @@ public class PauseManager : MonoBehaviour
     {
         SceneManager.LoadScene("StartScene");
     }
+    public void BackToSelectStage()
+    {
+        SceneManager.LoadScene("StageSelectScene");
 
+    }
     public void GameQuit()
     {
         Application.Quit();
