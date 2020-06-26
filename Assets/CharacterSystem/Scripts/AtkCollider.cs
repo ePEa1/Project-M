@@ -62,7 +62,7 @@ public class AtkCollider : MonoBehaviour
             RaycastHit[] hits;
             if (m_colliderType == COLLIDER.BOX)
                 hits = hits = Physics.BoxCastAll(transform.position + GetComponent<BoxCollider>().center, GetComponent<BoxCollider>().size * 0.5f, Vector3.forward, m_owner.rotation, 0);
-            else hits = Physics.SphereCastAll(transform.position, GetComponent<CapsuleCollider>().radius, Vector3.forward, 0.0f); //Physics.CapsuleCastAll(transform.position, transform.position, GetComponent<CapsuleCollider>().radius, Vector3.up, 0);
+            else hits = Physics.SphereCastAll(transform.position, GetComponent<CapsuleCollider>().radius, Vector3.forward, 0.0f);
 
             foreach (RaycastHit hit in hits)
             {
