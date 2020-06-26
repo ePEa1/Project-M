@@ -14,6 +14,7 @@ public class RushAtkAction : BaseAction
     [SerializeField] AudioSource[] m_audio;
     [SerializeField] LayerMask m_wall;
     [SerializeField] LayerMask m_enemy;
+    [SerializeField] float m_sideLength = 3.0f;
     #endregion
 
     #region Value
@@ -85,12 +86,12 @@ public class RushAtkAction : BaseAction
 
         RaycastHit hit;
 
-        if (!Physics.BoxCast(m_owner.transform.position + tall + m_owner.transform.rotation * Vector3.forward * -1.0f, new Vector3(3f, 1.0f, 1f), m_view, out hit,
+        if (!Physics.BoxCast(m_owner.transform.position + tall + m_owner.transform.rotation * Vector3.forward * -1.0f, new Vector3(m_sideLength, 1.0f, 1f), m_view, out hit,
             Quaternion.Euler(m_owner.transform.rotation.eulerAngles), Vector3.Distance(after, before)+1, m_enemy))
         {
             m_owner.transform.position += after - before + fixedPos;
         }
-        else if (!Physics.BoxCast(m_owner.transform.position + tall + m_owner.transform.rotation * Vector3.forward * -1.0f, new Vector3(3f, 1.0f, 1f), m_view,
+        else if (!Physics.BoxCast(m_owner.transform.position + tall + m_owner.transform.rotation * Vector3.forward * -1.0f, new Vector3(m_sideLength, 1.0f, 1f), m_view,
             Quaternion.Euler(m_owner.transform.rotation.eulerAngles), 0, m_enemy))
         {
             Vector3 dir = (new Vector3(hit.point.x, 0.0f, hit.point.z) - new Vector3(m_owner.transform.position.x, 0.0f, m_owner.transform.position.z)).normalized;

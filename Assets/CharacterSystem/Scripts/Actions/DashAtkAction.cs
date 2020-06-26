@@ -49,8 +49,8 @@ public class DashAtkAction : BaseAction
     {
         m_curdashAtk = 0;
         DeleteCollider();
-        m_animator.SetTrigger("DashAtk");
-        m_animator.SetBool("IsDashAtk", true);
+        m_animator.ResetTrigger("DashAtk");
+        m_animator.SetBool("IsDashAtk", false);
     }
 
     //쓰지 않기
@@ -117,8 +117,6 @@ public class DashAtkAction : BaseAction
         }
         
         StartCoroutine(DelayDashAtk());
-        m_animator.SetBool("IsDashAtk", false);
-
     }
     
     public void SetSound()

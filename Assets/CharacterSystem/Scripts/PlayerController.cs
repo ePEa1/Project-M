@@ -26,13 +26,8 @@ public class PlayerController : MonoBehaviour
     //회피키
     [SerializeField] KeyCode m_dodge;
 
-    //연타값
-    float leftdash = 0;
-    float rightdash = 0;
-    float backdash = 0;
-    [SerializeField] float dashTime = 1.0f;
-
     public bool CanAttack = true;//pause 상태일때 공격 못하게 하기
+    
 
     #endregion
 
@@ -41,18 +36,10 @@ public class PlayerController : MonoBehaviour
     float h = 0;
     float v = 0;
 
-
     #endregion
 
     #region Function
 
-
-    private void Update()
-    {
-        leftdash = Mathf.Max(0,leftdash-Time.deltaTime);
-        rightdash = Mathf.Max(0, rightdash-Time.deltaTime);
-        backdash = Mathf.Max(0, backdash-Time.deltaTime);
-    }
     /// <summary>
     /// 이동키 입력했는지 체크
     /// </summary>

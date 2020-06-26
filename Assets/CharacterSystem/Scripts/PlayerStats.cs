@@ -20,6 +20,7 @@ namespace ProjectM.ePEa.PlayerData
         public float MaxMp { get { return m_maxMp; } }
         [SerializeField] float m_minMp; //마나 삭제 최소량
         [SerializeField] float m_mpSpeed; //마나 줄어드는 속도
+        [SerializeField] float m_mprefillSpeed; //마나 회복 속도
 
         [SerializeField] public float m_dodgeDelay; //회피 쿨타임
         [SerializeField] public float m_dodgeTime; //회피 무적 지속시간
@@ -139,8 +140,7 @@ namespace ProjectM.ePEa.PlayerData
             //--------------------------
 
             //마나통 갱신
-            if (m_currentMp > m_minMp)
-                m_currentMp = Mathf.Max(m_minMp, m_currentMp - Time.deltaTime * m_mpSpeed);
+            RefillMp();
         }
 
         /// <summary>
@@ -159,6 +159,17 @@ namespace ProjectM.ePEa.PlayerData
         public void GetMp(float mp)
         {
             m_currentMp = Mathf.Min(m_maxMp, m_currentMp + mp);
+        }
+
+        /// <summary>
+        /// 마나량 자동조정
+        /// </summary>
+        void RefillMp()
+        {
+            if (m_currentMp > m_minMp)
+                m_currentMp = Mathf.Max(m_minMp, m_currentMp - Time.deltaTime * m_mpSpeed);
+            //if (m_currentMp < m_minMp)
+            //    m_currentMp = Mathf.Min(m_minMp, m_currentMp + Time.deltaTime * m_mprefillSpeed);
         }
 
         /// <summary>

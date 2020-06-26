@@ -1287,6 +1287,7 @@ MonoBehaviour:
   m_enemy:
     serializedVersion: 2
     m_Bits: 2048
+  m_sideLength: 4
 --- !u!1 &4764032440012995705
 GameObject:
   m_ObjectHideFlags: 0
@@ -1552,9 +1553,8 @@ MonoBehaviour:
   m_leftMove: 97
   m_attack: 323
   m_rushAttack: 324
-  m_dashAttack: 304
-  m_dodge: 32
-  dashTime: 0.2
+  m_dashAttack: 32
+  m_dodge: 0
   CanAttack: 1
 --- !u!114 &5447655126556827065
 MonoBehaviour:
@@ -1578,6 +1578,7 @@ MonoBehaviour:
   m_maxMp: 15
   m_minMp: 4
   m_mpSpeed: 3
+  m_mprefillSpeed: 3
   m_dodgeDelay: 0.7
   m_dodgeTime: 0.6
   m_dodgeDistance: 6
@@ -7154,8 +7155,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4, y: 2, z: 5}
-  m_Center: {x: 0, y: 0.88, z: 0.83}
+  m_Size: {x: 5, y: 2, z: 6}
+  m_Center: {x: 0, y: 0.88, z: 1.8}
 --- !u!114 &8124083907879692910
 MonoBehaviour:
   m_ObjectHideFlags: 0
