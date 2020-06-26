@@ -5,16 +5,14 @@ using System;
 
 public class SavePoint : MonoBehaviour
 {
+    [SerializeField] int SavePointCount;
 
-    public GameObject[] SavePointPos;
-    public Vector3 SavePos;
-
-    private void Awake()
+    private void OnTriggerEnter(Collider other)
     {
-        SavePos = SavePointPos[0].transform.position;
-    }
-    public void SetSavePoint(int value)
-    {
-        SavePos = SavePointPos[value].transform.position;
+        if(other.tag == "PlayerDamage")
+        {
+            DataController.Instance.gameData.FirstStageSavePointOrder = SavePointCount;
+            Debug.Log("SavePointCount  :  " + SavePointCount);
+        }
     }
 }

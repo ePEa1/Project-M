@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameOver : MonoBehaviour
 {
@@ -49,4 +50,11 @@ public class GameOver : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene("StageSelectScene");
     }
+
+    public void StartFromSavePoint()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+
 }
