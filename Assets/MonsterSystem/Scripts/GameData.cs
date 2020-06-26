@@ -18,5 +18,10 @@ public class GameData
     public bool StageTwoIsOpen = false;
     public bool StageThreeIsOpen = false;
     public bool StageBossIsOpen = false;
+
+
+    public int FirstStageSavePointOrder = 0;
+    public int BossStageSavePointOrder = 0;
+    
 }
 
