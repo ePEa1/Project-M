@@ -126,7 +126,6 @@ namespace ProjectM.ePEa.ProtoMon
             if (m_nowHp <= 0)
             {
                 DataController.Instance.gameData.firstStageMonster -= 1;
-                Debug.Log(DataController.Instance.gameData.firstStageMonster);
                 DestroyTarget();
                 Destroy(gameObject);
             }
