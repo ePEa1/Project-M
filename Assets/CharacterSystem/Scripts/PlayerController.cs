@@ -21,7 +21,8 @@ public class PlayerController : MonoBehaviour
     //공격키
     [SerializeField] KeyCode m_attack;
     [SerializeField] KeyCode m_rushAttack;
-    [SerializeField] KeyCode m_dashAttack;
+    [SerializeField] KeyCode m_rightdashAttack;
+    [SerializeField] KeyCode m_leftdashAttack;
     [SerializeField] KeyCode m_backAttack;
 
     //회피키
@@ -131,15 +132,27 @@ public class PlayerController : MonoBehaviour
 
     public bool IsDashAttack()
     {
-        if (Input.GetKeyDown(m_dashAttack) && h != 0 && PlayerStats.playerStat.m_currentMp >= PlayerStats.playerStat.m_widthMp)
+        if (Input.GetKeyDown(m_rightdashAttack)  && PlayerStats.playerStat.m_currentMp >= PlayerStats.playerStat.m_widthMp)
+        {
+            h = 1;
+
             return true;
+
+        }
+        if (Input.GetKeyDown(m_leftdashAttack) && PlayerStats.playerStat.m_currentMp >= PlayerStats.playerStat.m_widthMp)
+        {
+            h = -1;
+
+            return true;
+
+        }
         else return false;
     }
 
 
     public bool IsBackDashAttack()
     {
-        if (Input.GetKeyDown(m_dashAttack) && h == 0 && v == -1 && PlayerStats.playerStat.m_currentMp >= PlayerStats.playerStat.m_backMp)
+        if (Input.GetKeyDown(m_backAttack)  && PlayerStats.playerStat.m_currentMp >= PlayerStats.playerStat.m_backMp)
             return true;
         else return false;
     }
