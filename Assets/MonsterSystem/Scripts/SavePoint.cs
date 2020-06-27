@@ -5,11 +5,12 @@ using System;
 
 public class SavePoint : MonoBehaviour
 {
-    [SerializeField] int SavePointCount = 1;
+    [SerializeField] int SavePointCount;
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        Debug.Log(other.tag);
+        if (other.tag == "PCAtkCollider")
         {
             DataController.Instance.gameData.FirstStageSavePointOrder = SavePointCount;
             Debug.Log("SavePointCount  :  " + SavePointCount);

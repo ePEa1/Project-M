@@ -15,13 +15,13 @@ public class SavePointManager : MonoBehaviour
         player.transform.position = SavePointList[DataController.Instance.gameData.FirstStageSavePointOrder].transform.position;
     }
 
-    //private void Update()
-    //{
-    //    if (DataController.Instance.gameData.FirstStageSavePointOrder != 0)
-    //    {
-    //        SavePointList[DataController.Instance.gameData.FirstStageSavePointOrder - 1].SetActive(false);
-    //    }
-    //}
+    private void Update()
+    {
+        if (DataController.Instance.gameData.FirstStageSavePointOrder != 0)
+        {
+            SavePointList[DataController.Instance.gameData.FirstStageSavePointOrder - 1].SetActive(false);
+        }
+    }
 
 
 }

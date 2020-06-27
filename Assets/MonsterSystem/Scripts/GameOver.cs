@@ -21,11 +21,12 @@ public class GameOver : MonoBehaviour
     {
         if(player.GetComponent<PlayerFsmManager>().IsDead == true)
         {
-            getGameOver();
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
-                SceneManager.LoadScene("StartScene");
-            }
+            StartFromSavePoint();
+            //getGameOver();
+            //if (Input.GetKeyDown(KeyCode.Return))
+            //{
+            //    SceneManager.LoadScene("StartScene");
+            //}
         }
     }
 
