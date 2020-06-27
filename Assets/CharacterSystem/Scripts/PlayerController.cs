@@ -135,14 +135,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(m_rightdashAttack)  && PlayerStats.playerStat.m_currentMp >= PlayerStats.playerStat.m_widthMp)
         {
             h = 1;
-
             return true;
 
         }
         if (Input.GetKeyDown(m_leftdashAttack) && PlayerStats.playerStat.m_currentMp >= PlayerStats.playerStat.m_widthMp)
         {
             h = -1;
-
             return true;
 
         }
