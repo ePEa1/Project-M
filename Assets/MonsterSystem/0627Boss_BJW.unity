@@ -11202,10 +11202,20 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -1.63
       objectReference: {fileID: 0}
+    - target: {fileID: 1063362673324055289, guid: ca67e03e282d7264f9e3927c9d401ec4,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.43
+      objectReference: {fileID: 0}
     - target: {fileID: 1063362673582610949, guid: ca67e03e282d7264f9e3927c9d401ec4,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -41.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063362673582610949, guid: ca67e03e282d7264f9e3927c9d401ec4,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.56
       objectReference: {fileID: 0}
     - target: {fileID: 1063362673980582144, guid: ca67e03e282d7264f9e3927c9d401ec4,
         type: 3}
@@ -23867,7 +23877,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FadeInImg: {fileID: 843910020}
   FadeOutImg: {fileID: 1989907190}
-  FadeSpeed: 2
+  FadeSpeed: 4
 --- !u!114 &998537071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24891,7 +24901,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1081822740}
   m_Layer: 0
-  m_Name: EnemyCreators
+  m_Name: BossStage_EnemyCreators
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

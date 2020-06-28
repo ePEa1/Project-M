@@ -21,9 +21,12 @@ public class OptionManager : MonoBehaviour
     public Dropdown WindowSettingDropdown;
     Resolution[] resolutions;
 
-
+   
     private void Start()
     {
+        DataController.Instance.backgroundSound = (float)DataController.Instance.gameData.BackgroundSound / 100;
+        DataController.Instance.effectSound = (float)DataController.Instance.gameData.EffectSound / 100;
+        DataController.Instance.mouseMoving = (float)DataController.Instance.gameData.MouseMoving / 100;
         //OptionScreen.SetActive(false);
         resolutions = Screen.resolutions;
 
