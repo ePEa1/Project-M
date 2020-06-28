@@ -11,7 +11,7 @@ public class DataController : MonoBehaviour
 
     public float backgroundSound = 1;
     public float effectSound = 1;
-    public float mouseMoving = 0.05f;
+    public float mouseMoving = 0.5f;
 
     public enum Option
     {
