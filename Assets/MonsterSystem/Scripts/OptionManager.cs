@@ -18,6 +18,7 @@ public class OptionManager : MonoBehaviour
 
     // 그래픽 옵션
     public Dropdown ResolutionDropdown;
+    public Dropdown WindowSettingDropdown;
     Resolution[] resolutions;
 
 
