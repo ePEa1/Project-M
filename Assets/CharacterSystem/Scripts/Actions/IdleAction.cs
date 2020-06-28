@@ -75,8 +75,17 @@ public class IdleAction : BaseAction
 
     void SetCombatState()
     {
-        curCombatTime = CombatTime;
-        m_animator.SetBool("IsCombat", true);
+        if (m_controller.IsAttack())
+        {
+            m_animator.SetBool("IsAtk", true);
+            m_animator.SetTrigger("Atk");
+        }
+        else
+        {
+            curCombatTime = CombatTime;
+            m_animator.SetBool("IsCombat", true);
+        }
+
     }
 }
 
