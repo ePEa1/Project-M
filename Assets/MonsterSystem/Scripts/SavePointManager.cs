@@ -7,6 +7,7 @@ public class SavePointManager : MonoBehaviour
 {
     public GameObject player;
     [SerializeField] GameObject[] SavePointList;
+    [SerializeField] GameObject[] EnemyCreators;
 
     public void Awake()
     {
@@ -20,6 +21,7 @@ public class SavePointManager : MonoBehaviour
         if (DataController.Instance.gameData.FirstStageSavePointOrder != 0)
         {
             SavePointList[DataController.Instance.gameData.FirstStageSavePointOrder - 1].SetActive(false);
+            EnemyCreators[DataController.Instance.gameData.FirstStageSavePointOrder - 1].SetActive(false);
         }
     }
 
