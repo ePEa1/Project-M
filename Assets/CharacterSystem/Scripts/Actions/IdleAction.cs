@@ -6,8 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class IdleAction : BaseAction
 {
+
+    [SerializeField] float CombatTime;
+    float curCombatTime;
+
     protected override BaseAction OnStartAction()
     {
+
         return this;
     }
 
@@ -22,34 +27,56 @@ public class IdleAction : BaseAction
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+
     }
 
     protected override BaseAction OnUpdateAction()
     {
+        curCombatTime -= Time.deltaTime;
+        if (curCombatTime <= 0)
+        {
+            curCombatTime = 0;
+            m_animator.SetBool("IsCombat", false);
+            Debug.Log("NoneCombat");
+        }
         //어느 상태로도 이동할 수 있도록 처리
         if (m_controller.IsMoving)
         {
+            SetCombatState();
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
         }
         if (m_controller.IsAttack())
         {
+            SetCombatState();
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.ATK);
         }
-        if (m_controller.IsDodge() && PlayerStats.playerStat.m_currentDodgeDelay == 0)
-        {
-            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
-        }
+        //if (m_controller.IsDodge() && PlayerStats.playerStat.m_currentDodgeDelay == 0)
+        //{
+        //    SetCombatState();
+        //    m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DODGE);
+        //}
         if (m_controller.IsRushAttack())
+        {
+            SetCombatState();
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.RUSHATK);
+        }
         if (m_controller.IsDashAttack())
         {
+            SetCombatState();
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
         }
         if (m_controller.IsBackDashAttack())
         {
+            SetCombatState();
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.BACKATK);
         }
         return this;
+    }
+
+    void SetCombatState()
+    {
+        curCombatTime = CombatTime;
+        m_animator.SetBool("IsCombat", true);
     }
 }
 
