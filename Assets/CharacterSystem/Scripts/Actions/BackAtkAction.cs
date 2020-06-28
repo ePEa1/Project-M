@@ -30,6 +30,7 @@ public class BackAtkAction : BaseAction
         m_colNum = 0;
 
         PlayerStats.playerStat.UseMp(PlayerStats.playerStat.m_backMp);
+        PlayerStats.playerStat.ResetAtkDelay();
 
         m_animator.SetTrigger("BackAtk");
         m_animator.SetBool("IsBackAtk", true);

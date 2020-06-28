@@ -247,6 +247,8 @@ public class AttackAction : BaseAction
             m_currentCombo = m_nowCombo;
 
             m_nowCombo++;
+            if (m_nowCombo >= m_atkData.Length)
+                PlayerStats.playerStat.SetAtKDelay();
             if (m_nowCombo >= m_maxCombo)
             {
                 m_nowCombo = 0;

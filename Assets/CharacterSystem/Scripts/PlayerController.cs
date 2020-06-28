@@ -117,9 +117,9 @@ public class PlayerController : MonoBehaviour
     /// <returns></returns>
     public bool IsAttack()
     {
-        if (Input.GetKeyDown(m_attack))
+        if (Input.GetKeyDown(m_attack) && PlayerStats.playerStat.m_currentAtkDelay <= 0)
             return true;
-        
+
         else return false;
     }
 
