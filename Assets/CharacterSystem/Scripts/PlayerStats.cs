@@ -31,7 +31,9 @@ namespace ProjectM.ePEa.PlayerData
         [SerializeField] public float m_widthMp; //좌우이동 사용마나
         [SerializeField] public float m_backMp; //후방이동 사용마나
 
+        [SerializeField] float m_atkDelay = 1; //평타 막타 딜레이
         [SerializeField] public AtkPowerData m_powerData; //데미지 배율 데이터
+        
         #endregion
 
         #region Value
@@ -44,6 +46,7 @@ namespace ProjectM.ePEa.PlayerData
         public float m_atkPower { get; private set; } //데미지 배율 값
         public float m_powerGage { get; private set; } //현재 데미지배율 게이지
         public float m_powerGageMinus { get; private set; } //데미지배율 게이지 보정값
+        public float m_currentAtkDelay { get; private set; } //현재 평타딜레이
 
         float m_maxPowerGage = 0.0f;
 
@@ -62,6 +65,7 @@ namespace ProjectM.ePEa.PlayerData
                 m_powerGageMinus = 0.0f;
                 m_currentHp = m_maxHp;
                 m_currentMp = m_minMp;
+                ResetAtkDelay();
                 for(int i=0;i< m_powerData.level.Length;i++)
                 {
                     m_maxPowerGage += m_powerData.level[i].nextGage;
@@ -141,6 +145,21 @@ namespace ProjectM.ePEa.PlayerData
 
             //마나통 갱신
             RefillMp();
+
+            //딜레이 갱신
+            UpdateAtkDelay();
+        }
+
+        void UpdateAtkDelay()
+        {
+            m_currentAtkDelay = Mathf.Max(0, m_currentAtkDelay - Time.deltaTime);
+        }
+
+        public void SetAtKDelay() { m_currentAtkDelay = m_atkDelay; }
+
+        public void ResetAtkDelay()
+        {
+            m_currentAtkDelay = 0;
         }
 
         /// <summary>
