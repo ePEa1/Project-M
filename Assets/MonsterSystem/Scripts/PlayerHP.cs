@@ -12,7 +12,7 @@ public class PlayerHP : MonoBehaviour
 {
     public Image HP;
     public Image BackHP;
-    public Text HPText;
+    //public Text HPText;
     public GameObject player;
 
     [SerializeField] float m_blendSpeed;
@@ -53,7 +53,7 @@ public class PlayerHP : MonoBehaviour
         m_blendTime = Mathf.Min(1, m_blendTime + Time.deltaTime * m_blendSpeed);
         BackHP.fillAmount = Mathf.Lerp(m_blendHp, m_playerHp / m_hpMaxSize, m_blendTime);
 
-        HPText.text = m_playerHp + "/" + m_hpMaxSize;
+        //HPText.text = m_playerHp + "/" + m_hpMaxSize;
         
         HP.GetComponent<Image>().fillAmount = m_playerHp / m_hpMaxSize;
 
