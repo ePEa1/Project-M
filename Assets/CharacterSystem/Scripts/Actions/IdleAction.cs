@@ -37,7 +37,6 @@ public class IdleAction : BaseAction
         {
             curCombatTime = 0;
             m_animator.SetBool("IsCombat", false);
-            Debug.Log("NoneCombat");
         }
         //어느 상태로도 이동할 수 있도록 처리
         if (m_controller.IsMoving)
