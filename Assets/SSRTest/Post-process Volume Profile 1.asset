@@ -130,13 +130,13 @@ MonoBehaviour:
     value: 100
   lift:
     overrideState: 1
-    value: {x: 0.97793454, y: 1, z: 0.8981972, w: 0}
+    value: {x: 0.9993049, y: 1, z: 0.997616, w: 0}
   gamma:
     overrideState: 1
-    value: {x: 0.9064967, y: 1, z: 0.83961904, w: 0}
+    value: {x: 1, y: 0.9941143, z: 0.9915786, w: 0}
   gain:
     overrideState: 1
-    value: {x: 1, y: 0.97847325, z: 0.9947109, w: 0}
+    value: {x: 0.99833137, y: 0.99564207, z: 1, w: 0}
   masterCurve:
     overrideState: 1
     value:
@@ -1349,7 +1349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 556797029e73b2347956b6579e77e05b, type: 3}
   m_Name: DepthOfField
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
@@ -1364,7 +1364,7 @@ MonoBehaviour:
     value: 105.9
   kernelSize:
     overrideState: 1
-    value: 0
+    value: 3
 --- !u!114 &-164180629403631560
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1377,7 +1377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a34fa72bd4185749832024e9c8010bf, type: 3}
   m_Name: ScreenSpaceReflections
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
@@ -1442,10 +1442,10 @@ MonoBehaviour:
     value: 1
   shutterAngle:
     overrideState: 1
-    value: 270
+    value: 156
   sampleCount:
     overrideState: 1
-    value: 10
+    value: 24
 --- !u!114 &2734060334065303921
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1508,10 +1508,10 @@ MonoBehaviour:
     value: 1
   mode:
     overrideState: 1
-    value: 1
+    value: 0
   intensity:
     overrideState: 1
-    value: 0.7
+    value: 0.63
   color:
     overrideState: 1
     value: {r: 0.43529412, g: 0.14117649, b: 0.29910073, a: 1}
@@ -1529,7 +1529,7 @@ MonoBehaviour:
     value: -12
   thicknessModifier:
     overrideState: 1
-    value: 1.91
+    value: 1
   directLightingStrength:
     overrideState: 1
     value: 0
