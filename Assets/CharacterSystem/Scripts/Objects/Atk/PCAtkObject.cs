@@ -4,7 +4,7 @@ using UnityEngine;
 using ProjectM.ePEa.CamSystem;
 
 
-[CreateAssetMenu(fileName = "PC Attack Object", menuName = "CharacterSystem/Attack Object", order = int.MaxValue)]
+[CreateAssetMenu(fileName = "PC Attack Object", menuName = "CharacterSystem/Attack Object", order = 2)]
 public class PCAtkObject : ScriptableObject
 {
     public float distance;

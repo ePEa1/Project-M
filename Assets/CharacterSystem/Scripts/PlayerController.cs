@@ -21,18 +21,15 @@ public class PlayerController : MonoBehaviour
     //공격키
     [SerializeField] KeyCode m_attack;
     [SerializeField] KeyCode m_rushAttack;
-    [SerializeField] KeyCode m_dashAttack;
+    [SerializeField] KeyCode m_rightdashAttack;
+    [SerializeField] KeyCode m_leftdashAttack;
+    [SerializeField] KeyCode m_backAttack;
 
     //회피키
     [SerializeField] KeyCode m_dodge;
 
-    //연타값
-    float leftdash = 0;
-    float rightdash = 0;
-    float backdash = 0;
-    [SerializeField] float dashTime = 1.0f;
-
     public bool CanAttack = true;//pause 상태일때 공격 못하게 하기
+    
 
     #endregion
 
@@ -41,18 +38,10 @@ public class PlayerController : MonoBehaviour
     float h = 0;
     float v = 0;
 
-
     #endregion
 
     #region Function
 
-
-    private void Update()
-    {
-        leftdash = Mathf.Max(0,leftdash-Time.deltaTime);
-        rightdash = Mathf.Max(0, rightdash-Time.deltaTime);
-        backdash = Mathf.Max(0, backdash-Time.deltaTime);
-    }
     /// <summary>
     /// 이동키 입력했는지 체크
     /// </summary>
@@ -128,9 +117,9 @@ public class PlayerController : MonoBehaviour
     /// <returns></returns>
     public bool IsAttack()
     {
-        if (Input.GetKeyDown(m_attack))
+        if (Input.GetKeyDown(m_attack) && PlayerStats.playerStat.m_currentAtkDelay <= 0)
             return true;
-        
+
         else return false;
     }
 
@@ -143,15 +132,25 @@ public class PlayerController : MonoBehaviour
 
     public bool IsDashAttack()
     {
-        if (Input.GetKeyDown(m_dashAttack) && h != 0 && PlayerStats.playerStat.m_currentMp >= PlayerStats.playerStat.m_widthMp)
+        if (Input.GetKeyDown(m_rightdashAttack)  && PlayerStats.playerStat.m_currentMp >= PlayerStats.playerStat.m_widthMp)
+        {
+            h = 1;
             return true;
+
+        }
+        if (Input.GetKeyDown(m_leftdashAttack) && PlayerStats.playerStat.m_currentMp >= PlayerStats.playerStat.m_widthMp)
+        {
+            h = -1;
+            return true;
+
+        }
         else return false;
     }
 
 
     public bool IsBackDashAttack()
     {
-        if (Input.GetKeyDown(m_dashAttack) && h == 0 && v == -1 && PlayerStats.playerStat.m_currentMp >= PlayerStats.playerStat.m_backMp)
+        if (Input.GetKeyDown(m_backAttack)  && PlayerStats.playerStat.m_currentMp >= PlayerStats.playerStat.m_backMp)
             return true;
         else return false;
     }

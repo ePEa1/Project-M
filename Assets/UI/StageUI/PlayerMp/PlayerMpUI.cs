@@ -6,15 +6,15 @@ using UnityEngine.UI;
 
 public class PlayerMpUI : MonoBehaviour
 {
-    Slider m_slider;
+    [SerializeField] Image m_slider;
 
     private void Awake()
     {
-        m_slider = GetComponent<Slider>();
+       
     }
 
     void Update()
     {
-        m_slider.value = PlayerStats.playerStat.m_currentMp / PlayerStats.playerStat.MaxMp;
+        m_slider.fillAmount = PlayerStats.playerStat.m_currentMp / PlayerStats.playerStat.MaxMp;
     }
 }

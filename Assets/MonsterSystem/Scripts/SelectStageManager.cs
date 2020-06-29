@@ -2,45 +2,103 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 public class SelectStageManager : MonoBehaviour
 {
     [SerializeField] string StageOne;
     [SerializeField] string StageTwo;
     [SerializeField] string StageThree;
     [SerializeField] string StageBoss;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] float FadeSpeed;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public Image FadeInImg;
+    public Image FadeOutImg;
 
+    public AudioSource EffSound;
+    public AudioClip mouseOver;
+    public AudioClip clicked;
+
+    private void Awake()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        StartCoroutine(FadeOut());
+    }
 
     public void GotStageOne()
     {
-        LoadingSceneManager.LoadScene(StageOne);
+        SetSound(clicked, EffSound);
+
+        StartCoroutine(FadeInGameStart(StageOne));
     }
 
     public void GoStageTwo()
     {
-        LoadingSceneManager.LoadScene(StageTwo);
+        SetSound(clicked, EffSound);
+
+        StartCoroutine(FadeInGameStart(StageTwo));
     }
 
     public void GoStageThree()
     {
-        LoadingSceneManager.LoadScene(StageThree);
+        SetSound(clicked, EffSound);
+
+        StartCoroutine(FadeInGameStart(StageThree));
     }
 
     public void GoStageBoss()
     {
-        LoadingSceneManager.LoadScene(StageBoss);
+        SetSound(clicked, EffSound);
+
+        StartCoroutine(FadeInGameStart(StageBoss));
 
     }
 
+    public void MouseOverButton()
+    {
+        SetSound(mouseOver, EffSound);
+    }
+
+    public void ClickButton()
+    {
+        SetSound(clicked, EffSound);
+    }
+    public void SetSound(AudioClip uisound, AudioSource Setplayer)
+    {
+        Setplayer.volume = DataController.Instance.effectSound;
+        Setplayer.Stop();
+        Setplayer.clip = uisound;
+        Setplayer.time = 0;
+        Setplayer.Play();
+    }
+
+    IEnumerator FadeInGameStart(string scene)
+    {
+
+        for (float i = 0f; i >= 0; i += 0.005f * FadeSpeed)
+        {
+            Color color = new Vector4(0, 0, 0, i);
+            FadeOutImg.color = color;
+
+            if (FadeOutImg.color.a >= 1)
+            {
+                LoadingSceneManager.LoadScene(scene);
+
+            }
+
+            yield return null;
+        }
+    }
+
+    IEnumerator FadeOut()
+    {
+        for (float i = 1f; i <= 1; i -= 0.005f * FadeSpeed)
+        {
+            Color color = new Vector4(0, 0, 0, i);
+            FadeInImg.color = color;
+
+            yield return null;
+        }
+    }
 }

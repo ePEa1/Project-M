@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+
 public interface DamageModel
 {
     void TakeDamage(AtkCollider dam);
@@ -19,16 +20,9 @@ public class AtkCollider : MonoBehaviour
     [SerializeField] UnityEvent m_atkEvents; //공격이 들어갔을 때 실행시킬 이벤트
     public bool isAttacking { get; set; } //공격이 들어갔는지 체크
 
-    [SerializeField] Transform m_owner;
-
     public bool m_isArea = false;
-    
-    enum COLLIDER
-    {
-        BOX = 0,
-        CYLLINDER
-    }
-    [SerializeField] COLLIDER m_colliderType;
+
+    List<Transform> m_hits = new List<Transform>();
 
     private void Awake()
     {
@@ -57,28 +51,31 @@ public class AtkCollider : MonoBehaviour
 
     public void Attacking()
     {
-        if (m_owner!=null)
+        foreach (Transform enemys in m_hits)
         {
-            RaycastHit[] hits;
-            if (m_colliderType == COLLIDER.BOX)
-                hits = hits = Physics.BoxCastAll(transform.position + GetComponent<BoxCollider>().center, GetComponent<BoxCollider>().size * 0.5f, Vector3.forward, m_owner.rotation, 0);
-            else hits = Physics.SphereCastAll(transform.position, GetComponent<CapsuleCollider>().radius, Vector3.forward, 0.0f); //Physics.CapsuleCastAll(transform.position, transform.position, GetComponent<CapsuleCollider>().radius, Vector3.up, 0);
-
-            foreach (RaycastHit hit in hits)
-            {
-                if (hit.transform.tag == m_target)
-                {
-                    hit.transform.GetComponent<DamageModel>().TakeDamage(this);
-                }
-            }
+            if (enemys != null)
+                enemys.GetComponent<DamageModel>().TakeDamage(this);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag ==m_target && m_isArea)
+        if (other.tag == m_target && m_isArea)
         {
             other.transform.GetComponent<DamageModel>().TakeDamage(this);
+
+        }
+        else if (other.tag == m_target)
+        {
+            m_hits.Add(other.transform);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == m_target && !m_isArea)
+        {
+            m_hits.Remove(other.transform);
         }
     }
 }

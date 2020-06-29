@@ -97,7 +97,7 @@ public class MoveAction : BaseAction
             Quaternion playerDir = dir * v;
 
             m_owner.transform.rotation = Quaternion.Slerp(m_owner.transform.rotation, playerDir, Time.deltaTime * PlayerStats.playerStat.m_curveSpeed);
-            Vector3 moveVec = m_owner.transform.rotation * new Vector3(0.0f, 0.0f, PlayerStats.playerStat.m_moveSpeed) * Time.deltaTime;
+            Vector3 moveVec = /*m_owner.transform.rotation*/ playerDir * new Vector3(0.0f, 0.0f, PlayerStats.playerStat.m_moveSpeed) * Time.deltaTime;
 
             //이동---------------------------------------------
             Vector3 fixedVec = Vector3.zero;

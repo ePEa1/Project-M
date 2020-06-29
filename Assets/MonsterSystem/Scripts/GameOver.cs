@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameOver : MonoBehaviour
 {
@@ -20,11 +21,12 @@ public class GameOver : MonoBehaviour
     {
         if(player.GetComponent<PlayerFsmManager>().IsDead == true)
         {
-            getGameOver();
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
-                SceneManager.LoadScene("StartScene");
-            }
+            StartFromSavePoint();
+            //getGameOver();
+            //if (Input.GetKeyDown(KeyCode.Return))
+            //{
+            //    SceneManager.LoadScene("StartScene");
+            //}
         }
     }
 
@@ -49,4 +51,11 @@ public class GameOver : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene("StageSelectScene");
     }
+
+    public void StartFromSavePoint()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+
 }

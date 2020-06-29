@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace ProjectM.ePEa.ProtoMon
 {
-    public class MonsterProto : MonoBehaviour
+    public class MonsterProto : MonoBehaviour, ConnectRader
     {
         #region Inspector
 
@@ -36,11 +36,11 @@ namespace ProjectM.ePEa.ProtoMon
 
         [SerializeField] AnimationCurve m_damAc;
 
-        [SerializeField] float m_refilMax = 3.0f;
-
         [SerializeField] Slider m_hpBar;
-        [SerializeField] Slider m_refillBar;
         [SerializeField] Image m_backhpBar;
+
+        [SerializeField] float m_refillTime;
+        [SerializeField] float m_refillSpeed;
 
         bool IsDecrease = false;
         #endregion
@@ -52,8 +52,6 @@ namespace ProjectM.ePEa.ProtoMon
 
         Vector3 m_startPos;
         Vector3 m_endPos;
-
-        float m_refil = 3.0f;
 
         float m_nowHp;
 
@@ -77,6 +75,8 @@ namespace ProjectM.ePEa.ProtoMon
 
         float m_changeDest = 0.0f;
 
+        float m_currentReTime = 0;
+
         #endregion
 
         private void Awake()
@@ -84,15 +84,18 @@ namespace ProjectM.ePEa.ProtoMon
             target = GameObject.FindWithTag("Player").transform;
             m_destPos = transform.position;
 
-            m_refil = m_refilMax;
             m_nowHp = m_maxHp;
+        }
+
+        void Start()
+        {
+            AddTarget();
         }
 
         // Update is called once per frame
         void Update()
         {
             m_hpBar.transform.rotation = Camera.main.transform.rotation;
-            m_refillBar.transform.rotation = Camera.main.transform.rotation;
 
             switch (m_nowState)
             {
@@ -112,22 +115,19 @@ namespace ProjectM.ePEa.ProtoMon
                     break;
             }
 
-            m_refil = Mathf.Min(m_refil + Time.deltaTime, m_refilMax);
-            if (m_refil == m_refilMax)
-            {
-                m_nowHp = m_maxHp;
-            }
+            m_currentReTime = Mathf.Max(0.0f, m_currentReTime - Time.deltaTime);
+            if (m_currentReTime <= 0)
+                m_nowHp = Mathf.Min(m_maxHp, m_nowHp + Time.deltaTime * m_refillSpeed);
             m_nowDelay = Mathf.Max(0, m_nowDelay - Time.deltaTime);
 
+
             m_hpBar.value = m_nowHp / m_maxHp;
-            m_refillBar.value = m_refil / m_refilMax;
 
             if (m_nowHp <= 0)
             {
                 DataController.Instance.gameData.firstStageMonster -= 1;
-                Debug.Log(DataController.Instance.gameData.firstStageMonster);
+                DestroyTarget();
                 Destroy(gameObject);
-
             }
 
             if (IsDecrease)
@@ -157,12 +157,15 @@ namespace ProjectM.ePEa.ProtoMon
                 m_changeDest = Random.Range(1, 4);
             }
 
-            if (Vector3.Distance(charPos, destPos) < m_atkRange && m_nowDelay==0)
+            if (Vector3.Distance(charPos, destPos) < m_atkRange)
             {
-                AtkStart();
+                m_animator.SetBool("Moving", false);
+                if (m_nowDelay == 0)
+                    AtkStart();
             }
             else if (Vector3.Distance( charPos, m_destPos) >1.0f)
             {
+                m_animator.SetBool("Moving", true);
                 transform.position += (m_destPos - charPos).normalized * m_moveSpeed * Time.deltaTime;
                 Quaternion dir = Quaternion.LookRotation((m_destPos - charPos).normalized);
                 transform.rotation = Quaternion.Slerp(transform.rotation, dir, Time.deltaTime * 3.0f);
@@ -207,6 +210,7 @@ namespace ProjectM.ePEa.ProtoMon
             m_startPos = transform.position;
             m_endPos = transform.position + (target.position - transform.position).normalized * m_rushRange;
             m_animator.SetTrigger("Atk");
+            m_animator.SetBool("IsAtk", true);
 
             GameObject eff = Instantiate(m_eff);
             eff.transform.parent=transform;
@@ -224,12 +228,22 @@ namespace ProjectM.ePEa.ProtoMon
             m_time = 0.0f;
 
             m_destPos = new Vector3(transform.position.x, 0.0f, transform.position.z);
+
+            m_animator.ResetTrigger("Atk");
+            m_animator.SetBool("IsAtk", false);
         }
 
         public void TakeDamage(float damage, Vector3 knockDir, float knockPower)
         {
             m_nowHp -= damage;
-            
+
+            m_time = 0.0f;
+
+            m_currentReTime = m_refillTime;
+
+            m_animator.SetTrigger("Damage");
+            m_animator.SetBool("IsDamage", true);
+
             m_knockTime = 0;
             m_knockStart = new Vector3(transform.position.x, 0.0f, transform.position.z);
             m_knockEnd = m_knockStart + knockDir * knockPower;
@@ -239,8 +253,6 @@ namespace ProjectM.ePEa.ProtoMon
 
             eff.transform.position = transform.position + Vector3.up;
 
-
-            m_refil = 0;
             Invoke("HPDecrease",0.5f);
 
         }
@@ -257,6 +269,8 @@ namespace ProjectM.ePEa.ProtoMon
 
             if (m_knockTime > 1)
             {
+                m_animator.ResetTrigger("Damage");
+                m_animator.SetBool("IsDamage", false);
                 m_nowState = state.MOVE;
             }
         }
@@ -266,6 +280,23 @@ namespace ProjectM.ePEa.ProtoMon
         {
             IsDecrease = true;
         }
-        
+
+        public void AddTarget()
+        {
+            EnemyRader rader = GameObject.FindWithTag("EnemyRader").GetComponent<EnemyRader>();
+            if (rader!=null)
+            {
+                rader.AddTarget(transform);
+            }
+        }
+
+        public void DestroyTarget()
+        {
+            EnemyRader rader = GameObject.FindWithTag("EnemyRader").GetComponent<EnemyRader>();
+            if (rader != null)
+            {
+                rader.DestroyTarget(transform);
+            }
+        }
     }
 }

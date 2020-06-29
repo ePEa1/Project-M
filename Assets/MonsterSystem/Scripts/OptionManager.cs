@@ -16,9 +16,40 @@ public class OptionManager : MonoBehaviour
     public Slider MouseMoving;
 
 
+    // 그래픽 옵션
+    public Dropdown ResolutionDropdown;
+    public Dropdown WindowSettingDropdown;
+    Resolution[] resolutions;
+
+   
     private void Start()
     {
+        DataController.Instance.backgroundSound = (float)DataController.Instance.gameData.BackgroundSound / 100;
+        DataController.Instance.effectSound = (float)DataController.Instance.gameData.EffectSound / 100;
+        DataController.Instance.mouseMoving = (float)DataController.Instance.gameData.MouseMoving / 100;
         //OptionScreen.SetActive(false);
+        resolutions = Screen.resolutions;
+
+        ResolutionDropdown.ClearOptions();
+
+        List<string> options = new List<string>();
+
+        int currentResolutionIndex = 0;
+
+        for(int  i = 0; i<resolutions.Length; i++)
+        {
+            string option = resolutions[i].width + " x " + resolutions[i].height;
+            options.Add(option);
+
+            if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+            {
+                currentResolutionIndex = i;
+            }
+        }
+        ResolutionDropdown.AddOptions(options);
+        ResolutionDropdown.value = currentResolutionIndex;
+        ResolutionDropdown.RefreshShownValue();
+
     }
     // Start is called before the first frame update
     void Awake()
@@ -74,5 +105,25 @@ public class OptionManager : MonoBehaviour
         GraphicPage.SetActive(false);
         ControlPage.SetActive(true);
 
+    }
+
+
+    public void ResolutionSetting(int resolutionIndex)
+    {
+        Resolution resolution = resolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+
+    public void FullScreenSetting(int fullscreenIndex)
+    {
+        switch (fullscreenIndex)
+        {
+            case 0:
+                Screen.fullScreen = true;
+                break;
+            case 1:
+                Screen.fullScreen = false;
+                break;
+        }
     }
 }

@@ -9,9 +9,9 @@ using System;
 public class DataController : MonoBehaviour
 {
 
-    public float backgroundSound=1;
-    public float effectSound=1;
-    public float mouseMoving=1;
+    public float backgroundSound = 1;
+    public float effectSound = 1;
+    public float mouseMoving = 0.5f;
 
     public enum Option
     {
@@ -92,7 +92,6 @@ public class DataController : MonoBehaviour
     private int index;
     void Awake()
     {
-
         index = count;
 
         count++;
