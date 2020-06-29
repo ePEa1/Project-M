@@ -138,4 +138,11 @@ public class DashAtkAction : BaseAction
         m_owner.DelayDashAtk = false;
     }
 
+    IEnumerator DelayTimeScale()
+    {
+        yield return new WaitForSeconds(0.2f);
+        Time.timeScale = 0.7f;
+        yield return new WaitForSeconds(0.2f);
+        Time.timeScale = 1;
+    }
 }
