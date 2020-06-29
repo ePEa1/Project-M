@@ -19,6 +19,11 @@ public class GameData
     public bool StageThreeIsOpen = false;
     public bool StageBossIsOpen = false;
 
+    public int ResolutionNum = 0;
+    public int WindowNum = 0;
+    public int ResolutionX = 1920;
+    public int ResolutionY = 1080;
+    public bool fullScreen = true;
 
     public int FirstStageSavePointOrder = 0;
     public int BossStageSavePointOrder = 0;
