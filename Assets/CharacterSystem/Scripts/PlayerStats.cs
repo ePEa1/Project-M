@@ -33,6 +33,7 @@ namespace ProjectM.ePEa.PlayerData
 
         [SerializeField] float m_atkDelay = 1; //평타 막타 딜레이
         [SerializeField] public AtkPowerData m_powerData; //데미지 배율 데이터
+        public bool DontDecreaseMP = false;
         
         #endregion
 
@@ -144,8 +145,14 @@ namespace ProjectM.ePEa.PlayerData
             //--------------------------
 
             //마나통 갱신
-            RefillMp();
-
+            if (!DontDecreaseMP)
+            {
+                RefillMp();
+            }
+            if (Input.GetKeyDown(KeyCode.F1))
+            {
+                MPDecreaseCheck(); 
+            }
             //딜레이 갱신
             UpdateAtkDelay();
         }
@@ -198,6 +205,19 @@ namespace ProjectM.ePEa.PlayerData
         public void UseMp(float mp)
         {
             m_currentMp = Mathf.Max(0, m_currentMp - mp);
+        }
+
+        public void MPDecreaseCheck()
+        {
+            if (DontDecreaseMP == true)
+            {
+                DontDecreaseMP = false;
+            }
+            else if (!DontDecreaseMP)
+            {
+                m_currentMp = 10000000;
+                DontDecreaseMP = true;
+            }
         }
     }
 }

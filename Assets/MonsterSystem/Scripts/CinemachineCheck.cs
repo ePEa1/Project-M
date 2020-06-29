@@ -8,6 +8,13 @@ public class CinemachineCheck : MonoBehaviour
 
     public CinemachineFreeLook playercin;
 
+
+    [SerializeField] float ShakeDuration;
+    [SerializeField] float ShakeAmplitude;
+    [SerializeField] float ShakeFrequency;
+
+    [SerializeField] float ShakeElapsedTime = 0f;
+
     [SerializeField] float YAccelTime;
     [SerializeField] float XAccelTime;
 
@@ -16,6 +23,9 @@ public class CinemachineCheck : MonoBehaviour
     {
         YAccelTime = 0.05f;
         XAccelTime = 0.05f;
+        if(playercin != null)
+        {
+        }
     }
 
     // Update is called once per frame
@@ -23,6 +33,34 @@ public class CinemachineCheck : MonoBehaviour
     {
         SetXAcceltime(DataController.Instance.mouseMoving);
         SetYAcceltime(DataController.Instance.mouseMoving);
+
+        if (Input.GetKey(KeyCode.X))
+        {
+            ShakeElapsedTime = ShakeDuration;
+        }
+
+        if(playercin != null)
+        {
+            if (ShakeElapsedTime > 0)
+            {
+                playercin.GetRig(0).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = ShakeAmplitude;
+                playercin.GetRig(0).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = ShakeFrequency;
+                playercin.GetRig(1).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = ShakeAmplitude;
+                playercin.GetRig(1).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = ShakeFrequency;
+                playercin.GetRig(2).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = ShakeAmplitude;
+                playercin.GetRig(2).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = ShakeFrequency;
+
+                ShakeElapsedTime -= Time.deltaTime;
+            }
+            else
+            {
+                playercin.GetRig(0).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0f;
+                playercin.GetRig(1).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0f;
+                playercin.GetRig(2).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0f;
+
+                ShakeElapsedTime = 0f;
+            }
+        }
     }
     void SetXAcceltime(float acTime)
     {
@@ -35,4 +73,6 @@ public class CinemachineCheck : MonoBehaviour
         playercin.m_YAxis.m_AccelTime = acTime;
 
     }
+
+    
 }
