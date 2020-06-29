@@ -34,10 +34,7 @@ public class CinemachineCheck : MonoBehaviour
         SetXAcceltime(DataController.Instance.mouseMoving);
         SetYAcceltime(DataController.Instance.mouseMoving);
 
-        if (Input.GetKey(KeyCode.X))
-        {
-            ShakeElapsedTime = ShakeDuration;
-        }
+
 
         if(playercin != null)
         {
@@ -72,6 +69,11 @@ public class CinemachineCheck : MonoBehaviour
     {
         playercin.m_YAxis.m_AccelTime = acTime;
 
+    }
+
+    public void GetCinemachineShake()
+    {
+            ShakeElapsedTime = ShakeDuration;
     }
 
     
