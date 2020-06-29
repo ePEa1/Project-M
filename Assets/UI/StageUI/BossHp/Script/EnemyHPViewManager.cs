@@ -55,6 +55,13 @@ public class EnemyHPViewManager : MonoBehaviour
     void Awake()
     {
         m_centerPos = GetComponent<RectTransform>().position;
+        if (GameObject.FindWithTag("Boss") != null)
+        {
+            boss = GameObject.FindWithTag("Boss").GetComponent<ProtoBossFSM>();
+            m_maxHp = boss.m_maxHp;
+            Setup();
+        }
+
     }
 
     void Start()
@@ -81,6 +88,15 @@ public class EnemyHPViewManager : MonoBehaviour
             if (m_nowHp != boss.m_currentHp)
             {
                 ChangeHp(boss.m_currentHp);
+            }
+        }
+        if (!m_isSetting)
+        {
+            if (GameObject.FindWithTag("Boss") != null)
+            {
+                boss = GameObject.FindWithTag("Boss").GetComponent<ProtoBossFSM>();
+                m_maxHp = boss.m_maxHp;
+                Setup();
             }
         }
     }

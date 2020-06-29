@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Linq;
 
 public class OptionManager : MonoBehaviour
 {
@@ -40,8 +41,9 @@ public class OptionManager : MonoBehaviour
         {
             string option = resolutions[i].width + " x " + resolutions[i].height;
             options.Add(option);
+            options = options.Distinct().ToList();
 
-            if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
             {
                 currentResolutionIndex = i;
             }
