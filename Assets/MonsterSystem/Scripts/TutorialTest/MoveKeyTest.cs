@@ -37,6 +37,7 @@ public class MoveKeyTest : MonoBehaviour
             if (Wkey.transform.eulerAngles.z < 180)
             {
                 IsW = true;
+                Wkey.enabled = false;
                 Wkey.transform.Rotate(new Vector3(0, 0, 0), Space.Self);
             }
             else
@@ -50,6 +51,8 @@ public class MoveKeyTest : MonoBehaviour
             if (Akey.transform.eulerAngles.z < 180)
             {
                 IsA = true;
+                Akey.enabled = false;
+
                 Akey.transform.Rotate(new Vector3(0, 0, 0), Space.Self);
             }
             else
@@ -63,6 +66,7 @@ public class MoveKeyTest : MonoBehaviour
             if (Skey.transform.eulerAngles.z < 180)
             {
                 IsS = true;
+                Skey.enabled = false;
                 Skey.transform.Rotate(new Vector3(0, 0, 0), Space.Self);
             }
             else
@@ -76,6 +80,7 @@ public class MoveKeyTest : MonoBehaviour
             if (Dkey.transform.eulerAngles.z < 180)
             {
                 IsD = true;
+                Dkey.enabled = false;
                 Dkey.transform.Rotate(new Vector3(0, 0, 0), Space.Self);
             }
             else

@@ -13,6 +13,7 @@ public class EnemyHPViewManager : MonoBehaviour
     [SerializeField] Text m_hpSizeText; //hp 줄 수 텍스트
     [SerializeField] Text m_hpData; //현재 hp 수치 텍스트
     [SerializeField] Image m_hpBox; //hp바 틀
+    [SerializeField] GameObject m_TimeObj;//시간 게이지
 
     //hp바 쉐이킹----------------------------------
     [SerializeField] float m_shakePower = 3.0f;
@@ -23,11 +24,7 @@ public class EnemyHPViewManager : MonoBehaviour
     [SerializeField] Vector3 m_originPos; //hp 바 위치
     [SerializeField] Color[] m_hpColor; //hp 바 색상
 
-    //hp줄 수 크기
-    //[SerializeField] int m_fontMinSize = 20;
-    //[SerializeField] int m_fontMaxSize = 40;
-
-    //[SerializeField] float m_fontSpeed = 2.0f; //폰트 크기 애니메이션 속도
+    [SerializeField] Image m_shield; //실드 게이지
 
     #endregion
 
@@ -51,20 +48,30 @@ public class EnemyHPViewManager : MonoBehaviour
 
     Vector3 m_centerPos; //hp바 처음 위치
 
-    ProtoBossFSM boss;
+    ProtoBossFSM boss = null;
 
     #endregion
 
     void Awake()
     {
         m_centerPos = GetComponent<RectTransform>().position;
+        if (GameObject.FindWithTag("Boss") != null)
+        {
+            boss = GameObject.FindWithTag("Boss").GetComponent<ProtoBossFSM>();
+            m_maxHp = boss.m_maxHp;
+            Setup();
+        }
+
     }
 
     void Start()
     {
-        boss = GameObject.FindWithTag("Boss").GetComponent<ProtoBossFSM>();
-        m_maxHp = boss.m_maxHp;
-        Setup();
+        if (GameObject.FindWithTag("Boss") != null)
+        {
+            boss = GameObject.FindWithTag("Boss").GetComponent<ProtoBossFSM>();
+            m_maxHp = boss.m_maxHp;
+            Setup();
+        }
     }
 
     private void Update()
@@ -75,11 +82,22 @@ public class EnemyHPViewManager : MonoBehaviour
             PlayShake();
             //hp줄 수 텍스트 설정
             //m_hpSizeText.fontSize = (int)Mathf.Max(m_fontMinSize, m_hpSizeText.fontSize - Time.deltaTime * m_fontSpeed);
-        }
 
-        if (m_nowHp!= boss.m_currentHp)
+            UpdateShield();
+
+            if (m_nowHp != boss.m_currentHp)
+            {
+                ChangeHp(boss.m_currentHp);
+            }
+        }
+        if (!m_isSetting)
         {
-            ChangeHp(boss.m_currentHp);
+            if (GameObject.FindWithTag("Boss") != null)
+            {
+                boss = GameObject.FindWithTag("Boss").GetComponent<ProtoBossFSM>();
+                m_maxHp = boss.m_maxHp;
+                Setup();
+            }
         }
     }
 
@@ -109,9 +127,15 @@ public class EnemyHPViewManager : MonoBehaviour
         m_hpSizeText.transform.SetAsLastSibling();
         m_hpSizeText.text = "X " + (int)Mathf.Ceil(m_nowHp / m_hpMaxSize);
         m_hpBox.transform.SetAsLastSibling();
+        //m_TimeObj.transform.SetAsLastSibling();
 
         //셋팅 끝 체크
         m_isSetting = true;
+    }
+
+    void UpdateShield()
+    {
+        m_shield.fillAmount = boss.m_currentShield / boss.m_shieldMax;
     }
 
     /// <summary>

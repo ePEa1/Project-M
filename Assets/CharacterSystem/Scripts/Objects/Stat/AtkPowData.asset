@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f6f37f64de9a9749ba5ad6eb4306f50, type: 3}
+  m_Name: AtkPowData
+  m_EditorClassIdentifier: 
+  level:
+  - power: 1
+    nextGage: 2
+    minusSpeed: 1.1
+  - power: 1.2
+    nextGage: 3
+    minusSpeed: 1.3
+  - power: 1.4
+    nextGage: 4
+    minusSpeed: 1.5
+  - power: 1.7
+    nextGage: 5
+    minusSpeed: 1.7
+  - power: 2.1
+    nextGage: 6
+    minusSpeed: 2
+  - power: 2.5
+    nextGage: 6
+    minusSpeed: 2.2
+  - power: 2.9
+    nextGage: 6
+    minusSpeed: 2.5

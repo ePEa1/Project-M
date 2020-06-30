@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using static ProjectM.ePEa.CustomFunctions.CustomFunction;
+
 namespace ProjectM.ePEa.ProtoMon
 {
-    public class ProtoBossFSM : MonoBehaviour
+    public class ProtoBossFSM : MonoBehaviour, ConnectRader
     {
         #region Inspector
         [SerializeField] public float m_maxHp; //최대체력
@@ -12,13 +14,24 @@ namespace ProjectM.ePEa.ProtoMon
         [SerializeField] float m_atkDelayMin; //공격 딜레이
         [SerializeField] float m_atkDelayMax; //공격 딜레이
 
-        [SerializeField] GameObject m_model;
+        //[SerializeField] GameObject //m_model;
+
+        [SerializeField] public float m_shieldMax;
+        [SerializeField] float m_refillTime;
+        [SerializeField] float m_refillSpeed;
+
+        [SerializeField] Animator m_animator;
+
+        [SerializeField] LayerMask m_wall;
+        public GameObject m_HPbar;
 
         #endregion
 
         #region Value
-        public float m_currentHp;
+        public float m_currentHp { get; private set; }
         float m_atkDelay;
+        public float m_currentShield { get; private set; }
+        float m_shieldTime = 0.0f;
 
         Transform target;
 
@@ -42,8 +55,14 @@ namespace ProjectM.ePEa.ProtoMon
         void Awake()
         {
             m_currentHp = m_maxHp;
+            m_currentShield = m_shieldMax;
             m_atkDelay = Random.Range(m_atkDelayMin, m_atkDelayMax);
             target = GameObject.FindWithTag("Player").transform;
+        }
+
+        void Start()
+        {
+            AddTarget();
         }
 
         // Update is called once per frame
@@ -69,18 +88,37 @@ namespace ProjectM.ePEa.ProtoMon
             }
 
             if (m_currentHp <= 0)
+            {
+                DestroyTarget();
                 Destroy(gameObject);
+            }
+
+            if (m_shieldTime == 0)
+                m_currentShield = Mathf.Min(m_shieldMax, m_currentShield + Time.deltaTime * m_refillSpeed);
+
+            m_shieldTime = Mathf.Max(0, m_shieldTime - Time.deltaTime);
         }
 
         void Move()
         {
+            targetDir = target.position - transform.position;
+            targetDir.y = 0;
+            targetDir = targetDir.normalized;
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetDir), Time.deltaTime * 5.0f);
+
+            m_animator.SetBool("IsRush", false);
+            m_animator.ResetTrigger("Rush");
             m_atkDelay -= Time.deltaTime;
             if (m_atkDelay <= 0)
             {
                 Vector3 centerPos = new Vector3(transform.position.x, 0.0f, transform.position.z);
                 Vector3 targetPos = new Vector3(target.position.x, 0.0f, target.position.z);
                 if (Vector3.Distance(centerPos, targetPos) > 6.0f)
+                {
                     m_currentState = State.ATK1;
+                    m_animator.SetBool("IsRush", true);
+                    m_animator.SetTrigger("Rush");
+                }
                 else
                 {
                     int patton = Random.Range(0, 2);
@@ -88,10 +126,14 @@ namespace ProjectM.ePEa.ProtoMon
                     {
                         case 0:
                             m_currentState = State.ATK2;
+                            m_animator.SetBool("IsAtk2", true);
+                            m_animator.SetTrigger("Atk2");
                             break;
 
                         case 1:
                             m_currentState = State.ATK3;
+                            m_animator.SetBool("IsAtk3", true);
+                            m_animator.SetTrigger("Atk3");
                             break;
                     }
                 }
@@ -105,28 +147,38 @@ namespace ProjectM.ePEa.ProtoMon
         Vector3 startPos;
         Vector3 finishPos;
         [SerializeField] GameObject rushCollider;
+        [SerializeField] float m_timeRushReady = 0.5f;
+        [SerializeField] float m_timeRushGo = 0.8f;
         void Atk1()
         {
-            m_model.GetComponent<Renderer>().material.color = Color.red;
+            //m_model.GetComponent<Renderer>().material.color = Color.red;
 
             rushTime = Mathf.Min(0.8f, rushTime + Time.deltaTime);
-            if (rushTime >= 0.5f && targetDir == Vector3.zero)
+            if (rushTime < m_timeRushReady)
             {
                 targetDir = target.position - transform.position;
                 targetDir.y = 0;
                 targetDir = targetDir.normalized;
+                transform.rotation = Quaternion.LookRotation(targetDir);
                 startPos = transform.position;
                 finishPos = startPos + targetDir * 20.0f;
                 rushCollider.GetComponent<AtkCollider>().knockVec = targetDir;
             }
 
-            if (rushTime >= 0.8f)
+            if (rushTime >= m_timeRushReady + m_timeRushGo)
             {
-                rush = Mathf.Min(1, rush + Time.deltaTime * 5.0f);
                 transform.rotation = Quaternion.LookRotation(targetDir);
-                transform.position = Vector3.Lerp(startPos, finishPos, rush);
+
+                Vector3 beforePos = Vector3.Lerp(startPos, finishPos, rush);
+                rush = Mathf.Min(1, rush + Time.deltaTime * 5.0f);
+                Vector3 afterPos = Vector3.Lerp(startPos, finishPos, rush);
+
+                Vector3 fixedPos = FixedMovePos(transform.position + Vector3.up * 0.75f, 0.75f, (afterPos - beforePos).normalized, Vector3.Distance(beforePos, afterPos), m_wall);
+
+                transform.position += afterPos - beforePos + fixedPos;
                 if (rush == 1)
                 {
+                    m_animator.SetBool("IsRush", false);
                     //rushCollider.SetActive(false);
                     rushEnd = Mathf.Min(0.3f, rushEnd + Time.deltaTime);
                     if (rushEnd >= 0.3f)
@@ -137,7 +189,7 @@ namespace ProjectM.ePEa.ProtoMon
                         rushEnd = 0.0f;
                         m_currentState = State.MOVE;
                         m_atkDelay = Random.Range(m_atkDelayMin, m_atkDelayMax);
-                        m_model.GetComponent<Renderer>().material.color = Color.white;
+                        //m_model.GetComponent<Renderer>().material.color = Color.white;
                         //rushCollider.SetActive(false);
                     }
                 }
@@ -161,24 +213,29 @@ namespace ProjectM.ePEa.ProtoMon
         [SerializeField] GameObject melee2Collider;
         bool melee2atk1 = false;
         bool melee2atk2 = false;
+
+        [SerializeField] float m_timeAtk21 = 0.6f;
+        [SerializeField] float m_timeAtk22 = 0.4f;
         void Atk2()
         {
-            m_model.GetComponent<Renderer>().material.color = new Color(1.0f, 0.5f, 0.0f);
+            //m_model.GetComponent<Renderer>().material.color = new Color(1.0f, 0.5f, 0.0f);
             if (melee1StartPos == Vector3.zero)
             {
                 melee1StartPos = transform.position;
                 melee1FinishPos = target.transform.position - transform.position;
                 melee1FinishPos.y = 0;
+                transform.rotation = Quaternion.LookRotation(melee1FinishPos.normalized);
                 melee1Collider.GetComponent<AtkCollider>().knockVec = melee1FinishPos.normalized;
                 melee1FinishPos = melee1StartPos + melee1FinishPos.normalized * 5;
             }
-
-            melee1 = Mathf.Min(0.5f, melee1 + Time.deltaTime);
-            if (melee1 >= 0.5f)
+            else if (melee1< m_timeAtk21)
             {
-                melee1rush = Mathf.Min(1, melee1rush + Time.deltaTime * 10.0f);
-                transform.position = Vector3.Lerp(melee1StartPos, melee1FinishPos, melee1rush);
+                transform.rotation = Quaternion.LookRotation(melee1FinishPos.normalized) * Quaternion.Euler(0.0f, melee1 * (1.0f / m_timeAtk21) * 360.0f, 0.0f);
+            }
 
+            melee1 = Mathf.Min(m_timeAtk21, melee1 + Time.deltaTime);
+            if (melee1 >= m_timeAtk21)
+            {
                 if (melee1rush >= 1)
                 {
                     //melee1Collider.SetActive(false);
@@ -187,15 +244,19 @@ namespace ProjectM.ePEa.ProtoMon
                         melee2StartPos = transform.position;
                         melee2FinishPos = target.transform.position - transform.position;
                         melee2FinishPos.y = 0.0f;
+                        transform.rotation = Quaternion.LookRotation(melee2FinishPos.normalized);
                         melee2Collider.GetComponent<AtkCollider>().knockVec = melee2FinishPos.normalized;
                         melee2FinishPos = melee2StartPos + melee2FinishPos.normalized * 6;
                     }
 
-                    melee2 = Mathf.Min(0.4f, melee2 + Time.deltaTime);
-                    if (melee2 >= 0.4f)
+                    melee2 = Mathf.Min(m_timeAtk22, melee2 + Time.deltaTime);
+                    if (melee2 >= m_timeAtk22)
                     {
+                        Vector3 beforePos = Vector3.Lerp(melee2StartPos, melee2FinishPos, melee2rush);
                         melee2rush = Mathf.Min(1, melee2rush + Time.deltaTime * 10.0f);
-                        transform.position = Vector3.Lerp(melee2StartPos, melee2FinishPos, melee2rush);
+                        Vector3 afterPos = Vector3.Lerp(melee2StartPos, melee2FinishPos, melee2rush);
+                        Vector3 fixedPos = FixedMovePos(transform.position + Vector3.up * 0.75f, 0.75f, (afterPos - beforePos).normalized, Vector3.Distance(beforePos, afterPos), m_wall);
+                        transform.position += afterPos - beforePos + fixedPos;
 
                         if (melee2rush >= 1)
                         {
@@ -215,8 +276,9 @@ namespace ProjectM.ePEa.ProtoMon
                                 melee2FinishPos = Vector3.zero;
                                 melee2atk1 = false;
                                 melee2atk2 = false;
-                                m_model.GetComponent<Renderer>().material.color = Color.white;
+                                //m_model.GetComponent<Renderer>().material.color = Color.white;
                                 m_atkDelay = Random.Range(m_atkDelayMin, m_atkDelayMax);
+                                m_animator.SetBool("IsAtk2", false);
                             }
                         }
                         else
@@ -231,6 +293,12 @@ namespace ProjectM.ePEa.ProtoMon
                 }
                 else
                 {
+                    Vector3 beforePos = Vector3.Lerp(melee1StartPos, melee1FinishPos, melee1rush);
+                    melee1rush = Mathf.Min(1, melee1rush + Time.deltaTime * 10.0f);
+                    Vector3 afterPos = Vector3.Lerp(melee1StartPos, melee1FinishPos, melee1rush);
+                    Vector3 fixedPos = FixedMovePos(transform.position + Vector3.up * 0.75f, 0.75f, (afterPos - beforePos).normalized, Vector3.Distance(afterPos, beforePos), m_wall);
+                    transform.position += afterPos - beforePos + fixedPos;
+                    transform.rotation = Quaternion.LookRotation(melee1FinishPos.normalized);
                     if (!melee2atk1)
                     {
                         melee1Collider.GetComponent<AtkCollider>().Attacking();
@@ -242,7 +310,19 @@ namespace ProjectM.ePEa.ProtoMon
 
         public void TakeDamage(float dam)
         {
-            m_currentHp -= dam;
+            float d = dam;
+            if (m_currentShield > 0)
+            {
+                m_currentShield -= d;
+                if (m_currentShield < 0)
+                {
+                    d = Mathf.Abs(m_currentShield);
+                    m_currentShield = 0;
+                }
+                else d = 0;
+            }
+            m_currentHp = Mathf.Max(0, m_currentHp - d);
+            m_shieldTime = m_refillTime;
         }
 
 
@@ -251,11 +331,12 @@ namespace ProjectM.ePEa.ProtoMon
         [SerializeField] GameObject circle;
         [SerializeField] GameObject circleDam;
         bool isAtk3 = false;
+        [SerializeField] float m_timeAtk3 = 0.6f;
         void Atk3()
         {
-            atk3 = Mathf.Min(0.6f, atk3 + Time.deltaTime);
+            atk3 = Mathf.Min(m_timeAtk3, atk3 + Time.deltaTime);
             circle.SetActive(true);
-            if (atk3 >= 0.6f)
+            if (atk3 >= m_timeAtk3)
             {
                 Vector3 dir = target.position - transform.position;
                 dir.y = 0;
@@ -278,7 +359,26 @@ namespace ProjectM.ePEa.ProtoMon
                     //circleDam.SetActive(false);
                     m_currentState = State.MOVE;
                     m_atkDelay = Random.Range(m_atkDelayMin, m_atkDelayMax);
+                    m_animator.SetBool("IsAtk3", false);
                 }
+            }
+        }
+
+        public void AddTarget()
+        {
+            EnemyRader rader = GameObject.FindWithTag("EnemyRader").GetComponent<EnemyRader>();
+            if (rader != null)
+            {
+                rader.AddTarget(transform);
+            }
+        }
+
+        public void DestroyTarget()
+        {
+            EnemyRader rader = GameObject.FindWithTag("EnemyRader").GetComponent<EnemyRader>();
+            if (rader != null)
+            {
+                rader.DestroyTarget(transform);
             }
         }
     }

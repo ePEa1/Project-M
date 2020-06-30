@@ -30,6 +30,7 @@ public class BackAtkAction : BaseAction
         m_colNum = 0;
 
         PlayerStats.playerStat.UseMp(PlayerStats.playerStat.m_backMp);
+        PlayerStats.playerStat.ResetAtkDelay();
 
         m_animator.SetTrigger("BackAtk");
         m_animator.SetBool("IsBackAtk", true);
@@ -91,6 +92,8 @@ public class BackAtkAction : BaseAction
         }
         if (m_controller.IsRushAttack())
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.RUSHATK);
+        if (m_controller.IsDashAttack())
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.DASHATK);
     }
 
     public void SetCollider()

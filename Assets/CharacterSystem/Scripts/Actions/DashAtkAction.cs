@@ -21,7 +21,6 @@ public class DashAtkAction : BaseAction
 
     protected override BaseAction OnStartAction()
     {
-        CheckDistance();
 
         m_animator.SetTrigger("DashAtk");
         m_animator.SetBool("IsDashAtk", true);
@@ -29,6 +28,7 @@ public class DashAtkAction : BaseAction
         SetCollider();
 
         PlayerStats.playerStat.UseMp(PlayerStats.playerStat.m_widthMp);
+        PlayerStats.playerStat.ResetAtkDelay();
 
         Vector3 view = m_owner.transform.position - m_owner.playerCam.position;
         view.y = 0.0f;
@@ -44,13 +44,15 @@ public class DashAtkAction : BaseAction
         m_startPos = m_owner.transform.position;
         m_finishPos = m_startPos + playerVec;
 
+        StartCoroutine(DelayTimeScale());
         return this;
     }
     public override void EndAction()
     {
+        m_curdashAtk = 0;
         DeleteCollider();
-        m_animator.SetTrigger("DashAtk");
-        m_animator.SetBool("IsDashAtk", true);
+        m_animator.ResetTrigger("DashAtk");
+        m_animator.SetBool("IsDashAtk", false);
     }
 
     //쓰지 않기
@@ -90,10 +92,20 @@ public class DashAtkAction : BaseAction
         GameObject effobj = Instantiate(m_atkData.atkData[0].eff);
         effobj.transform.parent = m_owner.transform;
         effobj.transform.position = m_owner.transform.position;
-
-
         //이펙트 생성
     }
+
+    /// <summary>
+    /// 바로 바뀌는 액션
+    /// </summary>
+    void ChangeActions()
+    {
+        if (m_controller.IsBackDashAttack())
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.BACKATK);
+        if (m_controller.IsRushAttack())
+            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.RUSHATK);
+    }
+
     public void EndDashAtk()
     {
         if (m_controller.IsMoving)
@@ -101,26 +113,12 @@ public class DashAtkAction : BaseAction
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.MOVE);
 
         }
-        if (m_controller.IsAttack())
-        {
-            m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
-
-        }
         else
         {
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
         }
-        m_curdashAtk = 0;
+        
         StartCoroutine(DelayDashAtk());
-        m_animator.SetBool("IsDashAtk", false);
-
-    }
-
-    public void CheckDistance()
-    {
-        Vector3 viewVec = m_owner.transform.position - m_owner.playerCam.transform.position;
-        viewVec.y = 0;
-        viewVec = viewVec.normalized;
     }
     
     public void SetSound()
@@ -141,4 +139,11 @@ public class DashAtkAction : BaseAction
         m_owner.DelayDashAtk = false;
     }
 
+    IEnumerator DelayTimeScale()
+    {
+        yield return new WaitForSeconds(0.1f);
+        Time.timeScale = 0.5f;
+        yield return new WaitForSeconds(0.1f);
+        Time.timeScale = 1;
+    }
 }

@@ -9,9 +9,9 @@ using System;
 public class DataController : MonoBehaviour
 {
 
-    public float backgroundSound=1;
-    public float effectSound=1;
-    public float mouseMoving=1;
+    public float backgroundSound = 1;
+    public float effectSound = 1;
+    public float mouseMoving = 0.5f;
 
     public enum Option
     {
@@ -92,7 +92,6 @@ public class DataController : MonoBehaviour
     private int index;
     void Awake()
     {
-
         index = count;
 
         count++;
@@ -131,6 +130,11 @@ public class DataController : MonoBehaviour
     {
         Instance.gameData.PlayerCombo += 1;
         Instance.gameData.IsCombo = true;
+    }
+
+    public void SetScreen()
+    {
+        Screen.SetResolution(Instance.gameData.ResolutionX, Instance.gameData.ResolutionY, Instance.gameData.fullScreen);
     }
 }
 //이 데이터를 사용할 시 데이터 추가할 경우 GameData에 변수 지정.

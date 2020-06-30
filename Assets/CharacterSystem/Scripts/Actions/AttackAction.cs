@@ -108,14 +108,15 @@ public class AttackAction : BaseAction
         Vector3 tall = new Vector3(0.0f, PlayerStats.playerStat.m_hikingHeight + PlayerStats.playerStat.m_size, 0.0f);
         Vector3 fixedPos = FixedMovePos(m_owner.transform.position + tall, PlayerStats.playerStat.m_size, dir.normalized,
             after-before, m_wall);
-        
+
+        PCAtksData data = m_atkData[m_currentCombo].atkData[Mathf.Clamp(m_colNum, 0, m_atkData[m_currentCombo].atkData.Length - 1)];
         RaycastHit hit;
-        if (!Physics.BoxCast(m_owner.transform.position + tall + m_owner.transform.rotation * Vector3.forward * -1.0f, new Vector3(1.7f, 1.0f, 0.7f),
+        if (!Physics.BoxCast(m_owner.transform.position + tall + m_owner.transform.rotation * Vector3.forward * -1.0f, new Vector3(data.colSize.x/2, 1.0f, 0.7f),
             m_owner.transform.rotation * Vector3.forward.normalized, out hit, Quaternion.Euler(0, m_owner.playerCam.transform.eulerAngles.y, 0), after - before + 1.0f, m_enemy))
         {
             m_owner.transform.position += dir + fixedPos;
         }
-        else if (!Physics.BoxCast(m_owner.transform.position + tall + m_owner.transform.rotation * Vector3.forward * -1.0f, new Vector3(1.7f, 1.0f, 0.7f),
+        else if (!Physics.BoxCast(m_owner.transform.position + tall + m_owner.transform.rotation * Vector3.forward * -1.0f, new Vector3(data.colSize.x/2, 1.0f, 0.7f),
             m_owner.transform.rotation * Vector3.forward.normalized, Quaternion.Euler(0, m_owner.playerCam.transform.eulerAngles.y, 0), 2.0f, m_enemy))
         {
             float d = Vector3.Dot(dir.normalized,
@@ -246,6 +247,8 @@ public class AttackAction : BaseAction
             m_currentCombo = m_nowCombo;
 
             m_nowCombo++;
+            if (m_nowCombo >= m_atkData.Length)
+                PlayerStats.playerStat.SetAtKDelay();
             if (m_nowCombo >= m_maxCombo)
             {
                 m_nowCombo = 0;
@@ -259,7 +262,8 @@ public class AttackAction : BaseAction
     /// </summary>
     public void Shaking()
     {
-        m_owner.playerCam.GetComponent<CharacterCam>().SetShake(m_atkData[m_currentCombo].shakeData);
+        //m_owner.playerCam.GetComponent<CharacterCam>().SetShake(m_atkData[m_currentCombo].shakeData);
+        m_owner.playerCinemachine.GetComponent<CinemachineCheck>().GetCinemachineShake();
     }
 
     public void GetAtkGage()
