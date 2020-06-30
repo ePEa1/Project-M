@@ -269,13 +269,13 @@ public class OptionManager : MonoBehaviour
 
     public void AmbientOcclusionSetting()
     {
+
         if (DataController.Instance.gameData.AmbientOcclution == false)
         {
             //Fog켜기
             AmbientOcclusionOff.SetActive(false);
             AmbientOcclusionOn.SetActive(true);
             ambient.enabled.value = true;
-            QualitySettings.vSyncCount = 1;
             DataController.Instance.gameData.AmbientOcclution = true;
         }
         else if (DataController.Instance.gameData.AmbientOcclution == true)
@@ -284,8 +284,6 @@ public class OptionManager : MonoBehaviour
             AmbientOcclusionOff.SetActive(true);
             AmbientOcclusionOn.SetActive(false);
             ambient.enabled.value = false;
-
-            QualitySettings.vSyncCount = 0;
             DataController.Instance.gameData.AmbientOcclution = false;
 
         }

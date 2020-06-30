@@ -36,6 +36,7 @@ namespace ProjectM.ePEa.ProtoMon
 
         [SerializeField] AnimationCurve m_damAc;
 
+        [SerializeField] GameObject m_hpBox;
         [SerializeField] Image m_hpBar;
         [SerializeField] Image m_backhpBar;
 
@@ -95,7 +96,7 @@ namespace ProjectM.ePEa.ProtoMon
         // Update is called once per frame
         void Update()
         {
-            m_hpBar.transform.rotation = Camera.main.transform.rotation;
+            m_hpBox.transform.rotation = Camera.main.transform.rotation;
 
             switch (m_nowState)
             {
