@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class BossMoveAct : EnemyAction
 {
+    #region Inspector
+    [SerializeField] float m_atkDelay = 3.0f;
+    [SerializeField] float m_minDistance = 3.0f;
+    [SerializeField] float m_moveSpeed = 5.0f;
+    #endregion
+
+    #region Value
+    float m_currentDelay;
+    #endregion
+
+    private void Awake()
+    {
+        m_currentDelay = m_atkDelay;
+    }
+
     protected override void EndAction()
     {
 
@@ -16,6 +31,48 @@ public class BossMoveAct : EnemyAction
 
     protected override void UpdateAction()
     {
-        Debug.Log("Update - Move Action");
+        m_currentDelay = Mathf.Max(0, m_currentDelay - Time.deltaTime);
+        ChangeActions();
+        Moving();
     }
+
+
+    #region Functions
+
+    void ChangeActions()
+    {
+        if (m_currentDelay == 0 && GetDistance() < 6.0f)
+        {
+            m_owner.ChangeStat("DoubleAtk");
+            m_currentDelay = m_atkDelay;
+        }
+    }
+
+    Vector3 ToTarget()
+    {
+        Vector3 targetView = m_owner.m_player.transform.position - m_owner.transform.position;
+        targetView.y = 0;
+        return targetView.normalized;
+    }
+
+    float GetDistance()
+    {
+        Vector3 targetPos = m_owner.m_player.transform.position;
+        targetPos.y = 0;
+        Vector3 ownerPos = m_owner.transform.position;
+        ownerPos.y = 0;
+
+        return Vector3.Distance(targetPos, ownerPos);
+    }
+
+    void Moving()
+    {
+        if (GetDistance() > m_minDistance)
+        {
+            m_owner.transform.position += ToTarget() * Time.deltaTime * m_moveSpeed;
+            m_owner.transform.rotation = Quaternion.LookRotation(ToTarget());
+        }
+    }
+
+    #endregion
 }
