@@ -50,14 +50,14 @@ public class CharacterCam : MonoBehaviour
         m_y=m_startY;
     }
 
-    void Update()
-    {
-        SetCamTransform();
+    //void Update()
+    //{
+    //    SetCamTransform();
 
-        //프레임스탑을 사용하고있다면
-        if (isStop)
-            PlayStop(); //프레임스탑 처리 함수 실행
-    }
+    //    //프레임스탑을 사용하고있다면
+    //    if (isStop)
+    //        PlayStop(); //프레임스탑 처리 함수 실행
+    //}
 
     /// <summary>
     /// 프레임스탑 이벤트 호출 함수

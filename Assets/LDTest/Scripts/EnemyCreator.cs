@@ -62,7 +62,7 @@ namespace ProjectM.ePEa.LDSystem
             for(int i=0;i<enemys.Count;i++)
             {
                 GameObject e = Instantiate(m_Spawner);
-                e.transform.position = transform.position + new Vector3(enemys[i].Position[0], enemys[i].Position[1], enemys[i].Position[2]);
+                e.transform.position = new Vector3(enemys[i].Position[0], enemys[i].Position[1], enemys[i].Position[2]);
                 e.transform.rotation = Quaternion.Euler(new Vector3(0.0f, enemys[i].Rotation, 0.0f));
                 e.GetComponent<Spawner>().m_enemyName = enemys[i].EnemyType;
             }

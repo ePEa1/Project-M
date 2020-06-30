@@ -28,6 +28,7 @@ public class StartSceneManager : MonoBehaviour
         OptionPage.SetActive(false);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        Screen.SetResolution(1920, 1080, true);
 
         FadeImg.color = new Vector4(0, 0, 0, 0);
         UISound = GetComponent<AudioSource>();

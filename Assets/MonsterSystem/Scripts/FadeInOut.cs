@@ -6,25 +6,41 @@ using UnityEngine.UI;
 
 public class FadeInOut : MonoBehaviour
 {
-    public Image FadeImg;
+    public Image FadeInImg;
+    public Image FadeOutImg;
+    [SerializeField] float FadeSpeed;
 
-
-
-    IEnumerator FadeIn()
+    private void Start()
     {
-        Vector4 FadeInAlpha;
+        StartCoroutine(FadeOut());
+    }
+    IEnumerator FadeInGameStart(string scene)
+    {
 
-        for (int i = 0; i < 255; i++)
+        for (float i = 0f; i >= 0; i += 0.005f * FadeSpeed)
         {
-            FadeInAlpha = new Vector4(1, 1, 1, i);
+            Color color = new Vector4(0, 0, 0, i);
+            FadeOutImg.color = color;
 
-            FadeImg.color = FadeInAlpha;
-            if(FadeImg.color.a == 1)
+            if (FadeOutImg.color.a >= 1)
             {
-                
+                LoadingSceneManager.LoadScene(scene);
+
             }
+
+            yield return null;
         }
-        yield return null;
+    }
+
+    IEnumerator FadeOut()
+    {
+        for (float i = 1f; i <= 1; i -= 0.005f * FadeSpeed)
+        {
+            Color color = new Vector4(0, 0, 0, i);
+            FadeInImg.color = color;
+
+            yield return null;
+        }
     }
 
 }

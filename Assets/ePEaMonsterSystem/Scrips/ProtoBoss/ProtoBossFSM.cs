@@ -23,6 +23,7 @@ namespace ProjectM.ePEa.ProtoMon
         [SerializeField] Animator m_animator;
 
         [SerializeField] LayerMask m_wall;
+        public GameObject m_HPbar;
 
         #endregion
 
