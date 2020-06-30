@@ -44,6 +44,7 @@ public class DashAtkAction : BaseAction
         m_startPos = m_owner.transform.position;
         m_finishPos = m_startPos + playerVec;
 
+        StartCoroutine(DelayTimeScale());
         return this;
     }
     public override void EndAction()
@@ -138,4 +139,11 @@ public class DashAtkAction : BaseAction
         m_owner.DelayDashAtk = false;
     }
 
+    IEnumerator DelayTimeScale()
+    {
+        yield return new WaitForSeconds(0.1f);
+        Time.timeScale = 0.5f;
+        yield return new WaitForSeconds(0.1f);
+        Time.timeScale = 1;
+    }
 }
