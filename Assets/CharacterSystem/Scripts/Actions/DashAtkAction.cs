@@ -28,6 +28,7 @@ public class DashAtkAction : BaseAction
         SetCollider();
 
         PlayerStats.playerStat.UseMp(PlayerStats.playerStat.m_widthMp);
+        PlayerStats.playerStat.ResetAtkDelay();
 
         Vector3 view = m_owner.transform.position - m_owner.playerCam.position;
         view.y = 0.0f;

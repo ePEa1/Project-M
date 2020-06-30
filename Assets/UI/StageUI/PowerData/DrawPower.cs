@@ -8,7 +8,7 @@ public class DrawPower : MonoBehaviour
 {
     [SerializeField] Image m_damageText;
     [SerializeField] Text m_powerText;
-    [SerializeField] Slider m_powerGage;
+    [SerializeField] Image m_powerGage;
     [SerializeField] int m_fontSizeMin;
     [SerializeField] int m_fontSizeMax;
     [SerializeField] float m_fontSpeed;
@@ -37,9 +37,9 @@ public class DrawPower : MonoBehaviour
             ChangePower();
         }
 
-        if (m_powerGage.value == 0 && m_powerGage.IsActive())
+        if (m_powerGage.fillAmount == 0 && m_powerGage.IsActive())
             m_powerGage.gameObject.SetActive(false);
-        if (!m_powerGage.IsActive() && m_powerGage.value > 0)
+        if (!m_powerGage.IsActive() && m_powerGage.fillAmount > 0)
             m_powerGage.gameObject.SetActive(true);
     }
 
@@ -48,7 +48,7 @@ public class DrawPower : MonoBehaviour
     /// </summary>
     void UpdateGage()
     {
-        m_powerGage.value = Mathf.Max(0, (PlayerStats.playerStat.m_powerGage - PlayerStats.playerStat.m_powerGageMinus)) / m_currentMaxGage;
+        m_powerGage.fillAmount = Mathf.Max(0, (PlayerStats.playerStat.m_powerGage - PlayerStats.playerStat.m_powerGageMinus)) / m_currentMaxGage;
     }
     
     void UpdateFontSize()
@@ -57,7 +57,7 @@ public class DrawPower : MonoBehaviour
         originVec.x = 0;
 
         m_powerText.fontSize = (int)Mathf.Lerp(m_fontSizeMin, m_fontSizeMax, m_fontTime);
-        m_damageText.transform.localPosition = originVec + Vector3.left * Mathf.Lerp(m_textMinX, m_textMaxX, m_fontTime);
+        //m_damageText.transform.localPosition = originVec + Vector3.left * Mathf.Lerp(m_textMinX, m_textMaxX, m_fontTime);
         m_fontTime = Mathf.Max(0, m_fontTime - Time.deltaTime * m_fontSpeed);
     }
 
