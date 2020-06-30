@@ -131,6 +131,11 @@ public class DataController : MonoBehaviour
         Instance.gameData.PlayerCombo += 1;
         Instance.gameData.IsCombo = true;
     }
+
+    public void SetScreen()
+    {
+        Screen.SetResolution(Instance.gameData.ResolutionX, Instance.gameData.ResolutionY, Instance.gameData.fullScreen);
+    }
 }
 //이 데이터를 사용할 시 데이터 추가할 경우 GameData에 변수 지정.
 //변수를 다른 스크립트로 지정할땐 헤더에 using System; 지정 후 더하거나 곲할 값들은 DataController.Instance.gameData.변수이름

@@ -262,7 +262,8 @@ public class AttackAction : BaseAction
     /// </summary>
     public void Shaking()
     {
-        m_owner.playerCam.GetComponent<CharacterCam>().SetShake(m_atkData[m_currentCombo].shakeData);
+        //m_owner.playerCam.GetComponent<CharacterCam>().SetShake(m_atkData[m_currentCombo].shakeData);
+        m_owner.playerCinemachine.GetComponent<CinemachineCheck>().GetCinemachineShake();
     }
 
     public void GetAtkGage()

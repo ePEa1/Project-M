@@ -18,6 +18,8 @@ public class SkillGaugeManager : MonoBehaviour
     public Image SideIcon;
     public Image BackIcon;
 
+    
+
 
     [SerializeField] float fadeSpeed;
     float FrontVal;
@@ -46,21 +48,26 @@ public class SkillGaugeManager : MonoBehaviour
     {
         if (PlayerStats.playerStat.m_currentMp < PlayerStats.playerStat.m_rushMp)
         {
-            SetCantUse(FrontSkill, FrontIcon);
+            FrontIcon.enabled = false;
         }
         else
-            SetUse(FrontSkill, FrontIcon);
+        {
+            FrontIcon.enabled = true;
+
+        }
+
 
     }
     void CheckSideUse()
     {
         if (PlayerStats.playerStat.m_currentMp <= PlayerStats.playerStat.m_widthMp)
         {
-            SetCantUse(SideSkill, SideIcon);
+            SideIcon.enabled = false;
         }
         else
         {
-            SetUse(SideSkill, SideIcon);
+            SideIcon.enabled = true;
+
         }
 
     }
@@ -68,10 +75,12 @@ public class SkillGaugeManager : MonoBehaviour
     {
         if (PlayerStats.playerStat.m_currentMp <= PlayerStats.playerStat.m_backMp)
         {
-            SetCantUse(BackSkill, BackIcon);
+            BackIcon.enabled = false;
         }
         else
-            SetUse(BackSkill, BackIcon);
+        {
+            BackIcon.enabled = true;
+        }
     }
     void SetCantUse(Image back, Image logo)
     {
@@ -85,38 +94,5 @@ public class SkillGaugeManager : MonoBehaviour
     }
 
 
-    IEnumerator FadeIn(Image FadeImg, bool can)
-    {
-        for (float i = 0f; i >= 0; i += 0.005f * fadeSpeed)
-        {
-            Color color = new Vector4(i, i, i, 1);
-            FadeImg.color = color;
 
-            if (FadeImg.color.r >= 1)
-            {
-                FadeImg.color = new Vector4(1,1,1,1);
-
-            }
-
-            yield return null;
-        }
-    }
-
-    
-    IEnumerator FadeOut(Image FadeImg)
-    {
-        for (float i = 0f; i >= 0; i -= 0.005f * fadeSpeed)
-        {
-            Color color = new Vector4(i, i, i, 0);
-            FadeImg.color = color;
-
-            if (FadeImg.color.r <= 1)
-            {
-                FadeImg.color = new Vector4(0, 0, 0, 1);
-
-            }
-
-            yield return null;
-        }
-    }
 }

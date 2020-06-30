@@ -25,7 +25,8 @@ public class PlayerFsmManager : MonoBehaviour
     public Animator m_currentAc { get { return m_currentAni; } } // 캐릭터 애니메이터 접근
     public static PlayerFsmManager g_playerFsmManager { get; private set; } //캐릭터 설정
     public Transform playerCam { get { return m_cam; } } //캐릭터 카메라에 접근
-    public  AutoTargetManager m_autotarget { get; private set; } //캐릭터 조작 처리
+    public Transform playerCinemachine { get { return m_cinemachine; } }//시네머신
+    public AutoTargetManager m_autotarget { get; private set; } //캐릭터 조작 처리
 
     public bool IsDead = false;
     public bool DelayDashAtk = false;
@@ -39,7 +40,7 @@ public class PlayerFsmManager : MonoBehaviour
     [SerializeField] BaseAction[] m_playerActions; //액션 모음
     [SerializeField] Animator m_currentAni; //캐릭터 애니메이터
     [SerializeField] Transform m_cam; //캐릭터 추적 카메라
-
+    [SerializeField] Transform m_cinemachine;
     #endregion
 
     #region Function
