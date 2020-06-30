@@ -76,8 +76,7 @@ public class OptionManager : MonoBehaviour
         {
             DataController.Instance.SetOption(DataController.Option.backGround, (int)(BackGroundSound.value * 100));
             DataController.Instance.SetOption(DataController.Option.effect, (int)(EffectsSound.value * 100));
-            DataController.Instance.SetOption(DataController.Option.mouse, (int)(MouseMoving.value * 100));
-
+            
         }
     }
 
@@ -137,5 +136,10 @@ public class OptionManager : MonoBehaviour
                 break;
         }
         DataController.Instance.SetScreen();
+    }
+
+    public void MouseMovingSetting(int mousemovingValue)
+    {
+        DataController.Instance.SetOption(DataController.Option.mouse, (int)((1 - MouseMoving.value) * 100));
     }
 }
