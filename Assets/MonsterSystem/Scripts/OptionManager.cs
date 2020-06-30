@@ -7,6 +7,7 @@ using System.Linq;
 
 public class OptionManager : MonoBehaviour
 {
+    public Light DirectLight;
     public GameObject OptionScreen;
     public GameObject SoundPage;
     public GameObject GraphicPage;
