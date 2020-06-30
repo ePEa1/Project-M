@@ -67,18 +67,13 @@ public class OptionManager : MonoBehaviour
         ControlPage.SetActive(false);
         BackGroundSound.value = DataController.Instance.backgroundSound ;
         EffectsSound.value = DataController.Instance.effectSound;
-        MouseMoving.value = DataController.Instance.mouseMoving;
+        MouseMoving.value = 1-DataController.Instance.mouseMoving;
+        Debug.Log(1 - DataController.Instance.mouseMoving);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonUp(0))
-        {
-            DataController.Instance.SetOption(DataController.Option.backGround, (int)(BackGroundSound.value * 100));
-            DataController.Instance.SetOption(DataController.Option.effect, (int)(EffectsSound.value * 100));
-            
-        }
     }
 
     public void CloseOption()
@@ -139,8 +134,21 @@ public class OptionManager : MonoBehaviour
         DataController.Instance.SetScreen();
     }
 
-    public void MouseMovingSetting(int mousemovingValue)
+    public void MouseMovingSetting(Slider mousemovingValue)
     {
-        DataController.Instance.SetOption(DataController.Option.mouse, (int)((1 - MouseMoving.value) * 100));
+        Debug.Log(DataController.Instance.mouseMoving);
+
+        float mmValue = 1 - mousemovingValue.value;
+        DataController.Instance.SetOption(DataController.Option.mouse, (int)(mmValue * 100));
+    }
+
+    public void BackgroundSetting(Slider backgroundValue)
+    {
+        DataController.Instance.SetOption(DataController.Option.backGround, (int)(backgroundValue.value * 100));
+    }
+
+    public void EffectSoundSetting(Slider effectsoundValue)
+    {
+        DataController.Instance.SetOption(DataController.Option.effect, (int)(effectsoundValue.value * 100));
     }
 }
