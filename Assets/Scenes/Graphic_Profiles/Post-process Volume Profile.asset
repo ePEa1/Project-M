@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6050e2d5de785ce4d931e4dbdbf2d755, type: 3}
   m_Name: ChromaticAberration
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
@@ -38,7 +38,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adb84e30e02715445aeb9959894e3b4d, type: 3}
   m_Name: ColorGrading
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
@@ -97,7 +97,7 @@ MonoBehaviour:
     value: 0
   postExposure:
     overrideState: 1
-    value: 0.58
+    value: 0.4
   contrast:
     overrideState: 1
     value: 0
@@ -130,13 +130,13 @@ MonoBehaviour:
     value: 100
   lift:
     overrideState: 1
-    value: {x: 1, y: 0.8750457, z: 0.6648212, w: 0}
+    value: {x: 1, y: 0.9817976, z: 0.9885848, w: 0}
   gamma:
     overrideState: 1
-    value: {x: 0.72204983, y: 0.7860519, z: 1, w: 0}
+    value: {x: 0.9858006, y: 0.9892231, z: 1, w: 0}
   gain:
     overrideState: 1
-    value: {x: 1, y: 0.7680841, z: 0.61626315, w: 0}
+    value: {x: 1, y: 0.9908837, z: 0.98985165, w: 0}
   masterCurve:
     overrideState: 1
     value:
@@ -1349,7 +1349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 556797029e73b2347956b6579e77e05b, type: 3}
   m_Name: DepthOfField
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
@@ -1436,7 +1436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b94fcd11afffcb142908bfcb1e261fba, type: 3}
   m_Name: MotionBlur
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
@@ -1502,7 +1502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1cb7e9e120078f43bce4f0b1be547a7, type: 3}
   m_Name: AmbientOcclusion
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
@@ -1511,7 +1511,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 0.76
+    value: 0.38
   color:
     overrideState: 1
     value: {r: 0, g: 0, b: 0, a: 1}
@@ -1529,7 +1529,7 @@ MonoBehaviour:
     value: -12
   thicknessModifier:
     overrideState: 1
-    value: 1.7
+    value: 1.84
   directLightingStrength:
     overrideState: 1
     value: 0
@@ -1551,13 +1551,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a79b01ea5641d4aa6daa2e23605641, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
   intensity:
     overrideState: 1
-    value: 0.6
+    value: 0.4
   threshold:
     overrideState: 1
     value: 1
@@ -1598,7 +1598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3f6f3f7c722b4544b97e3c75840aa33, type: 3}
   m_Name: AutoExposure
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
