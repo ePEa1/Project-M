@@ -19,6 +19,8 @@ public class GameData
 
     public bool Vsync = false;
 
+    public bool Fog = true;
+
     public int firstStageMonster = 6;
 
     public bool StageOneIsOpen = false;

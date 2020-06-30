@@ -13,6 +13,19 @@ public class OptionManager : MonoBehaviour
     public GameObject GraphicPage;
     public GameObject ControlPage;
 
+
+
+
+    public Button VsyncButton;
+    public GameObject VsyncOn;
+    public GameObject VsyncOff;
+
+    public Button FogButton;
+    public GameObject FogOn;
+    public GameObject FogOff;
+
+
+
     public Slider BackGroundSound;
     public Slider EffectsSound;
     public Slider MouseMoving;
@@ -21,6 +34,8 @@ public class OptionManager : MonoBehaviour
     // 그래픽 옵션
     public Dropdown ResolutionDropdown;
     public Dropdown WindowSettingDropdown;
+    public Dropdown ShadowSettiongDropdown;
+    public Dropdown TextureQualityDropdown;
 
     [SerializeField] int[] resolutionXList;
     [SerializeField] int[] resolutionYList;
@@ -29,11 +44,15 @@ public class OptionManager : MonoBehaviour
    
     private void Start()
     {
+        DirectLight = GameObject.FindGameObjectWithTag("DirectionalLight").GetComponent<Light>();
         DataController.Instance.backgroundSound = (float)DataController.Instance.gameData.BackgroundSound / 100;
         DataController.Instance.effectSound = (float)DataController.Instance.gameData.EffectSound / 100;
         DataController.Instance.mouseMoving = (float)DataController.Instance.gameData.MouseMoving / 100;
         ResolutionDropdown.value = DataController.Instance.gameData.ResolutionNum;
         WindowSettingDropdown.value = DataController.Instance.gameData.WindowNum;
+        ShadowSettiongDropdown.value = DataController.Instance.gameData.Shadow;
+        TextureQualityDropdown.value = DataController.Instance.gameData.TexturQuality;
+
         //OptionScreen.SetActive(false);
         //resolutions = Screen.resolutions;
 
@@ -134,6 +153,53 @@ public class OptionManager : MonoBehaviour
         DataController.Instance.SetScreen();
     }
 
+    public void ShadowSetting(int shadow)
+    {
+        DataController.Instance.gameData.Shadow = shadow;
+        switch (shadow)
+        {
+            case 0:
+
+                DirectLight.shadowResolution = UnityEngine.Rendering.LightShadowResolution.Low;
+                break;
+            case 1:
+                DirectLight.shadowResolution = UnityEngine.Rendering.LightShadowResolution.Medium;
+
+                break;
+            case 2:
+                DirectLight.shadowResolution = UnityEngine.Rendering.LightShadowResolution.High;
+
+                break;
+            case 3:
+                DirectLight.shadowResolution = UnityEngine.Rendering.LightShadowResolution.VeryHigh;
+
+                break;
+        }
+    }
+
+    public void QualityLevelSetting(int qualitylevalValue)
+    {
+        DataController.Instance.gameData.TexturQuality = qualitylevalValue;
+        switch (qualitylevalValue)
+        {
+            case 0:
+                QualitySettings.SetQualityLevel(0);
+                break;
+
+            case 1:
+                QualitySettings.SetQualityLevel(2);
+                break;
+
+            case 2:
+                QualitySettings.SetQualityLevel(3);
+                break;
+
+            case 3:
+                QualitySettings.SetQualityLevel(5);
+                break;
+        }
+    }
+
     public void MouseMovingSetting(Slider mousemovingValue)
     {
         Debug.Log(DataController.Instance.mouseMoving);
@@ -151,4 +217,50 @@ public class OptionManager : MonoBehaviour
     {
         DataController.Instance.SetOption(DataController.Option.effect, (int)(effectsoundValue.value * 100));
     }
+
+    public void VSyncSetting()
+    {
+        if(DataController.Instance.gameData.Vsync == false)
+        {
+            //Vsync켜기
+            VsyncOff.SetActive(false);
+            VsyncOn.SetActive(true);
+            QualitySettings.vSyncCount = 1;
+            DataController.Instance.gameData.Vsync = true;
+        }
+        else if(DataController.Instance.gameData.Vsync == true)
+        {
+            //Vsync끄기
+            VsyncOff.SetActive(true);
+            VsyncOn.SetActive(false);
+            QualitySettings.vSyncCount = 0;
+            DataController.Instance.gameData.Vsync = false;
+
+        }
+    }
+
+    public void FogSetting()
+    {
+        if (DataController.Instance.gameData.Fog == false)
+        {
+            //Fog켜기
+            FogOff.SetActive(false);
+            FogOn.SetActive(true);
+            RenderSettings.fog = true;
+            QualitySettings.vSyncCount = 1;
+            DataController.Instance.gameData.Fog = true;
+        }
+        else if (DataController.Instance.gameData.Fog == true)
+        {
+            //Fog끄기
+            FogOff.SetActive(true);
+            FogOn.SetActive(false);
+            RenderSettings.fog = false;
+
+            QualitySettings.vSyncCount = 0;
+            DataController.Instance.gameData.Fog = false;
+
+        }
+    }
+
 }
