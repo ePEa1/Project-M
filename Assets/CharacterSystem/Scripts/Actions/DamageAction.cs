@@ -85,7 +85,10 @@ public class DamageAction : BaseAction, DamageModel
         Vector3 fixedPos = FixedMovePos(m_owner.transform.position + tall, PlayerStats.playerStat.m_size, (afterPos - beforePos).normalized,
             Vector3.Distance(afterPos, beforePos), m_wall);
 
-        //m_owner.transform.position += afterPos - beforePos + fixedPos;
+        if (float.IsNaN(fixedPos.x))
+            fixedPos = Vector3.zero;
+
+        m_owner.transform.position += afterPos - beforePos + fixedPos;
 
         //넉백 시간 다 끝나면
         if (m_knockTime >= m_maxTime)
