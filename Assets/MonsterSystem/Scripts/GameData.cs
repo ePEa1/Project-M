@@ -14,6 +14,8 @@ public class GameData
 
     public int TexturQuality = 3;
 
+    public int AntiAliasing = 2;
+
     public bool AmbientOcclution = true;
 
 

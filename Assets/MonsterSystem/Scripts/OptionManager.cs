@@ -4,38 +4,43 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Linq;
+using UnityEngine.Rendering.PostProcessing;
 
 public class OptionManager : MonoBehaviour
 {
+    public PostProcessVolume volume;
+    public AmbientOcclusion ambient;
+    public PostProcessLayer pp_layer;
+   
+
     public Light DirectLight;
     public GameObject OptionScreen;
     public GameObject SoundPage;
     public GameObject GraphicPage;
     public GameObject ControlPage;
 
-
-
-
     public Button VsyncButton;
     public GameObject VsyncOn;
     public GameObject VsyncOff;
+
+    public Button AmbientOcclusion;
+    public GameObject AmbientOcclusionOn;
+    public GameObject AmbientOcclusionOff;
 
     public Button FogButton;
     public GameObject FogOn;
     public GameObject FogOff;
 
-
-
     public Slider BackGroundSound;
     public Slider EffectsSound;
     public Slider MouseMoving;
-
 
     // 그래픽 옵션
     public Dropdown ResolutionDropdown;
     public Dropdown WindowSettingDropdown;
     public Dropdown ShadowSettiongDropdown;
     public Dropdown TextureQualityDropdown;
+    public Dropdown AntiAliasingDropdown;
 
     [SerializeField] int[] resolutionXList;
     [SerializeField] int[] resolutionYList;
@@ -44,6 +49,16 @@ public class OptionManager : MonoBehaviour
    
     private void Start()
     {
+        if(GameObject.FindGameObjectWithTag("PostProcessing") != null)
+        {
+            volume = GameObject.FindGameObjectWithTag("PostProcessing").GetComponent<PostProcessVolume>();
+            volume.profile.TryGetSettings(out ambient);
+
+        }
+        if (GameObject.FindGameObjectWithTag("MainCamera") != null)
+        {
+            pp_layer = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PostProcessLayer>();
+        }
         DirectLight = GameObject.FindGameObjectWithTag("DirectionalLight").GetComponent<Light>();
         DataController.Instance.backgroundSound = (float)DataController.Instance.gameData.BackgroundSound / 100;
         DataController.Instance.effectSound = (float)DataController.Instance.gameData.EffectSound / 100;
@@ -52,30 +67,8 @@ public class OptionManager : MonoBehaviour
         WindowSettingDropdown.value = DataController.Instance.gameData.WindowNum;
         ShadowSettiongDropdown.value = DataController.Instance.gameData.Shadow;
         TextureQualityDropdown.value = DataController.Instance.gameData.TexturQuality;
+        AntiAliasingDropdown.value = DataController.Instance.gameData.AntiAliasing;
 
-        //OptionScreen.SetActive(false);
-        //resolutions = Screen.resolutions;
-
-        //ResolutionDropdown.ClearOptions();
-
-        //List<string> options = new List<string>();
-
-        //int currentResolutionIndex = 0;
-
-        //for(int  i = 0; i<resolutions.Length; i++)
-        //{
-        //    string option = resolutions[i].width + " x " + resolutions[i].height;
-        //    options.Add(option);
-        //    //options = options.Distinct().ToList();
-
-        //    if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
-        //    {
-        //        currentResolutionIndex = i;
-        //    }
-        //}
-        //ResolutionDropdown.AddOptions(options);
-        //ResolutionDropdown.value = currentResolutionIndex;
-        //ResolutionDropdown.RefreshShownValue();
 
     }
     // Start is called before the first frame update
@@ -87,12 +80,6 @@ public class OptionManager : MonoBehaviour
         BackGroundSound.value = DataController.Instance.backgroundSound ;
         EffectsSound.value = DataController.Instance.effectSound;
         MouseMoving.value = 1-DataController.Instance.mouseMoving;
-        Debug.Log(1 - DataController.Instance.mouseMoving);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     public void CloseOption()
@@ -159,20 +146,19 @@ public class OptionManager : MonoBehaviour
         switch (shadow)
         {
             case 0:
-
                 DirectLight.shadowResolution = UnityEngine.Rendering.LightShadowResolution.Low;
                 break;
+
             case 1:
                 DirectLight.shadowResolution = UnityEngine.Rendering.LightShadowResolution.Medium;
-
                 break;
+
             case 2:
                 DirectLight.shadowResolution = UnityEngine.Rendering.LightShadowResolution.High;
-
                 break;
+
             case 3:
                 DirectLight.shadowResolution = UnityEngine.Rendering.LightShadowResolution.VeryHigh;
-
                 break;
         }
     }
@@ -196,6 +182,26 @@ public class OptionManager : MonoBehaviour
 
             case 3:
                 QualitySettings.SetQualityLevel(5);
+                break;
+        }
+    }
+
+    public void AntiAliasingSetting(int antialiasingValue)
+    {
+        DataController.Instance.gameData.AntiAliasing = antialiasingValue;
+        switch (antialiasingValue)
+        {
+            case 0:
+                pp_layer.antialiasingMode = PostProcessLayer.Antialiasing.None;
+                break;
+            case 1:
+                pp_layer.antialiasingMode = PostProcessLayer.Antialiasing.FastApproximateAntialiasing;
+                break;
+            case 2:
+                pp_layer.antialiasingMode = PostProcessLayer.Antialiasing.SubpixelMorphologicalAntialiasing;
+                break;
+            case 3:
+                pp_layer.antialiasingMode = PostProcessLayer.Antialiasing.TemporalAntialiasing;
                 break;
         }
     }
@@ -247,7 +253,6 @@ public class OptionManager : MonoBehaviour
             FogOff.SetActive(false);
             FogOn.SetActive(true);
             RenderSettings.fog = true;
-            QualitySettings.vSyncCount = 1;
             DataController.Instance.gameData.Fog = true;
         }
         else if (DataController.Instance.gameData.Fog == true)
@@ -257,8 +262,31 @@ public class OptionManager : MonoBehaviour
             FogOn.SetActive(false);
             RenderSettings.fog = false;
 
-            QualitySettings.vSyncCount = 0;
             DataController.Instance.gameData.Fog = false;
+
+        }
+    }
+
+    public void AmbientOcclusionSetting()
+    {
+        if (DataController.Instance.gameData.AmbientOcclution == false)
+        {
+            //Fog켜기
+            AmbientOcclusionOff.SetActive(false);
+            AmbientOcclusionOn.SetActive(true);
+            ambient.enabled.value = true;
+            QualitySettings.vSyncCount = 1;
+            DataController.Instance.gameData.AmbientOcclution = true;
+        }
+        else if (DataController.Instance.gameData.AmbientOcclution == true)
+        {
+            //Fog끄기
+            AmbientOcclusionOff.SetActive(true);
+            AmbientOcclusionOn.SetActive(false);
+            ambient.enabled.value = false;
+
+            QualitySettings.vSyncCount = 0;
+            DataController.Instance.gameData.AmbientOcclution = false;
 
         }
     }
