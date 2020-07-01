@@ -3,21 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum DummyState
+public enum MonsterState
 {
     IDLE = 0,
     MOVE,//1
     CHASE,//2
     ATTACK,//3
     DAMAGE,//4
-    DEAD,//5
-    FIRSTATK
+    DEAD
 }
 
 public class MonsterFSMManager : MonoBehaviour, IFSMManager
 {
-    public DummyState currentState;//최근 상태
-    public DummyState startState;//시작 상태
+    public MonsterState currentState;//최근 상태
+    public MonsterState startState;//시작 상태
     public Collider DamageCol;//데미지 콜라이더
     public Animator anim;//애니메이터
     public Camera sight;//몬스터 시야
@@ -25,8 +24,6 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
     public MobStat stat;//몬스터 기본 상태
 
 
-    //상태와 동시에 스크립트 저장
-    Dictionary<DummyState, MonsterFSMState> states = new Dictionary<DummyState, MonsterFSMState>();
 
 
     private void Awake()
@@ -39,12 +36,6 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
 
 
         //상태 추가
-        states.Add(DummyState.IDLE, GetComponent<MonsterIDLE>());
-        states.Add(DummyState.MOVE, GetComponent<MonsterMOVE>());
-        states.Add(DummyState.CHASE, GetComponent<MonsterCHASE>());
-        states.Add(DummyState.ATTACK, GetComponent<MonsterATTACK>());
-        states.Add(DummyState.DEAD, GetComponent<MonsterDEAD>());
-        states.Add(DummyState.FIRSTATK, GetComponent<MonsterATTACK>());
     }
     // Start is called before the first frame update
     //처음 스테이트 지정
@@ -52,20 +43,24 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
     {
         SetState(startState);
     }
-    public void SetState(DummyState newState)
+    public void SetState(MonsterState newState)
     {
-        if (currentState == DummyState.DEAD)
-            return;
-
-         foreach(MonsterFSMState state in states.Values)
+        switch (newState)
         {
-            state.enabled = false;
+            case MonsterState.IDLE:
+                break;
+            case MonsterState.MOVE:
+                break;
+            case MonsterState.CHASE:
+                break;
+            case MonsterState.ATTACK:
+                break;
+            case MonsterState.DAMAGE:
+                break;
+            case MonsterState.DEAD:
+                break;
         }
-        currentState = newState;
-        states[currentState].enabled = true;
-        states[currentState].BeginState();
-        anim.SetInteger("CurrentState", (int)currentState);
-        }
+    }
 
     //이미 공격 구현되어있으니 안써도 됨.
     public void AttackCheck()
@@ -78,7 +73,7 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
     public void SetDead()
     {
         DamageCol.enabled = false;
-        SetState(DummyState.DEAD);
+        SetState(MonsterState.DEAD);
     }
 
 
@@ -86,7 +81,7 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
 
     public void NotifyTargetDead()
     {
-        SetState(DummyState.IDLE);
+        SetState(MonsterState.IDLE);
         playerObj = null;
     }
 

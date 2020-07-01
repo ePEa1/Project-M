@@ -5,14 +5,14 @@ using UnityEngine;
 public class MobStat : MonoBehaviour
 {
 
-    public float moveSpeed = 7.5f;
-    public float rotateSpeed = 540;
-    public float fallSpeed = 20;
-    public float attackRange;
-    public float attackRate;
+    [SerializeField] public float moveSpeed = 7.5f;
+    [SerializeField] public float rotateSpeed = 540;
+    [SerializeField] public float fallSpeed = 20;
+    [SerializeField] public float attackRange;
+    [SerializeField] public float attackRate;
 
 
-    public float hp;
+    [SerializeField] public float hp;
     public float currentHp;
     public MobStat lastHitBy = null;
 
@@ -24,9 +24,4 @@ public class MobStat : MonoBehaviour
         currentHp = hp;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

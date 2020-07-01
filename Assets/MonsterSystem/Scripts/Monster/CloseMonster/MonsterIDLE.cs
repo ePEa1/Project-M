@@ -28,7 +28,7 @@ public class MonsterIDLE : MonsterFSMState
         //6이상 멀어졌을 때 쫓아간다.
         if (Util.Detect(transform.position, manager.playerObj.transform.position,6))
         {
-            manager.SetState(DummyState.CHASE);
+            manager.SetState(MonsterState.CHASE);
             return;
         }
         elapsedTime += Time.deltaTime;
@@ -38,7 +38,7 @@ public class MonsterIDLE : MonsterFSMState
         {
             elapsedTime = 0;
             move.Moving = true;
-            manager.SetState(DummyState.MOVE);
+            manager.SetState(MonsterState.MOVE);
         }
     }
 }

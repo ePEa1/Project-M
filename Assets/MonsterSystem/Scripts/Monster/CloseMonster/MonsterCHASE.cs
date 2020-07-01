@@ -42,7 +42,7 @@ public class MonsterCHASE : MonsterFSMState
 
             if (groundCheck.sqrMagnitude <= manager.stat.attackRange * manager.stat.attackRange)
             {
-                manager.SetState(DummyState.ATTACK);
+                manager.SetState(MonsterState.ATTACK);
             }
         
 

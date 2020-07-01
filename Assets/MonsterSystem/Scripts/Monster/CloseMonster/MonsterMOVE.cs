@@ -34,7 +34,7 @@ public class MonsterMOVE : MonsterFSMState
     {
         if (!Util.Detect(transform.position, manager.playerObj.transform.position,6))
         {
-            manager.SetState(DummyState.CHASE);
+            manager.SetState(MonsterState.CHASE);
             return;
         }
 
@@ -52,7 +52,7 @@ public class MonsterMOVE : MonsterFSMState
         diff = destination - transform.position;
         if (diff.sqrMagnitude < 0.3f * 0.3f)
         {
-            manager.SetState(DummyState.IDLE);
+            manager.SetState(MonsterState.IDLE);
         }
 
 

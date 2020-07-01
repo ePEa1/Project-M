@@ -25,7 +25,7 @@ public class MonsterATTACK : MonsterFSMState
     {
         if (!Util.Detect(transform.position, manager.playerObj.transform.position,6))
         {
-            manager.SetState(DummyState.CHASE);
+            manager.SetState(MonsterState.CHASE);
             return;
         }
 
@@ -39,7 +39,7 @@ public class MonsterATTACK : MonsterFSMState
         //일정 거리 멀어졌을 때 쫓아가기
         if (groundCheck.sqrMagnitude > manager.stat.attackRange * manager.stat.attackRange)
             {
-                manager.SetState(DummyState.CHASE);
+                manager.SetState(MonsterState.CHASE);
 
             }
 
