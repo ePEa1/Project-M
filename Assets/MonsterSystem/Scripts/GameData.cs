@@ -14,10 +14,14 @@ public class GameData
 
     public int TexturQuality = 3;
 
+    public int AntiAliasing = 2;
+
     public bool AmbientOcclution = true;
 
 
     public bool Vsync = false;
+
+    public bool Fog = true;
 
     public int firstStageMonster = 6;
 
