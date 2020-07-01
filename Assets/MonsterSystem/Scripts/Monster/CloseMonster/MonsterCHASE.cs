@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class MonsterCHASE : MonsterFSMState
 {
-
-    
-
     public override void BeginState()
     {
         base.BeginState();

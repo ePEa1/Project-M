@@ -19,9 +19,7 @@ public class MonsterMOVE : MonsterFSMState
 
     private void Awake()
     {
-
         manager = GetComponent<MonsterFSMManager>();
-
     }
     private void Start()
     {
@@ -45,7 +43,7 @@ public class MonsterMOVE : MonsterFSMState
             manager.stat.moveSpeed,
             manager.stat.rotateSpeed);
 
-        StartCoroutine("WaitForIt");
+        //StartCoroutine("WaitForIt");
 
 
         //도착지 근처에 도달하면 일반 상태로 전환
@@ -57,15 +55,4 @@ public class MonsterMOVE : MonsterFSMState
 
 
     }
-
-
-    //IEnumerator WaitForIt()
-    //{
-    // //   Moving = true;
-    //    Debug.Log("IDLECount");
-    //        yield return new WaitForSeconds(0.1f);
-    //    Moving = false;
-
-    //}
-
 }

@@ -10,32 +10,40 @@ public enum MonsterState
     CHASE,//2
     ATTACK,//3
     DAMAGE,//4
-    DEAD
+    DEAD,//5
 }
 
 public class MonsterFSMManager : MonoBehaviour, IFSMManager
 {
     public MonsterState currentState;//최근 상태
-    public MonsterState startState;//시작 상태
-    public Collider DamageCol;//데미지 콜라이더
-    public Animator anim;//애니메이터
-    public Camera sight;//몬스터 시야
-    public GameObject playerObj;//캐릭터 오브젝트
-    public MobStat stat;//몬스터 기본 상태
+    [SerializeField] MonsterState startState;//시작 상태
+    [SerializeField] Collider DamageCol;//데미지 콜라이더
+    [SerializeField] public Animator anim;//애니메이터
+    [SerializeField] public Camera sight;//몬스터 시야
+    [SerializeField] public GameObject playerObj;//캐릭터 오브젝트
+    [SerializeField] public MobStat stat;//몬스터 기본 상태
+    [SerializeField] public AtkCollider m_atkCollider;
+    [SerializeField] public float m_atkDelay; //공격 딜레이
 
 
+    //상태와 동시에 스크립트 저장
+    Dictionary<MonsterState, MonsterFSMState> states = new Dictionary<MonsterState, MonsterFSMState>();
 
 
     private void Awake()
     {
         DamageCol = GetComponentInChildren<Collider>();
         anim = GetComponentInChildren<Animator>();
-        sight = GetComponentInChildren<Camera>();
         playerObj = GameObject.FindGameObjectWithTag("Player");
         stat = GetComponent<MobStat>();
 
 
         //상태 추가
+        states.Add(MonsterState.IDLE, GetComponent<MonsterIDLE>());
+        states.Add(MonsterState.MOVE, GetComponent<MonsterMOVE>());
+        states.Add(MonsterState.CHASE, GetComponent<MonsterCHASE>());
+        states.Add(MonsterState.ATTACK, GetComponent<MonsterATTACK>());
+        states.Add(MonsterState.DEAD, GetComponent<MonsterDEAD>());
     }
     // Start is called before the first frame update
     //처음 스테이트 지정
@@ -45,27 +53,23 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
     }
     public void SetState(MonsterState newState)
     {
-        switch (newState)
+        if (currentState == MonsterState.DEAD)
+            return;
+
+        foreach (MonsterFSMState state in states.Values)
         {
-            case MonsterState.IDLE:
-                break;
-            case MonsterState.MOVE:
-                break;
-            case MonsterState.CHASE:
-                break;
-            case MonsterState.ATTACK:
-                break;
-            case MonsterState.DAMAGE:
-                break;
-            case MonsterState.DEAD:
-                break;
+            state.enabled = false;
         }
+        currentState = newState;
+        states[currentState].enabled = true;
+        states[currentState].BeginState();
+        anim.SetInteger("CurrentState", (int)currentState);
     }
 
     //이미 공격 구현되어있으니 안써도 됨.
     public void AttackCheck()
-    { 
-       // targetStat.ApplyDamage(stat);
+    {
+        // targetStat.ApplyDamage(stat);
     }
 
 
