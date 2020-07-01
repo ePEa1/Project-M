@@ -14,6 +14,7 @@ public class BossMoveAct : EnemyAction
     float m_currentDelay;
     #endregion
 
+    #region Base
     private void Awake()
     {
         m_currentDelay = m_atkDelay;
@@ -35,7 +36,7 @@ public class BossMoveAct : EnemyAction
         ChangeActions();
         Moving();
     }
-
+    #endregion
 
     #region Functions
 
