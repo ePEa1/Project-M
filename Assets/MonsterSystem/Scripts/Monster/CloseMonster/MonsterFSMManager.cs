@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public enum MonsterState
@@ -15,6 +16,7 @@ public enum MonsterState
 
 public class MonsterFSMManager : MonoBehaviour, IFSMManager
 {
+    [Header("MonsterSetObj")]
     public MonsterState currentState;//최근 상태
     [SerializeField] MonsterState startState;//시작 상태
     [SerializeField] Collider DamageCol;//데미지 콜라이더
@@ -23,7 +25,12 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
     [SerializeField] public GameObject playerObj;//캐릭터 오브젝트
     [SerializeField] public MobStat stat;//몬스터 기본 상태
     [SerializeField] public AtkCollider m_atkCollider;
-    [SerializeField] public float m_atkDelay; //공격 딜레이
+    [SerializeField] public GameObject m_damEff;
+    [SerializeField] public LayerMask m_wall;
+
+    [SerializeField] GameObject m_hpBox;
+    [SerializeField] Image m_hpBar;
+    [SerializeField] Image m_backhpBar;
 
 
     //상태와 동시에 스크립트 저장
@@ -50,6 +57,12 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
     void Start()
     {
         SetState(startState);
+    }
+
+    public void Update()
+    {
+        m_hpBox.transform.rotation = Camera.main.transform.rotation;
+
     }
     public void SetState(MonsterState newState)
     {

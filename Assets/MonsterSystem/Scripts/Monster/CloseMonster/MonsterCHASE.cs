@@ -12,12 +12,7 @@ public class MonsterCHASE : MonsterFSMState
     // Update is called once per frame
     void Update()
     {
-        //일정 기간 멀어지면 IDLE상태가 되는데 필요하면 주석 풀기
-        //if (!Util.Detect(transform.position, manager.playerObj.transform.position))
-        //{
-        //    manager.SetState(DummyState.IDLE);
-        //    return;
-        //}
+
         
         //플레이어 포지션
         Vector3 destination = manager.playerObj.transform.position;

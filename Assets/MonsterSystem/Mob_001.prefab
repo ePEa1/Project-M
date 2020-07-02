@@ -4987,6 +4987,13 @@ MonoBehaviour:
   playerObj: {fileID: 0}
   stat: {fileID: 0}
   m_atkCollider: {fileID: 0}
+  m_damEff: {fileID: 0}
+  m_wall:
+    serializedVersion: 2
+    m_Bits: 0
+  m_hpBox: {fileID: 0}
+  m_hpBar: {fileID: 0}
+  m_backhpBar: {fileID: 0}
 --- !u!114 &7196014027787432467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5002,6 +5009,7 @@ MonoBehaviour:
   manager: {fileID: 0}
   chase: {fileID: 0}
   AttackCol: {fileID: 0}
+  m_eff: {fileID: 0}
 --- !u!114 &6316429646457166535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5028,6 +5036,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 0}
+  m_damAc:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   hiteff: {fileID: 0}
   DamageSound: {fileID: 0}
   skinned: {fileID: 0}
@@ -19663,7 +19677,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2363277000836581915}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -24598,8 +24612,8 @@ RectTransform:
   m_Children:
   - {fileID: 3620044201506060333}
   - {fileID: 8029909753472542375}
-  - {fileID: 7903966778697849683}
   - {fileID: 260040951490531304}
+  - {fileID: 7903966778697849683}
   m_Father: {fileID: 4553151540388739133}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -24638,12 +24652,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1.15, z: 1}
   m_Children: []
   m_Father: {fileID: 2363277000836581915}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 3.49, y: 0.17000002}
+  m_SizeDelta: {x: 3.533728, y: 0.3064001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2147153391155867768
 CanvasRenderer:
@@ -24666,7 +24680,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.18431373}
+  m_Color: {r: 0.022308826, g: 0, b: 1, a: 0.46666667}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:

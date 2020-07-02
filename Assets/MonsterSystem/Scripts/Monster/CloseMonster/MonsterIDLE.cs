@@ -26,7 +26,7 @@ public class MonsterIDLE : MonsterFSMState
     void Update()
     {
         //6이상 멀어졌을 때 쫓아간다.
-        if (Util.Detect(transform.position, manager.playerObj.transform.position,6))
+        if (Util.Detect(transform.position, manager.playerObj.transform.position,10))
         {
             manager.SetState(MonsterState.CHASE);
             return;

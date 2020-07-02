@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static ProjectM.ePEa.CustomFunctions.CustomFunction;
+
 
 public class MonsterATTACK : MonsterFSMState
 {
-
+    [SerializeField] AnimationCurve m_atkAc;
     Vector3 m_startPos;
     Vector3 m_endPos;
+    Vector3 m_destPos;
 
+    bool IsAtk = false;
 
     float m_time = 0.0f;
     float m_nowDelay = 0.0f;
@@ -21,7 +25,7 @@ public class MonsterATTACK : MonsterFSMState
     }
     private void Awake()
     {
-        AttackCol.enabled = false;
+        //AttackCol.enabled = false;
     }
     // Update is called once per frame
     void Update()
@@ -47,10 +51,10 @@ public class MonsterATTACK : MonsterFSMState
     void AtkStart()
     {
        // isAtk = false;
-        m_nowDelay = manager.m_atkDelay;
+        m_nowDelay = manager.stat.m_atkDelay;
         m_time = 0.0f;
         m_startPos = transform.position;
-        m_endPos = transform.position + (target.position - transform.position).normalized * m_rushRange;
+        m_endPos = transform.position + (manager.playerObj.transform.position - transform.position).normalized * manager.stat.m_rushRange;
 
         GameObject eff = Instantiate(m_eff);
         eff.transform.parent = transform;
@@ -60,8 +64,39 @@ public class MonsterATTACK : MonsterFSMState
         manager.m_atkCollider.knockPower = 5.0f;
         manager.m_atkCollider.knockVec = (m_endPos - m_startPos).normalized;
     }
+    void Atk()
+    {
+        float ac = 1.0f / manager.stat.m_rushSpeed;
 
+        Vector3 beforePos = Vector3.Lerp(m_startPos, m_endPos, m_atkAc.Evaluate(m_time * ac));
+        m_time += Time.deltaTime;
+        Vector3 afterPos = Vector3.Lerp(m_startPos, m_endPos, m_atkAc.Evaluate(m_time * ac));
 
+        Vector3 fixedPos = FixedMovePos(transform.position, 0.6f, (afterPos - beforePos).normalized, Vector3.Distance(beforePos, afterPos), manager.m_wall);
+
+        if (!float.IsNaN(fixedPos.x))
+            transform.position += afterPos - beforePos + fixedPos;
+        else
+            transform.position += afterPos - beforePos;
+
+        if (m_time >= manager.stat.m_colliderOpenTime && !IsAtk)
+        {
+            manager.m_atkCollider.Attacking();
+            IsAtk = true;
+        }
+
+        if (m_time >= manager.stat.m_rushSpeed)
+        {
+            AtkEnd();
+        }
+    }
+    void AtkEnd()
+    {
+        manager.SetState(MonsterState.IDLE);
+        m_time = 0.0f;
+        m_destPos = new Vector3(transform.position.x, 0.0f, transform.position.z);
+
+    }
     //공격 콜리더 생성
     IEnumerator SetCollider()
     {
