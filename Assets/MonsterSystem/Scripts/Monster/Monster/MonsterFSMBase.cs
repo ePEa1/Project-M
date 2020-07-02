@@ -11,6 +11,7 @@ public enum MonsterState
     Attack,//3
     Damage,//4
     Dead,//5
+    Alert//6
 }
 
 

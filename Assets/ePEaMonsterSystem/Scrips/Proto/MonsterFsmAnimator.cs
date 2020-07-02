@@ -12,15 +12,12 @@ public class MonsterFsmAnimator : MonoBehaviour
         monster = GetComponentInParent<MonsterFSMPlayer>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void AtkEndAction()
     {
-        
+        monster.AtkEnd();
     }
-
-    void EndAttack()
+    void EndAction()
     {
-        monster.IsChase = true;
-        monster.SetState(MonsterState.Chase);
+        monster.SetState(MonsterState.Idle);
     }
 }
