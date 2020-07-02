@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum CharacterState
+public enum MonsterState
 {
     Idle = 0,
     Move, //1
@@ -17,12 +17,12 @@ public enum CharacterState
 public class MonsterFSMBase : MonoBehaviour
 {
     //CharacterController 와 Animator 컴포넌트를 제어하는 변수.
-    public CharacterController characterController;
     public Animator anim;
+    public Transform player;
 
 
         //개체(몬스터, 캐릭터 등)의 상태변화를 제어하는 변수.
-        public CharacterState CHState;
+        public MonsterState CHState;
 
 
     //개체의 상태가 바꼈는지 체크하는 변수.
@@ -39,7 +39,7 @@ public class MonsterFSMBase : MonoBehaviour
     //모든 개체는 씬에 생성되는 순간 Idle 상태가 되며, FSMMain 코루틴 메소드를 실행한다.
     protected virtual void OnEnable()
     {
-        CHState = CharacterState.Idle;
+        CHState = MonsterState.Idle;
         StartCoroutine(FSMMain());
 
     }
@@ -55,7 +55,7 @@ public class MonsterFSMBase : MonoBehaviour
     }
 
     //개체의 상태가 바뀔때마다 메소드가 실행된다.
-    public void SetState(CharacterState newState)
+    public void SetState(MonsterState newState)
     {
         isNewState = true;
         CHState = newState;
@@ -77,4 +77,36 @@ public class MonsterFSMBase : MonoBehaviour
 
         } while (!isNewState); //do 문 종료조건.
     }
+    //protected virtual IEnumerator Move()
+    //{
+    //    do
+    //    {
+    //        yield return null;
+
+    //    } while (!isNewState);
+    //}
+    //protected virtual IEnumerator Chase()
+    //{
+    //    do
+    //    {
+    //        yield return null;
+    //    } while (!isNewState);
+    //}
+
+
+    //protected virtual IEnumerator Attack()
+    //{
+    //    do
+    //    {
+    //        yield return null;
+    //    } while (!isNewState);
+    //}
+
+    //protected virtual IEnumerator Dead()
+    //{
+    //    do
+    //    {
+    //        yield return null;
+    //    } while (!isNewState);
+    //}
 }
