@@ -32,6 +32,8 @@ public class BossNormalAtk : EnemyAction
 
     #endregion
 
+    #region Base
+
     private void Awake()
     {
         m_atkNum = 0;
@@ -72,6 +74,10 @@ public class BossNormalAtk : EnemyAction
         }
     }
 
+    #endregion
+
+    #region Functions
+
     void Moving()
     {
         Vector3 before = Vector3.Lerp(m_startPos, m_finishPos, m_atkObject.distanceCurve.Evaluate(m_time / m_curve));
@@ -91,8 +97,6 @@ public class BossNormalAtk : EnemyAction
         return targetView.normalized;
     }
 
-    #region Events
-
     /// <summary>
     /// startPos, finishPos 설정
     /// </summary>
@@ -101,6 +105,10 @@ public class BossNormalAtk : EnemyAction
         m_startPos = transform.position;
         m_finishPos = m_startPos + ToTargetView() * m_atkObject.distance;
     }
+
+    #endregion
+
+    #region AnimationEvents
 
     /// <summary>
     /// 공격 판정 타이밍 이벤트
