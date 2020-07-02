@@ -50,6 +50,7 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
         states.Add(MonsterState.MOVE, GetComponent<MonsterMOVE>());
         states.Add(MonsterState.CHASE, GetComponent<MonsterCHASE>());
         states.Add(MonsterState.ATTACK, GetComponent<MonsterATTACK>());
+        states.Add(MonsterState.DAMAGE, GetComponent<MonsterDAMAGED>());
         states.Add(MonsterState.DEAD, GetComponent<MonsterDEAD>());
     }
     // Start is called before the first frame update
