@@ -6,7 +6,6 @@ using System;
 
 public class MonsterDAMAGED : MonsterFSMState, DamageModel
 {
-    public MonsterFSMManager manager;
     [SerializeField] SkinnedMeshRenderer[] monsterRenderer;
     [SerializeField] AnimationCurve m_damAc;
     public GameObject m_damSfx;
@@ -29,13 +28,16 @@ public class MonsterDAMAGED : MonsterFSMState, DamageModel
     // Start is called before the first frame update
     void Start()
     {
-        //manager = GetComponentInParent<MonsterFSMManager>();
+        StartCoroutine(StopMoment());
+        StartCoroutine(IsDamage());
+        manager = GetComponentInParent<MonsterFSMManager>();
         //DamageSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        Damage();
         //피가 0일때 죽음
         if(manager.stat.hp <= 0)
         {
@@ -44,35 +46,38 @@ public class MonsterDAMAGED : MonsterFSMState, DamageModel
     }
 
     //충돌 판정
-    public void OnTriggerEnter(Collider other)
+    //public void OnTriggerEnter(Collider other)
+    //{
+    //    if(other.gameObject.tag == "PCAtkCollider")
+    //    {
+    //        Debug.Log("Check");
+    //        Damage();
+
+    //            //damInfo = other.GetComponent<AtkCollider>();
+
+    //            //manager.anim.Rebind();
+    //            //manager.anim.Play("DAMAGE");
+
+    //            //if (damInfo.AtkEvent())
+    //            //    StartCoroutine(StopMoment());
+    //            //DamageSound.Play();
+
+    //            //IsDamageCheck();
+
+    //            //KnockBack();
+    //        }
+    //}
+    public void SetDamage(AtkCollider dam)
     {
-        if(other.gameObject.tag == "PCAtkCollider")
+        TakeDamage(dam.atkDamage, dam.knockVec, dam.knockPower);
+        if (dam.AtkEvent())
         {
-            Debug.Log("Check");
-            Damage();
-            TakeDamage(other.GetComponent<AtkCollider>().atkDamage, other.GetComponent<AtkCollider>().knockVec, other.GetComponent<AtkCollider>().knockPower);
-            if (other.GetComponent<AtkCollider>().AtkEvent())
-            {
-                transform.GetComponent<AudioSource>().volume = DataController.Instance.gameData.EffectSound;
-                DataController.Instance.SetCombo();
-                GameObject sfx = Instantiate(manager.m_damEff);
-                sfx.transform.position = manager.transform.position;
-            }
-                //damInfo = other.GetComponent<AtkCollider>();
-
-                //manager.anim.Rebind();
-                //manager.anim.Play("DAMAGE");
-
-                //if (damInfo.AtkEvent())
-                //    StartCoroutine(StopMoment());
-                //DamageSound.Play();
-
-                //IsDamageCheck();
-
-                //KnockBack();
-            }
+            transform.GetComponent<AudioSource>().volume = DataController.Instance.gameData.EffectSound;
+            DataController.Instance.SetCombo();
+            GameObject sfx = Instantiate(manager.m_damEff);
+            sfx.transform.position = manager.transform.position;
+        }
     }
-
     public void TakeDamage(float damage, Vector3 knockDir, float knockPower)
     {
         manager.stat.currentHp -= damage;

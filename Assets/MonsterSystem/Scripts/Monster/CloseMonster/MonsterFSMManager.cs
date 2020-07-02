@@ -62,6 +62,7 @@ public class MonsterFSMManager : MonoBehaviour, IFSMManager
     public void Update()
     {
         m_hpBox.transform.rotation = Camera.main.transform.rotation;
+        m_hpBar.fillAmount = stat.currentHp / stat.hp; 
 
     }
     public void SetState(MonsterState newState)
