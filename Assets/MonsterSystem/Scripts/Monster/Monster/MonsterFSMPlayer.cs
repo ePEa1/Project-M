@@ -249,7 +249,7 @@ public class MonsterFSMPlayer : MonsterFSMBase
         do
         {
             yield return null;
-            Destroy(gameObject, 2);
+            Destroy(gameObject);
         } while (!isNewState);
     }
 
