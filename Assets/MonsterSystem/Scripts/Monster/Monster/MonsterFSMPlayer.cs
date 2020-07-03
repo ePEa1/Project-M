@@ -102,6 +102,8 @@ public class MonsterFSMPlayer : MonsterFSMBase
             currentHP = Mathf.Min(maxHP, currentHP + Time.deltaTime * refillSpeed);
         m_nowDelay = Mathf.Max(0, m_nowDelay - Time.deltaTime);
 
+        refillBar.fillAmount = (refillTime-currefillTime) / refillTime;
+
         if (currentHP <= 0)
         {
             DataController.Instance.gameData.firstStageMonster -= 1;
