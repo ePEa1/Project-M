@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using ProjectM.ePEa.PlayerData;
 using System;
+using UnityEngine.Rendering.PostProcessing;
 
 using static ProjectM.ePEa.CustomFunctions.CustomFunction;
 
 
 public class DashAtkAction : BaseAction
 {
+
+    public PostProcessVolume m_volume;
+    public Vignette m_vignette;
+    [SerializeField] float vignetteSpeed;
+
     [SerializeField] PCAtkObject m_atkData;
 
     [SerializeField] LayerMask m_wall;
@@ -21,7 +27,12 @@ public class DashAtkAction : BaseAction
 
     protected override BaseAction OnStartAction()
     {
+        if (GameObject.FindGameObjectWithTag("PostProcessing") != null)
+        {
+            m_volume = GameObject.FindGameObjectWithTag("PostProcessing").GetComponent<PostProcessVolume>();
+            m_volume.profile.TryGetSettings(out m_vignette);
 
+        }
         m_animator.SetTrigger("DashAtk");
         m_animator.SetBool("IsDashAtk", true);
 
@@ -142,8 +153,13 @@ public class DashAtkAction : BaseAction
     IEnumerator DelayTimeScale()
     {
         yield return new WaitForSeconds(0.1f);
+        float i = 0;
+            m_vignette.intensity.value = 0.4f;
         Time.timeScale = 0.5f;
         yield return new WaitForSeconds(0.1f);
+        //m_vignette.intensity = new FloatParameter { value = 0f };
+            m_vignette.intensity.value = 0f;
+        
         Time.timeScale = 1;
     }
 }

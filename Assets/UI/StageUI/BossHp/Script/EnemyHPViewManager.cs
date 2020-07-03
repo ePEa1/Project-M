@@ -9,6 +9,7 @@ public class EnemyHPViewManager : MonoBehaviour
     #region Inspector
 
     [SerializeField] int m_hpSize= 5; //hp 줄 수
+    [SerializeField] GameObject m_hpBarBox;//묶음
     [SerializeField] GameObject m_hpBar; //hp 줄 프리팹
     [SerializeField] Text m_hpSizeText; //hp 줄 수 텍스트
     [SerializeField] Text m_hpData; //현재 hp 수치 텍스트
@@ -57,6 +58,7 @@ public class EnemyHPViewManager : MonoBehaviour
         m_centerPos = GetComponent<RectTransform>().position;
         if (GameObject.FindWithTag("Boss") != null)
         {
+            m_hpBarBox.SetActive(true);
             boss = GameObject.FindWithTag("Boss").GetComponent<ProtoBossFSM>();
             m_maxHp = boss.m_maxHp;
             Setup();
@@ -68,6 +70,7 @@ public class EnemyHPViewManager : MonoBehaviour
     {
         if (GameObject.FindWithTag("Boss") != null)
         {
+            m_hpBarBox.SetActive(true);
             boss = GameObject.FindWithTag("Boss").GetComponent<ProtoBossFSM>();
             m_maxHp = boss.m_maxHp;
             Setup();
@@ -94,6 +97,7 @@ public class EnemyHPViewManager : MonoBehaviour
         {
             if (GameObject.FindWithTag("Boss") != null)
             {
+                m_hpBarBox.SetActive(true);
                 boss = GameObject.FindWithTag("Boss").GetComponent<ProtoBossFSM>();
                 m_maxHp = boss.m_maxHp;
                 Setup();
@@ -118,7 +122,7 @@ public class EnemyHPViewManager : MonoBehaviour
             hps[i] = Instantiate(m_hpBar);
             hps[i].transform.parent = transform;
             hps[i].transform.localPosition = m_originPos + Vector3.forward * i * 1.0f;
-            hps[i].GetComponent<Image>().color = m_hpColor[i % m_hpColor.Length];
+            //hps[i].GetComponent<Image>().color = m_hpColor[i % m_hpColor.Length];
             hps[i].GetComponent<RectTransform>().sizeDelta = new Vector2(GetComponent<RectTransform>().rect.width, GetComponent<RectTransform>().rect.height);
             hps[i].transform.localScale = new Vector3(1, 1, 1);
         }
