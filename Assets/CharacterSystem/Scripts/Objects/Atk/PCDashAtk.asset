@@ -12,32 +12,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468143b2352940741a483c69fb4a6c21, type: 3}
   m_Name: PCDashAtk
   m_EditorClassIdentifier: 
-  distance: 5
+  distance: 6
   distanceCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 2
+      inSlope: 2.3076923
+      outSlope: 2.3076923
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.054166667
+    - serializedVersion: 3
+      time: 0.47224513
+      value: 0.98968846
+      inSlope: 0.029518975
+      outSlope: 0.029518975
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.5105051
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 0.047169723
+      outSlope: 0.047169723
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.3
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  rushSpeed: 0.3
+  rushSpeed: 0.8
   atkData:
   - getMp: 0
     getGage: 1.5
