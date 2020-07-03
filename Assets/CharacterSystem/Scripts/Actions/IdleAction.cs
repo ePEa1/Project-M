@@ -8,7 +8,7 @@ public class IdleAction : BaseAction
 {
 
     [SerializeField] float CombatTime;
-    float curCombatTime;
+    float curCombatTime = 0;
 
     protected override BaseAction OnStartAction()
     {

@@ -9,7 +9,7 @@ public class MonsterDamage : MonsterFSMBase, DamageModel
     // Start is called before the first frame update
     void Start()
     {
-        monster = GetComponentInParent<MonsterFSMPlayer>();
+       // monster = GetComponentInParent<MonsterFSMPlayer>();
     }
     
 
@@ -19,6 +19,7 @@ public class MonsterDamage : MonsterFSMBase, DamageModel
         {
             monster.anim.Rebind();
             monster.anim.Play("DAMAGE");
+
             monster.TakeDamage(dam.atkDamage, dam.knockVec, dam.knockPower);
             monster.SetState(MonsterState.Damage);
             GameObject sfx = Instantiate(damageSound);
