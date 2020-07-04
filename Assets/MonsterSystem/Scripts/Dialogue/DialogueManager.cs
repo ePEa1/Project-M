@@ -11,13 +11,13 @@ public class DialogueManager : MonoBehaviour
     public GameObject SerenaImg;
     public PlayerFsmManager player;
     public GameObject dialogueScreen;
-    public GameObject playerEvents;
+    //public GameObject playerEvents;
 
     public void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFsmManager>();
        
-        playerEvents = player.transform.GetChild(0).gameObject;
+        //playerEvents = player.transform.GetChild(0).gameObject;
 
 
         //dialogue = GetComponent<DialogueSet>();
@@ -30,10 +30,10 @@ public class DialogueManager : MonoBehaviour
             dialogue.SetDialogue(0);
             dialogue.StartDialogue();
             dialogueScreen.SetActive(true);
-            player.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
+          //  player.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
 
             player.enabled = false;
-            playerEvents.SetActive(false);
+          // playerEvents.SetActive(false);
             SerenaImg.SetActive(false);
             DataController.Instance.gameData.ScriptOne = true;
         }
@@ -42,11 +42,11 @@ public class DialogueManager : MonoBehaviour
             dialogue.SetDialogue(4);
             dialogue.StartDialogue();
             dialogueScreen.SetActive(true);
-            player.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
+           // player.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
 
             player.enabled = false;
             SerenaImg.SetActive(true);
-            playerEvents.SetActive(false);
+          // playerEvents.SetActive(false);
 
             DataController.Instance.gameData.ScriptFive = true;
         }

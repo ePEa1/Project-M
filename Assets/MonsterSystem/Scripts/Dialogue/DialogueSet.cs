@@ -9,9 +9,10 @@ public class DialogueSet : MonoBehaviour
     public int currentLine = 0;
 
     public GameObject DialogueScreen;
+    public GameObject PlayerUI;
     public PauseManager PauseScreen;
     public PlayerFsmManager player;
-    public GameObject playerEvents;
+    //public GameObject playerEvents;
     [SerializeField] TextAsset[] csvfile;
 
 
@@ -54,7 +55,7 @@ public class DialogueSet : MonoBehaviour
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFsmManager>(); ;
-        playerEvents = player.transform.GetChild(0).gameObject;
+       // playerEvents = player.transform.GetChild(0).gameObject;
 
 
         curEstelleMove = EstelleImg.transform.position;
@@ -92,10 +93,11 @@ public class DialogueSet : MonoBehaviour
         }
         if (currentLine == scenarios.Length && Input.GetMouseButtonDown(0))
         {
+            PlayerUI.SetActive(true);
             DialogueScreen.SetActive(false);
             //player.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
             player.enabled = true;
-            playerEvents.SetActive(true);
+          //  playerEvents.SetActive(true);
             PauseScreen.enabled = true;
             DataController.Instance.gameData.ScriptOne = true;
         }
@@ -222,9 +224,8 @@ public class DialogueSet : MonoBehaviour
 
     public void StartDialogue()
     {
-        playerEvents.SetActive(false);
-
-
+        PlayerUI.SetActive(false);
+     //   playerEvents.SetActive(false);
         DialogueScreen.SetActive(true);
         PauseScreen.enabled = false;
 
