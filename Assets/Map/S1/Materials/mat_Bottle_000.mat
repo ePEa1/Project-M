@@ -11,8 +11,8 @@ Material:
   m_Shader: {fileID: 4800000, guid: 92117e3ebefcee842a1c07e1be399e23, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 0
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses:
@@ -73,7 +73,7 @@ Material:
     - _EmissionEnabled: 0
     - _FlipbookMode: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.893
+    - _Glossiness: 1
     - _GlossyReflections: 1
     - _LightingEnabled: 1
     - _Metallic: 1
@@ -92,6 +92,6 @@ Material:
     m_Colors:
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _Color: {r: 1, g: 0, b: 0.009691238, a: 1}
-    - _Color2: {r: 0, g: 0.6156863, b: 0.7490196, a: 1}
+    - _Color2: {r: 15.999998, g: 6.175632, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}

@@ -15,9 +15,13 @@
         Tags { "RenderType"="Transparent" "Queue"="Transparent"}
         LOD 200
 
+
+
         CGPROGRAM
         #pragma surface surf Standard fullforwardshadows alpha:fade
         #pragma target 3.0
+
+
 
         sampler2D _MainTex;
 
