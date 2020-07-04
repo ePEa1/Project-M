@@ -37,7 +37,6 @@ public class IdleAction : BaseAction
         {
             curCombatTime = 0;
             m_animator.SetBool("IsCombat", false);
-            Debug.Log("NoneCombat");
         }
         //어느 상태로도 이동할 수 있도록 처리
         if (m_controller.IsMoving)
@@ -75,6 +74,8 @@ public class IdleAction : BaseAction
 
     void SetCombatState()
     {
+        curCombatTime = CombatTime;
+
         if (m_controller.IsAttack())
         {
             m_animator.SetBool("IsAtk", true);
@@ -82,7 +83,6 @@ public class IdleAction : BaseAction
         }
         else
         {
-            curCombatTime = CombatTime;
             m_animator.SetBool("IsCombat", true);
         }
 

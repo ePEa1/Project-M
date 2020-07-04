@@ -74,4 +74,33 @@ public static class Util
                 );
         }
     }
+    public static float ChaseMoveFrame(
+     GameObject cc,
+     Transform self,
+     Vector3 targetPos,
+     float moveSpeed,
+     float rotateSpeed
+     )
+    {
+        Vector3 deltaMove = Vector3.MoveTowards(
+            self.position,
+            targetPos,
+            moveSpeed * Time.deltaTime
+            ) - self.position;
+
+        cc.transform.Translate(new Vector3(0, 0, 1) * moveSpeed *
+            Time.deltaTime);
+
+        Vector3 dir = targetPos - self.position;
+        dir.y = 0;
+        if (dir != Vector3.zero)
+        {
+            self.rotation = Quaternion.RotateTowards(
+                self.rotation,
+                Quaternion.LookRotation(dir),
+                rotateSpeed * Time.deltaTime
+                );
+        }
+        return Vector3.Distance(deltaMove, targetPos);
+    }
 }

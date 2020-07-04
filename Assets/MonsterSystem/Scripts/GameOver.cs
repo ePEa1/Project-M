@@ -6,13 +6,12 @@ using System;
 
 public class GameOver : MonoBehaviour
 {
-    [SerializeField] AnimationCurve FadeOut; //넉백 이동 커브
     public GameObject player;
-    public GameObject gameOverPanel;
+   // public GameObject gameOverPanel;
     // Start is called before the first frame update
     void Start()
     {
-        gameOverPanel.SetActive(false);
+        //gameOverPanel.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -30,31 +29,31 @@ public class GameOver : MonoBehaviour
         }
     }
 
-    public void getGameOver()
-    {
-        Cursor.visible = true;
+    //public void getGameOver()
+    //{
+    //    Cursor.visible = true;
 
-        gameOverPanel.SetActive(true);
-        Time.timeScale = 0;
-        Cursor.lockState = CursorLockMode.Confined;
+    //    gameOverPanel.SetActive(true);
+    //    Time.timeScale = 0;
+    //    Cursor.lockState = CursorLockMode.Confined;
 
-    }
-    public void GotoMain()
-    {
-        Time.timeScale = 1;
-        SceneManager.LoadScene("StartScene");
+    //}
+    //public void GotoMain()
+    //{
+    //    Time.timeScale = 1;
+    //    SceneManager.LoadScene("StartScene");
 
-    }
+    //}
 
-    public void GoToStage()
-    {
-        Time.timeScale = 1;
-        SceneManager.LoadScene("StageSelectScene");
-    }
+    //public void GoToStage()
+    //{
+    //    Time.timeScale = 1;
+    //    SceneManager.LoadScene("StageSelectScene");
+    //}
 
     public void StartFromSavePoint()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 

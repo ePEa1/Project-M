@@ -36,7 +36,8 @@ namespace ProjectM.ePEa.ProtoMon
 
         [SerializeField] AnimationCurve m_damAc;
 
-        [SerializeField] Slider m_hpBar;
+        [SerializeField] GameObject m_hpBox;
+        [SerializeField] Image m_hpBar;
         [SerializeField] Image m_backhpBar;
 
         [SerializeField] float m_refillTime;
@@ -95,7 +96,7 @@ namespace ProjectM.ePEa.ProtoMon
         // Update is called once per frame
         void Update()
         {
-            m_hpBar.transform.rotation = Camera.main.transform.rotation;
+            m_hpBox.transform.rotation = Camera.main.transform.rotation;
 
             switch (m_nowState)
             {
@@ -121,7 +122,7 @@ namespace ProjectM.ePEa.ProtoMon
             m_nowDelay = Mathf.Max(0, m_nowDelay - Time.deltaTime);
 
 
-            m_hpBar.value = m_nowHp / m_maxHp;
+            m_hpBar.fillAmount = m_nowHp / m_maxHp;
 
             if (m_nowHp <= 0)
             {
@@ -132,11 +133,11 @@ namespace ProjectM.ePEa.ProtoMon
 
             if (IsDecrease)
             {
-                m_backhpBar.GetComponent<Image>().fillAmount = Mathf.Lerp(m_backhpBar.fillAmount, m_hpBar.value, Time.deltaTime*5.0f );
-                if (m_hpBar.value >= m_backhpBar.fillAmount - 0.01f)
+                m_backhpBar.GetComponent<Image>().fillAmount = Mathf.Lerp(m_backhpBar.fillAmount, m_hpBar.fillAmount, Time.deltaTime*5.0f );
+                if (m_hpBar.fillAmount >= m_backhpBar.fillAmount - 0.01f)
                 {
                     IsDecrease = false;
-                    m_backhpBar.fillAmount = m_hpBar.value;
+                    m_backhpBar.fillAmount = m_hpBar.fillAmount;
 
                 }
             }
