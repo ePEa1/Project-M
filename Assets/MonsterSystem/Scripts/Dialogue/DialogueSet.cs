@@ -93,7 +93,7 @@ public class DialogueSet : MonoBehaviour
         if (currentLine == scenarios.Length && Input.GetMouseButtonDown(0))
         {
             DialogueScreen.SetActive(false);
-            player.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
+            //player.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
             player.enabled = true;
             playerEvents.SetActive(true);
             PauseScreen.enabled = true;
