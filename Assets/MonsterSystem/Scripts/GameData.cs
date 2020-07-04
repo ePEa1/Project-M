@@ -42,6 +42,12 @@ public class GameData
     public int BossStageSavePointOrder = 0;
 
 
+    public int Scriptcount = 0;
+    public bool ScriptOne = false;
+    public bool ScriptTwo = false;
+    public bool ScriptThree = false;
+    public bool ScriptFour = false;
+    public bool ScriptFive = false;
     public int PlayerCombo = 0;
     public bool IsCombo = false;
 
