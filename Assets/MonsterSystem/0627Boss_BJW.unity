@@ -3983,7 +3983,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!82 &111408426
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6737,7 +6737,6 @@ GameObject:
   - component: {fileID: 319933649}
   - component: {fileID: 319933648}
   - component: {fileID: 319933650}
-  - component: {fileID: 319933651}
   m_Layer: 5
   m_Name: Dialogue
   m_TagString: Untagged
@@ -6817,48 +6816,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 319933646}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40f5302abc4f64e41bd25b05c423fb94, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c4c88d57079e374ca3fb056895d450f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curposition: -1
-  textDelay: 0.077
-  nameText: {fileID: 0}
-  nameBox: {fileID: 146501610}
-  lineText: {fileID: 270469538}
-  nextImg: {fileID: 758154408}
+  csvfile: {fileID: 4900000, guid: 1c4c0b8db8460ae47878020389033691, type: 3}
+  csvname: 
+  chaaninum: 
+  Oliveraninum: 
+  estelleEmotion: []
+  serenaEmotion: []
+  namelist: []
+  scenarios: []
+  EstelleAnim: {fileID: 616439002}
+  SerenaAnim: {fileID: 1959741717}
   EstelleImg: {fileID: 616439000}
   SerenaImg: {fileID: 1959741715}
-  backgroundImg: {fileID: 0}
---- !u!114 &319933651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 319933646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba485e60ed43ff047b57b52d9dbbbe84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blackColor:
-    serializedVersion: 2
-    rgba: 5197647
-  originalColor: {r: 1, g: 1, b: 1, a: 1}
-  XValue: 40
-  YValue: 30
-  animators:
-  - {fileID: 616439002}
-  - {fileID: 0}
-  charactors:
-  - {fileID: 616439000}
-  - {fileID: 1959741715}
-  NameBoxSprite:
-  - {fileID: 21300000, guid: 91b01bb3b5d036443aad9df7bfca4f71, type: 3}
-  - {fileID: 21300000, guid: 165472001efff1a4cbe8ecf95e8b40d0, type: 3}
-  - {fileID: 21300000, guid: 3efa19544c2e8d84d95742ba35aa1adb, type: 3}
-  - {fileID: 21300000, guid: fd888e1859c5c8b4f9e7d9eee1ad5ce2, type: 3}
-  isMoving: 0
+  DialBox: {fileID: 0}
+  Names: {fileID: 0}
+  uiText: {fileID: 270469538}
+  intervalForCharacterDisplay: 0.05
 --- !u!1 &325142090
 GameObject:
   m_ObjectHideFlags: 0
@@ -20411,6 +20387,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: vfx_NormalSlashFX (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5099944319548709020, guid: 3890ecca732b8ca4eb6e0192794355c9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8129360419055648681, guid: 3890ecca732b8ca4eb6e0192794355c9,
         type: 3}
@@ -46925,7 +46906,7 @@ PrefabInstance:
     - target: {fileID: 8801203198365503366, guid: 2dd8479d093e0fc48a1ba8e144edac32,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -8.6355606e-10
+      value: -8.635543e-10
       objectReference: {fileID: 0}
     - target: {fileID: 8801203198365503366, guid: 2dd8479d093e0fc48a1ba8e144edac32,
         type: 3}
@@ -46995,12 +46976,12 @@ PrefabInstance:
     - target: {fileID: 8801203199613982161, guid: 2dd8479d093e0fc48a1ba8e144edac32,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.000000004817914
+      value: -0.0000000048178834
       objectReference: {fileID: 0}
     - target: {fileID: 8801203199613982161, guid: 2dd8479d093e0fc48a1ba8e144edac32,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.000000041764064
+      value: -0.00000004176406
       objectReference: {fileID: 0}
     - target: {fileID: 8801203199613982161, guid: 2dd8479d093e0fc48a1ba8e144edac32,
         type: 3}
@@ -83206,6 +83187,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: vfx_NormalSlashFX
       objectReference: {fileID: 0}
+    - target: {fileID: 5099944319548709020, guid: 3890ecca732b8ca4eb6e0192794355c9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8129360419055648681, guid: 3890ecca732b8ca4eb6e0192794355c9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -83438,6 +83424,7 @@ GameObject:
   - component: {fileID: 1959741714}
   - component: {fileID: 1959741716}
   - component: {fileID: 1959741715}
+  - component: {fileID: 1959741717}
   m_Layer: 5
   m_Name: SerenaImg
   m_TagString: Untagged
@@ -83461,8 +83448,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -270, y: 308.5}
-  m_SizeDelta: {x: 540, y: 617}
+  m_AnchoredPosition: {x: -330.1637, y: 328.77252}
+  m_SizeDelta: {x: 660.3274, y: 657.54504}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1959741715
 MonoBehaviour:
@@ -83483,7 +83470,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1e0998d11359e3048b40bc1e56360294, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 05962254ba7a07048a1616acaddd66e6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -83501,6 +83488,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1959741713}
   m_CullTransparentMesh: 0
+--- !u!95 &1959741717
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959741713}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ffb0d87f22423fb4692b271efc465c2d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1960606975
 PrefabInstance:
   m_ObjectHideFlags: 0

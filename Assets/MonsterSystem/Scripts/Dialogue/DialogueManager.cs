@@ -10,6 +10,8 @@ public class DialogueManager : MonoBehaviour
     private Dialogue curDial;
     [SerializeField]
     private int curposition = -1;
+    [SerializeField] string csvname;
+
 
     //이미지 위치 변경 스크립트
     private ConversationManager tweening;
@@ -19,14 +21,14 @@ public class DialogueManager : MonoBehaviour
     private bool dialogueEnded;
     private bool isShowingAllText;
 
-    public Text nameText;
+    //public Text nameText;
     public Image nameBox;
     public Text lineText;
     public GameObject nextImg;
     private string tempText;
     public Image EstelleImg;
     public Image SerenaImg;
-    public Image backgroundImg;
+    //public Image backgroundImg;
 
     private void Awake()
     {
@@ -35,6 +37,8 @@ public class DialogueManager : MonoBehaviour
 
     void OnEnable()
     {
+       //DialogueUtility.InitDialogue(csvname);
+
         nextImg.SetActive(false);
         InitDialogueImage();
 
@@ -43,10 +47,10 @@ public class DialogueManager : MonoBehaviour
         skipped = false;
 
         curDial = DialogueUtility.SetCurrentDialogue();
-        nameText.text = curDial.name;
-        backgroundImg.sprite = curDial.background;
-        StartCoroutine(TypingLine(curDial.line));
-        SetDialogueImage();
+        //nameText.text = curDial.name;
+        //backgroundImg.sprite = curDial.background;
+        StartCoroutine(TypingLine(curDial.script));
+        //SetDialogueImage();
 
     }
 
@@ -76,37 +80,38 @@ public class DialogueManager : MonoBehaviour
             if (isShowingAllText)
             {
                 curDial = DialogueUtility.SetCurrentDialogue();
-                nameText.text = curDial.name;
-                backgroundImg.sprite = curDial.background;
+                //nameText.text = curDial.name;
+
+              //  backgroundImg.sprite = curDial.background;
 
                 isShowingAllText = false;
                 skipped = false;
-                StartCoroutine(TypingLine(curDial.line));
+                StartCoroutine(TypingLine(curDial.script));
                 
             }
             else
             {
                 skipped = true;
             }
-            SetDialogueImage();
+           // SetDialogueImage();
         }
-        if(curposition == curDial.position)
-        {
-            tweening.isMoving = false;
-        }
-        else
-        {
-            tweening.isMoving = true;
+        //if(curposition == curDial.position)
+        //{
+        //    tweening.isMoving = false;
+        //}
+        //else
+        //{
+        //    tweening.isMoving = true;
 
-        }
-        if(tweening.isMoving && !dialogueEnded)
-        {
-            tweening.SetChar(curDial.name, nameBox);
-            //if (tweening.SetPosition())
-            //{
-            //    curposition = curDial.position;
-            //}
-        }
+        //}
+        //if(tweening.isMoving && !dialogueEnded)
+        //{
+        //    tweening.SetChar(curDial.name, nameBox);
+        //    if (tweening.SetPosition())
+        //    {
+        //        curposition = curDial.position;
+        //    }
+        //}
 
     }
 
@@ -134,7 +139,7 @@ public class DialogueManager : MonoBehaviour
 
     private void InitDialogueImage()
     {
-        backgroundImg.sprite = null;
+        //backgroundImg.sprite = null;
         EstelleImg.sprite = null;
         SerenaImg.sprite = null;
 
@@ -142,25 +147,25 @@ public class DialogueManager : MonoBehaviour
         SerenaImg.gameObject.SetActive(false);
     }
 
-    private void SetDialogueImage()
-    {
-        if(curDial.sprite = null)
-        {
-            return;
-        }
+    //private void SetDialogueImage()
+    //{
+    //    if(curDial.sprite = null)
+    //    {
+    //        return;
+    //    }
 
-        switch (curDial.position)
-        {
-            case 0:
-                EstelleImg.sprite = curDial.sprite;
-                EstelleImg.gameObject.SetActive(true);
-                break;
-            case 1:
-                SerenaImg.sprite = curDial.sprite;
-                SerenaImg.gameObject.SetActive(true);
-                break;
-        }
-    }
+    //    switch (curDial.position)
+    //    {
+    //        case 0:
+    //            EstelleImg.sprite = curDial.sprite;
+    //            EstelleImg.gameObject.SetActive(true);
+    //            break;
+    //        case 1:
+    //            SerenaImg.sprite = curDial.sprite;
+    //            SerenaImg.gameObject.SetActive(true);
+    //            break;
+    //    }
+    //}
 
     IEnumerator TypingLine(string line)
     {

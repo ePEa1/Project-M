@@ -5,6 +5,7 @@ using UnityEngine;
 public class DialogueUtility : MonoBehaviour
 {
     public static List<Dialogue> dialogues = new List<Dialogue>();
+    public TextAsset dialoguefile;
     private static int dialcount = 0;
     private static int dialIndex = 0;
 
@@ -26,7 +27,7 @@ public class DialogueUtility : MonoBehaviour
         return dialogues[dialIndex++];
     }
 
-    public static void InitDialogue(string dialogue)
+    public static void InitDialogue(TextAsset dialogue)
     {
         dialogues.Clear();
         dialogueEnded = false;
@@ -39,20 +40,19 @@ public class DialogueUtility : MonoBehaviour
         {
             Dialogue dial = new Dialogue();
             string name = (string)dialList[i]["name"];
-            if(name == "estelle")
-            {
 
-            }
-            if(name == "serena")
-            {
-
-            }
             dial.name = name;
-            dial.line = (string)dialList[i]["script"];
-            string spriteFile = (string)dialList[i]["illust"];
+            Debug.Log(name);
+            string emotion = (string)dialList[i]["emotion"];
+            dial.emotion = emotion;
+            Debug.Log(emotion);
+
+            dial.script = (string)dialList[i]["script"];
+
+            //string spriteFile = (string)dialList[i]["illust"];
             //이미지 적용
             //dial.sprite = Resources.Load<Sprite>(spriteFile) as Sprite;
-            dial.background = Resources.Load<Sprite>("Images/background/" + (string)dialList[i]["background"]) as Sprite;
+            //dial.background = Resources.Load<Sprite>("Images/background/" + (string)dialList[i]["background"]) as Sprite;
 
 
             dialogues.Add(dial);
