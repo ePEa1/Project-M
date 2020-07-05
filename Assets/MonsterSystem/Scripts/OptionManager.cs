@@ -311,6 +311,7 @@ public class OptionManager : MonoBehaviour
         DataController.Instance.gameData.ResolutionX = 1920;
         DataController.Instance.gameData.ResolutionY = 1080;
         DataController.Instance.gameData.fullScreen = true;
+        Screen.SetResolution(DataController.Instance.gameData.ResolutionX, DataController.Instance.gameData.ResolutionY, DataController.Instance.gameData.fullScreen);
 
         ResolutionDropdown.value = DataController.Instance.gameData.ResolutionNum;
         WindowSettingDropdown.value = DataController.Instance.gameData.WindowNum;
