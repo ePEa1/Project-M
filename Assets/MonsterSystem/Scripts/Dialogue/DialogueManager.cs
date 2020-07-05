@@ -30,15 +30,18 @@ public class DialogueManager : MonoBehaviour
             dialogue.SetDialogue(0);
             dialogue.StartDialogue();
             dialogueScreen.SetActive(true);
-          //  player.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
-
-            player.enabled = false;
+            //  player.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
+            dialogue.FadeOutImg.color = new Color(0, 0, 0, 1);
+              player.enabled = false;
           // playerEvents.SetActive(false);
             SerenaImg.SetActive(false);
             DataController.Instance.gameData.ScriptOne = true;
         }
         if(DataController.Instance.gameData.ScriptFive == false && DataController.Instance.gameData.FirstStageSavePointOrder == 2)
         {
+            dialogue.FadeOutImg.gameObject.SetActive(false);
+            dialogue.FadeOutImg.color = new Color(0, 0, 0, 0);
+
             dialogue.SetDialogue(4);
             dialogue.StartDialogue();
             dialogueScreen.SetActive(true);

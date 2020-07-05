@@ -33,6 +33,7 @@ public class DialogueSet : MonoBehaviour
     [SerializeField] Image DialBox;
     [SerializeField] Text Names;
     [SerializeField] Text uiText;
+    [SerializeField] public Image FadeOutImg;
 
     Vector2 curEstelleMove;
     Vector2 curSerenaMove;
@@ -56,7 +57,6 @@ public class DialogueSet : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFsmManager>(); ;
        // playerEvents = player.transform.GetChild(0).gameObject;
-
 
         curEstelleMove = EstelleImg.transform.position;
         curSerenaMove = SerenaImg.transform.position;
@@ -99,7 +99,11 @@ public class DialogueSet : MonoBehaviour
             player.enabled = true;
           //  playerEvents.SetActive(true);
             PauseScreen.enabled = true;
-            DataController.Instance.gameData.ScriptOne = true;
+            //DataController.Instance.gameData.ScriptOne = true;
+            if(DataController.Instance.gameData.ScriptOne == true)
+            {
+                StartCoroutine(FadeOut());
+            }
         }
     }
 
@@ -233,4 +237,15 @@ public class DialogueSet : MonoBehaviour
         SetNextLine();
 
     }
+    IEnumerator FadeOut()
+    {
+        for (float i = 1f; i <= 1; i -= 0.005f * 2)
+        {
+            Color color = new Vector4(0, 0, 0, i);
+            FadeOutImg.color = color;
+
+            yield return null;
+        }
+    }
+
 }

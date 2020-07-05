@@ -208,6 +208,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.0002428, y: 1.0002428, z: 1.0002428}
   m_Children:
+  - {fileID: 4614833503820680298}
   - {fileID: 1334727402}
   m_Father: {fileID: 8775616593658768854}
   m_RootOrder: 0
@@ -268,9 +269,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentLine: 0
   DialogueScreen: {fileID: 1334727401}
+  PlayerUI: {fileID: 0}
   PauseScreen: {fileID: 4390979772955749181}
   player: {fileID: 0}
-  playerEvents: {fileID: 0}
   csvfile:
   - {fileID: 4900000, guid: 1c4c0b8db8460ae47878020389033691, type: 3}
   - {fileID: 4900000, guid: e1a7b83263a5b8e49a782ff04c12c435, type: 3}
@@ -295,6 +296,7 @@ MonoBehaviour:
   DialBox: {fileID: 146501610}
   Names: {fileID: 0}
   uiText: {fileID: 270469538}
+  FadeOutImg: {fileID: 6307240095934687541}
   intervalForCharacterDisplay: 0.03
 --- !u!1 &616438998
 GameObject:
@@ -649,7 +651,7 @@ RectTransform:
   - {fileID: 1085455172}
   - {fileID: 758154409}
   m_Father: {fileID: 319933647}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1427,6 +1429,80 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Option
+--- !u!1 &4192483570441741171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4614833503820680298}
+  - component: {fileID: 4872998263900434918}
+  - component: {fileID: 6307240095934687541}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4614833503820680298
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4192483570441741171}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 319933647}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1920.4662, y: 1095.5612}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &4872998263900434918
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4192483570441741171}
+  m_CullTransparentMesh: 0
+--- !u!114 &6307240095934687541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4192483570441741171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_RaycastTarget: 0
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4385226837541497653
 GameObject:
   m_ObjectHideFlags: 0
@@ -2530,7 +2606,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  playerEvents: {fileID: 0}
   PausePage: {fileID: 6613414118571359909}
   OptionPage: {fileID: 7920841332993871677}
   IsPause: 0
@@ -2550,7 +2625,6 @@ MonoBehaviour:
   SerenaImg: {fileID: 1959741713}
   player: {fileID: 0}
   dialogueScreen: {fileID: 1334727401}
-  playerEvents: {fileID: 0}
 --- !u!1 &8775616593822799115
 GameObject:
   m_ObjectHideFlags: 0
