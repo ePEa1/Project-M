@@ -11,7 +11,7 @@ public class OptionManager : MonoBehaviour
     public PostProcessVolume volume;
     public AmbientOcclusion ambient;
     public PostProcessLayer pp_layer;
-   
+
 
     public Light DirectLight;
     public GameObject OptionScreen;
@@ -46,10 +46,10 @@ public class OptionManager : MonoBehaviour
     [SerializeField] int[] resolutionYList;
     [SerializeField] Resolution[] resolutions;
 
-   
+
     private void Start()
     {
-        if(GameObject.FindGameObjectWithTag("PostProcessing") != null)
+        if (GameObject.FindGameObjectWithTag("PostProcessing") != null)
         {
             volume = GameObject.FindGameObjectWithTag("PostProcessing").GetComponent<PostProcessVolume>();
             volume.profile.TryGetSettings(out ambient);
@@ -74,12 +74,12 @@ public class OptionManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        SoundPage.SetActive(true);
-        GraphicPage.SetActive(false);
+        SoundPage.SetActive(false);
+        GraphicPage.SetActive(true);
         ControlPage.SetActive(false);
-        BackGroundSound.value = DataController.Instance.backgroundSound ;
+        BackGroundSound.value = DataController.Instance.backgroundSound;
         EffectsSound.value = DataController.Instance.effectSound;
-        MouseMoving.value = 1-DataController.Instance.mouseMoving;
+        MouseMoving.value = 1 - DataController.Instance.mouseMoving;
     }
 
     public void CloseOption()
@@ -226,7 +226,7 @@ public class OptionManager : MonoBehaviour
 
     public void VSyncSetting()
     {
-        if(DataController.Instance.gameData.Vsync == false)
+        if (DataController.Instance.gameData.Vsync == false)
         {
             //Vsync켜기
             VsyncOff.SetActive(false);
@@ -234,7 +234,7 @@ public class OptionManager : MonoBehaviour
             QualitySettings.vSyncCount = 1;
             DataController.Instance.gameData.Vsync = true;
         }
-        else if(DataController.Instance.gameData.Vsync == true)
+        else if (DataController.Instance.gameData.Vsync == true)
         {
             //Vsync끄기
             VsyncOff.SetActive(true);
@@ -289,4 +289,49 @@ public class OptionManager : MonoBehaviour
         }
     }
 
+    public void ReSetOption()
+    {
+        DataController.Instance.gameData.BackgroundSound = 100;
+        DataController.Instance.gameData.EffectSound = 100;
+        DataController.Instance.gameData.MouseMoving = 5;
+        DataController.Instance.backgroundSound = 1;
+        DataController.Instance.effectSound = 1;
+        DataController.Instance.mouseMoving = 0.5f;
+        BackGroundSound.value = DataController.Instance.backgroundSound;
+        EffectsSound.value = DataController.Instance.effectSound;
+        MouseMoving.value = 1 - DataController.Instance.mouseMoving;
+
+        DataController.Instance.gameData.Shadow = 3;
+
+        DataController.Instance.gameData.TexturQuality = 3;
+        DataController.Instance.gameData.AntiAliasing = 2;
+
+        DataController.Instance.gameData.ResolutionNum = 4;
+        DataController.Instance.gameData.WindowNum = 0;
+        DataController.Instance.gameData.ResolutionX = 1920;
+        DataController.Instance.gameData.ResolutionY = 1080;
+        DataController.Instance.gameData.fullScreen = true;
+
+        ResolutionDropdown.value = DataController.Instance.gameData.ResolutionNum;
+        WindowSettingDropdown.value = DataController.Instance.gameData.WindowNum;
+        ShadowSettiongDropdown.value = DataController.Instance.gameData.Shadow;
+        TextureQualityDropdown.value = DataController.Instance.gameData.TexturQuality;
+        AntiAliasingDropdown.value = DataController.Instance.gameData.AntiAliasing;
+
+        DataController.Instance.gameData.AmbientOcclution = true;
+        AmbientOcclusionOff.SetActive(false);
+        AmbientOcclusionOn.SetActive(true);
+        ambient.enabled.value = true;
+
+        DataController.Instance.gameData.Vsync = false;
+        VsyncOff.SetActive(true);
+        VsyncOn.SetActive(false);
+        QualitySettings.vSyncCount = 0;
+
+        DataController.Instance.gameData.Fog = true;
+        FogOff.SetActive(false);
+        FogOn.SetActive(true);
+        RenderSettings.fog = true;
+
+    }
 }

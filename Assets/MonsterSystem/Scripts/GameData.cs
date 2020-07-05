@@ -30,7 +30,7 @@ public class GameData
     public bool StageThreeIsOpen = false;
     public bool StageBossIsOpen = false;
 
-    public int ResolutionNum = 0;
+    public int ResolutionNum = 4;
     public int WindowNum = 0;
     public int ResolutionX = 1920;
     public int ResolutionY = 1080;
