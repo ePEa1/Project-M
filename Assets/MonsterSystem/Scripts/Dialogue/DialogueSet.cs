@@ -68,10 +68,15 @@ public class DialogueSet : MonoBehaviour
 
     void Update()
     {
+
+
         if (IsCompleteDisplayText)
         {
+            NextImg.gameObject.SetActive(true);
+
             if (currentLine < scenarios.Length && Input.GetMouseButtonDown(0))
             {
+
                 SetNextLine();
             }
         }
@@ -163,6 +168,8 @@ public class DialogueSet : MonoBehaviour
     }
     void SetNextLine()
     {
+        NextImg.gameObject.SetActive(false);
+
         currentText = scenarios[currentLine];
         timeUntilDisplay = currentText.Length * intervalForCharacterDisplay;
         timeElapsed = Time.time;

@@ -30,7 +30,10 @@ public class CutSceneSet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentImg = 0;
+        StartCoroutine(FadeIn());
         SetNextLine();
+
         CutSceneImgBack.color = new Color(1, 1, 1, 1);
 
 
@@ -63,7 +66,7 @@ public class CutSceneSet : MonoBehaviour
             CutSceneImgFront.color = new Color(1,1,1,currentAlpha);
             lastUpdateAlpha = displayAlpha;
         }
-        if (currentImg == Imglist.Length && Input.GetMouseButtonDown(0))//끝났을 때
+        if (currentImg == Imglist.Length+1 && Input.GetMouseButtonDown(0))//끝났을 때
         {
             CutSceneImgBack.color = new Color(1, 1, 1, 0);
             CutSceneImgFront.color = new Color(1, 1, 1, 0);
@@ -73,7 +76,8 @@ public class CutSceneSet : MonoBehaviour
     }
     void SetNextLine()
     {
-        if(currentImg == 0)
+
+        if (currentImg == 0)
         {
             CutSceneImgBack.sprite = none;
         }
@@ -116,18 +120,24 @@ public class CutSceneSet : MonoBehaviour
 
     //    }
     //}
+    public void Skip()
+    {
+        CutSceneImgBack.color = new Color(1, 1, 1, 0);
+        CutSceneImgFront.color = new Color(1, 1, 1, 0);
+        DataController.Instance.gameData.IsIntroShow = true;
+        LoadingSceneManager.LoadScene("Boss_BJW 3_SYW_0703_Merge");
 
+    }
     IEnumerator FadeIn()
     {
-
         for (float i = 0f; i >= 1; i += 0.005f * fadeSpeed)
         {
-            Color color = new Vector4(0, 0, 0, i);
+            Color color = new Vector4(1, 1, 1, i);
             FadeOut.color = color;
 
             if (FadeOut.color.a >= 1)
             {
-
+                StopAllCoroutines();
             }
 
             yield return null;
