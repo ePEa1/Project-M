@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CutSceneSet : MonoBehaviour
 {
@@ -68,10 +69,11 @@ public class CutSceneSet : MonoBehaviour
         }
         if (currentImg == Imglist.Length+1 && Input.GetMouseButtonDown(0))//끝났을 때
         {
-            CutSceneImgBack.color = new Color(1, 1, 1, 0);
-            CutSceneImgFront.color = new Color(1, 1, 1, 0);
+           // CutSceneImgBack.color = new Color(1, 1, 1, 0);
+            //CutSceneImgFront.color = new Color(1, 1, 1, 0);
             DataController.Instance.gameData.IsIntroShow = true;
-            LoadingSceneManager.LoadScene("Boss_BJW 3_SYW_0703_Merge");
+            StartCoroutine(FadeInGameOver());
+
         }
     }
     void SetNextLine()
@@ -105,21 +107,23 @@ public class CutSceneSet : MonoBehaviour
 
     }
 
-    //public void SetImages(int count)
-    //{
-    //    scenarios = new string[dialList.Count];
-    //    namelist = new string[dialList.Count];
-    //    emotionlist = new string[dialList.Count];
-    //    for (var i = 0; i < dialList.Count; i++)
-    //    {
-    //        namelist[i] = (string)dialList[i]["name"];
-    //        scenarios[i] = (string)dialList[i]["script"];
-    //        emotionlist[i] = (string)dialList[i]["emotion"];
+    IEnumerator FadeInGameOver()
+    {
 
+        for (float i = 0f; i >= 0; i += 0.005f * fadeSpeed)
+        {
+            Color color = new Vector4(0, 0, 0, i);
+            FadeOut.color = color;
 
+            if (FadeOut.color.a >= 1)
+            {
+                LoadingSceneManager.LoadScene("Boss_BJW 3_SYW_0703_Merge");
 
-    //    }
-    //}
+            }
+
+            yield return null;
+        }
+    }
     public void Skip()
     {
         CutSceneImgBack.color = new Color(1, 1, 1, 0);
