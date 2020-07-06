@@ -48,6 +48,7 @@ public class AttackAction : BaseAction
 
         m_animator.ResetTrigger("Atk");
         m_animator.SetBool("IsAtk", true);
+        m_animator.SetBool("IsCombat", true);
         m_nextAtk = true;
 
         m_effNum = 0;
@@ -75,6 +76,7 @@ public class AttackAction : BaseAction
         //애니메이터에 공격 취소 알림
         m_animator.SetBool("IsAtk", false);
         m_animator.ResetTrigger("Atk");
+
     }
 
     protected override void AnyStateAction()

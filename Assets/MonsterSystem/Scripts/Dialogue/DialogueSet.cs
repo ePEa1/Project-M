@@ -69,7 +69,10 @@ public class DialogueSet : MonoBehaviour
     void Update()
     {
 
-
+        if (Input.GetKeyDown(KeyCode.BackQuote))
+        {
+            SkipDial();
+        }
         if (IsCompleteDisplayText)
         {
             NextImg.gameObject.SetActive(true);
@@ -243,6 +246,20 @@ public class DialogueSet : MonoBehaviour
         currentLine = 0;
         SetNextLine();
 
+    }
+    public void SkipDial()
+    {
+        PlayerUI.SetActive(true);
+        DialogueScreen.SetActive(false);
+        //player.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
+        player.enabled = true;
+        //  playerEvents.SetActive(true);
+        PauseScreen.enabled = true;
+        //DataController.Instance.gameData.ScriptOne = true;
+        if (DataController.Instance.gameData.ScriptOne == true)
+        {
+            StartCoroutine(FadeOut());
+        }
     }
     IEnumerator FadeOut()
     {
