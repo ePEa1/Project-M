@@ -6,11 +6,7 @@ using UnityEngine;
 public class Dialogue
 {
     public string name;
+    public string emotion;
     [TextArea(1, 5)]
-    public string line;
-    public int position;
-    public Sprite sprite;
-    public Sprite estelleImg;
-    public Sprite serenaImg;
-    public Sprite background;
+    public string script;
 }
