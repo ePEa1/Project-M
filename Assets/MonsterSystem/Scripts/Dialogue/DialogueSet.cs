@@ -101,16 +101,22 @@ public class DialogueSet : MonoBehaviour
         }
         if (currentLine == scenarios.Length && Input.GetMouseButtonDown(0))
         {
-            PlayerUI.SetActive(true);
-            DialogueScreen.SetActive(false);
-            //player.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
-            player.enabled = true;
-          //  playerEvents.SetActive(true);
-            PauseScreen.enabled = true;
-            //DataController.Instance.gameData.ScriptOne = true;
-            if(DataController.Instance.gameData.ScriptOne == true)
+            if(DataController.Instance.gameData.ScriptOne == true && DataController.Instance.gameData.ScriptOneEnd == false)
             {
+                DialogueScreen.SetActive(false);
+
                 StartCoroutine(FadeOut());
+            }
+            if(DataController.Instance.gameData.ScriptOneEnd == true)
+            {
+                PlayerUI.SetActive(true);
+                DialogueScreen.SetActive(false);
+                //player.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
+                player.enabled = true;
+                //  playerEvents.SetActive(true);
+                PauseScreen.enabled = true;
+                //DataController.Instance.gameData.ScriptOne = true;
+
             }
         }
     }
@@ -194,7 +200,7 @@ public class DialogueSet : MonoBehaviour
             namelist[i] = (string)dialList[i]["name"];
             scenarios[i] = (string)dialList[i]["script"];
             emotionlist[i] = (string)dialList[i]["emotion"];
-            
+
 
 
         }
@@ -249,16 +255,22 @@ public class DialogueSet : MonoBehaviour
     }
     public void SkipDial()
     {
-        PlayerUI.SetActive(true);
-        DialogueScreen.SetActive(false);
-        //player.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
-        player.enabled = true;
-        //  playerEvents.SetActive(true);
-        PauseScreen.enabled = true;
-        //DataController.Instance.gameData.ScriptOne = true;
-        if (DataController.Instance.gameData.ScriptOne == true)
+        if (DataController.Instance.gameData.ScriptOne == true && DataController.Instance.gameData.ScriptOneEnd == false)
         {
+            DialogueScreen.SetActive(false);
+
             StartCoroutine(FadeOut());
+        }
+        if (DataController.Instance.gameData.ScriptOneEnd == true)
+        {
+            PlayerUI.SetActive(true);
+            DialogueScreen.SetActive(false);
+            //player.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
+            player.enabled = true;
+            //  playerEvents.SetActive(true);
+            PauseScreen.enabled = true;
+            //DataController.Instance.gameData.ScriptOne = true;
+
         }
     }
     IEnumerator FadeOut()
@@ -267,6 +279,14 @@ public class DialogueSet : MonoBehaviour
         {
             Color color = new Vector4(0, 0, 0, i);
             FadeOutImg.color = color;
+            if(FadeOutImg.color.a <= 0)
+            {
+                if (DataController.Instance.gameData.ScriptOneEnd == false)
+                {
+                    DataController.Instance.gameData.ScriptOneEnd = true;
+                }
+
+            }
 
             yield return null;
         }
