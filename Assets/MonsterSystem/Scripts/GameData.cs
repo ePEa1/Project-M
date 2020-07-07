@@ -41,13 +41,14 @@ public class GameData
     public bool IsIntroShow = false;
 
 
-
+    public int StageEndCount = 0;
     public int FirstStageSavePointOrder = 0;
     public int BossStageSavePointOrder = 0;
 
 
     public int Scriptcount = 0;
     public bool ScriptOne = false;
+    public bool ScriptOneEnd = false;
     public bool ScriptTwo = false;
     public bool ScriptThree = false;
     public bool ScriptFour = false;

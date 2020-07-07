@@ -33,7 +33,10 @@ namespace ProjectM.ePEa.LDSystem
             }
 
             if (m_nowGroup >= m_maxGroup && GameObject.FindGameObjectsWithTag("Enemy").Length == 0 && GameObject.FindGameObjectsWithTag("Spawner").Length == 0)
+            {
                 m_Walls.SetActive(false);
+                DataController.Instance.gameData.StageEndCount = m_pattonIndex;
+            }
         }
 
         int GetMaxGroup(int SpawnGroupIndex)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CutSceneSet : MonoBehaviour
 {
@@ -30,7 +31,10 @@ public class CutSceneSet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentImg = 0;
+        StartCoroutine(FadeIn());
         SetNextLine();
+
         CutSceneImgBack.color = new Color(1, 1, 1, 1);
 
 
@@ -63,17 +67,19 @@ public class CutSceneSet : MonoBehaviour
             CutSceneImgFront.color = new Color(1,1,1,currentAlpha);
             lastUpdateAlpha = displayAlpha;
         }
-        if (currentImg == Imglist.Length && Input.GetMouseButtonDown(0))//끝났을 때
+        if (currentImg == Imglist.Length+1 && Input.GetMouseButtonDown(0))//끝났을 때
         {
-            CutSceneImgBack.color = new Color(1, 1, 1, 0);
-            CutSceneImgFront.color = new Color(1, 1, 1, 0);
+           // CutSceneImgBack.color = new Color(1, 1, 1, 0);
+            //CutSceneImgFront.color = new Color(1, 1, 1, 0);
             DataController.Instance.gameData.IsIntroShow = true;
-            LoadingSceneManager.LoadScene("Boss_BJW 3_SYW_0703_Merge");
+            StartCoroutine(FadeInGameOver());
+
         }
     }
     void SetNextLine()
     {
-        if(currentImg == 0)
+
+        if (currentImg == 0)
         {
             CutSceneImgBack.sprite = none;
         }
@@ -101,33 +107,41 @@ public class CutSceneSet : MonoBehaviour
 
     }
 
-    //public void SetImages(int count)
-    //{
-    //    scenarios = new string[dialList.Count];
-    //    namelist = new string[dialList.Count];
-    //    emotionlist = new string[dialList.Count];
-    //    for (var i = 0; i < dialList.Count; i++)
-    //    {
-    //        namelist[i] = (string)dialList[i]["name"];
-    //        scenarios[i] = (string)dialList[i]["script"];
-    //        emotionlist[i] = (string)dialList[i]["emotion"];
-
-
-
-    //    }
-    //}
-
-    IEnumerator FadeIn()
+    IEnumerator FadeInGameOver()
     {
 
-        for (float i = 0f; i >= 1; i += 0.005f * fadeSpeed)
+        for (float i = 0f; i >= 0; i += 0.005f * fadeSpeed)
         {
             Color color = new Vector4(0, 0, 0, i);
             FadeOut.color = color;
 
             if (FadeOut.color.a >= 1)
             {
+                LoadingSceneManager.LoadScene("Boss_BJW 3_SYW_0703_Merge");
 
+            }
+
+            yield return null;
+        }
+    }
+    public void Skip()
+    {
+        CutSceneImgBack.color = new Color(1, 1, 1, 0);
+        CutSceneImgFront.color = new Color(1, 1, 1, 0);
+        DataController.Instance.gameData.IsIntroShow = true;
+        LoadingSceneManager.LoadScene("Boss_BJW 3_SYW_0703_Merge");
+
+    }
+    IEnumerator FadeIn()
+    {
+        for (float i = 0f; i >= 1; i += 0.005f * fadeSpeed)
+        {
+            Color color = new Vector4(1, 1, 1, i);
+            FadeOut.color = color;
+
+            if (FadeOut.color.a >= 1)
+            {
+                StopAllCoroutines();
             }
 
             yield return null;

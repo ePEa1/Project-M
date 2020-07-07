@@ -8,7 +8,7 @@ public class IdleAction : BaseAction
 {
 
     [SerializeField] float CombatTime;
-    float curCombatTime = 0;
+    public float curCombatTime = 0;
 
     protected override BaseAction OnStartAction()
     {
@@ -32,12 +32,17 @@ public class IdleAction : BaseAction
 
     protected override BaseAction OnUpdateAction()
     {
-        curCombatTime -= Time.deltaTime;
-        if (curCombatTime <= 0)
-        {
-            curCombatTime = 0;
-            m_animator.SetBool("IsCombat", false);
-        }
+        //curCombatTime -= Time.deltaTime;
+        //if (curCombatTime <= 0)
+        //{
+        //    curCombatTime = 0;
+        //    m_animator.SetBool("IsCombat", false);
+        //    m_animator.SetTrigger("NoneCombat");
+        //}
+        //else if (curCombatTime >= 0)
+        //{
+        //        m_animator.SetBool("IsCombat", true);
+        //}
         //어느 상태로도 이동할 수 있도록 처리
         if (m_controller.IsMoving)
         {
@@ -47,6 +52,9 @@ public class IdleAction : BaseAction
         if (m_controller.IsAttack())
         {
             SetCombatState();
+            m_animator.SetBool("IsAtk", true);
+            m_animator.SetTrigger("Atk");
+
             m_owner.ChangeAction(PlayerFsmManager.PlayerENUM.ATK);
         }
         //if (m_controller.IsDodge() && PlayerStats.playerStat.m_currentDodgeDelay == 0)
@@ -75,17 +83,6 @@ public class IdleAction : BaseAction
     void SetCombatState()
     {
         curCombatTime = CombatTime;
-
-        if (m_controller.IsAttack())
-        {
-            m_animator.SetBool("IsAtk", true);
-            m_animator.SetTrigger("Atk");
-        }
-        else
-        {
-            m_animator.SetBool("IsCombat", true);
-        }
-
     }
 }
 

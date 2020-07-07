@@ -13,16 +13,16 @@ public class LoadingSceneManager : MonoBehaviour
     Image progressBar;
     [SerializeField] Image RotHourglass;
     float RotateSpeed = 3;
-
+    public Image ConceptScree;
     [SerializeField] Text TipsTxt;
-    [SerializeField] Sprite ConceptImg;
-    [SerializeField] string[] Tips;
-    [SerializeField] Sprite[] ConceptSprite;
+    [SerializeField] Sprite[] ConceptImg;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        int random = Random.Range(0, 2);
+        ConceptScree.sprite = ConceptImg[random];
         StartCoroutine(LoadScene());
     }
 
