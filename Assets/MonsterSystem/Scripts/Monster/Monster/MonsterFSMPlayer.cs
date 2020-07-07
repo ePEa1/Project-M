@@ -32,11 +32,13 @@ public class MonsterFSMPlayer : MonsterFSMBase
     [SerializeField] float attackRange = 4.5f; // 공격범위
     [SerializeField] float attackTime = 2f; // 공격범위
     [SerializeField] float m_rushRange = 2f; // 공격범위
+    [SerializeField] float m_chaseRange = 8;
     [SerializeField] float moveSpeed;
     [SerializeField] float rushSpeed;
     [SerializeField] float refillSpeed;
     [SerializeField] public float rotateSpeed;
     [SerializeField] float restTime = 5f;
+    [SerializeField] float atkrestTime = 3f;
     [SerializeField] float refillTime = 2;
     [SerializeField] AnimationCurve m_damAc;
     [SerializeField] AnimationCurve m_atkAc;
@@ -60,9 +62,12 @@ public class MonsterFSMPlayer : MonsterFSMBase
 
     float m_time = 0.0f;
     float m_nowDelay = 0.0f;
+    float m_attackDelay = 0f;
 
     public bool IsChase = false;
     public bool IsDecrease = false;
+    public bool IsCombat = false;
+    public bool Isalert = false;
     bool isAtk = false;
 
 
@@ -97,13 +102,19 @@ public class MonsterFSMPlayer : MonsterFSMBase
             currentHP = Mathf.Min(maxHP, currentHP + Time.deltaTime * refillSpeed);
         m_nowDelay = Mathf.Max(0, m_nowDelay - Time.deltaTime);
 
+        refillBar.fillAmount = (refillTime-currefillTime) / refillTime;
+
         if (currentHP <= 0)
         {
             DataController.Instance.gameData.firstStageMonster -= 1;
             DestroyTarget();
             SetState(MonsterState.Dead);
         }
-
+        //if (currentHP < 40)
+        //{
+        //    Isalert = true;
+        //    SetState(MonsterState.Move);
+        //}
         if (IsDecrease)
         {
             backhp.GetComponent<Image>().fillAmount = Mathf.Lerp(backhp.fillAmount, hpbar.fillAmount, Time.deltaTime * 5.0f);
@@ -113,6 +124,10 @@ public class MonsterFSMPlayer : MonsterFSMBase
                 backhp.fillAmount = hpbar.fillAmount;
 
             }
+        }
+        if(IsCombat == true)
+        {
+            Util.CKRotate(transform, player.position, rotateSpeed);
         }
 
     }
@@ -125,10 +140,21 @@ public class MonsterFSMPlayer : MonsterFSMBase
             t_idle += Time.deltaTime;
             if(t_idle >= restTime)
             {
-                SetState(MonsterState.Move);
+                    SetState(MonsterState.Move);
+                    break;
+                
             }
-            if (Util.Detect(transform.position, player.transform.position, 5))
+            if(t_idle >= atkrestTime)
             {
+                if (IsCombat == true)
+                {
+                    SetState(MonsterState.Chase);
+                    break;
+                }
+            }
+            if (Util.Detect(transform.position, player.transform.position, m_chaseRange) && IsCombat ==false)
+            {
+                IsCombat = true;
                 SetState(MonsterState.Chase);
                 break;
             }
@@ -137,13 +163,23 @@ public class MonsterFSMPlayer : MonsterFSMBase
 
     protected virtual IEnumerator Move()
     {
-        destination = new Vector3((transform.position.x + Random.Range(-5, 5)), transform.position.y, (transform.position.z + Random.Range(-5, 5)));
+        if (Isalert == true)
+        {
+            Isalert = false;
+            destination = new Vector3((transform.position.x + Random.Range(-10, 10)), transform.position.y, (transform.position.z + Random.Range(-10, 10)));
+        }
+        else
+        {
+            destination = new Vector3((transform.position.x + Random.Range(-5, 5)), transform.position.y, (transform.position.z + Random.Range(-5, 5)));
+        }
 
         do
         {
             yield return null;
-            if (Util.Detect(transform.position, player.transform.position, 5))
+            if (Util.Detect(transform.position, player.transform.position, m_chaseRange))
             {
+
+                IsCombat = true;
                 SetState(MonsterState.Chase);
                 break;
             }
@@ -170,12 +206,19 @@ public class MonsterFSMPlayer : MonsterFSMBase
             Vector3 diff = destination - destinationposition;
             Vector3 groundCheck = diff - destination;
 
-            if (groundCheck.sqrMagnitude <= attackRange * attackRange)
+            if (groundCheck.sqrMagnitude <= attackRange* attackRange)
             {
-                IsChase = false;
-
-                SetState(MonsterState.Attack);
-                break;
+                if(m_nowDelay <= 0)
+                {
+                    IsChase = false;
+                    SetState(MonsterState.Attack);
+                    break;
+                }
+                else
+                {
+                    SetState(MonsterState.Idle);
+                    break;
+                }
             }
 
             yield return null;
@@ -194,14 +237,21 @@ public class MonsterFSMPlayer : MonsterFSMBase
         } while (!isNewState);
     }
 
+    protected virtual IEnumerator Damage()
+    {
+        do
+        {
+            yield return null;
 
+        } while (!isNewState);
+    }
 
     protected virtual IEnumerator Dead()
     {
         do
         {
             yield return null;
-            Destroy(gameObject, 2);
+            Destroy(gameObject);
         } while (!isNewState);
     }
 
@@ -259,7 +309,7 @@ public class MonsterFSMPlayer : MonsterFSMBase
 
     public void AtkEnd()
     {
-        SetState(MonsterState.Chase);
+        SetState(MonsterState.Idle);
         m_time = 0.0f;
 
         m_destPos = new Vector3(transform.position.x, 0.0f, transform.position.z);
@@ -268,28 +318,30 @@ public class MonsterFSMPlayer : MonsterFSMBase
 
     public void GetDamage(float dam)
     {
-        currentHP -= dam;
+    }
 
-        if(currentHP <= 0)
+    public void TakeDamage(float damage, Vector3 knockDir, float knockPower)
+    {
+        currentHP -= damage;
+        Debug.Log("GetDamage");
+
+        if (currentHP <= 0)
         {
             SetState(MonsterState.Dead);
             currentHP = 0;
             return;
         }
-        if(CHState != MonsterState.Attack)
-        {
-            Util.CKRotate(transform, player.position, rotateSpeed);
-        }
-    }
+        //if (CHState != MonsterState.Attack)
+        //{
+        //    Util.CKRotate(transform, player.position, rotateSpeed);
+        //}
 
-    public void TakeDamage(float damage, Vector3 knockDir, float knockPower)
-    {
-        GetDamage(damage);
-        StartCoroutine(Damage());
 
-       //m_time = 0.0f;
+        StartCoroutine(IsDamage());
 
-       // m_currentReTime = m_refillTime;
+       m_time = 0.0f;
+
+        currefillTime = refillTime;
 
 
         m_knockTime = 0;
@@ -301,7 +353,7 @@ public class MonsterFSMPlayer : MonsterFSMBase
         eff.transform.position = transform.position + Vector3.up;
         eff.transform.rotation = Camera.main.transform.rotation;
 
-        // Invoke("HPDecrease", 0.5f);
+        Invoke("HPDecrease", 0.5f);
 
     }
     void DamageStart()
@@ -316,10 +368,10 @@ public class MonsterFSMPlayer : MonsterFSMBase
 
         if (m_knockTime > 1)
         {
-            SetState(MonsterState.Chase);
+            SetState(MonsterState.Idle);
         }
     }
-    IEnumerator Damage()
+    IEnumerator IsDamage()
     {
         for (int i = 0; i < skinned.Length; i++)
         {

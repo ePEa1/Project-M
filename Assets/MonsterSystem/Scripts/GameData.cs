@@ -30,7 +30,7 @@ public class GameData
     public bool StageThreeIsOpen = false;
     public bool StageBossIsOpen = false;
 
-    public int ResolutionNum = 0;
+    public int ResolutionNum = 4;
     public int WindowNum = 0;
     public int ResolutionX = 1920;
     public int ResolutionY = 1080;
@@ -38,10 +38,21 @@ public class GameData
 
 
     //StageCount
+    public bool IsIntroShow = false;
+
+
+    public int StageEndCount = 0;
     public int FirstStageSavePointOrder = 0;
     public int BossStageSavePointOrder = 0;
 
 
+    public int Scriptcount = 0;
+    public bool ScriptOne = false;
+    public bool ScriptOneEnd = false;
+    public bool ScriptTwo = false;
+    public bool ScriptThree = false;
+    public bool ScriptFour = false;
+    public bool ScriptFive = false;
     public int PlayerCombo = 0;
     public bool IsCombo = false;
 
