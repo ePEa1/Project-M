@@ -36,7 +36,6 @@ public class GameData
     //StageCount
     public bool IsIntroShow = false;
 
-
     public int StageEndCount = 0;
     public int FirstStageSavePointOrder = 0;
     public int BossStageSavePointOrder = 0;
