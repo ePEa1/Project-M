@@ -11,11 +11,13 @@ public class FadeInOut : MonoBehaviour
     public Image FadeOutImg;
     public GameObject player;
     [SerializeField] float FadeSpeed;
+    
 
     private void Start()
     {
         StartCoroutine(FadeOut());
-        if(GameObject.FindGameObjectWithTag("Player") != null)
+
+        if (GameObject.FindGameObjectWithTag("Player") != null)
         {
             player = GameObject.FindGameObjectWithTag("Player");
         }
@@ -28,6 +30,9 @@ public class FadeInOut : MonoBehaviour
         }
     }
 
+    public void GetFadeOut()
+    {
+    }
     IEnumerator FadeInGameStart(string scene)
     {
 

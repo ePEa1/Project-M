@@ -136,6 +136,37 @@ public class DataController : MonoBehaviour
     {
         Screen.SetResolution(Instance.gameData.ResolutionX, Instance.gameData.ResolutionY, Instance.gameData.fullScreen);
     }
+
+    public void SetScriptTrue(int count)
+    {
+        switch (count)
+        {
+            case 0:
+                Instance.gameData.Scriptcount = 1;
+                Instance.gameData.ScriptOne = true;
+                break;
+            case 1:
+                Instance.gameData.Scriptcount = 2;
+                Instance.gameData.ScriptTwo = true;
+
+                break;
+            case 2:
+                Instance.gameData.Scriptcount = 3;
+                Instance.gameData.ScriptThree = true;
+
+                break;
+            case 3:
+                Instance.gameData.Scriptcount = 4;
+                Instance.gameData.ScriptFour = true;
+
+                break;
+            case 4:
+                Instance.gameData.Scriptcount = 5;
+                Instance.gameData.ScriptFive = true;
+
+                break;
+        }
+    }
 }
 //이 데이터를 사용할 시 데이터 추가할 경우 GameData에 변수 지정.
 //변수를 다른 스크립트로 지정할땐 헤더에 using System; 지정 후 더하거나 곲할 값들은 DataController.Instance.gameData.변수이름

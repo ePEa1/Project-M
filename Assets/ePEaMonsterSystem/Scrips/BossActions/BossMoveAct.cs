@@ -12,6 +12,7 @@ public class BossMoveAct : EnemyAction
 
     #region Value
     float m_currentDelay;
+    float m_currentMove = 0.0f;
     #endregion
 
     #region Base
@@ -44,7 +45,7 @@ public class BossMoveAct : EnemyAction
     {
         if (m_currentDelay == 0 && GetDistance() < 6.0f)
         {
-            int patton = Random.Range(0, 3);
+            int patton = 0;//Random.Range(0, 3);
 
             switch(patton)
             {
@@ -58,6 +59,10 @@ public class BossMoveAct : EnemyAction
 
                 case 2:
                     m_owner.ChangeStat("StrongAtk");
+                    break;
+
+                case 3:
+                    m_owner.ChangeStat("SpinAtk");
                     break;
             }
             m_currentDelay = m_atkDelay;
@@ -87,8 +92,19 @@ public class BossMoveAct : EnemyAction
         {
             m_owner.transform.position += ToTarget() * Time.deltaTime * m_moveSpeed;
             m_owner.transform.rotation = Quaternion.LookRotation(ToTarget());
+            m_currentMove = Mathf.Min(1, m_currentMove + Time.deltaTime * 5.0f);
+            
         }
+        else
+        {
+            m_owner.transform.rotation = Quaternion.LookRotation(ToTarget());
+            m_currentMove = Mathf.Max(0, m_currentMove - Time.deltaTime * 5.0f);
+        }
+        m_animator.SetFloat("Moving", m_currentMove);
     }
 
     #endregion
 }
+
+
+//-----------------------------------------------

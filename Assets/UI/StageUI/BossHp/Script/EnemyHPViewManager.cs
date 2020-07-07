@@ -51,12 +51,13 @@ public class EnemyHPViewManager : MonoBehaviour
 
     ProtoBossFSM boss = null;
 
+
     #endregion
 
     void Awake()
     {
         m_centerPos = GetComponent<RectTransform>().position;
-        if (GameObject.FindWithTag("Boss") != null)
+        if (GameObject.FindWithTag("Boss") != null )
         {
             m_hpBarBox.SetActive(true);
             boss = GameObject.FindWithTag("Boss").GetComponent<ProtoBossFSM>();
@@ -68,7 +69,7 @@ public class EnemyHPViewManager : MonoBehaviour
 
     void Start()
     {
-        if (GameObject.FindWithTag("Boss") != null)
+        if (GameObject.FindWithTag("Boss") != null )
         {
             m_hpBarBox.SetActive(true);
             boss = GameObject.FindWithTag("Boss").GetComponent<ProtoBossFSM>();

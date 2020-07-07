@@ -21,6 +21,7 @@ public class StartSceneManager : MonoBehaviour
 
     [SerializeField] float FadeTime;
     [SerializeField] string m_nextScene;
+    string gotoNextScene;
 
     void Start()
     {
@@ -54,8 +55,16 @@ public class StartSceneManager : MonoBehaviour
     }
     public void StartGameButton()
     {
+        if (DataController.Instance.gameData.IsIntroShow == true)
+        {
+            gotoNextScene = m_nextScene;
+        }
+        else
+        {
+            gotoNextScene = "CutScene";
+        }
         SetSound(Push, UISound);
-
+        
         StartCoroutine(FadeInGameStart());
     }
     public void OpenOption()
@@ -102,7 +111,7 @@ public class StartSceneManager : MonoBehaviour
 
             if(FadeImg.color.a >= 1)
             {
-                LoadingSceneManager.LoadScene(m_nextScene);
+                LoadingSceneManager.LoadScene(gotoNextScene);
 
             }
 
