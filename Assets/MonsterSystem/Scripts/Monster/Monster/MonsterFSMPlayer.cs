@@ -184,6 +184,8 @@ public class MonsterFSMPlayer : MonsterFSMBase
                 break;
             }
             Util.CKMove(transform.gameObject, transform, destination, moveSpeed, rotateSpeed);
+           // Vector3 fixedPos = FixedMovePos(transform.position, 0.6f, (afterPos - beforePos).normalized, Vector3.Distance(beforePos, afterPos), m_wall);
+
             diff = destination - transform.position;
 
             if (diff.sqrMagnitude < 0.3f * 0.3f)
