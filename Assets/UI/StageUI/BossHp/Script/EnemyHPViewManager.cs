@@ -49,31 +49,30 @@ public class EnemyHPViewManager : MonoBehaviour
 
     Vector3 m_centerPos; //hp바 처음 위치
 
-    ProtoBossFSM boss = null;
-
+    BossStats boss = null;
 
     #endregion
 
     void Awake()
     {
         m_centerPos = GetComponent<RectTransform>().position;
-        if (GameObject.FindWithTag("Boss") != null )
-        {
-            m_hpBarBox.SetActive(true);
-            boss = GameObject.FindWithTag("Boss").GetComponent<ProtoBossFSM>();
-            m_maxHp = boss.m_maxHp;
-            Setup();
-        }
+        //if (GameObject.FindWithTag("Boss") != null)
+        //{
+        //    m_hpBarBox.SetActive(true);
+        //    boss = GameObject.FindWithTag("Boss").GetComponent<ProtoBossFSM>();
+        //    m_maxHp = boss.MaxHp;
+        //    Setup();
+        //}
 
     }
 
     void Start()
     {
-        if (GameObject.FindWithTag("Boss") != null )
+        if (GameObject.FindWithTag("Boss") != null)
         {
             m_hpBarBox.SetActive(true);
-            boss = GameObject.FindWithTag("Boss").GetComponent<ProtoBossFSM>();
-            m_maxHp = boss.m_maxHp;
+            boss = GameObject.FindWithTag("Boss").GetComponent<BossStats>();
+            m_maxHp = boss.MaxHp;
             Setup();
         }
     }
@@ -99,8 +98,8 @@ public class EnemyHPViewManager : MonoBehaviour
             if (GameObject.FindWithTag("Boss") != null)
             {
                 m_hpBarBox.SetActive(true);
-                boss = GameObject.FindWithTag("Boss").GetComponent<ProtoBossFSM>();
-                m_maxHp = boss.m_maxHp;
+                boss = GameObject.FindWithTag("Boss").GetComponent<BossStats>();
+                m_maxHp = boss.MaxHp;
                 Setup();
             }
         }
@@ -123,7 +122,7 @@ public class EnemyHPViewManager : MonoBehaviour
             hps[i] = Instantiate(m_hpBar);
             hps[i].transform.parent = transform;
             hps[i].transform.localPosition = m_originPos + Vector3.forward * i * 1.0f;
-            //hps[i].GetComponent<Image>().color = m_hpColor[i % m_hpColor.Length];
+            hps[i].GetComponent<Image>().color = m_hpColor[i % m_hpColor.Length];
             hps[i].GetComponent<RectTransform>().sizeDelta = new Vector2(GetComponent<RectTransform>().rect.width, GetComponent<RectTransform>().rect.height);
             hps[i].transform.localScale = new Vector3(1, 1, 1);
         }
@@ -140,7 +139,7 @@ public class EnemyHPViewManager : MonoBehaviour
 
     void UpdateShield()
     {
-        m_shield.fillAmount = boss.m_currentShield / boss.m_shieldMax;
+        m_shield.fillAmount = boss.m_currentShield / boss.MaxShield;
     }
 
     /// <summary>
