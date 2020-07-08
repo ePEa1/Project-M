@@ -17,10 +17,7 @@ public class GameData
     public int AntiAliasing = 2;
 
     public bool AmbientOcclution = true;
-
-
     public bool Vsync = false;
-
     public bool Fog = true;
 
     public int firstStageMonster = 6;
@@ -36,10 +33,8 @@ public class GameData
     public int ResolutionY = 1080;
     public bool fullScreen = true;
 
-
     //StageCount
     public bool IsIntroShow = false;
-
 
     public int StageEndCount = 0;
     public int FirstStageSavePointOrder = 0;
