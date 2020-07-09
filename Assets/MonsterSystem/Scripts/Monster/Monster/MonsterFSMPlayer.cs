@@ -184,6 +184,8 @@ public class MonsterFSMPlayer : MonsterFSMBase
                 break;
             }
             Util.CKMove(transform.gameObject, transform, destination, moveSpeed, rotateSpeed);
+           // Vector3 fixedPos = FixedMovePos(transform.position, 0.6f, (afterPos - beforePos).normalized, Vector3.Distance(beforePos, afterPos), m_wall);
+
             diff = destination - transform.position;
 
             if (diff.sqrMagnitude < 0.3f * 0.3f)
@@ -302,7 +304,7 @@ public class MonsterFSMPlayer : MonsterFSMBase
         eff.transform.parent = transform;
         eff.transform.localPosition = new Vector3(0.0f, 1.0f, 1.0f);
 
-        transform.rotation = Quaternion.LookRotation(m_endPos - m_startPos);
+        //transform.rotation = Quaternion.LookRotation(m_endPos - m_startPos);
         m_atkCollider.knockPower = 5.0f;
         m_atkCollider.knockVec = (m_endPos - m_startPos).normalized;
     }
@@ -335,21 +337,16 @@ public class MonsterFSMPlayer : MonsterFSMBase
         //{
         //    Util.CKRotate(transform, player.position, rotateSpeed);
         //}
-
-
         StartCoroutine(IsDamage());
 
        m_time = 0.0f;
 
         currefillTime = refillTime;
-
-
         m_knockTime = 0;
         m_knockStart = new Vector3(transform.position.x, 0.0f, transform.position.z);
         m_knockEnd = m_knockStart + knockDir * knockPower;
         transform.rotation = Quaternion.LookRotation(-knockDir);
         GameObject eff = Instantiate(m_damEff);
-
         eff.transform.position = transform.position + Vector3.up;
         eff.transform.rotation = Camera.main.transform.rotation;
 
@@ -364,7 +361,7 @@ public class MonsterFSMPlayer : MonsterFSMBase
 
         Vector3 fixedPos = FixedMovePos(transform.position, 0.6f, (after - before).normalized, Vector3.Distance(before, after), m_wall);
 
-        transform.position += after - before + fixedPos;
+        //transform.position += after - before + fixedPos;
 
         if (m_knockTime > 1)
         {
