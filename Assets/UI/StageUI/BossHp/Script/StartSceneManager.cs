@@ -27,6 +27,7 @@ public class StartSceneManager : MonoBehaviour
 
     void Start()
     {
+        DataController.Instance.PlayReset();
         Buttons.SetActive(false);
         OptionPage.SetActive(false);
         CreditObj.SetActive(false);
