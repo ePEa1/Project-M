@@ -12,6 +12,7 @@
 		_SpecValue ("SpecValue", Range(1,30)) = 3
 		_SpecValue2 ("SpecValue2", Range(50,500)) = 50
 		_AlphaValue ("Opacity", Range(0,1)) = 0.5
+		_ScrollValue ("ScrollValue", Range(0,10)) = 1
 		_Noise ("Noise", float) = 0.777
 		_Foam ("Foam", float) = 0.4
 		_Metallic ("Metallic", Range(0,1)) = 0
@@ -41,6 +42,7 @@
 		samplerCUBE _Cube;
 		float _SpecValue;
 		float _SpecValue2;
+		float _ScrollValue;
 		float _Noise;
 		float _Foam;
 		float _Metallic;
@@ -65,6 +67,7 @@
 			float3 viewDir;
 			float3 lightDir;
 			float4 screenPos;
+			float4 worldPos;
 			INTERNAL_DATA
         };
 
@@ -102,11 +105,11 @@
 			float4 waterColor = lerp( _Color , _Color2 , waterDepthDifference01 );
 			
 			float4 e = tex2D(_MainTex, float2(IN.uv_MainTex.y, IN.uv_MainTex.x + _Time.x ));
-			float4 f = tex2D(_MainTex, float2(IN.uv_MainTex.y + _Time.x, IN.uv_MainTex.x ));
+			float4 f = tex2D(_MainTex, float2(IN.uv_MainTex.y + (_Time.x * _ScrollValue), IN.uv_MainTex.x ));
 			float foam = saturate(depthDifference / _Foam);
 			float foamFinal = foam * _Noise;
 
-			float noise1 = e * f > foamFinal ? 3 : 0;
+			float noise1 = f > foamFinal ? 3 : 0;
 			float waterFoam = noise1 * _Color3;
 
 			//UNITY_TRANSFER_FOG(o, o.screenPos)
