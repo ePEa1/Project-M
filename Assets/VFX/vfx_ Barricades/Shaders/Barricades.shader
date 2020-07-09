@@ -65,7 +65,6 @@
 			float3 viewDir;
 			float3 lightDir;
 			float4 screenPos;
-			float4 worldPos;
 			INTERNAL_DATA
         };
 
@@ -107,7 +106,7 @@
 			float foam = saturate(depthDifference / _Foam);
 			float foamFinal = foam * _Noise;
 
-			float noise1 = f > foamFinal ? 3 : 0;
+			float noise1 = e * f > foamFinal ? 3 : 0;
 			float waterFoam = noise1 * _Color3;
 
 			//UNITY_TRANSFER_FOG(o, o.screenPos)
