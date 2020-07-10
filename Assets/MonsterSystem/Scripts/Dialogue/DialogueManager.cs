@@ -16,7 +16,7 @@ public class DialogueManager : MonoBehaviour
     public void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFsmManager>();
-       
+        QuestManager.questManager.StartQuest(DataController.Instance.gameData.QuestOrder);
         //playerEvents = player.transform.GetChild(0).gameObject;
 
 

@@ -56,6 +56,7 @@ public class MonsterFSMPlayer : MonsterFSMBase
     [SerializeField] float m_atkDelay; //공격 딜레이
     public Vector3 destination;
     public Vector3 diff;
+    Vector3 StartPos;
     Vector3 m_destPos;
     Vector3 m_startPos;
     Vector3 m_endPos;
@@ -77,6 +78,7 @@ public class MonsterFSMPlayer : MonsterFSMBase
         AddTarget();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerfsm = player.GetComponent<PlayerFsmManager>();
+        StartPos = transform.position;
     }
 
 
@@ -166,11 +168,11 @@ public class MonsterFSMPlayer : MonsterFSMBase
         if (Isalert == true)
         {
             Isalert = false;
-            destination = new Vector3((transform.position.x + Random.Range(-10, 10)), transform.position.y, (transform.position.z + Random.Range(-10, 10)));
+            destination = new Vector3((StartPos.x + Random.Range(-10, 10)), transform.position.y, (StartPos.z + Random.Range(-10, 10)));
         }
         else
         {
-            destination = new Vector3((transform.position.x + Random.Range(-5, 5)), transform.position.y, (transform.position.z + Random.Range(-5, 5)));
+            destination = new Vector3((StartPos.x + Random.Range(-5, 5)), transform.position.y, (StartPos.z + Random.Range(-5, 5)));
         }
 
         do

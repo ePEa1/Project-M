@@ -40,7 +40,7 @@ public class GameData
     public int FirstStageSavePointOrder = 0;
     public int BossStageSavePointOrder = 0;
 
-
+    public int QuestOrder = 0;
     public int Scriptcount = 0;
     public bool ScriptOne = false;
     public bool ScriptOneEnd = false;
