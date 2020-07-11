@@ -26,5 +26,12 @@ public class QuestManager : MonoBehaviour
     public void SetQuest(QuestType t)
     {
         transform.GetChild(0).GetComponent<Text>().text = m_quests[(int)t];
+        DataController.Instance.gameData.QuestOrder = (int)t;
+    }
+
+    public void StartQuest(int i)
+    {
+        transform.GetChild(0).GetComponent<Text>().text = m_quests[i];
+
     }
 }

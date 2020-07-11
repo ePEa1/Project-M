@@ -83,6 +83,7 @@ public class PauseManager : MonoBehaviour
 
     public void BackToMain()
     {
+        DataController.Instance.PlayReset();
         SceneManager.LoadScene("StartScene");
     }
     public void BackToSelectStage()
