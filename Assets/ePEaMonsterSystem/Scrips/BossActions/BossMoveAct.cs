@@ -45,7 +45,7 @@ public class BossMoveAct : EnemyAction
     {
         if (m_currentDelay == 0 && GetDistance() < 6.0f)
         {
-            int patton = 0;//Random.Range(0, 3);
+            int patton = Random.Range(0, 4);
 
             switch(patton)
             {

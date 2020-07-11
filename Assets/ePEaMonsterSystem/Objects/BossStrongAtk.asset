@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468143b2352940741a483c69fb4a6c21, type: 3}
   m_Name: BossStrongAtk
   m_EditorClassIdentifier: 
-  distance: 11
+  distance: 0.1
   distanceCurve:
     serializedVersion: 2
     m_Curve:
@@ -44,8 +44,8 @@ MonoBehaviour:
     damage: 1
     colCenter: {x: 0, y: 0, z: 0}
     colSize: {x: 0, y: 0, z: 0}
-    eff: {fileID: 0}
-    effPos: {x: 0, y: 0, z: 0}
-    effDir: {x: 0, y: 0, z: 0}
+    eff: {fileID: 1240271998515447112, guid: 17d69afd787b88242960fcdd4f4294e2, type: 3}
+    effPos: {x: 0, y: 0, z: 1.07}
+    effDir: {x: -90, y: -90, z: 0}
     sfx: {fileID: 0}
   shakeData: {fileID: 0}
