@@ -130,7 +130,7 @@ MonoBehaviour:
     value: 100
   lift:
     overrideState: 1
-    value: {x: 1, y: 0.8406185, z: 0.64233464, w: 0}
+    value: {x: 1, y: 0.954993, z: 0.8037645, w: 0}
   gamma:
     overrideState: 1
     value: {x: 1, y: 0.83406526, z: 0.63681084, w: 0}
@@ -1355,16 +1355,16 @@ MonoBehaviour:
     value: 1
   focusDistance:
     overrideState: 1
-    value: 6.31
+    value: 6.09
   aperture:
     overrideState: 1
-    value: 22.5
+    value: 32
   focalLength:
     overrideState: 1
-    value: 129
+    value: 164
   kernelSize:
     overrideState: 1
-    value: 3
+    value: 0
 --- !u!114 &-164180629403631560
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1377,7 +1377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a34fa72bd4185749832024e9c8010bf, type: 3}
   m_Name: ScreenSpaceReflections
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
@@ -1572,7 +1572,7 @@ MonoBehaviour:
     value: 7
   anamorphicRatio:
     overrideState: 1
-    value: 0
+    value: 0.1
   color:
     overrideState: 1
     value: {r: 1, g: 1, b: 1, a: 1}
