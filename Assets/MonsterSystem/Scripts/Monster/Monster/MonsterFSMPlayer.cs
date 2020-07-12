@@ -56,6 +56,7 @@ public class MonsterFSMPlayer : MonsterFSMBase
     [SerializeField] float m_atkDelay; //공격 딜레이
     public Vector3 destination;
     public Vector3 diff;
+    Vector3 StartPos;
     Vector3 m_destPos;
     Vector3 m_startPos;
     Vector3 m_endPos;
@@ -77,6 +78,7 @@ public class MonsterFSMPlayer : MonsterFSMBase
         AddTarget();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerfsm = player.GetComponent<PlayerFsmManager>();
+        StartPos = transform.position;
     }
 
 
@@ -127,7 +129,7 @@ public class MonsterFSMPlayer : MonsterFSMBase
         }
         if(IsCombat == true)
         {
-            Util.CKRotate(transform, player.position, rotateSpeed);
+            //Util.CKRotate(transform, player.position, rotateSpeed);
         }
 
     }
@@ -166,11 +168,11 @@ public class MonsterFSMPlayer : MonsterFSMBase
         if (Isalert == true)
         {
             Isalert = false;
-            destination = new Vector3((transform.position.x + Random.Range(-10, 10)), transform.position.y, (transform.position.z + Random.Range(-10, 10)));
+            destination = new Vector3((StartPos.x + Random.Range(-10, 10)), transform.position.y, (StartPos.z + Random.Range(-10, 10)));
         }
         else
         {
-            destination = new Vector3((transform.position.x + Random.Range(-5, 5)), transform.position.y, (transform.position.z + Random.Range(-5, 5)));
+            destination = new Vector3((StartPos.x + Random.Range(-5, 5)), transform.position.y, (StartPos.z + Random.Range(-5, 5)));
         }
 
         do
@@ -303,6 +305,7 @@ public class MonsterFSMPlayer : MonsterFSMBase
         GameObject eff = Instantiate(m_atkeff);
         eff.transform.parent = transform;
         eff.transform.localPosition = new Vector3(0.0f, 1.0f, 1.0f);
+        Util.CKRotate(transform, player.position, rotateSpeed);
 
         //transform.rotation = Quaternion.LookRotation(m_endPos - m_startPos);
         m_atkCollider.knockPower = 5.0f;
@@ -318,9 +321,6 @@ public class MonsterFSMPlayer : MonsterFSMBase
 
     }
 
-    public void GetDamage(float dam)
-    {
-    }
 
     public void TakeDamage(float damage, Vector3 knockDir, float knockPower)
     {
@@ -339,13 +339,13 @@ public class MonsterFSMPlayer : MonsterFSMBase
         //}
         StartCoroutine(IsDamage());
 
-       m_time = 0.0f;
+       //m_time = 0.0f;
 
         currefillTime = refillTime;
-        m_knockTime = 0;
-        m_knockStart = new Vector3(transform.position.x, 0.0f, transform.position.z);
-        m_knockEnd = m_knockStart + knockDir * knockPower;
-        transform.rotation = Quaternion.LookRotation(-knockDir);
+        //m_knockTime = 0;
+        //m_knockStart = new Vector3(transform.position.x, 0.0f, transform.position.z);
+        //m_knockEnd = m_knockStart + knockDir * knockPower;
+        //transform.rotation = Quaternion.LookRotation(-knockDir);
         GameObject eff = Instantiate(m_damEff);
         eff.transform.position = transform.position + Vector3.up;
         eff.transform.rotation = Camera.main.transform.rotation;
@@ -355,18 +355,18 @@ public class MonsterFSMPlayer : MonsterFSMBase
     }
     void DamageStart()
     {
-        Vector3 before = Vector3.Lerp(m_knockStart, m_knockEnd, m_damAc.Evaluate(m_knockTime));
-        m_knockTime += Time.deltaTime * 3.5f;
-        Vector3 after = Vector3.Lerp(m_knockStart, m_knockEnd, m_damAc.Evaluate(m_knockTime));
+        //Vector3 before = Vector3.Lerp(m_knockStart, m_knockEnd, m_damAc.Evaluate(m_knockTime));
+        //m_knockTime += Time.deltaTime * 3.5f;
+        //Vector3 after = Vector3.Lerp(m_knockStart, m_knockEnd, m_damAc.Evaluate(m_knockTime));
 
-        Vector3 fixedPos = FixedMovePos(transform.position, 0.6f, (after - before).normalized, Vector3.Distance(before, after), m_wall);
+        //Vector3 fixedPos = FixedMovePos(transform.position, 0.6f, (after - before).normalized, Vector3.Distance(before, after), m_wall);
 
         //transform.position += after - before + fixedPos;
 
-        if (m_knockTime > 1)
-        {
-            SetState(MonsterState.Idle);
-        }
+        //if (m_knockTime > 1)
+        //{
+        //    SetState(MonsterState.Idle);
+        //}
     }
     IEnumerator IsDamage()
     {

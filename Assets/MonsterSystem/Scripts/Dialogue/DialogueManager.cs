@@ -16,7 +16,7 @@ public class DialogueManager : MonoBehaviour
     public void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFsmManager>();
-       
+        QuestManager.questManager.StartQuest(DataController.Instance.gameData.QuestOrder);
         //playerEvents = player.transform.GetChild(0).gameObject;
 
 
@@ -27,6 +27,7 @@ public class DialogueManager : MonoBehaviour
     {
         if(DataController.Instance.gameData.ScriptOne == false && DataController.Instance.gameData.FirstStageSavePointOrder ==0)
         {
+            SkillManager.Setup();
             dialogue.SetDialogue(0);
             dialogue.StartDialogue();
             dialogueScreen.SetActive(true);
@@ -46,13 +47,20 @@ public class DialogueManager : MonoBehaviour
             dialogue.SetDialogue(1);
             dialogue.StartDialogue();
             dialogueScreen.SetActive(true);
+            SkillManager.UnlockWidth();
             // player.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
+            QuestManager.questManager.SetQuest(QuestManager.QuestType.EnemyKill);
 
             player.enabled = false;
             SerenaImg.SetActive(false);
             // playerEvents.SetActive(false);
 
             DataController.Instance.gameData.ScriptTwo = true;
+
+        }
+        if (DataController.Instance.gameData.FirstStageSavePointOrder == 1)
+        {
+            QuestManager.questManager.SetQuest(QuestManager.QuestType.LoadEnemyKill);
 
         }
         if (DataController.Instance.gameData.ScriptThree == false && DataController.Instance.gameData.StageEndCount == 1)
@@ -64,11 +72,12 @@ public class DialogueManager : MonoBehaviour
             dialogue.StartDialogue();
             dialogueScreen.SetActive(true);
             // player.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
+            QuestManager.questManager.SetQuest(QuestManager.QuestType.Move);
 
             player.enabled = false;
             SerenaImg.SetActive(false);
             // playerEvents.SetActive(false);
-
+            SkillManager.UnlockBack();
             DataController.Instance.gameData.ScriptThree = true;
 
         }
@@ -85,7 +94,9 @@ public class DialogueManager : MonoBehaviour
             player.enabled = false;
             SerenaImg.SetActive(false);
             // playerEvents.SetActive(false);
+            QuestManager.questManager.SetQuest(QuestManager.QuestType.Move);
 
+            SkillManager.UnlockRush();
             DataController.Instance.gameData.ScriptFour = true;
 
         }
@@ -101,7 +112,8 @@ public class DialogueManager : MonoBehaviour
 
             player.enabled = false;
             SerenaImg.SetActive(true);
-          // playerEvents.SetActive(false);
+            // playerEvents.SetActive(false);
+            QuestManager.questManager.SetQuest(QuestManager.QuestType.BossKill);
 
             DataController.Instance.gameData.ScriptFive = true;
         }
