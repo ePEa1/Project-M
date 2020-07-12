@@ -233,6 +233,7 @@ public class MonsterFSMPlayer : MonsterFSMBase
     protected virtual IEnumerator Attack()
     {
         AtkStart();
+
         do
         {
             yield return null;
@@ -269,6 +270,8 @@ public class MonsterFSMPlayer : MonsterFSMBase
     }
     void Atk()
     {
+        Util.CKRotate(transform, player.position, rotateSpeed);
+
         float ac = 1.0f / rushSpeed;
 
         Vector3 beforePos = Vector3.Lerp(m_startPos, m_endPos, m_atkAc.Evaluate(m_time * ac));

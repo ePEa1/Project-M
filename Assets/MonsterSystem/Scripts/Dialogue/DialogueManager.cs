@@ -37,6 +37,7 @@ public class DialogueManager : MonoBehaviour
           // playerEvents.SetActive(false);
             SerenaImg.SetActive(false);
             DataController.Instance.gameData.ScriptOne = true;
+            DataController.Instance.gameData.Scriptcount = 1;
         }
 
         if(DataController.Instance.gameData.ScriptTwo == false && DataController.Instance.gameData.ScriptOneEnd ==true)
@@ -48,6 +49,7 @@ public class DialogueManager : MonoBehaviour
             dialogue.StartDialogue();
             dialogueScreen.SetActive(true);
             SkillManager.UnlockWidth();
+
             // player.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
             QuestManager.questManager.SetQuest(QuestManager.QuestType.EnemyKill);
 
@@ -56,6 +58,7 @@ public class DialogueManager : MonoBehaviour
             // playerEvents.SetActive(false);
 
             DataController.Instance.gameData.ScriptTwo = true;
+            DataController.Instance.gameData.Scriptcount = 2;
 
         }
         if (DataController.Instance.gameData.FirstStageSavePointOrder == 1)
@@ -79,6 +82,7 @@ public class DialogueManager : MonoBehaviour
             // playerEvents.SetActive(false);
             SkillManager.UnlockBack();
             DataController.Instance.gameData.ScriptThree = true;
+            DataController.Instance.gameData.Scriptcount = 3;
 
         }
         if (DataController.Instance.gameData.ScriptFour == false && DataController.Instance.gameData.StageEndCount == 2)
@@ -98,6 +102,8 @@ public class DialogueManager : MonoBehaviour
 
             SkillManager.UnlockRush();
             DataController.Instance.gameData.ScriptFour = true;
+            DataController.Instance.gameData.Scriptcount = 4;
+
 
         }
         if (DataController.Instance.gameData.ScriptFive == false && DataController.Instance.gameData.FirstStageSavePointOrder == 2)
@@ -116,6 +122,8 @@ public class DialogueManager : MonoBehaviour
             QuestManager.questManager.SetQuest(QuestManager.QuestType.BossKill);
 
             DataController.Instance.gameData.ScriptFive = true;
+            DataController.Instance.gameData.Scriptcount = 5;
+
         }
     }
 

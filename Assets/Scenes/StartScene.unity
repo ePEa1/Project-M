@@ -876,7 +876,7 @@ GameObject:
   - component: {fileID: 584612200}
   m_Layer: 0
   m_Name: Directional Light
-  m_TagString: Untagged
+  m_TagString: DirectionalLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3202,6 +3202,35 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5938702082098251571, guid: 38d31e295ba6c7e43b15e2af83749222,
+        type: 3}
+      propertyPath: m_Transition
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938702082098251571, guid: 38d31e295ba6c7e43b15e2af83749222,
+        type: 3}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b2bf9d789ed1a5e47b2df23b0e17faa1,
+        type: 3}
+    - target: {fileID: 5938702082098251571, guid: 38d31e295ba6c7e43b15e2af83749222,
+        type: 3}
+      propertyPath: m_SpriteState.m_PressedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b2bf9d789ed1a5e47b2df23b0e17faa1,
+        type: 3}
+    - target: {fileID: 5938702082098251571, guid: 38d31e295ba6c7e43b15e2af83749222,
+        type: 3}
+      propertyPath: m_SpriteState.m_SelectedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b2bf9d789ed1a5e47b2df23b0e17faa1,
+        type: 3}
+    - target: {fileID: 5938702082098251571, guid: 38d31e295ba6c7e43b15e2af83749222,
+        type: 3}
+      propertyPath: m_SpriteState.m_DisabledSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d3bf2db3f61a00649a6dc0fb5bfe135e,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38d31e295ba6c7e43b15e2af83749222, type: 3}
 --- !u!224 &1431475517 stripped
@@ -3621,7 +3650,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1eb504a96c897c64c85471a1565407cc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 83be2f96e8e5c8748951b45e4a9ddfec, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

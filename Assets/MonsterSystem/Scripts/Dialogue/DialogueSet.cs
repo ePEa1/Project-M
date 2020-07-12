@@ -13,6 +13,7 @@ public class DialogueSet : MonoBehaviour
     public PauseManager PauseScreen;
     public PlayerFsmManager player;
     //public GameObject playerEvents;
+    public Image SkillOpenScreen;
     [SerializeField] TextAsset[] csvfile;
 
 
@@ -34,6 +35,7 @@ public class DialogueSet : MonoBehaviour
     [SerializeField] Text Names;
     [SerializeField] Text uiText;
     [SerializeField] public Image FadeOutImg;
+    [SerializeField] Sprite[] skillOpenImg;
 
     Vector2 curEstelleMove;
     Vector2 curSerenaMove;
@@ -62,6 +64,7 @@ public class DialogueSet : MonoBehaviour
         curSerenaMove = SerenaImg.transform.position;
         EstelleMove = new Vector2(curEstelleMove.x - XValue, curEstelleMove.y - YValue);
         SerenaMove = new Vector2(curSerenaMove.x + XValue, curSerenaMove.y - YValue);
+        SkillOpenScreen.gameObject.SetActive(false);
 
 
     }
@@ -109,14 +112,7 @@ public class DialogueSet : MonoBehaviour
             }
             if(DataController.Instance.gameData.ScriptOneEnd == true)
             {
-                PlayerUI.SetActive(true);
-                DialogueScreen.SetActive(false);
-                //player.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
-                player.enabled = true;
-                //  playerEvents.SetActive(true);
-                PauseScreen.enabled = true;
-                //DataController.Instance.gameData.ScriptOne = true;
-
+                SetOpenSkill(DataController.Instance.gameData.Scriptcount);
             }
         }
     }
@@ -263,13 +259,15 @@ public class DialogueSet : MonoBehaviour
         }
         if (DataController.Instance.gameData.ScriptOneEnd == true)
         {
-            PlayerUI.SetActive(true);
-            DialogueScreen.SetActive(false);
-            //player.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
-            player.enabled = true;
-            //  playerEvents.SetActive(true);
-            PauseScreen.enabled = true;
-            //DataController.Instance.gameData.ScriptOne = true;
+            SetOpenSkill(DataController.Instance.gameData.Scriptcount);
+
+            //PlayerUI.SetActive(true);
+            //DialogueScreen.SetActive(false);
+            ////player.ChangeAction(PlayerFsmManager.PlayerENUM.IDLE);
+            //player.enabled = true;
+            ////  playerEvents.SetActive(true);
+            //PauseScreen.enabled = true;
+            ////DataController.Instance.gameData.ScriptOne = true;
 
         }
     }
@@ -292,4 +290,47 @@ public class DialogueSet : MonoBehaviour
         }
     }
 
+    public void SetOpenSkill(int skill)
+    {
+        switch (skill)
+        {
+            case 1:
+                ReturnGame();
+
+                break;
+            case 2:
+                ReturnGame();
+
+                break;
+            case 3:
+                //ReturnGame();
+
+                SkillOpenScreen.gameObject.SetActive(true);
+                SkillOpenScreen.sprite = skillOpenImg[0];
+
+                break;
+            case 4:
+                //ReturnGame();
+
+                SkillOpenScreen.gameObject.SetActive(true);
+                SkillOpenScreen.sprite = skillOpenImg[1];
+
+                break;
+            case 5:
+                ReturnGame();
+                break;
+        }
+    }
+
+    public void ReturnGame()
+    {
+        scenarios = new string[1];
+        SkillOpenScreen.gameObject.SetActive(false);
+        PlayerUI.SetActive(true);
+        DialogueScreen.SetActive(false);
+        player.enabled = true;
+        //  playerEvents.SetActive(true);
+        PauseScreen.enabled = true;
+
+    }
 }

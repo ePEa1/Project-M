@@ -18,6 +18,10 @@ public class SkillGaugeManager : MonoBehaviour
     public Image SideIcon;
     public Image BackIcon;
 
+    public Image FrontLock;
+    public Image SideLock;
+    public Image BackLock;
+
     
 
 
@@ -33,11 +37,28 @@ public class SkillGaugeManager : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFsmManager>();
+        BackLock.gameObject.SetActive(true);
+        FrontLock.gameObject.SetActive(true);
+        SideLock.gameObject.SetActive(true);
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (SkillManager.IsBack == true)
+        {
+            BackLock.gameObject.SetActive(false);
+        }
+        if(SkillManager.IsRush == true)
+        {
+            FrontLock.gameObject.SetActive(false);
+        }
+        if (SkillManager.IsWidth == true)
+        {
+            SideLock.gameObject.SetActive(false);
+        }
+
         CheckFrontUse();
         CheckSideUse();
         CheckBackUse();

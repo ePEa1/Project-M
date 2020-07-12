@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BgmChange : MonoBehaviour
 {
+    public PauseManager pause;
     public AudioSource source;
     public AudioClip defaultbgm;
     public AudioClip bossbgm;
@@ -22,8 +23,21 @@ public class BgmChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameObject.FindGameObjectWithTag("MainUI") != null)
+        {
+            if (pause.IsPause == true)
+            {
+                GetComponent<AudioSource>().volume = 0;
+            }
+            if (pause.IsPause == false)
+            {
+                GetComponent<AudioSource>().volume = DataController.Instance.backgroundSound;
 
-        if (DataController.Instance.gameData.ScriptOne == true && IsFade ==false)
+            }
+
+        }
+
+        if (DataController.Instance.gameData.ScriptFive == true && IsFade ==false)
         {
             StartCoroutine(FadeOut());
             IsFade = true;
