@@ -154,7 +154,7 @@ public class DashAtkAction : BaseAction
     IEnumerator DelayTimeScale()
     {
         yield return new WaitForSeconds(0.1f);
-            m_vignette.intensity.value = 0.2f;
+            m_vignette.intensity.value = 0.3f;
         Time.timeScale = 0.5f;
         yield return new WaitForSeconds(0.1f);
         //m_vignette.intensity = new FloatParameter { value = 0f };

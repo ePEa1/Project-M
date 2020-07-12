@@ -125,32 +125,36 @@ public class PlayerController : MonoBehaviour
 
     public bool IsRushAttack()
     {
-        if (Input.GetKeyDown(m_rushAttack) && PlayerStats.playerStat.m_currentMp >= PlayerStats.playerStat.m_rushMp)
+        if (Input.GetKeyDown(m_rushAttack) && PlayerStats.playerStat.m_currentMp >= PlayerStats.playerStat.m_rushMp && SkillManager.IsRush)
             return true;
         else return false;
     }
 
     public bool IsDashAttack()
     {
-        if (Input.GetKeyDown(m_rightdashAttack)  && PlayerStats.playerStat.m_currentMp >= PlayerStats.playerStat.m_widthMp)
+        if (SkillManager.IsWidth)
         {
-            h = 1;
-            return true;
+            if (Input.GetKeyDown(m_rightdashAttack) && PlayerStats.playerStat.m_currentMp >= PlayerStats.playerStat.m_widthMp)
+            {
+                h = 1;
+                return true;
 
-        }
-        if (Input.GetKeyDown(m_leftdashAttack) && PlayerStats.playerStat.m_currentMp >= PlayerStats.playerStat.m_widthMp)
-        {
-            h = -1;
-            return true;
+            }
+            if (Input.GetKeyDown(m_leftdashAttack) && PlayerStats.playerStat.m_currentMp >= PlayerStats.playerStat.m_widthMp)
+            {
+                h = -1;
+                return true;
 
+            }
         }
-        else return false;
+
+        return false;
     }
 
 
     public bool IsBackDashAttack()
     {
-        if (Input.GetKeyDown(m_backAttack)  && PlayerStats.playerStat.m_currentMp >= PlayerStats.playerStat.m_backMp)
+        if (Input.GetKeyDown(m_backAttack)  && PlayerStats.playerStat.m_currentMp >= PlayerStats.playerStat.m_backMp && SkillManager.IsBack)
             return true;
         else return false;
     }
