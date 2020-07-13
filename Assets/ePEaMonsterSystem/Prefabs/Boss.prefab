@@ -2105,7 +2105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1241786594024980552}
-  - component: {fileID: 1977173533}
+  - component: {fileID: 1977173532}
   m_Layer: 0
   m_Name: UltraAtk
   m_TagString: Untagged
@@ -2127,7 +2127,7 @@ Transform:
   m_Father: {fileID: 8409926123553342645}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1977173533
+--- !u!114 &1977173532
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2136,12 +2136,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 8987305919957108724}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f16d08566a7045a438517a0c7f7189f3, type: 3}
+  m_Script: {fileID: 11500000, guid: 7940ef92b72cf3845897d8a44d1df82d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_atkDelay: 3
-  m_minDistance: 3
-  m_moveSpeed: 5
+  m_aniName: UltraAtk
+  m_sword: {fileID: 8226830325632316513, guid: bb1ad04fff0f82449ab5f15d9eac9a52, type: 3}
+  m_swordDelay: 0
+  m_swordMany: 0
+  m_height: 0
+  m_angle: 0
+  m_spawnField: {x: 0, y: 0, z: 0}
 --- !u!1001 &1793974920441300975
 PrefabInstance:
   m_ObjectHideFlags: 0
