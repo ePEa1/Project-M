@@ -78,9 +78,11 @@ public class MonsterFSMPlayer : MonsterFSMBase
         AddTarget();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerfsm = player.GetComponent<PlayerFsmManager>();
+    }
+    public void Start()
+    {
         StartPos = transform.position;
     }
-
 
     void Update()
     {
