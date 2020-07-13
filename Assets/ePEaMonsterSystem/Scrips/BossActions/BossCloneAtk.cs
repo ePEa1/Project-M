@@ -41,7 +41,6 @@ public class BossCloneAtk : EnemyAction
         clone.transform.rotation = Quaternion.LookRotation((targetPos - (targetPos + TargetBack())).normalized);
         BossClone comp = clone.transform.GetChild(0).GetComponent<BossClone>();
         int ran = Random.Range(0, 2);
-        Debug.Log(ran);
         if (ran == 0) comp.m_isSpin = true;
         else comp.m_isSpin = false;
     }
