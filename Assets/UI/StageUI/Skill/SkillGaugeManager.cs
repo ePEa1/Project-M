@@ -10,6 +10,10 @@ public class SkillGaugeManager : MonoBehaviour
 {
     public PlayerFsmManager player;
 
+    public Image Skillsquare;
+    [SerializeField] Sprite BeforeBackSkillOpen;
+    [SerializeField] Sprite AfterBackSkillOpen;
+
     public Image FrontSkill;//skill_1
     public Image SideSkill;//skill_2
     public Image BackSkill;//skill_3
@@ -36,10 +40,12 @@ public class SkillGaugeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Skillsquare.sprite = BeforeBackSkillOpen;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFsmManager>();
-        BackLock.gameObject.SetActive(true);
+        BackLock.gameObject.SetActive(false);
         FrontLock.gameObject.SetActive(true);
         SideLock.gameObject.SetActive(true);
+        
 
     }
 
@@ -48,7 +54,7 @@ public class SkillGaugeManager : MonoBehaviour
     {
         if (SkillManager.IsBack == true)
         {
-            BackLock.gameObject.SetActive(false);
+            Skillsquare.sprite = AfterBackSkillOpen;
         }
         if(SkillManager.IsRush == true)
         {
