@@ -21,15 +21,9 @@ public class BossMoveAct : EnemyAction
         m_currentDelay = m_atkDelay;
     }
 
-    protected override void EndAction()
-    {
+    protected override void EndAction() { }
 
-    }
-
-    protected override void StartAction()
-    {
-        Debug.Log("Start - Move Action");
-    }
+    protected override void StartAction() { }
 
     protected override void UpdateAction()
     {
@@ -43,14 +37,14 @@ public class BossMoveAct : EnemyAction
 
     void ChangeActions()
     {
-        if (m_currentDelay == 0 && GetDistance() < 6.0f)
+        if (m_currentDelay == 0 && GetDistance() < 3.0f)
         {
             int patton = Random.Range(0, 4);
 
             switch(patton)
             {
                 case 0:
-                    m_owner.ChangeStat("DoubleAtk");
+                    m_owner.ChangeStat("CloneAtk");
                     break;
 
                 case 1:
@@ -62,7 +56,7 @@ public class BossMoveAct : EnemyAction
                     break;
 
                 case 3:
-                    m_owner.ChangeStat("SpinAtk");
+                    m_owner.ChangeStat("DoubleAtk");
                     break;
             }
             m_currentDelay = m_atkDelay;

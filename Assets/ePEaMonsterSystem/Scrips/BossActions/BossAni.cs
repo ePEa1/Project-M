@@ -44,8 +44,15 @@ public class BossAni : MonoBehaviour
         EndAtk,
     };
 
+    public enum CloneAtk
+    {
+        CreateClone,
+        EndAtk
+    };
+
     public void OnDoubleAtk(DoubleAtk e) => events.m_doubleAtk[(int)e].Invoke();
     public void OnLiteAtk(LiteAtk e) => events.m_liteAtk[(int)e].Invoke();
     public void OnStrongAtk(StrongAtk e) => events.m_strongAtk[(int)e].Invoke();
     public void OnSpinAtk(SpinAtk e) => events.m_spinAtk[(int)e].Invoke();
+    public void OnCloneAtk(CloneAtk e) => events.m_cloneAtk[(int)e].Invoke();
 }
