@@ -36,6 +36,7 @@ public class DialogueSet : MonoBehaviour
     [SerializeField] Text uiText;
     [SerializeField] public Image FadeOutImg;
     [SerializeField] Sprite[] skillOpenImg;
+    [SerializeField] Sprite none;
 
     Vector2 curEstelleMove;
     Vector2 curSerenaMove;
@@ -50,7 +51,7 @@ public class DialogueSet : MonoBehaviour
     private float timeUntilDisplay = 0;
     private float timeElapsed = 1;
     private int lastUpdateCharacter = -1;
-
+    bool IsDialogue = false;
     public bool IsCompleteDisplayText
     {
         get { return Time.time > timeElapsed + timeUntilDisplay; }
@@ -72,9 +73,10 @@ public class DialogueSet : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape)&& IsDialogue == true)
         {
             SkipDial();
+            IsDialogue = false;
         }
         if (IsCompleteDisplayText)
         {
@@ -102,7 +104,7 @@ public class DialogueSet : MonoBehaviour
             uiText.text = currentText.Substring(0, displayCharacterCount);
             lastUpdateCharacter = displayCharacterCount;
         }
-        if (currentLine == scenarios.Length && Input.GetMouseButtonDown(0))
+        if (currentLine == scenarios.Length && Input.GetMouseButtonDown(0)&& IsDialogue == true)
         {
             if(DataController.Instance.gameData.ScriptOne == true && DataController.Instance.gameData.ScriptOneEnd == false)
             {
@@ -240,6 +242,7 @@ public class DialogueSet : MonoBehaviour
 
     public void StartDialogue()
     {
+        IsDialogue = true;
         PlayerUI.SetActive(false);
      //   playerEvents.SetActive(false);
         DialogueScreen.SetActive(true);
@@ -324,8 +327,11 @@ public class DialogueSet : MonoBehaviour
 
     public void ReturnGame()
     {
+        IsDialogue = false;
         scenarios = new string[1];
         SkillOpenScreen.gameObject.SetActive(false);
+        SkillOpenScreen.sprite = none;
+
         PlayerUI.SetActive(true);
         DialogueScreen.SetActive(false);
         player.enabled = true;
