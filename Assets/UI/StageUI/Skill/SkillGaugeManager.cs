@@ -14,9 +14,9 @@ public class SkillGaugeManager : MonoBehaviour
     [SerializeField] Sprite BeforeBackSkillOpen;
     [SerializeField] Sprite AfterBackSkillOpen;
 
-    public Image FrontSkill;//skill_1
-    public Image SideSkill;//skill_2
-    public Image BackSkill;//skill_3
+    public Image FrontSkill;//skill_1일반 공격
+    public Image SideSkill;//skill_2좌우 뒤 공격
+    public Image BackSkill;//skill_3전진 공격
 
     public Image FrontIcon;
     public Image SideIcon;
@@ -42,10 +42,9 @@ public class SkillGaugeManager : MonoBehaviour
     {
         Skillsquare.sprite = BeforeBackSkillOpen;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFsmManager>();
-        BackLock.gameObject.SetActive(false);
-        FrontLock.gameObject.SetActive(true);
+        FrontSkill.gameObject.SetActive(false);
+        FrontLock.gameObject.SetActive(false);
         SideLock.gameObject.SetActive(true);
-        
 
     }
 
@@ -58,14 +57,14 @@ public class SkillGaugeManager : MonoBehaviour
         }
         if(SkillManager.IsRush == true)
         {
-            FrontLock.gameObject.SetActive(false);
+            BackLock.gameObject.SetActive(false);
         }
         if (SkillManager.IsWidth == true)
         {
             SideLock.gameObject.SetActive(false);
         }
 
-        CheckFrontUse();
+        //CheckFrontUse();
         CheckSideUse();
         CheckBackUse();
     }
