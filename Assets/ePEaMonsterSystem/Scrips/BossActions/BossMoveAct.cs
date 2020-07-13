@@ -39,12 +39,12 @@ public class BossMoveAct : EnemyAction
     {
         if (m_currentDelay == 0 && GetDistance() < 3.0f)
         {
-            int patton = Random.Range(0, 1);
+            int patton = Random.Range(0, 5);
 
             switch(patton)
             {
                 case 0:
-                    m_owner.ChangeStat("UltraAtk");
+                    m_owner.ChangeStat("SpinAtk");
                     break;
 
                 case 1:
@@ -57,6 +57,10 @@ public class BossMoveAct : EnemyAction
 
                 case 3:
                     m_owner.ChangeStat("DoubleAtk");
+                    break;
+
+                case 4:
+                    m_owner.ChangeStat("CloneAtk");
                     break;
             }
             m_currentDelay = m_atkDelay;
