@@ -78,9 +78,11 @@ public class MonsterFSMPlayer : MonsterFSMBase
         AddTarget();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerfsm = player.GetComponent<PlayerFsmManager>();
+    }
+    public void Start()
+    {
         StartPos = transform.position;
     }
-
 
     void Update()
     {
@@ -233,6 +235,7 @@ public class MonsterFSMPlayer : MonsterFSMBase
     protected virtual IEnumerator Attack()
     {
         AtkStart();
+
         do
         {
             yield return null;
@@ -269,6 +272,8 @@ public class MonsterFSMPlayer : MonsterFSMBase
     }
     void Atk()
     {
+        //Util.CKRotate(transform, player.position, rotateSpeed);
+
         float ac = 1.0f / rushSpeed;
 
         Vector3 beforePos = Vector3.Lerp(m_startPos, m_endPos, m_atkAc.Evaluate(m_time * ac));
@@ -305,9 +310,9 @@ public class MonsterFSMPlayer : MonsterFSMBase
         GameObject eff = Instantiate(m_atkeff);
         eff.transform.parent = transform;
         eff.transform.localPosition = new Vector3(0.0f, 1.0f, 1.0f);
-        Util.CKRotate(transform, player.position, rotateSpeed);
+        //Util.CKRotate(transform, player.position, rotateSpeed);
 
-        //transform.rotation = Quaternion.LookRotation(m_endPos - m_startPos);
+        transform.rotation = Quaternion.LookRotation(m_endPos - m_startPos);
         m_atkCollider.knockPower = 5.0f;
         m_atkCollider.knockVec = (m_endPos - m_startPos).normalized;
     }

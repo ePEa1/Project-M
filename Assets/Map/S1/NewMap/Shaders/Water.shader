@@ -52,7 +52,7 @@
 			wave = sin ( abs ( ( v.texcoord.x * 2 - 1 ) * 100 ) + _Time.y) * 0.003;
 			wave += sin ( abs ( ( v.texcoord.y * 2 - 1 ) * 100 ) + _Time.y) * 0.003;
 
-			v.vertex.y += wave / 4;
+			v.vertex.y += wave / 20;
 		}
 
         struct Input

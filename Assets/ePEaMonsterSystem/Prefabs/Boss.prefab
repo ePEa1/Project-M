@@ -1006,6 +1006,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  m_ultraAtk: []
 --- !u!114 &8366693969936180263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1117,7 +1118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_aniName: CloneAtk
-  m_clone: {fileID: 748911164521551002, guid: 693e638528b0ada4599a40f23caf8ca5, type: 3}
+  m_clone: {fileID: 748911164521551002, guid: 48cfcdd8900ac904cb8c352ac2c315a5, type: 3}
   m_wall:
     serializedVersion: 2
     m_Bits: 1024
@@ -2145,6 +2146,8 @@ MonoBehaviour:
   m_swordMany: 0
   m_height: 0
   m_angle: 0
+  m_zMin: 0
+  m_zMax: 0
   m_spawnField: {x: 0, y: 0, z: 0}
 --- !u!1001 &1793974920441300975
 PrefabInstance:

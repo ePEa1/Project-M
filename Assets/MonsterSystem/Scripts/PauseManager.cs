@@ -58,7 +58,6 @@ public class PauseManager : MonoBehaviour
                 
             }
         }
-
     }
 
     public void Return()
