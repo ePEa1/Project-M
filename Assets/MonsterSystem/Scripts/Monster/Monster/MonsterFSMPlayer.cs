@@ -94,7 +94,7 @@ public class MonsterFSMPlayer : MonsterFSMBase
         }
         if(CHState == MonsterState.Damage)
         {
-            DamageStart();
+            //DamageStart();
         }
         if (CHState == MonsterState.Attack)
         {
@@ -358,21 +358,21 @@ public class MonsterFSMPlayer : MonsterFSMBase
         Invoke("HPDecrease", 0.5f);
 
     }
-    void DamageStart()
-    {
-        //Vector3 before = Vector3.Lerp(m_knockStart, m_knockEnd, m_damAc.Evaluate(m_knockTime));
-        //m_knockTime += Time.deltaTime * 3.5f;
-        //Vector3 after = Vector3.Lerp(m_knockStart, m_knockEnd, m_damAc.Evaluate(m_knockTime));
+    //void DamageStart()
+    //{
+    //    Vector3 before = Vector3.Lerp(m_knockStart, m_knockEnd, m_damAc.Evaluate(m_knockTime));
+    //    m_knockTime += Time.deltaTime * 3.5f;
+    //    Vector3 after = Vector3.Lerp(m_knockStart, m_knockEnd, m_damAc.Evaluate(m_knockTime));
 
-        //Vector3 fixedPos = FixedMovePos(transform.position, 0.6f, (after - before).normalized, Vector3.Distance(before, after), m_wall);
+    //    Vector3 fixedPos = FixedMovePos(transform.position, 0.6f, (after - before).normalized, Vector3.Distance(before, after), m_wall);
 
-        //transform.position += after - before + fixedPos;
+    //    transform.position += after - before + fixedPos;
 
-        //if (m_knockTime > 1)
-        //{
-        //    SetState(MonsterState.Idle);
-        //}
-    }
+    //    if (m_knockTime > 1)
+    //    {
+    //        SetState(MonsterState.Idle);
+    //    }
+    //}
     IEnumerator IsDamage()
     {
         for (int i = 0; i < skinned.Length; i++)
