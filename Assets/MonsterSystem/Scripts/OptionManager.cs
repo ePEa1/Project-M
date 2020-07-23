@@ -12,8 +12,7 @@ public class OptionManager : MonoBehaviour
     public PostProcessVolume volume;
     public AmbientOcclusion ambient;
     public PostProcessLayer pp_layer;
-    public AudioMixer bgmMixer;
-    public AudioMixer efxMixer;
+    public AudioMixer mainMixer;
 
 
     public Light DirectLight;
@@ -121,12 +120,12 @@ public class OptionManager : MonoBehaviour
 
     public void BackgroundSoundSetting(float bgm)
     {
-        bgmMixer.SetFloat("backgroundVolume", bgm);
+        mainMixer.SetFloat("backgroundVolume", bgm);
     }
 
     public void EffectSoundSetting(float efx)
     {
-        efxMixer.SetFloat("effectVolume", efx);
+        mainMixer.SetFloat("effectVolume", efx);
     }
     public void ResolutionSetting(int resolutionIndex)
     {

@@ -58,7 +58,7 @@ AudioMixerController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BackGroundMixer
+  m_Name: MainMixer
   m_OutputGroup: {fileID: 0}
   m_MasterGroup: {fileID: 24300002}
   m_Snapshots:
@@ -68,8 +68,12 @@ AudioMixerController:
   m_EnableSuspend: 1
   m_UpdateMode: 0
   m_ExposedParameters:
-  - guid: 996b0e151b6ea6e4e96c72a034f80197
+  - guid: 9aed8a3324a6b3a40adc0db803d26f01
     name: backgroundVolume
+  - guid: d963e5ec4b2b3d145b6528f53d0fa42b
+    name: effectVolume
+  - guid: 996b0e151b6ea6e4e96c72a034f80197
+    name: mainVolume
   m_AudioMixerGroupViews:
   - guids:
     - ccac0a93e4639c241a57ffaa31f7a499

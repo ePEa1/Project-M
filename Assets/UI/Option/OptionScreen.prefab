@@ -6939,7 +6939,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 4577620046036800907}
   m_Direction: 2
   m_Value: 1.0000001
-  m_Size: 0.39140528
+  m_Size: 0.3944102
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -11803,7 +11803,7 @@ MonoBehaviour:
   volume: {fileID: 0}
   ambient: {fileID: 0}
   pp_layer: {fileID: 0}
-  bgmMixer: {fileID: 24100000, guid: 187176edef3c90b44acb5feb4f8bde4c, type: 2}
+  mainMixer: {fileID: 24100000, guid: 187176edef3c90b44acb5feb4f8bde4c, type: 2}
   efxMixer: {fileID: 24100000, guid: 030b1fcfc23645942bcbd812a3625414, type: 2}
   DirectLight: {fileID: 0}
   OptionScreen: {fileID: 5938702081636632289}
@@ -11992,7 +11992,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5938702081636632293}
         m_MethodName: BackgroundSoundSetting
-        m_Mode: 4
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
