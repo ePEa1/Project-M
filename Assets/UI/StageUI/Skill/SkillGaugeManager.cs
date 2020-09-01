@@ -10,13 +10,21 @@ public class SkillGaugeManager : MonoBehaviour
 {
     public PlayerFsmManager player;
 
-    public Image FrontSkill;//skill_1
-    public Image SideSkill;//skill_2
-    public Image BackSkill;//skill_3
+    public Image Skillsquare;
+    [SerializeField] Sprite BeforeBackSkillOpen;
+    [SerializeField] Sprite AfterBackSkillOpen;
+
+    public Image FrontSkill;//skill_1일반 공격
+    public Image SideSkill;//skill_2좌우 뒤 공격
+    public Image BackSkill;//skill_3전진 공격
 
     public Image FrontIcon;
     public Image SideIcon;
     public Image BackIcon;
+
+    public Image FrontLock;
+    public Image SideLock;
+    public Image BackLock;
 
     
 
@@ -32,13 +40,31 @@ public class SkillGaugeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Skillsquare.sprite = BeforeBackSkillOpen;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerFsmManager>();
+        FrontSkill.gameObject.SetActive(false);
+        FrontLock.gameObject.SetActive(false);
+        SideLock.gameObject.SetActive(true);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        CheckFrontUse();
+        if (SkillManager.IsBack == true)
+        {
+            Skillsquare.sprite = AfterBackSkillOpen;
+        }
+        if(SkillManager.IsRush == true)
+        {
+            BackLock.gameObject.SetActive(false);
+        }
+        if (SkillManager.IsWidth == true)
+        {
+            SideLock.gameObject.SetActive(false);
+        }
+
+        //CheckFrontUse();
         CheckSideUse();
         CheckBackUse();
     }

@@ -19,7 +19,7 @@ public class BossNormalAtk : EnemyAction
     #region Value
 
     float m_time = 0.0f;
-    float m_curve;
+    float m_curve = 100.0f;
 
     int m_atkNum = 0;
     int m_effNum = 0;

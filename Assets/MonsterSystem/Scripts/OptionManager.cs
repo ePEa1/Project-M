@@ -5,12 +5,14 @@ using UnityEngine.UI;
 using System;
 using System.Linq;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Audio;
 
 public class OptionManager : MonoBehaviour
 {
     public PostProcessVolume volume;
     public AmbientOcclusion ambient;
     public PostProcessLayer pp_layer;
+    public AudioMixer mainMixer;
 
 
     public Light DirectLight;
@@ -60,7 +62,7 @@ public class OptionManager : MonoBehaviour
             pp_layer = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PostProcessLayer>();
         }
         DirectLight = GameObject.FindGameObjectWithTag("DirectionalLight").GetComponent<Light>();
-        DataController.Instance.backgroundSound = (float)DataController.Instance.gameData.BackgroundSound / 100;
+        //DataController.Instance.backgroundSound = (float)DataController.Instance.gameData.BackgroundSound / 100;
         DataController.Instance.effectSound = (float)DataController.Instance.gameData.EffectSound / 100;
         DataController.Instance.mouseMoving = (float)DataController.Instance.gameData.MouseMoving / 100;
         ResolutionDropdown.value = DataController.Instance.gameData.ResolutionNum;
@@ -77,7 +79,7 @@ public class OptionManager : MonoBehaviour
         SoundPage.SetActive(false);
         GraphicPage.SetActive(true);
         ControlPage.SetActive(false);
-        BackGroundSound.value = DataController.Instance.backgroundSound;
+        
         EffectsSound.value = DataController.Instance.effectSound;
         MouseMoving.value = 1 - DataController.Instance.mouseMoving;
     }
@@ -116,6 +118,15 @@ public class OptionManager : MonoBehaviour
     }
 
 
+    public void BackgroundSoundSetting(float bgm)
+    {
+        mainMixer.SetFloat("backgroundVolume", bgm);
+    }
+
+    public void EffectSoundSetting(float efx)
+    {
+        mainMixer.SetFloat("effectVolume", efx);
+    }
     public void ResolutionSetting(int resolutionIndex)
     {
         DataController.Instance.gameData.ResolutionNum = resolutionIndex;
@@ -169,19 +180,20 @@ public class OptionManager : MonoBehaviour
         switch (qualitylevalValue)
         {
             case 0:
-                QualitySettings.SetQualityLevel(0);
+                //QualitySettings.SetQualityLevel(0);
+                QualitySettings.masterTextureLimit = 3;
                 break;
 
             case 1:
-                QualitySettings.SetQualityLevel(2);
+                QualitySettings.masterTextureLimit = 2;
                 break;
 
             case 2:
-                QualitySettings.SetQualityLevel(3);
+                QualitySettings.masterTextureLimit = 1;
                 break;
 
             case 3:
-                QualitySettings.SetQualityLevel(5);
+                QualitySettings.masterTextureLimit = 0;
                 break;
         }
     }
