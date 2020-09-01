@@ -43,6 +43,10 @@ public class CutSceneSet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Skip();
+        }
         if (currentAlpha >= 1)
         {
             if (CutSceneImgFront.color.a >= 1 && Input.GetMouseButtonDown(0))

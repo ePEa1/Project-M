@@ -17,6 +17,8 @@ public class StartSceneManager : MonoBehaviour
     public AudioSource BackgroundSound;
     [SerializeField] AnimationCurve FadeinOut;
     [SerializeField] AnimationCurve PressButtonFadeOut;
+
+    public GameObject CreditObj;
     // Start is called before the first frame update
 
     [SerializeField] float FadeTime;
@@ -25,8 +27,10 @@ public class StartSceneManager : MonoBehaviour
 
     void Start()
     {
+        DataController.Instance.PlayReset();
         Buttons.SetActive(false);
         OptionPage.SetActive(false);
+        CreditObj.SetActive(false);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         Screen.SetResolution(1920, 1080, true);
@@ -36,7 +40,7 @@ public class StartSceneManager : MonoBehaviour
         Time.timeScale = 1;
         //RayCastHitButton();
     }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -129,5 +133,12 @@ public class StartSceneManager : MonoBehaviour
             yield return null;
         }
     }
-
+   public void OpenCredit()
+    {
+        CreditObj.SetActive(true);
+    }
+    public void CloseCredit()
+    {
+        CreditObj.SetActive(false);
+    }
 }

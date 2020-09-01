@@ -46,40 +46,60 @@ public class SkillGaugeManager : MonoBehaviour
 
     void CheckFrontUse()
     {
-        if (PlayerStats.playerStat.m_currentMp < PlayerStats.playerStat.m_rushMp)
+        if(SkillManager.IsRush == false)
         {
             FrontIcon.enabled = false;
         }
         else
         {
-            FrontIcon.enabled = true;
-
+            if (PlayerStats.playerStat.m_currentMp < PlayerStats.playerStat.m_rushMp || SkillManager.IsRush == false)
+            {
+                FrontIcon.enabled = false;
+            }
+            else
+            {
+                FrontIcon.enabled = true;
+            }
         }
 
 
     }
     void CheckSideUse()
     {
-        if (PlayerStats.playerStat.m_currentMp <= PlayerStats.playerStat.m_widthMp)
+        if(SkillManager.IsWidth == false)
         {
             SideIcon.enabled = false;
         }
         else
         {
-            SideIcon.enabled = true;
-
+            if (PlayerStats.playerStat.m_currentMp <= PlayerStats.playerStat.m_widthMp)
+            {
+                SideIcon.enabled = false;
+            }
+            else
+            {
+                SideIcon.enabled = true;
+            }
         }
 
     }
     void CheckBackUse()
     {
-        if (PlayerStats.playerStat.m_currentMp <= PlayerStats.playerStat.m_backMp)
+        if (SkillManager.IsBack == false)
         {
             BackIcon.enabled = false;
+
         }
         else
         {
-            BackIcon.enabled = true;
+            if (PlayerStats.playerStat.m_currentMp <= PlayerStats.playerStat.m_backMp)
+            {
+                BackIcon.enabled = false;
+            }
+            else
+            {
+                BackIcon.enabled = true;
+            }
         }
     }
     void SetCantUse(Image back, Image logo)
